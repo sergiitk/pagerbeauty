@@ -1,7 +1,9 @@
 // ------- Imports -------------------------------------------------------------
 
-import { Koa } from 'koa';
-import { Router } from 'koa-router';
+import http from 'http';
+
+import Koa from 'koa';
+import Router from 'koa-router';
 
 // ------- Internal imports ----------------------------------------------------
 
@@ -9,7 +11,7 @@ import { Router } from 'koa-router';
 
 // ------- Class ---------------------------------------------------------------
 
-export default class PagerBeautyWebApp {
+export class PagerBeautyWebApp {
   constructor() {
     // Attach Public API functions to object context.
     this.start = this.start.bind(this);
@@ -36,7 +38,7 @@ export default class PagerBeautyWebApp {
   async start() {
     let server;
     try {
-      server = await startWebServerAsync(this.app.callback());
+      server = await this.startWebServerAsync(this.app.callback());
     } catch (error) {
       // log error
       return false;
@@ -89,13 +91,13 @@ export default class PagerBeautyWebApp {
         // @todo logging
         resolve(server);
       })
-      this.server.on('error', (error) => {
+      server.on('error', (error) => {
         // @todo logging
         reject(error);
       })
-      this.server.listen({
+      server.listen({
         host: 'localhost',
-        port: 80,
+        port: 8080,
       });
     });
   }
