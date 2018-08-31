@@ -49,18 +49,18 @@ export class PagerBeautyWebApp {
   }
 
   async stop() {
-    await startWebStopAsync(this.server);
+    await this.startWebStopAsync(this.server);
     return true;
   }
 
   // ------- Internal machinery  -----------------------------------------------
 
-  initRouter() {
+  static initRouter() {
     const router = new Router();
     return router;
   }
 
-  initWebApp() {
+  static initWebApp() {
     const app = new Koa();
 
     // @todo: Set app env?
@@ -78,11 +78,11 @@ export class PagerBeautyWebApp {
     return app;
   }
 
-  initControllers() {
+  static initControllers() {
 
   }
 
-  startWebServerAsync(connectionListener) {
+  static startWebServerAsync(connectionListener) {
     // Wrap HTTP server callbacks into a promise
     return new Promise((resolve, reject) => {
       // Start HTTP server
@@ -90,11 +90,11 @@ export class PagerBeautyWebApp {
       server.on('listening', () => {
         // @todo logging
         resolve(server);
-      })
+      });
       server.on('error', (error) => {
         // @todo logging
         reject(error);
-      })
+      });
       server.listen({
         host: 'localhost',
         port: 8080,
@@ -102,9 +102,9 @@ export class PagerBeautyWebApp {
     });
   }
 
-  startWebStopAsync(server) {
+  static startWebStopAsync(server) {
     // Wrap HTTP server callbacks into a promise
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       server.close((error) => {
         if (error) {
           // Already stopped
@@ -116,7 +116,6 @@ export class PagerBeautyWebApp {
   }
 
   // ------- Class end  --------------------------------------------------------
-
 }
 
 // ------- End -----------------------------------------------------------------
