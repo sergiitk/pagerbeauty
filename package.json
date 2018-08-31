@@ -20,6 +20,7 @@
     "app": "node --experimental-modules pagerbeauty.mjs"
   },
   "dependencies": {
-    "koa": "^2.5.2"
+    "koa": "^2.5.2",
+    "koa-router": "^7.4.0"
   }
 }
