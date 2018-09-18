@@ -3,7 +3,9 @@
 import http from 'http';
 
 import Koa from 'koa';
+import mount from 'koa-mount';
 import route from 'koa-route';
+import serve from 'koa-static';
 
 // ------- Internal imports ----------------------------------------------------
 
@@ -67,8 +69,8 @@ export class PagerBeautyWebApp {
     app.use(route.get('/v1/schedules', schedulesController.index));
     app.use(route.get('/v1/schedules/:scheduleId', schedulesController.show));
 
-
-    // app.use(route.get('/v1/schedules', schedulesController.index));
+    // Static assets
+    app.use(mount('/assets', serve('assets')));
     return app;
   }
 
