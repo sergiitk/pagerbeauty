@@ -4,17 +4,17 @@ import dotenv from 'dotenv';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { PagerDutyService } from './src/services/PagerDutyService';
+import { PagerDutyClient } from './src/services/PagerDutyClient';
 import { PagerBeautyWebApp } from './src/app/PagerBeautyWebApp';
 
 // ------- Program -------------------------------------------------------------
 
 dotenv.config();
 
-const pd = new PagerDutyService(process.env.PD_API_KEY);
+const pd = new PagerDutyClient(process.env.PD_API_KEY);
 
 
-pd.abilities().then(res => console.log(res)).catch(e => console.log(e));
+pd.schedules(process.env.PDS_CHEDULES.split(',')).then(res => console.log(res)).catch(e => console.log(e));
 
 // const webApp = new PagerBeautyWebApp();
 // webApp.start();
