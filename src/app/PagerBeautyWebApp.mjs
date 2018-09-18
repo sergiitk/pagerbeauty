@@ -7,7 +7,7 @@ import Router from 'koa-router';
 
 // ------- Internal imports ----------------------------------------------------
 
-// import { HealthchecksController, SchedulesController } from '../controllers';
+import { SchedulesController } from '../controllers/SchedulesController';
 
 // ------- Class ---------------------------------------------------------------
 
@@ -17,17 +17,14 @@ export class PagerBeautyWebApp {
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
 
-    // Dynamically create and assign controllers.
-    this.controllers = this.initControllers([
-      // HealthchecksController,
-      // SchedulesController,
-    ]);
-
     // Nothing running yet.
     this.server = false;
 
+    // Init controllers mapping.
+    this.controllers = this.loadControllers();
+
     // Define routing.
-    this.router = this.initRouter();
+    this.router = this.loadRouter();
 
     // Configure web sever.
     this.app = this.initWebApp();
@@ -38,7 +35,7 @@ export class PagerBeautyWebApp {
   async start() {
     let server;
     try {
-      server = await this.startWebServerAsync(this.app.callback());
+      server = await PagerBeautyWebApp.startWebServerAsync(this.app.callback());
     } catch (error) {
       // log error
       return false;
@@ -49,18 +46,14 @@ export class PagerBeautyWebApp {
   }
 
   async stop() {
-    await this.startWebStopAsync(this.server);
+    await PagerBeautyWebApp.startWebStopAsync(this.server);
     return true;
   }
 
   // ------- Internal machinery  -----------------------------------------------
 
-  static initRouter() {
-    const router = new Router();
-    return router;
-  }
 
-  static initWebApp() {
+  initWebApp() {
     const app = new Koa();
 
     // @todo: Set app env?
@@ -78,8 +71,18 @@ export class PagerBeautyWebApp {
     return app;
   }
 
-  static initControllers() {
+  loadRouter() {
+    const router = new Router();
+    const { schedulesController } = this.controllers;
+    router.get('schedules', '/v1/schedules', schedulesController.index);
+    router.get('schedules', '/v1/schedules/:scheduleId', schedulesController.show);
+    return router;
+  }
 
+  loadControllers() {
+    const controllers = {};
+    controllers.schedulesController = new SchedulesController(this);
+    return controllers;
   }
 
   static startWebServerAsync(connectionListener) {
