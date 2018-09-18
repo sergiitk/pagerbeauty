@@ -6,7 +6,7 @@ import fetch from 'node-fetch';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { PagerBeautyError } from '../errors'
+import { PagerBeautyError } from '../errors';
 
 export class PagerDutyClientError extends PagerBeautyError {}
 export class PagerDutyClientRequestError extends PagerDutyClientError {}
@@ -30,7 +30,6 @@ export const INCLUDE_ESCALATION_POLICIES = 'escalation_policies';
 // ------- PagerDutyClient -----------------------------------------------------
 
 export class PagerDutyClient {
-
   constructor(apiKey) {
     this.apiUrl = 'https://api.pagerduty.com';
     this.apiKey = apiKey;
@@ -49,9 +48,9 @@ export class PagerDutyClient {
       INCLUDE_USERS,
       INCLUDE_SCHEDULES,
       INCLUDE_ESCALATION_POLICIES,
-    ])
+    ]);
     if (include) {
-      this.attachIncludeFields(searchParams, include, allowedIncludes);
+      PagerDutyClient.attachIncludeFields(searchParams, include, allowedIncludes);
     }
 
     const response = await this.get('oncalls', searchParams);
@@ -68,11 +67,18 @@ export class PagerDutyClient {
 
     const params = {
       headers: this.headers(),
-    }
-    return this.request(fetch(url, params));
+    };
+    return PagerDutyClient.request(fetch(url, params));
   }
 
-  async request(fetchPromise) {
+  headers() {
+    return {
+      Accept: 'application/vnd.pagerduty+json;version=2',
+      Authorization: `Token token=${this.apiKey}`,
+    };
+  }
+
+  static async request(fetchPromise) {
     let result;
     try {
       result = await fetchPromise;
@@ -98,14 +104,7 @@ export class PagerDutyClient {
     return json;
   }
 
-  headers() {
-    return {
-      Accept: "application/vnd.pagerduty+json;version=2",
-      Authorization: `Token token=${this.apiKey}`,
-    }
-  }
-
-  attachIncludeFields(searchParams, input, allowed) {
+  static attachIncludeFields(searchParams, input, allowed) {
     for (const field of input) {
       if (allowed.has(field)) {
         searchParams.append('include[]', field);
@@ -115,6 +114,7 @@ export class PagerDutyClient {
     }
   }
 
+  // ------- Class end  --------------------------------------------------------
 }
 
 // ------- End -----------------------------------------------------------------

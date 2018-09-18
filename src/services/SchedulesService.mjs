@@ -1,12 +1,8 @@
 // ------- Imports -------------------------------------------------------------
 
-import { URL, URLSearchParams } from 'url';
-
-
 // ------- Internal imports ----------------------------------------------------
 
-import { PagerBeautyError } from '../errors'
-import { INCLUDE_USERS } from './PagerDutyClient'
+import { INCLUDE_USERS } from './PagerDutyClient';
 
 // ------- SchedulesService -----------------------------------------------------
 
@@ -28,6 +24,7 @@ export class SchedulesService {
     }
   }
 
+  // ------- Class end  --------------------------------------------------------
 }
 
 // ------- End -----------------------------------------------------------------
