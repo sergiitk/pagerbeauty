@@ -5,8 +5,9 @@
 // ------- Class ---------------------------------------------------------------
 
 export class PagerDutyService {
-  constructor() {
- 
+  constructor(apiKey) {
+    this.apiHost = 'https://api.pagerduty.com';
+    this.apiKey = apiKey;
   }
 }
 

@@ -11,7 +11,7 @@ import { PagerBeautyWebApp } from './src/app/PagerBeautyWebApp';
 
 dotenv.config();
 
-const pd = new PagerDutyService();
+const pd = new PagerDutyService(process.env.PD_API_KEY);
 
 
 console.log(pd);
