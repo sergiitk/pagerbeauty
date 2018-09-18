@@ -8,7 +8,7 @@ import test from 'ava';
 
 // ------- Tests ---------------------------------------------------------------
 
-test('First test', t => {
+test('First test', (t) => {
   t.is(true, true);
 });
 
