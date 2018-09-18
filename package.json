@@ -1,0 +1,32 @@
+{
+  "name": "pagerbeauty",
+  "version": "0.0.1",
+  "description": "Add concise PagerDuty on-calls widget to your wallboard",
+  "repository": "git@github.com:sergii-tkachenko/pagerbeauty.git",
+  "author": "Sergii Tkachenko <hi@sergii.org>",
+  "license": "MIT",
+  "main": "./pagerbeauty",
+  "engines": {
+    "node": "10.10.0",
+    "npm": "6.4.1",
+    "yarn": "1.9.4"
+  },
+  "scripts": {
+    "test": "npm run test:unit",
+    "test:unit": "NODE_ENV=test ava test/unit",
+    "test:integration": "NODE_ENV=test ava test/integration",
+    "test:full": "npm run lint && npm run test:unit && npm run test:integration",
+    "lint": "eslint --ext .js --ext .mjs .",
+    "app": "node --experimental-modules pagerbeauty.mjs"
+  },
+  "dependencies": {
+    "koa": "^2.5.2",
+    "koa-router": "^7.4.0"
+  },
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
+  }
+}
