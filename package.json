@@ -7,8 +7,8 @@
   "license": "MIT",
   "main": "./pagerbeauty",
   "engines": {
-    "node": "10.9.0",
-    "npm": "6.2.0",
+    "node": "10.10.0",
+    "npm": "6.4.1",
     "yarn": "1.9.4"
   },
   "scripts": {
