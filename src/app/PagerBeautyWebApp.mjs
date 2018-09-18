@@ -32,6 +32,8 @@ export class PagerBeautyWebApp {
   // ------- Public API  -------------------------------------------------------
 
   async start() {
+    await Promise.all(Object.values(this.controllers).map(c => c.init()));
+
     let server;
     try {
       server = await PagerBeautyWebApp.startWebServerAsync(this.app.callback());
