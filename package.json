@@ -24,7 +24,8 @@
     "koa": "^2.5.2",
     "koa-mount": "^3.0.0",
     "koa-route": "^3.2.0",
-    "koa-static": "^5.0.0"
+    "koa-static": "^5.0.0",
+    "node-fetch": "^2.2.0"
   },
   "devDependencies": {
     "ava": "^0.25.0",

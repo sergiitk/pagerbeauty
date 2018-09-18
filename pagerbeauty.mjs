@@ -14,7 +14,7 @@ dotenv.config();
 const pd = new PagerDutyService(process.env.PD_API_KEY);
 
 
-console.log(pd);
+pd.abilities().then(res => console.log(res)).catch(e => console.log(e));
 
 // const webApp = new PagerBeautyWebApp();
 // webApp.start();
