@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "koa": "^2.5.2",
-    "koa-router": "^7.4.0",
+    "koa-route": "^3.2.0",
     "koa-static": "^5.0.0"
   },
   "devDependencies": {

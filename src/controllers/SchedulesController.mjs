@@ -17,9 +17,9 @@ export class SchedulesController {
     };
   }
 
-  async show(ctx) {
+  async show(ctx, scheduleId) {
     ctx.body = {
-      test: `show ${ctx.params.scheduleId}`,
+      test: `show ${scheduleId}`,
     };
   }
 }

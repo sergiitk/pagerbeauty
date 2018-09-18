@@ -3,7 +3,7 @@
 import http from 'http';
 
 import Koa from 'koa';
-import Router from 'koa-router';
+import route from 'koa-route';
 
 // ------- Internal imports ----------------------------------------------------
 
@@ -23,11 +23,8 @@ export class PagerBeautyWebApp {
     // Init controllers mapping.
     this.controllers = this.loadControllers();
 
-    // Define routing.
-    this.router = this.loadRouter();
-
     // Configure web sever.
-    this.app = this.initWebApp();
+    this.app = this.loadWebApp();
   }
 
   // ------- Public API  -------------------------------------------------------
@@ -53,7 +50,7 @@ export class PagerBeautyWebApp {
   // ------- Internal machinery  -----------------------------------------------
 
 
-  initWebApp() {
+  loadWebApp() {
     const app = new Koa();
 
     // @todo: Set app env?
@@ -65,18 +62,14 @@ export class PagerBeautyWebApp {
     // @todo: Generate unique request id?
     // @todo: Basic auth
 
-    // Inject Koa Router routes and allowed methods.
-    app.use(this.router.routes());
-    app.use(this.router.allowedMethods());
-    return app;
-  }
-
-  loadRouter() {
-    const router = new Router();
+    // Custom Routes
     const { schedulesController } = this.controllers;
-    router.get('schedules', '/v1/schedules', schedulesController.index);
-    router.get('schedules', '/v1/schedules/:scheduleId', schedulesController.show);
-    return router;
+    app.use(route.get('/v1/schedules', schedulesController.index));
+    app.use(route.get('/v1/schedules/:scheduleId', schedulesController.show));
+
+
+    // app.use(route.get('/v1/schedules', schedulesController.index));
+    return app;
   }
 
   loadControllers() {
