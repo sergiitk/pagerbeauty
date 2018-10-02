@@ -33,7 +33,6 @@ export class PagerBeautyWebApp {
 
     // Configure web sever.
     this.app = this.loadWebApp();
-
   }
 
   // ------- Public API  -------------------------------------------------------
@@ -122,7 +121,7 @@ export class PagerBeautyWebApp {
         reject(error);
       });
       server.listen({
-        host: 'localhost',
+        host: '0.0.0.0',
         port: 8080,
       });
     });
