@@ -2,5 +2,27 @@
 {% extends 'layout.html.j2' %}
 
 {% block content %}
-{{ schedule.userName }}
+{# {{ schedule | dump }} #}
+
+
+<div id="container">
+    <div id="title">ON CALL</div>
+    <div id="schedule"><a href="{{ schedule.scheduleURL }}">{{ schedule.scheduleName }}</a></div>
+    <div id="person">
+         <div id="person_photo"><a href="{{ schedule.userURL }}"><img src="{{ schedule.userAvatarURL }}"></a></div>
+         <div id="person_name"><a href="{{ schedule.userURL }}">{{ schedule.userName }}</a></div>
+    </div>
+    <div id="date">
+         <div id="date_from"><span>From:</span> {{ schedule.dateStart }}</div>
+         <div id="date_to"><span>To:</span> {{ schedule.dateEnd }}</div>
+    </div>
+    <div id="next">
+        <div id="next_information">
+             Next:
+             <span id="next_name">Sergii Tkachenko</span> </br>
+             <span id="next_date_from">Mon 2018-12-10</span> —
+             <span id="next_date_to">Fri 2018-12-10</span>
+        </div>
+    </div>
+</div>
 {% endblock %}

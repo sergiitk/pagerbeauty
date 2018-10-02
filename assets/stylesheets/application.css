@@ -1,0 +1,68 @@
+body {
+  font-family: 'Roboto Mono', monospace;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+#container {
+  font-size: 20px;
+  border: 2px solid #e32054;
+  width: 95%;
+  color: #454545;
+  margin: 2.5vw;
+}
+
+#schedule, #person, #date {
+  display: flex;
+  justify-content: space-around;
+}
+#title, #date {
+  text-align: center;
+  background-color: #e32054;
+  color: white;
+}
+
+#schedule, #person {
+  border-bottom: 1px solid #e32054;
+}
+#date span {
+  margin-top: 2%;
+}
+
+#schedule, #person_photo, #person_name ,#date_from, #date_to, #title {
+  padding: 1vw;
+  text-align: center;
+}
+
+#person_photo img {
+  border: 2px solid #e32054;
+  width: 5vw;
+  margin-left: 1vw;
+  min-width: 80px;
+}
+#person_name {
+  margin-top: 2%;
+  font-size: 50px;
+  width: 90%;
+}
+
+#next_information {
+  display: none;
+  font-size: 15px;
+  padding: 10px;
+  text-align: center;
+  color: gray;
+}
+
+#date_from {
+  margin-left: 6vw;
+}
+#date_to {
+  margin-right: 6vw;
+}
