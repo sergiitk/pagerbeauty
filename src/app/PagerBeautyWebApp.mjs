@@ -81,7 +81,8 @@ export class PagerBeautyWebApp {
         options: {
           nunjucksEnv,
         },
-        map: { html: 'nunjucks'},
+        map: { j2: 'nunjucks'},
+        extension: 'j2'
     }))
 
     // Custom Routes
