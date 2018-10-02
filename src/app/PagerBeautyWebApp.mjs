@@ -68,8 +68,14 @@ export class PagerBeautyWebApp {
 
     // Custom Routes
     const { schedulesController } = this.controllers;
-    app.use(route.get('/v1/schedules', schedulesController.index));
-    app.use(route.get('/v1/schedules/:scheduleId', schedulesController.show));
+    app.use(route.get(
+      '/v1/schedules.(json|html)',
+        schedulesController.index,
+    ));
+    app.use(route.get(
+      '/v1/schedules/:scheduleId.(json|html)',
+      schedulesController.show,
+    ));
 
     // Static assets
     app.use(mount('/assets', serve('assets')));

@@ -22,17 +22,33 @@ export class SchedulesController {
     await this.schedulesService.load(process.env.PDS_CHEDULES.split(','));
   }
 
-  async index(ctx) {
-    ctx.body = this.schedulesService.serialize();
+  async index(ctx, format='html') {
+    switch(format) {
+      case 'json':
+        ctx.body = this.schedulesService.serialize();
+        break;
+      case 'html':
+        ctx.body = 'in progress'
+        break;
+    }
   }
 
-  async show(ctx, scheduleId) {
+  async show(ctx, scheduleId, format='html') {
     const schedule = this.schedulesService.onCallRepo.get(scheduleId);
     if (!schedule) {
       ctx.status = 404;
       return;
     }
-    ctx.body = schedule.serialize();
+
+    switch(format) {
+      case 'json':
+        ctx.body = schedule.serialize();
+        break;
+      case 'html':
+        ctx.body = 'in progress'
+        break;
+    }
+
   }
 }
 
