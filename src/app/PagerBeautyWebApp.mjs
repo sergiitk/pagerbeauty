@@ -17,10 +17,13 @@ import { SchedulesController } from '../controllers/SchedulesController';
 // ------- Class ---------------------------------------------------------------
 
 export class PagerBeautyWebApp {
-  constructor() {
+  constructor(config) {
     // Attach Public API functions to object context.
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
+
+    // Config
+    this.config = config;
 
     // Nothing running yet.
     this.server = false;
@@ -30,12 +33,13 @@ export class PagerBeautyWebApp {
 
     // Configure web sever.
     this.app = this.loadWebApp();
+
   }
 
   // ------- Public API  -------------------------------------------------------
 
   async start() {
-    await Promise.all(Object.values(this.controllers).map(c => c.init()));
+    await Promise.all(Object.values(this.controllers).map(c => c.init(this)));
 
     let server;
     try {
