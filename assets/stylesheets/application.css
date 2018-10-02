@@ -70,13 +70,16 @@ a:hover {
   margin-right: 6vw;
 }
 
+.time {
+  white-space: nowrap;
+}
 
 #title, .date {
   font-size: 2vw;
 }
 @media (max-width: 1000px) {
   #title, .date {
-    font-size: 2.5vw;
+    font-size: 3vw;
   }
 }
 @media (max-width: 500px) {

@@ -13,8 +13,14 @@
          <div id="person_name"><a href="{{ schedule.userURL }}">{{ schedule.userName }}</a></div>
     </div>
     <div id="date">
-         <div class="date" id="date_from"><span>From:</span> {{ schedule.dateStart.format('dddd, MMM DD LT') }}</div>
-         <div class="date" id="date_to"><span>To:</span> {{ schedule.dateEnd.format('dddd, MMM DD LT') }}</div>
+         <div class="date" id="date_from">
+          <span>From:</span> {{ schedule.dateStart.format('dddd, MMM DD') }}
+          <span class="time">{{ schedule.dateStart.format('LT') }}</span>
+        </div>
+         <div class="date" id="date_to">
+          <span>To:</span> {{ schedule.dateEnd.format('dddd, MMM DD') }}
+          <span class="time">{{ schedule.dateEnd.format('LT') }}</span>
+        </div>
     </div>
     <div id="next">
         <div id="next_information">
