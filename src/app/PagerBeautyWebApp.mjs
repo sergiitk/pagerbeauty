@@ -74,22 +74,22 @@ export class PagerBeautyWebApp {
 
     // Templates
     const viewsPath = path.resolve('src', 'views');
-    const nunjucksEnv= new nunjucks.Environment(
-      new nunjucks.FileSystemLoader(viewsPath)
-    )
+    const nunjucksEnv = new nunjucks.Environment(
+      new nunjucks.FileSystemLoader(viewsPath),
+    );
     app.use(views(viewsPath, {
-        options: {
-          nunjucksEnv,
-        },
-        map: { j2: 'nunjucks'},
-        extension: 'j2'
-    }))
+      options: {
+        nunjucksEnv,
+      },
+      map: { j2: 'nunjucks' },
+      extension: 'j2',
+    }));
 
     // Custom Routes
     const { schedulesController } = this.controllers;
     app.use(route.get(
       '/v1/schedules.(json|html)',
-        schedulesController.index,
+      schedulesController.index,
     ));
     app.use(route.get(
       '/v1/schedules/:scheduleId.(json|html)',

@@ -47,10 +47,10 @@ export class OnCall {
     };
   }
 
-  userAvatarSized(size=2048) {
+  userAvatarSized(size = 2048) {
     const url = new URL(this.userAvatarURL);
     const searchParams = new URLSearchParams(url.searchParams);
-    searchParams.append('s', size)
+    searchParams.append('s', size);
     url.search = searchParams;
     return url.href;
   }
@@ -85,7 +85,7 @@ export class SchedulesService {
     try {
       records = await this.client.oncalls(scheduleIds, new Set([INCLUDE_USERS]));
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
 
     for (const record of records) {

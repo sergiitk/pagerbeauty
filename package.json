@@ -7,9 +7,9 @@
   "license": "MIT",
   "main": "./pagerbeauty",
   "engines": {
-    "node": "10.10.0",
+    "node": "10.11.0",
     "npm": "6.4.1",
-    "yarn": "1.9.4"
+    "yarn": "1.10.1"
   },
   "scripts": {
     "test": "npm run test:unit",
@@ -23,7 +23,7 @@
   "dependencies": {
     "dotenv": "^6.0.0",
     "koa": "^2.5.2",
-    "koa-mount": "^3.0.0",
+    "koa-mount": "^4.0.0",
     "koa-route": "^3.2.0",
     "koa-static": "^5.0.0",
     "koa-views": "^6.1.4",
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "ava": "^0.25.0",
-    "eslint": "^5.4.0",
+    "eslint": "^5.6.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "nodemon": "^1.18.4"
