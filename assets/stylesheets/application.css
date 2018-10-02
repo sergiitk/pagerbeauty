@@ -40,6 +40,10 @@ a:hover {
   text-align: center;
 }
 
+#schedule {
+  font-size: 4vw;
+}
+
 #person_photo img {
   border: 2px solid #e32054;
   width: 20vw;
@@ -65,6 +69,18 @@ a:hover {
 #date_to {
   margin-right: 6vw;
 }
-.date {
-  font-size: 3vw;
+
+
+#title, .date {
+  font-size: 2vw;
+}
+@media (max-width: 1000px) {
+  #title, .date {
+    font-size: 2.5vw;
+  }
+}
+@media (max-width: 500px) {
+  #title, .date {
+    font-size: 4vw;
+  }
 }
