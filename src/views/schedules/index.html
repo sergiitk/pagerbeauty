@@ -1,5 +1,7 @@
-<h1>Hi from {{title}}!</h1>
+{% set title = "Schedules" %}
+{% extends "src/views/layout.html" %}
 
+{% block content %}
 <ul>
   {% for schedule in schedules %}
     <li><a href="/v1/schedules/{{schedule.scheduleId}}.html">{{schedule.scheduleName}}</a></li>
@@ -7,3 +9,4 @@
     <li>Loading...</li>
   {% endfor %}
 </ul>
+{% endblock %}

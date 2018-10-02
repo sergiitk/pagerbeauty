@@ -29,11 +29,7 @@ export class SchedulesController {
         ctx.body = schedules;
         break;
       case 'html':
-        ctx.state = {
-          title: 'Schedules',
-          schedules,
-        }
-        await ctx.render('schedules/index.html')
+        await ctx.render('schedules/index.html', { schedules })
         break;
     }
   }
@@ -50,11 +46,7 @@ export class SchedulesController {
         ctx.body = schedule.serialize();
         break;
       case 'html':
-        ctx.state = {
-          title: `Schedule ${schedule.scheduleName}`,
-          schedule,
-        }
-        await ctx.render('schedules/show.html')
+        await ctx.render('schedules/show.html', { schedule })
         break;
     }
 

@@ -1,3 +1,6 @@
-<h1>Hi from {{title}}!</h1>
+{% set title = 'Schedule ' + schedule.scheduleName %}
+{% extends "src/views/layout.html" %}
 
+{% block content %}
 {{ schedule.userName }}
+{% endblock %}
