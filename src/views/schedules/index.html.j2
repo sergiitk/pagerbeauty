@@ -1,0 +1,12 @@
+{% set title = 'Schedules' %}
+{% extends 'layout.html.j2' %}
+
+{% block content %}
+<ul>
+  {% for schedule in schedules %}
+    <li><a href="/v1/schedules/{{schedule.scheduleId}}.html">{{schedule.scheduleName}}</a></li>
+  {% else %}
+    <li>Loading...</li>
+  {% endfor %}
+</ul>
+{% endblock %}

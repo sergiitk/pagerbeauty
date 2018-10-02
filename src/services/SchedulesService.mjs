@@ -2,6 +2,10 @@
 
 // ------- Internal imports ----------------------------------------------------
 
+import { URL, URLSearchParams } from 'url';
+
+import moment from 'moment';
+
 import { INCLUDE_USERS } from './PagerDutyClient';
 
 // ------- OnCall --------------------------------------------------------------
@@ -38,9 +42,17 @@ export class OnCall {
       userName: this.userName,
       userAvatarURL: this.userAvatarURL,
       userURL: this.userURL,
-      dateStart: this.dateStart,
-      dateEnd: this.dateEnd,
+      dateStart: this.dateStart.utc(),
+      dateEnd: this.dateEnd.utc(),
     };
+  }
+
+  userAvatarSized(size=2048) {
+    const url = new URL(this.userAvatarURL);
+    const searchParams = new URLSearchParams(url.searchParams);
+    searchParams.append('s', size)
+    url.search = searchParams;
+    return url.href;
   }
 
   static fromApiRecord(record) {
@@ -52,8 +64,8 @@ export class OnCall {
       userName: record.user.summary,
       userAvatarURL: record.user.avatar_url,
       userURL: record.user.html_url,
-      dateStart: record.start,
-      dateEnd: record.end,
+      dateStart: moment(record.start),
+      dateEnd: moment(record.end),
     };
     return new OnCall(attributes);
   }

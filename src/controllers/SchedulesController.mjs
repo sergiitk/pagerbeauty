@@ -16,23 +16,40 @@ export class SchedulesController {
   }
 
   async init() {
-    const pagerDutyClient = new PagerDutyClient(process.env.PD_API_KEY);
+    const pagerDutyClient = new PagerDutyClient(process.env.PD_API_KEY, process.env.PD_API_URL);
     this.schedulesService = new SchedulesService(pagerDutyClient);
 
     await this.schedulesService.load(process.env.PDS_CHEDULES.split(','));
   }
 
-  async index(ctx) {
-    ctx.body = this.schedulesService.serialize();
+  async index(ctx, format='html') {
+    const schedules = this.schedulesService.serialize();
+    switch(format) {
+      case 'json':
+        ctx.body = schedules;
+        break;
+      case 'html':
+        await ctx.render('schedules/index.html', { schedules })
+        break;
+    }
   }
 
-  async show(ctx, scheduleId) {
+  async show(ctx, scheduleId, format='html') {
     const schedule = this.schedulesService.onCallRepo.get(scheduleId);
     if (!schedule) {
       ctx.status = 404;
       return;
     }
-    ctx.body = schedule.serialize();
+
+    switch(format) {
+      case 'json':
+        ctx.body = schedule.serialize();
+        break;
+      case 'html':
+        await ctx.render('schedules/show.html', { schedule })
+        break;
+    }
+
   }
 }
 

@@ -1,11 +1,14 @@
 // ------- Imports -------------------------------------------------------------
 
 import http from 'http';
+import path from 'path';
 
 import Koa from 'koa';
 import mount from 'koa-mount';
+import nunjucks from 'nunjucks';
 import route from 'koa-route';
 import serve from 'koa-static';
+import views from 'koa-views';
 
 // ------- Internal imports ----------------------------------------------------
 
@@ -66,13 +69,32 @@ export class PagerBeautyWebApp {
     // @todo: Generate unique request id?
     // @todo: Basic auth
 
-    // Custom Routes
-    const { schedulesController } = this.controllers;
-    app.use(route.get('/v1/schedules', schedulesController.index));
-    app.use(route.get('/v1/schedules/:scheduleId', schedulesController.show));
-
     // Static assets
     app.use(mount('/assets', serve('assets')));
+
+    // Templates
+    const viewsPath = path.resolve('src', 'views');
+    const nunjucksEnv= new nunjucks.Environment(
+      new nunjucks.FileSystemLoader(viewsPath)
+    )
+    app.use(views(viewsPath, {
+        options: {
+          nunjucksEnv,
+        },
+        map: { j2: 'nunjucks'},
+        extension: 'j2'
+    }))
+
+    // Custom Routes
+    const { schedulesController } = this.controllers;
+    app.use(route.get(
+      '/v1/schedules.(json|html)',
+        schedulesController.index,
+    ));
+    app.use(route.get(
+      '/v1/schedules/:scheduleId.(json|html)',
+      schedulesController.show,
+    ));
     return app;
   }
 

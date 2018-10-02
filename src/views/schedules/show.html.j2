@@ -1,0 +1,34 @@
+{% set title = 'Schedule ' + schedule.scheduleName %}
+{% extends 'layout.html.j2' %}
+
+{% block content %}
+{# {{ schedule | dump }} #}
+
+
+<div id="container">
+    <div id="title">ON CALL</div>
+    <div id="schedule"><a href="{{ schedule.scheduleURL }}">{{ schedule.scheduleName }}</a></div>
+    <div id="person">
+         <div id="person_photo"><a href="{{ schedule.userURL }}"><img src="{{ schedule.userAvatarSized() }}"></a></div>
+         <div id="person_name"><a href="{{ schedule.userURL }}">{{ schedule.userName }}</a></div>
+    </div>
+    <div id="date">
+         <div class="date" id="date_from">
+          <span>From:</span> {{ schedule.dateStart.format('dddd, MMM DD') }}
+          <span class="time">{{ schedule.dateStart.format('LT') }}</span>
+        </div>
+         <div class="date" id="date_to">
+          <span>To:</span> {{ schedule.dateEnd.format('dddd, MMM DD') }}
+          <span class="time">{{ schedule.dateEnd.format('LT') }}</span>
+        </div>
+    </div>
+    <div id="next">
+        <div id="next_information">
+             Next:
+             <span id="next_name">Sergii Tkachenko</span> </br>
+             <span id="next_date_from">Mon 2018-12-10</span> —
+             <span id="next_date_to">Fri 2018-12-10</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
