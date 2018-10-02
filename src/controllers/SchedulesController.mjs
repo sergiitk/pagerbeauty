@@ -15,11 +15,11 @@ export class SchedulesController {
     this.schedulesService = false;
   }
 
-  async init() {
-    const pagerDutyClient = new PagerDutyClient(process.env.PD_API_KEY, process.env.PD_API_URL);
+  async init(app) {
+    const pagerDutyClient = new PagerDutyClient(app.config.pdApiKey, app.config.pdApiURL);
     this.schedulesService = new SchedulesService(pagerDutyClient);
 
-    await this.schedulesService.load(process.env.PDS_CHEDULES.split(','));
+    await this.schedulesService.load(app.config.pdSchedules);
   }
 
   async index(ctx, format = 'html') {
