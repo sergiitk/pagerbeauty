@@ -30,8 +30,8 @@ export const INCLUDE_ESCALATION_POLICIES = 'escalation_policies';
 // ------- PagerDutyClient -----------------------------------------------------
 
 export class PagerDutyClient {
-  constructor(apiKey) {
-    this.apiUrl = 'https://api.pagerduty.com';
+  constructor(apiKey, apiUrl = 'https://api.pagerduty.com') {
+    this.apiUrl = apiUrl;
     this.apiKey = apiKey;
   }
 

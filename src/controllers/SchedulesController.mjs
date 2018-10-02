@@ -16,7 +16,7 @@ export class SchedulesController {
   }
 
   async init() {
-    const pagerDutyClient = new PagerDutyClient(process.env.PD_API_KEY);
+    const pagerDutyClient = new PagerDutyClient(process.env.PD_API_KEY, process.env.PD_API_URL);
     this.schedulesService = new SchedulesService(pagerDutyClient);
 
     await this.schedulesService.load(process.env.PDS_CHEDULES.split(','));
