@@ -6,6 +6,7 @@ import Koa from 'koa';
 import mount from 'koa-mount';
 import route from 'koa-route';
 import serve from 'koa-static';
+import views from 'koa-views';
 
 // ------- Internal imports ----------------------------------------------------
 
@@ -66,6 +67,12 @@ export class PagerBeautyWebApp {
     // @todo: Generate unique request id?
     // @todo: Basic auth
 
+    // Static assets
+    app.use(mount('/assets', serve('assets')));
+
+    // Templates
+    app.use(views('src/views', { map: {html: 'nunjucks' }}))
+
     // Custom Routes
     const { schedulesController } = this.controllers;
     app.use(route.get(
@@ -76,9 +83,6 @@ export class PagerBeautyWebApp {
       '/v1/schedules/:scheduleId.(json|html)',
       schedulesController.show,
     ));
-
-    // Static assets
-    app.use(mount('/assets', serve('assets')));
     return app;
   }
 
