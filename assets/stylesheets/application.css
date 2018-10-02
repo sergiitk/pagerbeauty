@@ -42,13 +42,12 @@ a:hover {
 
 #person_photo img {
   border: 2px solid #e32054;
-  width: 5vw;
+  width: 20vw;
+  margin-top: 3vw;
   margin-left: 1vw;
-  min-width: 80px;
 }
 #person_name {
-  margin-top: 2%;
-  font-size: 50px;
+  font-size: 10vw;
   width: 90%;
 }
 
@@ -65,4 +64,7 @@ a:hover {
 }
 #date_to {
   margin-right: 6vw;
+}
+.date {
+  font-size: 3vw;
 }
