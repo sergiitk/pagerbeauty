@@ -1,9 +1,11 @@
 // ------- Imports -------------------------------------------------------------
 
 import http from 'http';
+import path from 'path';
 
 import Koa from 'koa';
 import mount from 'koa-mount';
+import nunjucks from 'nunjucks';
 import route from 'koa-route';
 import serve from 'koa-static';
 import views from 'koa-views';
@@ -71,7 +73,16 @@ export class PagerBeautyWebApp {
     app.use(mount('/assets', serve('assets')));
 
     // Templates
-    app.use(views('src/views', { map: {html: 'nunjucks' }}))
+    const viewsPath = path.resolve('src', 'views');
+    const nunjucksEnv= new nunjucks.Environment(
+      new nunjucks.FileSystemLoader(viewsPath)
+    )
+    app.use(views(viewsPath, {
+        options: {
+          nunjucksEnv,
+        },
+        map: { html: 'nunjucks'},
+    }))
 
     // Custom Routes
     const { schedulesController } = this.controllers;
