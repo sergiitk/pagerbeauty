@@ -1,6 +1,6 @@
 {
   "name": "pagerbeauty",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Add concise PagerDuty on-calls widget to your wallboard",
   "repository": "git@github.com:sergii-tkachenko/pagerbeauty.git",
   "author": "Sergii Tkachenko <hi@sergii.org>",
