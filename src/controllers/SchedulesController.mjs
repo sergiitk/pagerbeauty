@@ -14,7 +14,7 @@ export class SchedulesController {
     this.show = this.show.bind(this);
     this.schedulesService = false;
     this.intervalId = false;
-    this.refreshRate = 1000;
+    this.refreshRate = 3600000;
     this.skipLock = false;
   }
 
@@ -23,9 +23,9 @@ export class SchedulesController {
     const pagerDutyClient = new PagerDutyClient(app.config.pdApiKey, app.config.pdApiURL);
     this.schedulesService = new SchedulesService(pagerDutyClient);
 
-    await this.loadSchedules(app.config.pdSchedules)
+    await this.loadSchedules(app.config.pdSchedules);
     this.intervalId = setInterval(() => {
-      this.loadSchedules(app.config.pdSchedules)
+      this.loadSchedules(app.config.pdSchedules);
     }, this.refreshRate);
   }
 
