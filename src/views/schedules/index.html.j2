@@ -2,6 +2,7 @@
 {% extends 'layout.html.j2' %}
 
 {% block content %}
+<h1>{{title}}</h1>
 <ul>
   {% for schedule in schedules %}
     <li><a href="/v1/schedules/{{schedule.scheduleId}}.html">{{schedule.scheduleName}}</a></li>
