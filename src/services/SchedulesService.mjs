@@ -61,7 +61,7 @@ export class OnCall {
       scheduleName: record.schedule.summary,
       scheduleURL: record.schedule.html_url,
       userId: record.user.id,
-      userName: record.user.summary,
+      userName: record.user.name,
       userAvatarURL: record.user.avatar_url,
       userURL: record.user.html_url,
       dateStart: moment(record.start),
@@ -86,6 +86,7 @@ export class SchedulesService {
       records = await this.client.oncalls(scheduleIds, new Set([INCLUDE_USERS]));
     } catch (e) {
       // console.log(e);
+      throw e;
     }
 
     for (const record of records) {
