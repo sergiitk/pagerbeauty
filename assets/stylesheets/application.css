@@ -12,7 +12,7 @@ a:hover {
 
 #container {
   font-size: 20px;
-  border: 2px solid #e32054;
+  border: 2px solid #25c151;
   width: 95%;
   color: #454545;
   margin: 2.5vw;
@@ -24,12 +24,12 @@ a:hover {
 }
 #title, #date {
   text-align: center;
-  background-color: #e32054;
+  background-color: #25c151;
   color: white;
 }
 
 #schedule, #person {
-  border-bottom: 1px solid #e32054;
+  border-bottom: 1px solid #25c151;
 }
 #date span {
   margin-top: 2%;
@@ -45,7 +45,7 @@ a:hover {
 }
 
 #person_photo img {
-  border: 2px solid #e32054;
+  border: 1px solid #343434;
   width: 20vw;
   margin-top: 3vw;
   margin-left: 1vw;
