@@ -14,7 +14,8 @@ export class SchedulesController {
     this.show = this.show.bind(this);
     this.schedulesService = false;
     this.intervalId = false;
-    this.refreshRate = 3600000;
+    // Ten minutes
+    this.refreshRate = 10 * 60 * 1000;
     this.skipLock = false;
   }
 
