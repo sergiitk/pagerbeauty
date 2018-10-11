@@ -18,6 +18,8 @@ Configure PagerBeauty with `.env` file or by exporting environment variables:
 PAGERBEAUTY_PD_API_KEY="yourkey"
 # A list of schedule ids to load. Comma-separated and no spaces between.
 PAGERBEAUTY_PD_SCHEDULES="SCHEDL1,SCHEDL2"
+# Optional: How often to refresh schedules list, in minutes. Defaults to 10.
+PAGERBEAUTY_REFRESH_RATE_MINUTES=10
 
 # Enable basic http authentication
 PAGERBEAUTY_HTTP_USER="basic_username"
