@@ -16,21 +16,24 @@ docker run --rm -p 8080:8080 --env-file=.env -it sergiitk/pagerbeauty:latest
 Configure PagerBeauty with `.env` file or by exporting environment variables:
 
 ```sh
+# For Docker compatibility, do not quote the values.
+# https://docs.docker.com/compose/env-file/
+
 # PagerDuty API key
-PAGERBEAUTY_PD_API_KEY="yourkey"
+PAGERBEAUTY_PD_API_KEY=yourkey
 
 # A list of schedule ids to load. Comma-separated and no spaces between.
-PAGERBEAUTY_PD_SCHEDULES="SCHEDL1,SCHEDL2"
+PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 # Optional: How often to refresh schedules list, in minutes. Defaults to 10.
 PAGERBEAUTY_REFRESH_RATE_MINUTES=10
 
 # Optional: Enable basic http authentication
-PAGERBEAUTY_HTTP_USER="basic_username"
-PAGERBEAUTY_HTTP_PASSWORD="basic_password"
+PAGERBEAUTY_HTTP_USER=basic_username
+PAGERBEAUTY_HTTP_PASSWORD=basic_password
 
 # Optional: Local time zone, defaults to server timezone
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-TZ="America/New_York"
+TZ=America/New_York
 ```
 
 ## Roadmap

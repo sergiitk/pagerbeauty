@@ -1,8 +1,9 @@
 version: '3'
 services:
 
-  pagerbeau:
+  pagerbeauty:
     build: .
+    command: ["yarn", "app:watch"]
     ports:
       - "8080:8080"
     env_file:
