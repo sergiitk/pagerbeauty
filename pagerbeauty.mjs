@@ -20,9 +20,14 @@ if (!process.env.PAGERBEAUTY_PD_SCHEDULES) {
 }
 
 const config = {
-  pdApiKey: process.env.PAGERBEAUTY_PD_API_KEY,
-  pdApiURL: process.env.PAGERBEAUTY_PD_API_URL || false,
-  pdSchedules: process.env.PAGERBEAUTY_PD_SCHEDULES.split(','),
+  pagerDuty: {
+    apiKey: process.env.PAGERBEAUTY_PD_API_KEY,
+    apiURL: process.env.PAGERBEAUTY_PD_API_URL || false,
+    schedules: {
+      list: process.env.PAGERBEAUTY_PD_SCHEDULES.split(','),
+      refreshRate: process.env.PAGERBEAUTY_REFRESH_RATE_MINUTES || 10,
+    },
+  },
   auth: {
     name: process.env.PAGERBEAUTY_HTTP_USER,
     pass: process.env.PAGERBEAUTY_HTTP_PASSWORD,
