@@ -13,6 +13,7 @@ import views from 'koa-views';
 // ------- Internal imports ----------------------------------------------------
 
 import { SchedulesController } from '../controllers/SchedulesController';
+import { redirect } from '../middleware/redirect';
 
 // ------- Class ---------------------------------------------------------------
 
@@ -90,6 +91,11 @@ export class PagerBeautyWebApp {
 
     // Custom Routes
     const { schedulesController } = this.controllers;
+    // Redirects
+    app.use(route.get('/', redirect('/v1')));
+    app.use(route.get('/v1', redirect('/v1/schedules.html')));
+    app.use(route.get('/v1/schedules', redirect('/v1/schedules.html')));
+    // Controllers
     app.use(route.get(
       '/v1/schedules.(json|html)',
       schedulesController.index,
