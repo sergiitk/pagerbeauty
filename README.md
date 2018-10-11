@@ -34,9 +34,23 @@ TZ="America/New_York"
 ```
 
 ## Roadmap
-- [ ] Load all API pages
+
+This project is under active development.
+
+- [x] Load and process oncalls
+- [x] JSON response
+- [x] HTML response
+- [x] HTML Responsive layout
+- [x] Basic autorefresh
+- [x] MVP: Embed in DataDog wallboard as an iframe
+- [x] Configurable refresh period
+- [x] Basic Auth
 - [ ] Full README.md and examples
+- [ ] Unit testing
+- [ ] Load all API pages
 - [ ] Ajax refresh
 - [ ] Change color to red when an incident is triggered
+- [ ] Functional testing
+- [ ] Automated builds
 - [ ] Next on duty
 - [ ] Websocket refresh
