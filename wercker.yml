@@ -11,5 +11,8 @@ build:
         name: install dependencies
         code: yarn
     - script:
-        name: run lint, BDD tests and code coverage
+        name: lint
+        code: yarn lint
+    - script:
+        name: tests
         code: yarn test:full
