@@ -1,0 +1,15 @@
+box: node:10.11.0-alpine
+build:
+  steps:
+    - script:
+        name: report yarn version
+        code: yarn --version
+    - script:
+        name: set yarn cache
+        code: yarn config set cache-folder $WERCKER_CACHE_DIR/yarn
+    - script:
+        name: install dependencies
+        code: yarn
+    - script:
+        name: run lint, BDD tests and code coverage
+        code: yarn test:full
