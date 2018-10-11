@@ -15,4 +15,12 @@ export class PagerBeautyError extends Error {
   }
 }
 
+
+// ------- Application Errors --------------------------------------------------
+
+/**
+ * Initializtion failed
+ */
+export class PagerBeautyInitError extends PagerBeautyError {}
+
 // ------- End -----------------------------------------------------------------

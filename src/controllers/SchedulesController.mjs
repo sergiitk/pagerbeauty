@@ -2,6 +2,7 @@
 
 // ------- Internal imports ----------------------------------------------------
 
+import { PagerBeautyInitError } from '../errors';
 import { PagerDutyClient } from '../services/PagerDutyClient';
 import { SchedulesService } from '../services/SchedulesService';
 
@@ -14,19 +15,28 @@ export class SchedulesController {
     this.show = this.show.bind(this);
     this.schedulesService = false;
     this.intervalId = false;
-    // Ten minutes
-    this.refreshRate = 10 * 60 * 1000;
     this.skipLock = false;
   }
 
   async init(app) {
     // Todo: move to it's own app thing
-    const pagerDutyClient = new PagerDutyClient(app.config.pdApiKey, app.config.pdApiURL);
+    const pagerDutyConfig = app.config.pagerDuty;
+    const pagerDutyClient = new PagerDutyClient(
+      pagerDutyConfig.apiKey,
+      pagerDutyConfig.apiURL,
+    );
     this.schedulesService = new SchedulesService(pagerDutyClient);
 
-    await this.loadSchedules(app.config.pdSchedules);
+    const schedules = pagerDutyConfig.schedules.list;
+    await this.loadSchedules(schedules);
+
+    // Set refresh.
+    const refreshRate = Number(pagerDutyConfig.schedules.refreshRate) * 60 * 1000;
+    if (Number.isNaN(refreshRate)) {
+      throw new PagerBeautyInitError('Refresh rate is not a number');
+    }
     this.intervalId = setInterval(() => {
-      this.loadSchedules(app.config.pdSchedules);
+      this.loadSchedules(schedules);
     }, this.refreshRate);
   }
 
