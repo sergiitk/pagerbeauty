@@ -23,6 +23,10 @@ const config = {
   pdApiKey: process.env.PAGERBEAUTY_PD_API_KEY,
   pdApiURL: process.env.PAGERBEAUTY_PD_API_URL || false,
   pdSchedules: process.env.PAGERBEAUTY_PD_SCHEDULES.split(','),
+  auth: {
+    name: process.env.PAGERBEAUTY_HTTP_USER,
+    pass: process.env.PAGERBEAUTY_HTTP_PASSWORD,
+  },
 };
 
 const webApp = new PagerBeautyWebApp(config);

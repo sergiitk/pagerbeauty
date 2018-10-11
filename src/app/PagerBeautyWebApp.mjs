@@ -3,6 +3,7 @@
 import http from 'http';
 import path from 'path';
 
+import auth from 'koa-basic-auth';
 import Koa from 'koa';
 import mount from 'koa-mount';
 import nunjucks from 'nunjucks';
@@ -71,7 +72,9 @@ export class PagerBeautyWebApp {
 
     // @todo: Enforce https?
     // @todo: Generate unique request id?
-    // @todo: Basic auth
+    if (this.config.auth && this.config.auth.name && this.config.auth.pass) {
+      app.use(auth(this.config.auth));
+    }
 
     // Static assets
     app.use(mount('/assets', serve('assets')));
