@@ -7,9 +7,9 @@
   "license": "MIT",
   "main": "./pagerbeauty",
   "engines": {
-    "node": "10.11.0",
-    "npm": "6.4.1",
-    "yarn": ">=1.9.4"
+    "node": "^10.11.0",
+    "npm": "^6.4.1",
+    "yarn": "^1.9.4"
   },
   "scripts": {
     "test": "npm run test:unit",
@@ -21,7 +21,7 @@
     "app:watch": "nodemon --experimental-modules pagerbeauty.mjs"
   },
   "dependencies": {
-    "dotenv": "^6.0.0",
+    "dotenv": "^6.1.0",
     "koa": "^2.5.2",
     "koa-mount": "^4.0.0",
     "koa-route": "^3.2.0",
