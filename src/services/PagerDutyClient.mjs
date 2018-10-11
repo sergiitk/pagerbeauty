@@ -43,6 +43,10 @@ export class PagerDutyClient {
     const searchParams = new URLSearchParams(
       scheduleIds.map(id => ['schedule_ids[]', id]),
     );
+    // Set limit to maximum possible value. Note that the number of results is
+    // the aggregate of all escalation policies of all schedule has.
+    // https://v2.developer.pagerduty.com/v2/docs/pagination
+    searchParams.append('limit', 100);
 
     const allowedIncludes = new Set([
       INCLUDE_USERS,

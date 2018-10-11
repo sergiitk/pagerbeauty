@@ -18,8 +18,10 @@
           <span class="time">{{ schedule.dateStart.format('LT') }}</span>
         </div>
          <div class="date" id="date_to">
-          <span>To:</span> {{ schedule.dateEnd.format('dddd, MMM DD') }}
-          <span class="time">{{ schedule.dateEnd.format('LT') }}</span>
+          <span>To:</span>
+          <span class="date-weekday">{{ schedule.dateEnd.format('dddd') }},</span>
+          <span class="date-date">{{ schedule.dateEnd.format('MMM DD') }}</span>
+          <span class="date-time">{{ schedule.dateEnd.format('LT') }}</span>
         </div>
     </div>
     <div id="next">

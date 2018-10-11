@@ -70,7 +70,7 @@ a:hover {
   margin-right: 6vw;
 }
 
-.time {
+.date-time, .date-date {
   white-space: nowrap;
 }
 
