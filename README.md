@@ -32,3 +32,11 @@ PAGERBEAUTY_HTTP_PASSWORD="basic_password"
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 TZ="America/New_York"
 ```
+
+## Roadmap
+- [ ] Load all API pages
+- [ ] Full README.md and examples
+- [ ] Ajax refresh
+- [ ] Change color to red when an incident is triggered
+- [ ] Next on duty
+- [ ] Websocket refresh
