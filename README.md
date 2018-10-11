@@ -2,6 +2,8 @@
 
 Add concise PagerDuty on-calls widget to your wallboard
 
+![PagerDuty On Call](https://user-images.githubusercontent.com/672669/46779000-1b740c00-cce4-11e8-96d0-178222cc3f58.png)
+
 ## Running
 ### Using Docker
 
@@ -14,7 +16,7 @@ docker run --rm -p 8080:8080 --env-file=.env -it sergiitk/pagerbeauty:latest
 Configure PagerBeauty with `.env` file or by exporting environment variables:
 
 ```sh
-# PagerDuty API Key
+# PagerDuty API key
 PAGERBEAUTY_PD_API_KEY="yourkey"
 
 # A list of schedule ids to load. Comma-separated and no spaces between.
@@ -22,7 +24,7 @@ PAGERBEAUTY_PD_SCHEDULES="SCHEDL1,SCHEDL2"
 # Optional: How often to refresh schedules list, in minutes. Defaults to 10.
 PAGERBEAUTY_REFRESH_RATE_MINUTES=10
 
-#  Optional: Enable basic http authentication
+# Optional: Enable basic http authentication
 PAGERBEAUTY_HTTP_USER="basic_username"
 PAGERBEAUTY_HTTP_PASSWORD="basic_password"
 
