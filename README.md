@@ -16,7 +16,7 @@ docker run --rm -p 8080:8080 --env-file=.env -it sergiitk/pagerbeauty:latest
 Configure PagerBeauty with `.env` file or by exporting environment variables:
 
 ```sh
-# For Docker compatibility, do not quote the values.
+# For Docker compatibility, do not placed quotation marks around the values.
 # https://docs.docker.com/compose/env-file/
 
 # PagerDuty API key
