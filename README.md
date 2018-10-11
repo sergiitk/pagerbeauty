@@ -2,7 +2,7 @@
 
 Add concise PagerDuty on-calls widget to your wallboard
 
-![PagerDuty On Call](https://user-images.githubusercontent.com/672669/46779000-1b740c00-cce4-11e8-96d0-178222cc3f58.png)
+![PagerDuty On Call](https://user-images.githubusercontent.com/672669/46779296-1e233100-cce5-11e8-897c-b60f935e3ca8.png)
 
 ## Running
 ### Using Docker
