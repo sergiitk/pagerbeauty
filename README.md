@@ -40,11 +40,12 @@ This project is under active development.
 - [x] Load and process oncalls
 - [x] JSON response
 - [x] HTML response
-- [x] HTML Responsive layout
+- [x] HTML responsive layout
 - [x] Basic autorefresh
-- [x] MVP: Embed in DataDog wallboard as an iframe
+- [x] MVP: Embed in DataDog dashboard as an iframe
+- [x] Show dates in local time
 - [x] Configurable refresh period
-- [x] Basic Auth
+- [x] HTTP Basic Authentication
 - [ ] Full README.md and examples
 - [ ] Unit testing
 - [ ] Load all API pages
