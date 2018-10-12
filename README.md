@@ -36,6 +36,13 @@ PAGERBEAUTY_HTTP_PASSWORD=basic_password
 TZ=America/New_York
 ```
 
+## Add to DataDog wallboard
+1. Open the list of schedules: /v1/schedules.html
+2. Find schedule you want to embed and follow the link
+3. Open your DataDog dashboard, click "Edit Board".
+4. Drag "IFrame" widget to the board
+5. Copy PagerBeauty URL of your schedule and paste to IFrame URL on DataDog board
+
 ## Roadmap
 
 This project is under active development.
