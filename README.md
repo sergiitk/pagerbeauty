@@ -1,4 +1,4 @@
-# Pager Beauty [![CircleCI](https://circleci.com/gh/sergii-tkachenko/pagerbeauty/tree/master.svg?style=svg)](https://circleci.com/gh/sergii-tkachenko/pagerbeauty/tree/master) [![dependencies Status](https://david-dm.org/sergii-tkachenko/pagerbeauty/status.svg)](https://david-dm.org/sergii-tkachenko/pagerbeauty) [![devDependencies Status](https://david-dm.org/sergii-tkachenko/pagerbeauty/dev-status.svg)](https://david-dm.org/sergii-tkachenko/pagerbeauty?type=dev)
+# Pager Beauty [![CircleCI](https://circleci.com/gh/sergii-tkachenko/pagerbeauty/tree/master.svg?style=shield)](https://circleci.com/gh/sergii-tkachenko/pagerbeauty/tree/master) [![dependencies Status](https://david-dm.org/sergii-tkachenko/pagerbeauty/status.svg)](https://david-dm.org/sergii-tkachenko/pagerbeauty) [![devDependencies Status](https://david-dm.org/sergii-tkachenko/pagerbeauty/dev-status.svg)](https://david-dm.org/sergii-tkachenko/pagerbeauty?type=dev)
 
 Add concise PagerDuty on-calls widget to your wallboard
 
@@ -58,3 +58,15 @@ This project is under active development.
 - [ ] Automated builds
 - [ ] Next on duty
 - [ ] Websocket refresh
+
+## Contributing
+
+The source code of [Pager Beauty](https://github.com/sergii-tkachenko/pagerbeauty) is maintained by [@sergii-tkachenko](https://github.com/sergii-tkachenko).
+It's an Open Source project under MIT Licence. Contributions are welcomed. Follow the usual GitHub Pull Request process.
+
+[Be nice.](CODE_OF_CONDUCT.md)
+
+
+## License
+
+Pager Beauty is released under the [MIT License](https://opensource.org/licenses/MIT).
