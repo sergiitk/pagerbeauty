@@ -61,10 +61,15 @@ This project is under active development.
 
 ## Contributing
 
+[Contribution guide](CONTRIBUTING.md) and step-by-step local development instructions.
+
 The source code of [Pager Beauty](https://github.com/sergii-tkachenko/pagerbeauty) is maintained by [@sergii-tkachenko](https://github.com/sergii-tkachenko).
-It's an Open Source project under MIT Licence. Contributions are welcomed. Follow the usual GitHub Pull Request process.
+It's an Open Source project under MIT License. Contributions are welcomed. Follow the usual GitHub Pull Request process.
 
 [Be nice.](CODE_OF_CONDUCT.md)
+
+#### Questions?
+Ask me on Twitter: [@sergiitk](https://twitter.com/sergiitk)
 
 
 ## License
