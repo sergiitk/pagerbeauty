@@ -1,4 +1,4 @@
-# Pager Beauty [![CircleCI](https://circleci.com/gh/sergii-tkachenko/pagerbeauty/tree/master.svg?style=svg)](https://circleci.com/gh/sergii-tkachenko/pagerbeauty/tree/master) [![dependencies Status](https://david-dm.org/sergii-tkachenko/pagerbeauty/status.svg)](https://david-dm.org/sergii-tkachenko/pagerbeauty) [![devDependencies Status](https://david-dm.org/sergii-tkachenko/pagerbeauty/dev-status.svg)](https://david-dm.org/sergii-tkachenko/pagerbeauty?type=dev)
+# Pager Beauty [![CircleCI](https://circleci.com/gh/sergii-tkachenko/pagerbeauty/tree/master.svg?style=shield)](https://circleci.com/gh/sergii-tkachenko/pagerbeauty/tree/master) [![dependencies Status](https://david-dm.org/sergii-tkachenko/pagerbeauty/status.svg)](https://david-dm.org/sergii-tkachenko/pagerbeauty) [![devDependencies Status](https://david-dm.org/sergii-tkachenko/pagerbeauty/dev-status.svg)](https://david-dm.org/sergii-tkachenko/pagerbeauty?type=dev)
 
 Add concise PagerDuty on-calls widget to your wallboard
 
