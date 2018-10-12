@@ -43,6 +43,9 @@ TZ=America/New_York
 4. Drag "IFrame" widget to the board
 5. Copy PagerBeauty URL of your schedule and paste to IFrame URL on DataDog board
 
+![Add PagerDuty to DataDog wallboard](https://user-images.githubusercontent.com/672669/46853316-ad0a7900-cdcb-11e8-80b3-ddedb7c8f2eb.gif)
+
+
 ## Roadmap
 
 This project is under active development.
