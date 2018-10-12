@@ -68,7 +68,7 @@ It's an Open Source project under MIT Licence. Contributions are welcomed. Follo
 
 [Be nice.](CODE_OF_CONDUCT.md)
 
-**Questions?**
+#### Questions?
 Ask me on Twitter: [@sergiitk](https://twitter.com/sergiitk)
 
 

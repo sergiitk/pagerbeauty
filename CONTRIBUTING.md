@@ -7,10 +7,11 @@ It's an Open Source project under MIT Licence. Contributions are welcomed. Follo
 
 [Be nice.](CODE_OF_CONDUCT.md)
 
-## Requisites
+## Running local services
+
+### Requisites
 - Install [Docker](https://docs.docker.com/install/)
 
-## Running local services
 
 1. Clone the repository
 2. Create `.env` file with the following:
@@ -32,5 +33,5 @@ docker-compose up
 
 4. Open [localhost:8080](http://localhost:8080)
 
-## Questions?
+### Questions?
 Ask me on Twitter: [@sergiitk](https://twitter.com/sergiitk)
