@@ -18,6 +18,26 @@ a:hover {
   margin: 2.5vw;
 }
 
+#container.not_found {
+  border: 2px solid #fecb2e;
+}
+
+#container.not_found  #title, #container.not_found #date {
+  background-color: #fecb2e;
+}
+#container.not_found #schedule, #container.not_found #person {
+  border-bottom: 1px solid #fecb2e;
+  text-align: center;
+}
+#container.not_found .error {
+  font-size: 10vw;
+  width: 90%;
+  padding: 1vw;
+}
+#container.not_found #person_photo img {
+  border: 1px solid #fecb2e;
+}
+
 #schedule, #person, #date {
   display: flex;
   justify-content: space-around;
