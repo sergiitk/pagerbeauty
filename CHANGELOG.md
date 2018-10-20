@@ -1,5 +1,12 @@
 # PagerBeauty Changelog
 
+## [0.0.10](https://github.com/sergiitk/pagerbeauty/compare/v0.0.9...v0.0.10) (2018-10-20)
+
+
+### Bug Fixes
+
+- [36](https://github.com/sergiitk/pagerbeauty/pull/36) **misc-release** Update CHANGELOG.md on builds
+
 ## [0.0.9](https://github.com/sergiitk/pagerbeauty/compare/v0.0.8...v0.0.9) (2018-10-20)
 
 
