@@ -2,7 +2,7 @@
 
 ## Rules
 
-The source code of [Pager Beauty](https://github.com/sergii-tkachenko/pagerbeauty) is maintained by [@sergii-tkachenko](https://github.com/sergii-tkachenko).
+The source code of [Pager Beauty](https://github.com/sergiitk/pagerbeauty) is maintained by [@sergiitk](https://github.com/sergiitk).
 It's an Open Source project under MIT License. Contributions are welcomed. Follow the usual GitHub Pull Request process.
 
 [Be nice.](CODE_OF_CONDUCT.md)
