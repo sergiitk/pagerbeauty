@@ -45,13 +45,19 @@
       [
         "@semantic-release/commit-analyzer",
         {
-          "preset": "ember"
+          "preset": "ember",
+          "parserOpts": {
+            "headerPattern": "\\[(.*) (.*)] ?(.*)"
+          }
         }
       ],
       [
         "@semantic-release/release-notes-generator",
         {
-          "preset": "ember"
+          "preset": "ember",
+          "parserOpts": {
+            "headerPattern": "\\[(.*) (.*)] ?(.*)"
+          }
         }
       ],
       ["@semantic-release/changelog", {
