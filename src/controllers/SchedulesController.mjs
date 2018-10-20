@@ -76,16 +76,20 @@ export class SchedulesController {
 
   async show(ctx, scheduleId, format = 'html') {
     const schedule = this.schedulesService.onCallRepo.get(scheduleId);
-    if (!schedule) {
-      ctx.status = 404;
-      return;
-    }
 
     switch (format) {
       case 'json':
-        ctx.body = schedule.serialize();
+        if (!schedule) {
+          // Only error out in json repsonses.
+          ctx.status = 404;
+          return;
+        } else {
+          ctx.body = schedule.serialize();
+        }
         break;
       case 'html':
+        // HTML will handle it for now
+        // Complete fix will be implemented in #20.
         await ctx.render('schedules/show.html', { schedule });
         break;
       default:
