@@ -49,11 +49,8 @@ jobs:
       - restore_cache:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run:
-          name: Install semantic-release
-          command: npm install conventional-changelog-ember @semantic-release/changelog @semantic-release/git semantic-release
-      - run:
           name: Release!
-          command: npx semantic-release --debug
+          command: yarn run semantic-release --debug
 
 workflows:
   version: 2
