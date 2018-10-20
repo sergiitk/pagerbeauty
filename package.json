@@ -38,5 +38,31 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "nodemon": "^1.18.4"
+  },
+  "release": {
+    "branch": "production",
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "ember"
+        }
+      ],
+      [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "ember"
+        }
+      ],
+      ["@semantic-release/changelog", {
+        "changelogTitle": "# PagerBeauty Changelog"
+      }],
+      "@semantic-release/npm",
+      ["@semantic-release/git", {
+        "assets": ["dist/**/*.{js,css}", "docs", "package.json"],
+        "message": "${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }],
+      "@semantic-release/github"
+    ]
   }
 }
