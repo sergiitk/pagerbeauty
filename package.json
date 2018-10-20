@@ -75,8 +75,7 @@
         "@semantic-release/git",
         {
           "assets": [
-            "dist/**/*.{js,css}",
-            "docs",
+            "CHANGELOG.md",
             "package.json"
           ],
           "message": "${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
