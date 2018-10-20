@@ -47,9 +47,17 @@ export class SchedulesController {
     }
     // console.log(`Loading ${pdSchedules}`)
     this.skipLock = true;
-    await this.schedulesService.load(pdSchedules);
+    let result = false;
+    try {
+      await this.schedulesService.load(pdSchedules);
+      // console.log(`Loaded ${pdSchedules}`)
+      result = true;
+    } catch (e) {
+      // Todo: log
+    }
     this.skipLock = false;
-    return true;
+
+    return result;
   }
 
   async index(ctx, format = 'html') {
