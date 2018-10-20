@@ -53,7 +53,7 @@ jobs:
           command: npm install conventional-changelog-ember @semantic-release/changelog @semantic-release/git semantic-release
       - run:
           name: Release!
-          command: npx semantic-release --dry-run --debug --no-ci
+          command: npx semantic-release --dry-run --debug --no-ci -b semantic-release-ember
 
 workflows:
   version: 2
