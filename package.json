@@ -40,7 +40,7 @@
     "nodemon": "^1.18.4"
   },
   "release": {
-    "branch": "semantic-release-ember",
+    "branch": "production",
     "plugins": [
       [
         "@semantic-release/commit-analyzer",
