@@ -3,3 +3,6 @@ node_modules
 *.log
 .git
 .circleci
+.DS_Store
+.github
+_config.yml

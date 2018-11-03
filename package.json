@@ -7,9 +7,9 @@
   "license": "MIT",
   "main": "./pagerbeauty",
   "engines": {
-    "node": "^10.11.0",
+    "node": "^10.13.0",
     "npm": "^6.4.1",
-    "yarn": "^1.9.4"
+    "yarn": "^1.10.0"
   },
   "scripts": {
     "test": "npm run test:unit",
@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "dotenv": "^6.1.0",
-    "koa": "^2.5.2",
+    "koa": "^2.6.1",
     "koa-basic-auth": "^3.0.0",
     "koa-mount": "^4.0.0",
     "koa-route": "^3.2.0",
@@ -36,12 +36,12 @@
     "@semantic-release/changelog": "^3.0.1",
     "@semantic-release/git": "^7.0.5",
     "ava": "^0.25.0",
-    "conventional-changelog-ember": "^2.0.1",
-    "eslint": "^5.6.1",
+    "conventional-changelog-ember": "^2.0.2",
+    "eslint": "^5.8.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
-    "nodemon": "^1.18.4",
-    "semantic-release": "^15.10.4"
+    "nodemon": "^1.18.5",
+    "semantic-release": "^15.10.7"
   },
   "release": {
     "branch": "production",
