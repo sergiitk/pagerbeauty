@@ -3,7 +3,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { SchedulesList } from './schedules.js';
+import { SchedulesList } from './schedules';
 
 const e = React.createElement;
 
