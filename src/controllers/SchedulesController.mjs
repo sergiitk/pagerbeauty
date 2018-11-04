@@ -37,7 +37,7 @@ export class SchedulesController {
     }
     this.intervalId = setInterval(() => {
       this.loadSchedules(schedules);
-    }, this.refreshRate);
+    }, refreshRate);
   }
 
   async loadSchedules(pdSchedules) {
