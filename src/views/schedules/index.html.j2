@@ -2,7 +2,11 @@
 {% extends 'layout.html.j2' %}
 
 {% block content %}
+
 <h1>{{title}}</h1>
+
+<div id="schedules_list"></div>
+
 <ul>
   {% for schedule in schedules %}
     <li><a href="/v1/schedules/{{schedule.scheduleId}}.html">{{schedule.scheduleName}}</a></li>
@@ -10,8 +14,6 @@
     <li>Loading...</li>
   {% endfor %}
 </ul>
-
-<div id="like_button_container"></div>
 
 {% endblock %}
 

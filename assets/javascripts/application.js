@@ -4,6 +4,6 @@ window.onload = function() {
   // window.setTimeout(function() {
   //   location.reload();
   // }, 60000);
-  const domContainer = document.querySelector('#like_button_container');
-  ReactDOM.render(e(LikeButton), domContainer);
+  const domContainer = document.querySelector('#schedules_list');
+  ReactDOM.render(e(SchedulesList), domContainer);
 }
