@@ -17,6 +17,7 @@
     "test:integration": "NODE_ENV=test ava test/integration",
     "test:full": "npm run test:unit && npm run test:integration",
     "lint": "eslint --ext .js --ext .mjs .",
+    "build": "webpack",
     "app": "node --experimental-modules pagerbeauty.mjs",
     "app:watch": "nodemon --experimental-modules pagerbeauty.mjs"
   },
