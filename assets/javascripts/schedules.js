@@ -11,7 +11,7 @@ export class SchedulesList extends React.Component {
   }
 
   render() {
-    return e('ul', {});
+    return <ul></ul>;
   }
 }
 
@@ -21,10 +21,6 @@ export class SchedulesListItem extends React.Component {
   }
 
   render() {
-    return e(
-      'li',
-      { },
-      this.props.scheduleName
-    );
+    return <li>{this.props.scheduleName}</li>;
   }
 }

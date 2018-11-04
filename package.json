@@ -52,6 +52,12 @@
     "webpack": "^4.24.0",
     "webpack-cli": "^3.1.2"
   },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  },
   "release": {
     "branch": "production",
     "plugins": [
