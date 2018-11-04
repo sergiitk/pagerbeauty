@@ -1,8 +1,11 @@
 'use strict';
 
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 const e = React.createElement;
 
-class SchedulesList extends React.Component {
+export class SchedulesList extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -12,7 +15,7 @@ class SchedulesList extends React.Component {
   }
 }
 
-class SchedulesListItem extends React.Component {
+export class SchedulesListItem extends React.Component {
   constructor(props) {
     super(props);
   }
