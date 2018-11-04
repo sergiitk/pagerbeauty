@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { PagerBeautyWebApp } from './src/app/PagerBeautyWebApp';
+import { PagerBeautyWebApp } from './app/PagerBeautyWebApp';
 
 // ------- Program -------------------------------------------------------------
 

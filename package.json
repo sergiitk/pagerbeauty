@@ -5,7 +5,7 @@
   "repository": "git@github.com:sergiitk/pagerbeauty.git",
   "author": "Sergii Tkachenko <hi@sergii.org>",
   "license": "MIT",
-  "main": "./pagerbeauty",
+  "main": "./src/pagerbeauty",
   "engines": {
     "node": "^10.13.0",
     "npm": "^6.4.1",
@@ -18,8 +18,9 @@
     "test:full": "npm run test:unit && npm run test:integration",
     "lint": "eslint --ext .js --ext .mjs .",
     "build": "webpack",
-    "app": "node --experimental-modules pagerbeauty.mjs",
-    "app:watch": "nodemon --experimental-modules pagerbeauty.mjs"
+    "build:watch": "webpack --watch",
+    "app": "node --experimental-modules src/pagerbeauty.mjs",
+    "app:watch": "nodemon --experimental-modules src/pagerbeauty.mjs"
   },
   "dependencies": {
     "dotenv": "^6.1.0",
@@ -51,6 +52,14 @@
     "semantic-release": "^15.10.7",
     "webpack": "^4.24.0",
     "webpack-cli": "^3.1.2"
+  },
+  "nodemonConfig": {
+    "verbose": true,
+    "watch": [
+      "src",
+      "assets/dist"
+    ],
+    "ext": "js,mjs,html.j2"
   },
   "babel": {
     "presets": [
