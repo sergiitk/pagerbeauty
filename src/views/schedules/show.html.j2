@@ -4,10 +4,12 @@
 {% block content %}
 {# {{ schedule | dump }} #}
 
+<div class="schedule_root" data-id="{{ schedule.scheduleId }}"></div>
+
 {% if schedule %}
   <div class="schedule">
       <div class="schedule_row filled_row">ON CALL</div>
-      <div class="schedule_row"><a href="{{ schedule.scheduleURL }}" class="schedule_name">{{ schedule.scheduleName }}</a></h1></div>
+      <div class="schedule_row"><a href="{{ schedule.scheduleURL }}" class="schedule_name">{{ schedule.scheduleName }}</a></div>
       <div class="schedule_row">
          <div class="user_avatar"><a href="{{ schedule.userURL }}"><img src="{{ schedule.userAvatarSized() }}"></a></div>
          <div class="user_name"><a href="{{ schedule.userURL }}">{{ schedule.userName }}</a></div>
