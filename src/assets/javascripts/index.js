@@ -1,2 +1,2 @@
-import '../stylesheets/application.css';
+import '../stylesheets/application.scss';
 import './application'

@@ -1,0 +1,111 @@
+$yellow: #fecb2e;
+$green: #25c151;
+$textBlack: #454545;
+$textWhite: white;
+$borderDark: #343434;
+
+body {
+  font-family: 'Roboto Mono', monospace;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  color: $textBlack;
+
+  &:hover { text-decoration: underline; }
+}
+
+.schedule {
+  font-size: 20px;
+  border: 2px solid $green;
+  width: 95%;
+  color: $textBlack;
+  margin: 2.5vw;
+
+  .top_panel, .date_panel {
+    text-align: center;
+    background-color: $green;
+    color: $textWhite;
+    font-size: 2vw;
+
+    @media (max-width: 1000px) {
+      font-size: 3vw;
+    }
+
+    @media (max-width: 500px) {
+      font-size: 4vw;
+    }
+  }
+
+  .schedule_name, .user, .date_panel {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .schedule_name {
+    font-size: 4vw;
+  }
+
+  .schedule_name, .user {
+    border-bottom: 1px solid $green;
+  }
+
+  .schedule_name, .user_avatar, .user_name, .date_start, .date_end, .top_panel {
+    padding: 1vw;
+    text-align: center;
+  }
+
+
+  .user_name {
+    font-size: 10vw;
+    width: 90%;
+  }
+
+  .user_avatar img {
+    border: 1px solid $borderDark;
+    width: 20vw;
+    margin-top: 3vw;
+    margin-left: 1vw;
+  }
+
+  .date_panel span {
+    margin-top: 2%;
+  }
+
+  .date-time, .date-date {
+    white-space: nowrap;
+  }
+
+  .date_start {
+    margin-left: 6vw;
+  }
+  .date_end {
+    margin-right: 6vw;
+  }
+
+}
+
+// Not found
+.schedule.not_found {
+  border-color: $yellow;
+
+  .top_panel, .date_panel {
+    background-color: $yellow;
+  }
+
+  .schedule_name, .user {
+    border-color: $yellow;
+    text-align: center;
+  }
+
+  .error {
+    font-size: 10vw;
+    width: 90%;
+    padding: 1vw;
+  }
+
+  .user_avatar img {
+    border-color: $yellow;
+  }
+}
