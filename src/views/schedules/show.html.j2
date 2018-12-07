@@ -5,9 +5,9 @@
 {# {{ schedule | dump }} #}
 
 {% if schedule %}
-  <div id="container">
+  <div id="schedule">
       <div id="title">ON CALL</div>
-      <div id="schedule"><a href="{{ schedule.scheduleURL }}">{{ schedule.scheduleName }}</a></div>
+      <div class="name"><a href="{{ schedule.scheduleURL }}">{{ schedule.scheduleName }}</a></div>
       <div id="person">
            <div id="person_photo"><a href="{{ schedule.userURL }}"><img src="{{ schedule.userAvatarSized() }}"></a></div>
            <div id="person_name"><a href="{{ schedule.userURL }}">{{ schedule.userName }}</a></div>
@@ -34,7 +34,7 @@
       </div>
   </div>
 {% else %}
-  <div id="container" class="not_found">
+  <div id="schedule" class="not_found">
     <div id="title">ON CALL</div>
     <div id="person">
       <div id="person_photo"><img src="https://www.gravatar.com/avatar/0?s=2048&amp;d=mp"></div>

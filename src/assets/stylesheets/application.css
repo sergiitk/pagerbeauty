@@ -10,7 +10,7 @@ a:hover {
   text-decoration: underline;
 }
 
-#container {
+#schedule {
   font-size: 20px;
   border: 2px solid #25c151;
   width: 95%;
@@ -18,27 +18,27 @@ a:hover {
   margin: 2.5vw;
 }
 
-#container.not_found {
+#schedule.not_found {
   border: 2px solid #fecb2e;
 }
 
-#container.not_found  #title, #container.not_found #date {
+#schedule.not_found #title, #schedule.not_found #date {
   background-color: #fecb2e;
 }
-#container.not_found #schedule, #container.not_found #person {
+#schedule.not_found #schedule .name, #schedule.not_found #person {
   border-bottom: 1px solid #fecb2e;
   text-align: center;
 }
-#container.not_found .error {
+#schedule.not_found .error {
   font-size: 10vw;
   width: 90%;
   padding: 1vw;
 }
-#container.not_found #person_photo img {
+#schedule.not_found #person_photo img {
   border: 1px solid #fecb2e;
 }
 
-#schedule, #person, #date {
+#schedule .name, #person, #date {
   display: flex;
   justify-content: space-around;
 }
@@ -48,19 +48,19 @@ a:hover {
   color: white;
 }
 
-#schedule, #person {
+#schedule .name, #person {
   border-bottom: 1px solid #25c151;
 }
 #date span {
   margin-top: 2%;
 }
 
-#schedule, #person_photo, #person_name ,#date_from, #date_to, #title {
+#schedule .name, #person_photo, #person_name ,#date_from, #date_to, #title {
   padding: 1vw;
   text-align: center;
 }
 
-#schedule {
+#schedule .name {
   font-size: 4vw;
 }
 
