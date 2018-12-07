@@ -1,5 +1,16 @@
 # PagerBeauty Changelog
 
+## [0.0.11](https://github.com/sergiitk/pagerbeauty/compare/v0.0.10...v0.0.11) (2018-11-04)
+
+
+### Bug Fixes
+
+- [40](https://github.com/sergiitk/pagerbeauty/pull/40) **core-schedules** Fix uncontrollable refresh
+
+### Cleanup
+
+- [38](https://github.com/sergiitk/pagerbeauty/pull/38) **chore-dependencies** Dependencies upgrade
+
 ## [0.0.10](https://github.com/sergiitk/pagerbeauty/compare/v0.0.9...v0.0.10) (2018-10-20)
 
 
