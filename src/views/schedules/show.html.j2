@@ -6,33 +6,33 @@
 
 {% if schedule %}
   <div class="schedule">
-      <div class="top_panel">ON CALL</div>
-      <div class="schedule_name"><a href="{{ schedule.scheduleURL }}">{{ schedule.scheduleName }}</a></div>
-      <div class="user">
-           <div class="user_avatar"><a href="{{ schedule.userURL }}"><img src="{{ schedule.userAvatarSized() }}"></a></div>
-           <div class="user_name"><a href="{{ schedule.userURL }}">{{ schedule.userName }}</a></div>
+      <div class="schedule_row filled_row">ON CALL</div>
+      <div class="schedule_row"><a href="{{ schedule.scheduleURL }}" class="schedule_name">{{ schedule.scheduleName }}</a></h1></div>
+      <div class="schedule_row">
+         <div class="user_avatar"><a href="{{ schedule.userURL }}"><img src="{{ schedule.userAvatarSized() }}"></a></div>
+         <div class="user_name"><a href="{{ schedule.userURL }}">{{ schedule.userName }}</a></div>
       </div>
-      <div class="date_panel">
-           <div class="date date_start">
-            <span>From:</span> {{ schedule.dateStart.format('dddd, MMM DD') }}
-            <span class="time">{{ schedule.dateStart.format('LT') }}</span>
-          </div>
-           <div class="date date_end">
-            <span>To:</span>
-            <span class="date-weekday">{{ schedule.dateEnd.format('dddd') }},</span>
-            <span class="date-date">{{ schedule.dateEnd.format('MMM DD') }}</span>
-            <span class="date-time">{{ schedule.dateEnd.format('LT') }}</span>
-          </div>
+      <div class="schedule_row filled_row">
+         <div class="date date_start">
+          <span>From:</span> {{ schedule.dateStart.format('dddd, MMM DD') }}
+          <span class="time">{{ schedule.dateStart.format('LT') }}</span>
+        </div>
+         <div class="date date_end">
+          <span>To:</span>
+          <span class="date_weekday">{{ schedule.dateEnd.format('dddd') }},</span>
+          <span class="date_date">{{ schedule.dateEnd.format('MMM DD') }}</span>
+          <span class="date_time">{{ schedule.dateEnd.format('LT') }}</span>
+        </div>
       </div>
   </div>
 {% else %}
   <div class="schedule not_found">
-    <div class="top_panel">ON CALL</div>
-    <div class="user">
+    <div class="schedule_row filled_row">ON CALL</div>
+    <div class="schedule_row">
       <div class="user_avatar"><img src="https://www.gravatar.com/avatar/0?s=2048&amp;d=mp"></div>
-      <div class="error">No one is on call</div>
+      <div class="user_name error">No one is on call</div>
     </div>
-    <div class="date_panel"><div class="date date_start">&nbsp;</div></div>
+    <div class="schedule_row filled_row"></div>
   </div>
 {% endif %}
 
