@@ -16,15 +16,19 @@ export class SchedulesList extends React.Component {
 
   componentDidMount() {
     fetch(`/v1/schedules.json`)
-      .then(res => res.json())
-      .then(
-        (schedules) => {
-          this.setState({ isLoaded: true, schedules });
-        },
-        (error) => {
-          this.setState({ isLoaded: true, error });
+      .then((response) => {
+        if (!response.ok) {
+            throw Error(response.statusText);
         }
-      )
+
+        return response.json();
+      })
+      .then((schedules) => {
+        this.setState({ isLoaded: true, schedules });
+      })
+      .catch((error) => {
+        this.setState({ isLoaded: true, error });
+      })
   }
 
   render() {
@@ -33,7 +37,7 @@ export class SchedulesList extends React.Component {
       return <span>Loading...</span>;
     }
     if (error) {
-      return <span>Loading error: {error}</span>;
+      return <span>Loading error: {error.message}</span>;
     }
 
     const schedulesListItems = schedules.map((schedule) =>
@@ -70,16 +74,20 @@ export class Schedule extends React.Component {
   componentDidMount() {
     // Todo: verify/sanitize scheduleId
     fetch(`/v1/schedules/${this.props.scheduleId}.json`)
-      .then(res => res.json())
-      .then(
-        (data) => {
-          const onCall = new OnCall(data);
-          this.setState({ isLoaded: true, onCall });
-        },
-        (error) => {
-          this.setState({ isLoaded: true, error });
+      .then((response) => {
+        if (!response.ok) {
+            throw Error(response.statusText);
         }
-      )
+
+        return response.json();
+      })
+      .then((data) => {
+        const onCall = new OnCall(data);
+        this.setState({ isLoaded: true, onCall });
+      })
+      .catch((error) => {
+        this.setState({ isLoaded: true, error });
+      })
   }
 
   render() {
@@ -88,7 +96,7 @@ export class Schedule extends React.Component {
       return <span>Loading...</span>;
     }
     if (error) {
-      return <span>Loading error: {error}</span>;
+      return <span>Loading error: {error.message}</span>;
     }
 
     return <div className="schedule">
