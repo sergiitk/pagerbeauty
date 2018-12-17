@@ -73,7 +73,7 @@ This project is under active development.
 
 Text text
 
-[<img src="https://raw.githubusercontent.com/sergiitk/pagerbeauty/master/.github/images/sponsors-jw-logo.yml" height="70">](https://www.jwplayer.com/)
+[<img src="https://github.com/sergiitk/pagerbeauty/blob/bc4f16e469f9b684a202b6131986432f7a753db0/.github/images/sponsors-jw-logo.svg" height="70">](https://www.jwplayer.com/)
 
 
 ## Contributing
