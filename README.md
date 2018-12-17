@@ -69,6 +69,12 @@ This project is under active development.
 - [ ] Next on duty
 - [ ] Websocket refresh
 
+## Sponsors and Supporters
+
+| [<img src="https://github.com/sergiitk/pagerbeauty/blob/master/.github/images/sponsors-jw-logo.svg" height="70"><br /> <sub><b>JW Player</b></sub>](https://www.jwplayer.com/) |
+|---|
+
+
 ## Contributing
 
 [Contribution guide](CONTRIBUTING.md) and step-by-step local development instructions.
