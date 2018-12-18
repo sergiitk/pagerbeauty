@@ -60,6 +60,18 @@ export class SchedulesListItem extends React.Component {
   }
 }
 
+class PagerBeautyHttpError extends Error {
+  /**
+   * PagerBeauty generic error constructor.
+   */
+  constructor(message) {
+    super(message);
+    this.name = this.constructor.name;
+  }
+}
+
+class PagerBeautyHttpNotFoundError extends PagerBeautyHttpError {}
+
 
 export class Schedule extends React.Component {
   constructor(props) {
@@ -76,7 +88,7 @@ export class Schedule extends React.Component {
     fetch(`/v1/schedules/${this.props.scheduleId}.json`)
       .then((response) => {
         if (!response.ok) {
-            throw Error(response.statusText);
+            throw new PagerBeautyHttpNotFoundError(response.statusText);
         }
 
         return response.json();
@@ -96,9 +108,19 @@ export class Schedule extends React.Component {
       return <span>Loading...</span>;
     }
     if (error) {
+      if (error instanceof PagerBeautyHttpNotFoundError) {
+        return <ScheduleOnCallNoOne />;
+      }
       return <span>Loading error: {error.message}</span>;
     }
 
+    return <ScheduleOnCall onCall={onCall} />
+  }
+}
+
+export class ScheduleOnCall extends React.Component {
+  render() {
+    const { onCall } = this.props;
     return <div className="schedule">
       <div className="schedule_row filled_row">ON CALL</div>
       <div className="schedule_row">
@@ -124,6 +146,19 @@ export class Schedule extends React.Component {
           <span className="date_time">{onCall.dateEnd.format('LT')}</span>
         </div>
       </div>
+    </div>;
+  }
+}
+
+export class ScheduleOnCallNoOne extends React.Component {
+  render() {
+    return <div className="schedule not_found">
+      <div className="schedule_row filled_row">ON CALL</div>
+        <div className="schedule_row">
+          <div className="user_avatar"><img src="https://www.gravatar.com/avatar/0?s=2048&amp;d=mp" /></div>
+          <div className="user_name error">No one is on call</div>
+        </div>
+      <div className="schedule_row filled_row"></div>
     </div>;
   }
 }

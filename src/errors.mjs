@@ -6,8 +6,7 @@
 
 export class PagerBeautyError extends Error {
   /**
-   * Blink generic error constructor.
-   *
+   * PagerBeauty generic error constructor.
    */
   constructor(message) {
     super(message);
