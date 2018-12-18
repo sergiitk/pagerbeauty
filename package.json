@@ -1,15 +1,15 @@
 {
   "name": "pagerbeauty",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Add concise PagerDuty on-calls widget to your wallboard",
   "repository": "git@github.com:sergiitk/pagerbeauty.git",
   "author": "Sergii Tkachenko <hi@sergii.org>",
   "license": "MIT",
   "main": "./src/pagerbeauty",
   "engines": {
-    "node": "^10.13.0",
+    "node": "^10.14.0",
     "npm": "^6.4.1",
-    "yarn": "^1.10.0"
+    "yarn": "^1.12.0"
   },
   "scripts": {
     "test": "npm run test:unit",
@@ -41,7 +41,7 @@
     "@babel/preset-react": "^7.0.0",
     "@semantic-release/changelog": "^3.0.1",
     "@semantic-release/git": "^7.0.5",
-    "ava": "^0.25.0",
+    "ava": "^1.0.1",
     "babel-loader": "^8.0.4",
     "conventional-changelog-ember": "^2.0.2",
     "css-loader": "^1.0.1",

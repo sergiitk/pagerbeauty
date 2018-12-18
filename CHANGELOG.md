@@ -1,5 +1,16 @@
 # PagerBeauty Changelog
 
+## [0.0.12](https://github.com/sergiitk/pagerbeauty/compare/v0.0.11...v0.0.12) (2018-12-17)
+
+
+### Documentation
+
+- [43](https://github.com/sergiitk/pagerbeauty/pull/43) **readme** Add sponsors section to README.md
+
+### Security
+
+- [44](https://github.com/sergiitk/pagerbeauty/pull/44) **CVE-2018-12120** Upgrade node in Docker to 10.14.2 and refresh npm dependencies
+
 ## [0.0.11](https://github.com/sergiitk/pagerbeauty/compare/v0.0.10...v0.0.11) (2018-11-04)
 
 
