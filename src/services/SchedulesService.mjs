@@ -2,8 +2,6 @@
 
 // ------- Internal imports ----------------------------------------------------
 
-import { URL, URLSearchParams } from 'url';
-
 import { OnCall } from '../models/OnCall';
 import { INCLUDE_USERS } from './PagerDutyClient';
 

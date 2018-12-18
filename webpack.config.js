@@ -1,20 +1,20 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: "bundle.css",
-      chunkFilename: "[id].css"
-    })
+      filename: 'bundle.css',
+      chunkFilename: '[id].css',
+    }),
   ],
   mode: 'development',
-  entry: './src/assets/javascripts/index.js',
+  entry: './src/assets/javascripts/index.jsx',
   output: {
-    path: __dirname + '/assets/dist',
+    path: `${__dirname}/assets/dist`,
     // publicPath: '/assets',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -31,8 +31,8 @@ module.exports = {
             options: {
               // you can specify a publicPath here
               // by default it use publicPath in webpackOptions.output
-              publicPath: '../'
-            }
+              publicPath: '../',
+            },
           },
           'css-loader',
           'sass-loader',
@@ -41,6 +41,6 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx'],
   },
 };
