@@ -71,9 +71,9 @@ This project is under active development.
 
 ## Sponsors and Supporters
 
-| [<img src="https://github.com/sergiitk/pagerbeauty/blob/master/.github/images/sponsors-jw-logo.svg" height="70"><br /> <sub><b>JW Player</b></sub>](https://www.jwplayer.com/) |
-|---|
-
+| [<img src="https://github.com/sergiitk/pagerbeauty/raw/master/.github/images/sponsors-jw-logo.svg?sanitize=true" height="70">](https://www.jwplayer.com/) |
+|:---:|
+| [<sub><b>JW Player</b></sub>](https://www.jwplayer.com/) |
 
 ## Contributing
 
