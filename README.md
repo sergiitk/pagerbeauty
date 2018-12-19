@@ -30,10 +30,6 @@ PAGERBEAUTY_REFRESH_RATE_MINUTES=10
 # Optional: Enable basic http authentication
 PAGERBEAUTY_HTTP_USER=basic_username
 PAGERBEAUTY_HTTP_PASSWORD=basic_password
-
-# Optional: Local time zone, defaults to server timezone
-# https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-TZ=America/New_York
 ```
 
 ## Add to DataDog wallboard
@@ -59,6 +55,7 @@ This project is under active development.
 - [x] Show dates in local time
 - [x] Configurable refresh period
 - [x] HTTP Basic Authentication
+- [x] On-call TimeZone is loaded from the PagerDuty schedule settings
 - [ ] Full README.md and examples
 - [ ] Unit testing
 - [ ] Load all API pages

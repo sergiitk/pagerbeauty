@@ -5,7 +5,7 @@
 import 'url';
 
 import 'url-search-params-polyfill';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 // ------- OnCall --------------------------------------------------------------
 

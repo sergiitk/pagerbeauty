@@ -135,18 +135,30 @@ export class ScheduleOnCall extends React.Component {
       <div className="schedule_row filled_row">
         <div className="date date_start">
           <span>From: </span>
-          <span className="date_weekday">{onCall.dateStart.format('dddd')}, </span>
-          <span className="date_date">{onCall.dateStart.format('MMM DD')} </span>
-          <span className="date_time">{onCall.dateStart.format('LT')}</span>
+          <OnCallDateTime date={onCall.dateStart} timezone={onCall.scheduleTimezone} />
         </div>
         <div className="date date_end">
           <span>To: </span>
-          <span className="date_weekday">{onCall.dateEnd.format('dddd')}, </span>
-          <span className="date_date">{onCall.dateEnd.format('MMM DD')} </span>
-          <span className="date_time">{onCall.dateEnd.format('LT')}</span>
+          <OnCallDateTime date={onCall.dateEnd} timezone={onCall.scheduleTimezone} />
         </div>
       </div>
     </div>;
+  }
+}
+
+export class OnCallDateTime extends React.Component {
+  render() {
+    const { date, timezone } = this.props;
+    if (timezone) {
+      date.tz(timezone);
+    }
+    return (
+      <React.Fragment>
+        <span className="date_weekday">{date.format('dddd')}, </span>
+        <span className="date_date">{date.format('MMM DD')} </span>
+        <span className="date_time">{date.format('LT')}</span>
+      </React.Fragment>
+    );
   }
 }
 
