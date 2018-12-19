@@ -87,7 +87,7 @@ export class PagerBeautyWebApp {
     // Global template variables.
     const assetsPath = this.config.env === 'production'
       ? '/assets/dist-prod'
-      : '/assets/dist'
+      : '/assets/dist';
     nunjucksEnv.addGlobal('assetsPath', assetsPath);
     // Apply nunjucks to all *.j2
     app.use(views(viewsPath, {
