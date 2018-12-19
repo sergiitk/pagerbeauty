@@ -6,4 +6,3 @@ node_modules
 .DS_Store
 .github
 _config.yml
-assets/dist
