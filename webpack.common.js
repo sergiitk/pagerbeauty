@@ -1,4 +1,7 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin'); /* eslint-disable-line import/no-extraneous-dependencies */
+/* eslint-disable import/no-extraneous-dependencies */
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+/* eslint-enable */
+
 
 module.exports = {
   plugins: [

@@ -1,4 +1,6 @@
-const merge = require('webpack-merge'); /* eslint-disable-line import/no-extraneous-dependencies */
+/* eslint-disable import/no-extraneous-dependencies */
+const merge = require('webpack-merge');
+/* eslint-enable */
 const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
