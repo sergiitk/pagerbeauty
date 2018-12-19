@@ -17,10 +17,12 @@
     "test:integration": "NODE_ENV=test ava test/integration",
     "test:full": "npm run test:unit && npm run test:integration",
     "lint": "eslint --ext .js --ext .mjs .",
-    "build": "webpack --config webpack.prod.js",
+    "build": "webpack --config webpack.dev.js",
     "build:watch": "webpack --watch --config webpack.dev.js",
-    "app": "NODE_ENV=production node --experimental-modules src/pagerbeauty.mjs",
-    "app:watch": "nodemon --experimental-modules src/pagerbeauty.mjs"
+    "build:prod": "NODE_ENV=production webpack --config webpack.prod.js",
+    "app": "node --experimental-modules src/pagerbeauty.mjs",
+    "app:watch": "nodemon --experimental-modules src/pagerbeauty.mjs",
+    "app:prod": "NODE_ENV=production node --experimental-modules src/pagerbeauty.mjs"
   },
   "dependencies": {
     "dotenv": "^6.1.0",
@@ -64,8 +66,7 @@
   "nodemonConfig": {
     "verbose": true,
     "watch": [
-      "src",
-      "assets/dist"
+      "src"
     ],
     "ext": "js,mjs,html.j2"
   },
@@ -108,6 +109,7 @@
         {
           "assets": [
             "CHANGELOG.md",
+            "assets/dist-prod/**/*.{js,css}",
             "package.json"
           ],
           "message": "${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
