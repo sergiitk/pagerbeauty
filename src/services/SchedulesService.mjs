@@ -3,7 +3,7 @@
 // ------- Internal imports ----------------------------------------------------
 
 import { OnCall } from '../models/OnCall';
-import { INCLUDE_USERS } from './PagerDutyClient';
+import { INCLUDE_USERS, INCLUDE_SCHEDULES } from './PagerDutyClient';
 
 // ------- SchedulesService -----------------------------------------------------
 
@@ -16,7 +16,8 @@ export class SchedulesService {
   async load(scheduleIds) {
     let records;
     try {
-      records = await this.client.oncalls(scheduleIds, new Set([INCLUDE_USERS]));
+      const includeFlags = new Set([INCLUDE_USERS, INCLUDE_SCHEDULES]);
+      records = await this.client.oncalls(scheduleIds, includeFlags);
     } catch (e) {
       // console.log(e);
       throw e;

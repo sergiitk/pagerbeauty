@@ -14,6 +14,7 @@ export class OnCall {
     scheduleId,
     scheduleName,
     scheduleURL,
+    scheduleTimezone,
     userId,
     userName,
     userAvatarURL,
@@ -24,6 +25,7 @@ export class OnCall {
     this.scheduleId = scheduleId;
     this.scheduleName = scheduleName;
     this.scheduleURL = scheduleURL;
+    this.scheduleTimezone = scheduleTimezone;
     this.userId = userId;
     this.userName = userName;
     this.userAvatarURL = userAvatarURL;
@@ -37,6 +39,7 @@ export class OnCall {
       scheduleId: this.scheduleId,
       scheduleName: this.scheduleName,
       scheduleURL: this.scheduleURL,
+      scheduleTimezone: this.scheduleTimezone,
       userId: this.userId,
       userName: this.userName,
       userAvatarURL: this.userAvatarURL,
@@ -59,6 +62,7 @@ export class OnCall {
       scheduleId: record.schedule.id,
       scheduleName: record.schedule.summary,
       scheduleURL: record.schedule.html_url,
+      scheduleTimezone: record.schedule.time_zone,
       userId: record.user.id,
       userName: record.user.name,
       userAvatarURL: record.user.avatar_url,
