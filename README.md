@@ -37,7 +37,7 @@ PAGERBEAUTY_HTTP_PASSWORD=basic_password
 
 ![Add PagerDuty to DataDog wallboard](https://user-images.githubusercontent.com/672669/46853316-ad0a7900-cdcb-11e8-80b3-ddedb7c8f2eb.gif)
 
-1. Open the schedules list [`localhost:8080`]('http://localhost:8080')
+1. Open the schedules list [`localhost:8080`](http://localhost:8080)
 2. Find the schedule you want to embed
 3. Open your DataDog dashboard, click "Edit Board".
 4. Drag "IFrame" widget to the board
