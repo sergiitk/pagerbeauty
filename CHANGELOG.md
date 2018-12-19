@@ -1,5 +1,21 @@
 # PagerBeauty Changelog
 
+# [0.1.0](https://github.com/sergiitk/pagerbeauty/compare/v0.0.12...v0.1.0) (2018-12-19)
+
+
+### Cleanup
+
+- [48](https://github.com/sergiitk/pagerbeauty/pull/48) **chore-dependencies** Dependencies upgrade #38
+
+### Documentation
+
+- [47](https://github.com/sergiitk/pagerbeauty/pull/47) **readme** Add dockerhub link, update roadmap
+- [49](https://github.com/sergiitk/pagerbeauty/pull/49) **readme** Wallboard -> dashboard
+
+### Features
+
+- [39](https://github.com/sergiitk/pagerbeauty/pull/39) **ui-schedules** Major UI refactoring: modernize assets pipeline and move rendering to React
+
 ## [0.0.12](https://github.com/sergiitk/pagerbeauty/compare/v0.0.11...v0.0.12) (2018-12-17)
 
 
