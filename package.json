@@ -19,7 +19,7 @@
     "lint": "eslint --ext .js --ext .mjs .",
     "build": "webpack --config webpack.prod.js",
     "build:watch": "webpack --watch --config webpack.dev.js",
-    "app": "node --experimental-modules src/pagerbeauty.mjs",
+    "app": "NODE_ENV=production node --experimental-modules src/pagerbeauty.mjs",
     "app:watch": "nodemon --experimental-modules src/pagerbeauty.mjs"
   },
   "dependencies": {

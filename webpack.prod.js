@@ -13,4 +13,7 @@ module.exports = merge(common, {
       },
     }),
   ],
+  output: {
+    path: `${__dirname}/assets/dist-prod`,
+  },
 });
