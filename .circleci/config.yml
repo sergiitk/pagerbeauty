@@ -21,6 +21,7 @@ jobs:
           command: yarn build:prod
       - store_artifacts:
           path: assets/dist-prod
+          destination: /artifacts
       - persist_to_workspace:
           root: .
           paths:
