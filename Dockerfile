@@ -15,4 +15,4 @@ RUN yarn install --prod --frozen-lockfile
 COPY . .
 
 EXPOSE 8080
-CMD ["yarn", "-s", "run", "app"]
+CMD ["yarn", "-s", "run", "app:prod"]

@@ -1,5 +1,6 @@
 version: 2
 jobs:
+  # Build
   build:
     docker:
       - image: circleci/node:10.14.2-stretch
@@ -15,7 +16,19 @@ jobs:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
+      - run:
+          name: Build assets
+          command: yarn build:prod
+      - store_artifacts:
+          path: assets/dist-prod
+          destination: /artifacts/assets/dist-prod
+      - persist_to_workspace:
+          root: .
+          paths:
+            - 'assets/dist-prod/bundle.css'
+            - 'assets/dist-prod/bundle.js'
 
+  # Lint
   lint:
     docker:
       - image: circleci/node:10.14.2-stretch
@@ -28,6 +41,7 @@ jobs:
           name: Lint
           command: yarn lint
 
+  # Test
   test:
     docker:
       - image: circleci/node:10.14.2-stretch
@@ -40,6 +54,7 @@ jobs:
           name: Test
           command: yarn test:full
 
+  # Release
   semantic-release:
     docker:
       - image: circleci/node:10.14.2-stretch
@@ -48,12 +63,20 @@ jobs:
       - checkout
       - restore_cache:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Restore assets
+          command: cp -rv /tmp/workspace/assets/dist-prod assets
       - run:
           name: Release!
           command: yarn run semantic-release --debug
 
+
 workflows:
   version: 2
+
+  # Build - test - release
   build-test-release:
     jobs:
       - build

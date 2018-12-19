@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { PagerBeautyWebApp } from './src/app/PagerBeautyWebApp';
+import { PagerBeautyWebApp } from './app/PagerBeautyWebApp';
 
 // ------- Program -------------------------------------------------------------
 
@@ -32,6 +32,7 @@ const config = {
     name: process.env.PAGERBEAUTY_HTTP_USER,
     pass: process.env.PAGERBEAUTY_HTTP_PASSWORD,
   },
+  env: process.env.NODE_ENV || 'development',
 };
 
 const webApp = new PagerBeautyWebApp(config);
