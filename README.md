@@ -6,6 +6,7 @@ Add concise PagerDuty on-calls widget to your wallboard
 
 ## Running
 ### Using Docker
+Docker repo: [`sergiitk/pagerbeauty`](https://hub.docker.com/r/sergiitk/pagerbeauty)
 
 ```sh
 docker run --rm -p 8080:8080 --env-file=.env -it sergiitk/pagerbeauty:latest
