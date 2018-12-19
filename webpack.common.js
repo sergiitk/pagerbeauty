@@ -1,4 +1,4 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); /* eslint-disable-line import/no-extraneous-dependencies */
 
 module.exports = {
   plugins: [
@@ -9,7 +9,6 @@ module.exports = {
       chunkFilename: '[id].css',
     }),
   ],
-  mode: 'development',
   entry: './src/assets/javascripts/index.jsx',
   output: {
     path: `${__dirname}/assets/dist`,
