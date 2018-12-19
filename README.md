@@ -29,6 +29,7 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 PAGERBEAUTY_REFRESH_RATE_MINUTES=10
 
 # Optional: Enable basic http authentication
+# Note: embedding iframes with basic HTTP auth is not supported by all browsers.
 PAGERBEAUTY_HTTP_USER=basic_username
 PAGERBEAUTY_HTTP_PASSWORD=basic_password
 ```
@@ -37,7 +38,7 @@ PAGERBEAUTY_HTTP_PASSWORD=basic_password
 
 ![Add PagerDuty to DataDog wallboard](https://user-images.githubusercontent.com/672669/46853316-ad0a7900-cdcb-11e8-80b3-ddedb7c8f2eb.gif)
 
-1. Open the schedules list [`localhost:8080`](http://localhost:8080)
+1. Open the schedules list in deployed app. Make sure the app is running behind HTTPS
 2. Find the schedule you want to embed
 3. Open your DataDog dashboard, click "Edit Board".
 4. Drag "IFrame" widget to the board
@@ -57,9 +58,10 @@ This project is under active development.
 - [x] Configurable refresh period
 - [x] HTTP Basic Authentication
 - [x] On-call TimeZone is loaded from the PagerDuty schedule settings
-- [ ] Full README.md and examples
 - [ ] Unit testing
 - [ ] Load all API pages
+- [ ] HTTP authentication bypass support for embeds
+- [ ] Full README.md and examples
 - [ ] Ajax refresh
 - [ ] Change color to red when an incident is triggered
 - [ ] Functional testing
