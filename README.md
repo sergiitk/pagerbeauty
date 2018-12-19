@@ -1,6 +1,6 @@
 # Pager Beauty [![CircleCI](https://circleci.com/gh/sergiitk/pagerbeauty/tree/master.svg?style=shield)](https://circleci.com/gh/sergiitk/pagerbeauty/tree/master) [![dependencies Status](https://david-dm.org/sergiitk/pagerbeauty/status.svg)](https://david-dm.org/sergiitk/pagerbeauty) [![devDependencies Status](https://david-dm.org/sergiitk/pagerbeauty/dev-status.svg)](https://david-dm.org/sergiitk/pagerbeauty?type=dev)
 
-Add concise PagerDuty on-calls widget to your wallboard
+Add concise PagerDuty on-calls widget to your dashboard
 
 ![PagerDuty On Call](https://user-images.githubusercontent.com/672669/46779296-1e233100-cce5-11e8-897c-b60f935e3ca8.png)
 
@@ -34,9 +34,9 @@ PAGERBEAUTY_HTTP_USER=basic_username
 PAGERBEAUTY_HTTP_PASSWORD=basic_password
 ```
 
-## Add to DataDog wallboard
+## Add to DataDog dashboard
 
-![Add PagerDuty to DataDog wallboard](https://user-images.githubusercontent.com/672669/46853316-ad0a7900-cdcb-11e8-80b3-ddedb7c8f2eb.gif)
+![Add PagerDuty to DataDog dashboard](https://user-images.githubusercontent.com/672669/46853316-ad0a7900-cdcb-11e8-80b3-ddedb7c8f2eb.gif)
 
 1. Open the schedules list in deployed app. Make sure the app is running behind HTTPS
 2. Find the schedule you want to embed
