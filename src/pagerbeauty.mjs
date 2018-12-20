@@ -4,21 +4,24 @@ import dotenv from 'dotenv';
 
 // ------- Internal imports ----------------------------------------------------
 
+import { EXIT_CODES } from './errors';
 import { PagerBeautyWebApp } from './app/PagerBeautyWebApp';
 import { setupDefaultLogger } from './init';
 
 // ------- Program -------------------------------------------------------------
 
 dotenv.config();
-setupDefaultLogger();
+const logger = setupDefaultLogger();
 
 // From environment
 if (!process.env.PAGERBEAUTY_PD_API_KEY) {
-  throw Error('Pager Duty API key is required');
+  logger.error('Pager Duty API key is required');
+  process.exit(EXIT_CODES.get('insufficient_config'));
 }
 
 if (!process.env.PAGERBEAUTY_PD_SCHEDULES) {
-  throw Error('Pager Duty schedules list is required');
+  logger.error('Pager Duty schedules list is required');
+  process.exit(EXIT_CODES.get('insufficient_config'));
 }
 
 const config = {
@@ -41,6 +44,5 @@ const config = {
 
 const webApp = new PagerBeautyWebApp(config);
 webApp.start();
-
 
 // ------- End -----------------------------------------------------------------

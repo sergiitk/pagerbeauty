@@ -2,6 +2,11 @@
  * Common app functionality
  */
 
+// ------- Exit error code -=---------------------------------------------------
+export const EXIT_CODES = new Map([
+  ['insufficient_config', 10],
+]);
+
 // ------- PagerBeautyError ----------------------------------------------------
 
 export class PagerBeautyError extends Error {
