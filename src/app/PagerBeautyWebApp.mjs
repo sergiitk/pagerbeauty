@@ -5,6 +5,7 @@ import path from 'path';
 
 import auth from 'koa-basic-auth';
 import Koa from 'koa';
+import logger from 'winston';
 import mount from 'koa-mount';
 import nunjucks from 'nunjucks';
 import route from 'koa-route';
@@ -15,6 +16,7 @@ import views from 'koa-views';
 
 import { SchedulesController } from '../controllers/SchedulesController';
 import { redirect } from '../middleware/redirect';
+import { PagerBeautyWebServerStartError } from '../errors';
 
 // ------- Class ---------------------------------------------------------------
 
@@ -40,22 +42,32 @@ export class PagerBeautyWebApp {
   // ------- Public API  -------------------------------------------------------
 
   async start() {
-    await Promise.all(Object.values(this.controllers).map(c => c.init(this)));
+    const { config } = this;
+    logger.info(`Starting PagerBeauty v${config.version} in ${config.env} mode`);
 
+    // Controllers
+    await this.startControllers();
+
+    // Web Server
     let server;
     try {
       server = await PagerBeautyWebApp.startWebServerAsync(this.app.callback());
     } catch (error) {
-      // log error
+      logger.error(error.toString());
+      if (error instanceof PagerBeautyWebServerStartError) {
+        this.stop(error.server);
+      }
       return false;
     }
-
     this.server = server;
     return true;
   }
 
-  async stop() {
-    await PagerBeautyWebApp.startWebStopAsync(this.server);
+  async stop(server) {
+    logger.info('Gracefully stopping PagerBeauty');
+    const serverToStop = server || this.server;
+    await this.stopControllers();
+    await PagerBeautyWebApp.stopWebServerAsync(serverToStop);
     return true;
   }
 
@@ -122,6 +134,14 @@ export class PagerBeautyWebApp {
     return controllers;
   }
 
+  async startControllers() {
+    return Promise.all(Object.values(this.controllers).map(c => c.start(this)));
+  }
+
+  async stopControllers() {
+    return Promise.all(Object.values(this.controllers).map(c => c.stop()));
+  }
+
   static startWebServerAsync(connectionListener) {
     // Wrap HTTP server callbacks into a promise
     return new Promise((resolve, reject) => {
@@ -132,8 +152,7 @@ export class PagerBeautyWebApp {
         resolve(server);
       });
       server.on('error', (error) => {
-        // @todo logging
-        reject(error);
+        reject(new PagerBeautyWebServerStartError(error.message, server));
       });
       server.listen({
         host: '0.0.0.0',
@@ -142,13 +161,13 @@ export class PagerBeautyWebApp {
     });
   }
 
-  static startWebStopAsync(server) {
+  static stopWebServerAsync(server) {
     // Wrap HTTP server callbacks into a promise
     return new Promise((resolve) => {
       server.close((error) => {
         if (error) {
-          // Already stopped
-          // @todo logging
+          // Already stopped.
+          logger.verbose(`Error stopping web server: ${error.message}`);
         }
         resolve();
       });

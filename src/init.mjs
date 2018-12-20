@@ -35,7 +35,7 @@ export function setupDefaultLogger(env = 'development', level = 'verbose') {
       new winston.transports.Console({}),
     ],
   });
-  winston.info('Configured logger');
+  winston.debug('Configured logger');
   return winston;
 }
 

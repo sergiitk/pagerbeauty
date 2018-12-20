@@ -10,7 +10,7 @@ import { setupDefaultLogger } from './init';
 // ------- Program -------------------------------------------------------------
 
 dotenv.config();
-const logger = setupDefaultLogger();
+setupDefaultLogger();
 
 // From environment
 if (!process.env.PAGERBEAUTY_PD_API_KEY) {
@@ -35,10 +35,12 @@ const config = {
     pass: process.env.PAGERBEAUTY_HTTP_PASSWORD,
   },
   env: process.env.NODE_ENV || 'development',
+  version: process.env.npm_package_version || '0.0.0-dev',
 };
 
-logger.info(`Starting application in ${config.env} mode`);
+
 const webApp = new PagerBeautyWebApp(config);
 webApp.start();
+
 
 // ------- End -----------------------------------------------------------------

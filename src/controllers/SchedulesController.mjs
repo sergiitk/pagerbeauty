@@ -18,7 +18,7 @@ export class SchedulesController {
     this.skipLock = false;
   }
 
-  async init(app) {
+  async start(app) {
     // Todo: move to it's own app thing
     const pagerDutyConfig = app.config.pagerDuty;
     const pagerDutyClient = new PagerDutyClient(
@@ -38,6 +38,10 @@ export class SchedulesController {
     this.intervalId = setInterval(() => {
       this.loadSchedules(schedules);
     }, refreshRate);
+  }
+
+  stop() {
+    clearInterval(this.intervalId);
   }
 
   async loadSchedules(pdSchedules) {
