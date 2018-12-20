@@ -5,10 +5,12 @@ import dotenv from 'dotenv';
 // ------- Internal imports ----------------------------------------------------
 
 import { PagerBeautyWebApp } from './app/PagerBeautyWebApp';
+import { setupDefaultLogger } from './init';
 
 // ------- Program -------------------------------------------------------------
 
 dotenv.config();
+const logger = setupDefaultLogger();
 
 // From environment
 if (!process.env.PAGERBEAUTY_PD_API_KEY) {
@@ -35,6 +37,7 @@ const config = {
   env: process.env.NODE_ENV || 'development',
 };
 
+logger.info(`Starting application in ${config.env} mode`);
 const webApp = new PagerBeautyWebApp(config);
 webApp.start();
 
