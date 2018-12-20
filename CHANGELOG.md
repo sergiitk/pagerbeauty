@@ -1,5 +1,13 @@
 # PagerBeauty Changelog
 
+## [0.1.1](https://github.com/sergiitk/pagerbeauty/compare/v0.1.0...v0.1.1) (2018-12-19)
+
+
+### Bug Fixes
+
+- [52](https://github.com/sergiitk/pagerbeauty/pull/52) **assets** Fix bundle.css link not using production assets path
+- [51](https://github.com/sergiitk/pagerbeauty/pull/51) **docker** Docker should use production assets and ignore dev
+
 # [0.1.0](https://github.com/sergiitk/pagerbeauty/compare/v0.0.12...v0.1.0) (2018-12-19)
 
 
