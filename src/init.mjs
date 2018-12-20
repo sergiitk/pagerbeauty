@@ -14,17 +14,28 @@ import winston from 'winston';
  * @return  The configured logger. To be used for logging during app init.
  */
 export function setupDefaultLogger(env = 'development', level = 'verbose') {
-  const format = env === 'production'
-    ? winston.format.json()
-    : winston.format.cli();
+  const { format } = winston;
+
+  const humanReadable = format.combine(
+    format.colorize({ all: true }),
+    format.timestamp({ format: 'HH:mm:ss.SSS' }),
+    format.align(),
+    format.printf(data => `${data.timestamp} ${data.level}: ${data.message}`),
+  );
+
+  const machineReadable = format.combine(
+    format.timestamp(),
+    format.json(),
+  );
 
   winston.configure({
     level,
-    format,
+    format: env === 'production' ? machineReadable : humanReadable,
     transports: [
       new winston.transports.Console({}),
     ],
   });
+  winston.info('Configured logger');
   return winston;
 }
 
