@@ -33,7 +33,7 @@ export class PagerBeautyWebApp {
     this.server = false;
 
     // Init controllers mapping.
-    this.controllers = this.loadControllers();
+    this.controllers = PagerBeautyWebApp.buildControllersRegistry();
 
     // Configure web sever.
     this.app = this.loadWebApp();
@@ -53,7 +53,6 @@ export class PagerBeautyWebApp {
     try {
       server = await PagerBeautyWebApp.startWebServerAsync(this.app.callback());
     } catch (error) {
-      logger.error(error.toString());
       if (error instanceof PagerBeautyWebServerStartError) {
         this.stop(error.server);
       }
@@ -64,7 +63,7 @@ export class PagerBeautyWebApp {
   }
 
   async stop(server) {
-    logger.info('Gracefully stopping PagerBeauty');
+    logger.info('Graceful shut down');
     const serverToStop = server || this.server;
     await this.stopControllers();
     await PagerBeautyWebApp.stopWebServerAsync(serverToStop);
@@ -111,7 +110,8 @@ export class PagerBeautyWebApp {
     }));
 
     // Custom Routes
-    const { schedulesController } = this.controllers;
+
+    const schedulesController = this.controllers.get('SchedulesController');
     // Redirects
     app.use(route.get('/', redirect('/v1')));
     app.use(route.get('/v1', redirect('/v1/schedules.html')));
@@ -128,18 +128,26 @@ export class PagerBeautyWebApp {
     return app;
   }
 
-  loadControllers() {
-    const controllers = {};
-    controllers.schedulesController = new SchedulesController(this);
-    return controllers;
-  }
-
   async startControllers() {
-    return Promise.all(Object.values(this.controllers).map(c => c.start(this)));
+    const controllerEntries = Array.from(this.controllers.entries());
+    return Promise.all(controllerEntries.map(([name, controller]) => {
+      logger.debug(`Starting web controller ${name}`);
+      return controller.start(this);
+    }));
   }
 
   async stopControllers() {
-    return Promise.all(Object.values(this.controllers).map(c => c.stop()));
+    const controllerEntries = Array.from(this.controllers.entries());
+    return Promise.all(controllerEntries.map(([name, controller]) => {
+      logger.debug(`Stopping web controller ${name}`);
+      return controller.stop(this);
+    }));
+  }
+
+  static buildControllersRegistry() {
+    const controllers = new Map();
+    controllers.set('SchedulesController', new SchedulesController());
+    return controllers;
   }
 
   static startWebServerAsync(connectionListener) {
@@ -148,14 +156,18 @@ export class PagerBeautyWebApp {
       // Start HTTP server
       const server = http.createServer(connectionListener);
       server.on('listening', () => {
-        // @todo logging
+        const address = server.address();
+        const readableUrl = `http://${address.address}:${address.port}`;
+        logger.info(`HTTP server is listening on ${readableUrl}`);
         resolve(server);
       });
       server.on('error', (error) => {
+        logger.error(error.toString());
         reject(new PagerBeautyWebServerStartError(error.message, server));
       });
       server.listen({
         host: '0.0.0.0',
+        // @todo: make configurable.
         port: 8080,
       });
     });
@@ -167,7 +179,7 @@ export class PagerBeautyWebApp {
       server.close((error) => {
         if (error) {
           // Already stopped.
-          logger.verbose(`Error stopping web server: ${error.message}`);
+          logger.verbose(`HTTP server: graceful shut down error: ${error.message}`);
         }
         resolve();
       });
