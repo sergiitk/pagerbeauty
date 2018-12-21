@@ -25,18 +25,20 @@ PAGERBEAUTY_PD_API_KEY=yourkey
 
 # A list of schedule ids to load
 PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
-# (Optional) How often to refresh schedules list, in minutes. Defaults to 10.
-PAGERBEAUTY_REFRESH_RATE_MINUTES=10
 
-# (Optional) Highest logging level to include into application logs
+# (Optional) How often to refresh schedules list, in minutes.
+# Default: 10.
+# PAGERBEAUTY_REFRESH_RATE_MINUTES=10
+
+# (Optional) Highest logging level to include into application logs.
 # One of: error, warn, info, verbose, debug, silly
-# Defaults to info
+# Default: info
 # PAGERBEAUTY_LOG_LEVEL=verbose
 
 # (Optional) Log format. One of:
 # machine - Machine-readable JSON format
 # human   - Human-readable colorized format
-# When omitted, resolved to `human` for development and `machine` for production.
+# Default: resolved to `human` for development and `machine` for production.
 # PAGERBEAUTY_LOG_FORMAT=machine
 
 # (Optional) Enable basic HTTP authentication
