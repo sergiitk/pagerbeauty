@@ -2,8 +2,6 @@
 
 import React from 'react';
 
-import { OnCall } from '../../models/OnCall.mjs';
-
 export class SchedulesListView extends React.Component {
   constructor(props) {
     super(props);

@@ -12,7 +12,7 @@ module.exports = {
       chunkFilename: '[id].css',
     }),
   ],
-  entry: './src/assets/javascripts/index.jsx',
+  entry: './src/assets/javascripts/webpack-entry.jsx',
   output: {
     path: `${__dirname}/assets/dist`,
     // publicPath: '/assets',

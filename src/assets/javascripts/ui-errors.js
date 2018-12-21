@@ -16,6 +16,6 @@ export class PagerBeautyUiError extends Error {
 /**
  * Fetch request returned 404
  */
-export class PagerBeautyHttpNotFoundError extends PagerBeautyUiError {}
+export class PagerBeautyHttpNotFoundUiError extends PagerBeautyUiError {}
 
 // ------- End -----------------------------------------------------------------

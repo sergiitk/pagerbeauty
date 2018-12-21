@@ -3,8 +3,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { SchedulesListView } from './ScheduleViews';
-import { OnCallLoaderView } from './OnCallViews';
+import { SchedulesListView } from './views/ScheduleViews';
+import { OnCallLoaderView } from './views/OnCallViews';
 
 // Render schedules list
 const schedulesListRoot = document.getElementById('schedules_list');

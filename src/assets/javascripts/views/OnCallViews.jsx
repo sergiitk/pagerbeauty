@@ -2,8 +2,8 @@
 
 import React from 'react';
 
-import { PagerBeautyHttpNotFoundError } from './ui-errors';
-import { OnCall } from '../../models/OnCall.mjs';
+import { PagerBeautyHttpNotFoundUiError } from '../ui-errors';
+import { OnCall } from '../../../models/OnCall.mjs';
 
 
 export class OnCallLoaderView extends React.Component {
@@ -21,7 +21,7 @@ export class OnCallLoaderView extends React.Component {
     fetch(`/v1/schedules/${this.props.scheduleId}.json`)
       .then((response) => {
         if (!response.ok) {
-            throw new PagerBeautyHttpNotFoundError(response.statusText);
+            throw new PagerBeautyHttpNotFoundUiError(response.statusText);
         }
 
         return response.json();
@@ -41,7 +41,7 @@ export class OnCallLoaderView extends React.Component {
       return <span>Loading...</span>;
     }
     if (error) {
-      if (error instanceof PagerBeautyHttpNotFoundError) {
+      if (error instanceof PagerBeautyHttpNotFoundUiError) {
         return <OnCallNotFoundView />;
       }
       return <span>Loading error: {error.message}</span>;
