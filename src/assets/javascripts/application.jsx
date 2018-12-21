@@ -3,17 +3,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { SchedulesList, Schedule } from './schedules';
+import { SchedulesListView } from './ScheduleViews';
+import { OnCallLoaderView } from './OnCallViews';
 
 // Render schedules list
 const schedulesListRoot = document.getElementById('schedules_list');
 if (schedulesListRoot) {
-  ReactDOM.render(<SchedulesList></SchedulesList>, schedulesListRoot);
+  ReactDOM.render(<SchedulesListView></SchedulesListView>, schedulesListRoot);
 }
 
 // Render individual schedules
-document.querySelectorAll('.schedule_root').forEach((schedule) => {
-  ReactDOM.render(<Schedule scheduleId={schedule.dataset.id}></Schedule>, schedule);
+document.querySelectorAll('.on_call_root').forEach((schedule) => {
+  ReactDOM.render(
+    <OnCallLoaderView scheduleId={schedule.dataset.id}></OnCallLoaderView>,
+    schedule
+  );
 })
 
 // Old-school refresh. To be replaced with React component states.
