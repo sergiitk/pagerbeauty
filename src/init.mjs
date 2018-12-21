@@ -13,7 +13,7 @@ import winston from 'winston';
  *
  * @return  The configured logger. To be used for logging during app init.
  */
-export function setupDefaultLogger({ env = 'development', level = 'info' }) {
+export function setupDefaultLogger({ level = 'info', logFormat = 'human' }) {
   const { format } = winston;
 
   const humanReadable = format.combine(
@@ -30,7 +30,7 @@ export function setupDefaultLogger({ env = 'development', level = 'info' }) {
 
   winston.configure({
     level,
-    format: env === 'production' ? machineReadable : humanReadable,
+    format: logFormat === 'machine' ? machineReadable : humanReadable,
     transports: [
       new winston.transports.Console({}),
     ],

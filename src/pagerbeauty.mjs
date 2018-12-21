@@ -11,9 +11,21 @@ import { setupDefaultLogger } from './init';
 // ------- Program -------------------------------------------------------------
 
 dotenv.config();
+
+// Human-readable logs by default.
+let logFormat = 'human';
+// Machine-readable logs on production.
+if (process.env.NODE_ENV === 'production') {
+  logFormat = 'machine';
+}
+// Or, force the override
+if (process.env.PAGERBEAUTY_LOG_FORMAT) {
+  logFormat = process.env.PAGERBEAUTY_LOG_FORMAT;
+}
+
 const logger = setupDefaultLogger({
-  env: process.env.NODE_ENV,
   level: process.env.PAGERBEAUTY_LOG_LEVEL,
+  logFormat,
 });
 
 // From environment
