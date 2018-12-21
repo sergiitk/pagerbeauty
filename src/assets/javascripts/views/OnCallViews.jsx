@@ -9,56 +9,39 @@ import React from 'react';
 import { PagerBeautyHttpNotFoundUiError } from '../ui-errors';
 import { OnCall } from '../../../models/OnCall.mjs';
 
-// ------- OnCallLoaderView ----------------------------------------------------
-
-export class OnCallLoaderView extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      onCall: {}
-    };
-  }
-
-  componentDidMount() {
-    // Todo: verify/sanitize scheduleId
-    fetch(`/v1/schedules/${this.props.scheduleId}.json`)
-      .then((response) => {
-        if (!response.ok) {
-            throw new PagerBeautyHttpNotFoundUiError(response.statusText);
-        }
-
-        return response.json();
-      })
-      .then((data) => {
-        const onCall = new OnCall(data);
-        this.setState({ isLoaded: true, onCall });
-      })
-      .catch((error) => {
-        this.setState({ isLoaded: true, error });
-      })
-  }
-
-  render() {
-    const { error, isLoaded, onCall } = this.state;
-    if (!isLoaded) {
-      return <span>Loading...</span>;
-    }
-    if (error) {
-      if (error instanceof PagerBeautyHttpNotFoundUiError) {
-        return <OnCallNotFoundView />;
-      }
-      return <span>Loading error: {error.message}</span>;
-    }
-
-    return <OnCallView onCall={onCall} />
-  }
-}
-
 // ------- OnCallView ----------------------------------------------------------
 
 export class OnCallView extends React.Component {
+  render() {
+    const { isLoaded, data, error } = this.props;
+
+    // Show "no one on call" when on errors
+    if (error instanceof PagerBeautyHttpNotFoundUiError) {
+      return <OnCallNotFoundView />;
+    }
+
+    // Handle cases prior to first successful data load.
+    if (!isLoaded) {
+      if (error) {
+        // Data hasn't been loaded even once, got an error.
+        return <span>Loading error: {error.message}</span>;
+      }
+      // Still loading.
+      return <span>Loading...</span>;
+    }
+
+    // Not first load and not 404:
+    // Ignore errors and show stale content after first successful data load.
+    // @todo: update report errors
+
+    const onCall = new OnCall(data);
+    return <OnCallViewFound onCall={onCall} />
+  }
+}
+
+// ------- OnCallViewFound -----------------------------------------------------
+
+export class OnCallViewFound extends React.Component {
   render() {
     const { onCall } = this.props;
     return <div className="schedule">

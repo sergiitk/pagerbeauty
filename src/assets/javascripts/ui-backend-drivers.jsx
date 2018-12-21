@@ -9,7 +9,11 @@ import { PagerBeautyHttpNotFoundUiError } from './ui-errors';
 // ------- withAjaxBackend -----------------------------------------------------
 
 // HOC
-export function withAjaxBackend(WrappedComponent, endpoint, pollIntervalSeconds=30) {
+export function withAjaxBackend({
+  WrappedComponent,
+  endpoint,
+  pollIntervalSeconds=30,
+}) {
   // Return wrapped component
   return class extends React.Component {
     constructor(props) {

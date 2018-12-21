@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 // ------- Internal imports ----------------------------------------------------
 
 import { SchedulesListView } from './views/ScheduleViews';
-import { OnCallLoaderView } from './views/OnCallViews';
+import { OnCallView } from './views/OnCallViews';
 import { withAjaxBackend } from './ui-backend-drivers';
 
 // ------- Program -------------------------------------------------------------
@@ -14,31 +14,28 @@ import { withAjaxBackend } from './ui-backend-drivers';
 // Render schedules list
 const schedulesListRoot = document.getElementById('schedules_list');
 if (schedulesListRoot) {
-  const SchedulesListWithBackend = withAjaxBackend(
-    SchedulesListView,
-    '/v1/schedules.json',
-    1
-  );
+  const SchedulesListWithBackend = withAjaxBackend({
+    WrappedComponent: SchedulesListView,
+    endpoint: '/v1/schedules.json',
+  });
 
-  ReactDOM.render(
-    <SchedulesListWithBackend></SchedulesListWithBackend>,
-    schedulesListRoot,
-  );
+  ReactDOM.render(<SchedulesListWithBackend />, schedulesListRoot);
 }
 
 // Render individual schedules
 document.querySelectorAll('.on_call_root').forEach((schedule) => {
-  ReactDOM.render(
-    <OnCallLoaderView scheduleId={schedule.dataset.id}></OnCallLoaderView>,
-    schedule
-  );
+  const OnCallWithBackend = withAjaxBackend({
+    WrappedComponent: OnCallView,
+    endpoint: `/v1/schedules/${schedule.dataset.id}.json`,
+  });
+  ReactDOM.render(<OnCallWithBackend />, schedule);
 })
 
-// // Old-school refresh. To be replaced with React component states.
-// window.onload = function() {
-//   window.setTimeout(function() {
-//     location.reload();
-//   }, 60000); // 1 minute
-// }
+// Old-school refresh. To be replaced with React component states.
+window.onload = function() {
+  window.setTimeout(function() {
+    location.reload();
+  }, 3600 * 24 * 1000); // 1 day
+}
 
 // ------- End -----------------------------------------------------------------
