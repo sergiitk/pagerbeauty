@@ -33,10 +33,10 @@ export class PagerBeautyApp {
     this.httpServer = false;
 
     // Init controllers mapping.
-    this.controllers = PagerBeautyApp.buildControllersRegistry();
+    this.controllers = PagerBeautyApp.initControllersRegistry();
 
-    // Configure web sever.
-    this.app = this.loadWebApp();
+    // Configure web app.
+    this.webApp = this.initWebApp();
   }
 
   // ------- Public API  -------------------------------------------------------
@@ -51,7 +51,7 @@ export class PagerBeautyApp {
     // HTTP Server
     let server;
     try {
-      server = await PagerBeautyApp.startHttpServerAsync(this.app.callback());
+      server = await PagerBeautyApp.startHttpServerAsync(this.webApp.callback());
     } catch (error) {
       if (error instanceof PagerBeautyHttpServerStartError) {
         this.stop(error.server);
@@ -73,7 +73,7 @@ export class PagerBeautyApp {
   // ------- Internal machinery  -----------------------------------------------
 
 
-  loadWebApp() {
+  initWebApp() {
     const app = new Koa();
 
     // @todo: Set app env?
@@ -144,7 +144,7 @@ export class PagerBeautyApp {
     }));
   }
 
-  static buildControllersRegistry() {
+  static initControllersRegistry() {
     const controllers = new Map();
     controllers.set('SchedulesController', new SchedulesController());
     return controllers;
