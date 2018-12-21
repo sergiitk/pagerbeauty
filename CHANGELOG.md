@@ -1,5 +1,12 @@
 # PagerBeauty Changelog
 
+# [0.2.0](https://github.com/sergiitk/pagerbeauty/compare/v0.1.1...v0.2.0) (2018-12-21)
+
+
+### Features
+
+- [54](https://github.com/sergiitk/pagerbeauty/pull/54) **core** Application logging
+
 ## [0.1.1](https://github.com/sergiitk/pagerbeauty/compare/v0.1.0...v0.1.1) (2018-12-19)
 
 
