@@ -31,7 +31,7 @@ document.querySelectorAll('.on_call_root').forEach((schedule) => {
   ReactDOM.render(<OnCallWithBackend />, schedule);
 })
 
-// Old-school refresh. To be replaced with React component states.
+// Hard page refresh every day to prevent memory leaks.
 window.onload = function() {
   window.setTimeout(function() {
     location.reload();
