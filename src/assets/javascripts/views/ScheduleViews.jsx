@@ -1,6 +1,10 @@
 'use strict';
 
+// ------- Imports -------------------------------------------------------------
+
 import React from 'react';
+
+// ------- SchedulesListView ---------------------------------------------------
 
 export class SchedulesListView extends React.Component {
   constructor(props) {
@@ -46,6 +50,8 @@ export class SchedulesListView extends React.Component {
   }
 }
 
+// ------- SchedulesListItemView -----------------------------------------------
+
 export class SchedulesListItemView extends React.Component {
   render() {
     const schedule = this.props.schedule;
@@ -57,3 +63,5 @@ export class SchedulesListItemView extends React.Component {
       </li>);
   }
 }
+
+// ------- End -----------------------------------------------------------------

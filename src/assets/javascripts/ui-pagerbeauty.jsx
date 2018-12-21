@@ -1,10 +1,16 @@
 /* eslint-disable */
 
+// ------- Imports -------------------------------------------------------------
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+// ------- Internal imports ----------------------------------------------------
+
 import { SchedulesListView } from './views/ScheduleViews';
 import { OnCallLoaderView } from './views/OnCallViews';
+
+// ------- Program -------------------------------------------------------------
 
 // Render schedules list
 const schedulesListRoot = document.getElementById('schedules_list');
@@ -26,3 +32,5 @@ window.onload = function() {
     location.reload();
   }, 60000); // 1 minute
 }
+
+// ------- End -----------------------------------------------------------------

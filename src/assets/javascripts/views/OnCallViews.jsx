@@ -1,10 +1,15 @@
 'use strict';
 
+// ------- Imports -------------------------------------------------------------
+
 import React from 'react';
+
+// ------- Internal imports ----------------------------------------------------
 
 import { PagerBeautyHttpNotFoundUiError } from '../ui-errors';
 import { OnCall } from '../../../models/OnCall.mjs';
 
+// ------- OnCallLoaderView ----------------------------------------------------
 
 export class OnCallLoaderView extends React.Component {
   constructor(props) {
@@ -51,6 +56,8 @@ export class OnCallLoaderView extends React.Component {
   }
 }
 
+// ------- OnCallView ----------------------------------------------------------
+
 export class OnCallView extends React.Component {
   render() {
     const { onCall } = this.props;
@@ -79,6 +86,8 @@ export class OnCallView extends React.Component {
   }
 }
 
+// ------- OnCallNotFoundView --------------------------------------------------
+
 export class OnCallNotFoundView extends React.Component {
   render() {
     return <div className="schedule not_found">
@@ -92,6 +101,7 @@ export class OnCallNotFoundView extends React.Component {
   }
 }
 
+// ------- OnCallDateTimeView --------------------------------------------------
 
 export class OnCallDateTimeView extends React.Component {
   render() {
@@ -108,3 +118,5 @@ export class OnCallDateTimeView extends React.Component {
     );
   }
 }
+
+// ------- End -----------------------------------------------------------------
