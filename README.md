@@ -41,8 +41,8 @@ PAGERBEAUTY_REFRESH_RATE_MINUTES=10
 
 # (Optional) Enable basic HTTP authentication
 # Note: embedding iframes with basic HTTP auth is not supported by all browsers.
-PAGERBEAUTY_HTTP_USER=basic_username
-PAGERBEAUTY_HTTP_PASSWORD=basic_password
+# PAGERBEAUTY_HTTP_USER=basic_username
+# PAGERBEAUTY_HTTP_PASSWORD=basic_password
 ```
 
 ## Add to DataDog dashboard
