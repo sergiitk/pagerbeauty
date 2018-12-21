@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 // ------- Imports -------------------------------------------------------------
 
 import React from 'react';
@@ -9,13 +7,22 @@ import ReactDOM from 'react-dom';
 
 import { SchedulesListView } from './views/ScheduleViews';
 import { OnCallLoaderView } from './views/OnCallViews';
+import { withAjaxBackend } from './ui-backend-drivers';
 
 // ------- Program -------------------------------------------------------------
 
 // Render schedules list
 const schedulesListRoot = document.getElementById('schedules_list');
 if (schedulesListRoot) {
-  ReactDOM.render(<SchedulesListView></SchedulesListView>, schedulesListRoot);
+  const SchedulesListWithBackend = withAjaxBackend(
+    SchedulesListView,
+    '/v1/schedules.json',
+  );
+
+  ReactDOM.render(
+    <SchedulesListWithBackend></SchedulesListWithBackend>,
+    schedulesListRoot,
+  );
 }
 
 // Render individual schedules
@@ -26,11 +33,11 @@ document.querySelectorAll('.on_call_root').forEach((schedule) => {
   );
 })
 
-// Old-school refresh. To be replaced with React component states.
-window.onload = function() {
-  window.setTimeout(function() {
-    location.reload();
-  }, 60000); // 1 minute
-}
+// // Old-school refresh. To be replaced with React component states.
+// window.onload = function() {
+//   window.setTimeout(function() {
+//     location.reload();
+//   }, 60000); // 1 minute
+// }
 
 // ------- End -----------------------------------------------------------------
