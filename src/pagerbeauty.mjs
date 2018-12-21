@@ -11,7 +11,10 @@ import { setupDefaultLogger } from './init';
 // ------- Program -------------------------------------------------------------
 
 dotenv.config();
-const logger = setupDefaultLogger();
+const logger = setupDefaultLogger({
+  env: process.env.NODE_ENV,
+  level: process.env.PAGERBEAUTY_LOG_LEVEL,
+});
 
 // From environment
 if (!process.env.PAGERBEAUTY_PD_API_KEY) {

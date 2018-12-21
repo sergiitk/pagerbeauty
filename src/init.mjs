@@ -13,7 +13,7 @@ import winston from 'winston';
  *
  * @return  The configured logger. To be used for logging during app init.
  */
-export function setupDefaultLogger(env = 'development', level = 'verbose') {
+export function setupDefaultLogger({ env = 'development', level = 'info' }) {
   const { format } = winston;
 
   const humanReadable = format.combine(
