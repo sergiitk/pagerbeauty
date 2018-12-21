@@ -5,6 +5,7 @@ import path from 'path';
 
 import auth from 'koa-basic-auth';
 import Koa from 'koa';
+import logger from 'winston';
 import mount from 'koa-mount';
 import nunjucks from 'nunjucks';
 import route from 'koa-route';
@@ -15,10 +16,11 @@ import views from 'koa-views';
 
 import { SchedulesController } from '../controllers/SchedulesController';
 import { redirect } from '../middleware/redirect';
+import { PagerBeautyHttpServerStartError } from '../errors';
 
 // ------- Class ---------------------------------------------------------------
 
-export class PagerBeautyWebApp {
+export class PagerBeautyApp {
   constructor(config) {
     // Attach Public API functions to object context.
     this.start = this.start.bind(this);
@@ -28,41 +30,50 @@ export class PagerBeautyWebApp {
     this.config = config;
 
     // Nothing running yet.
-    this.server = false;
+    this.httpServer = false;
 
     // Init controllers mapping.
-    this.controllers = this.loadControllers();
+    this.controllers = PagerBeautyApp.initControllersRegistry();
 
-    // Configure web sever.
-    this.app = this.loadWebApp();
+    // Configure web app.
+    this.webApp = this.initWebApp();
   }
 
   // ------- Public API  -------------------------------------------------------
 
   async start() {
-    await Promise.all(Object.values(this.controllers).map(c => c.init(this)));
+    const { config } = this;
+    logger.info(`Starting PagerBeauty v${config.version} in ${config.env} mode`);
 
+    // Controllers
+    await this.startControllers();
+
+    // HTTP Server
     let server;
     try {
-      server = await PagerBeautyWebApp.startWebServerAsync(this.app.callback());
+      server = await PagerBeautyApp.startHttpServerAsync(this.webApp.callback());
     } catch (error) {
-      // log error
+      if (error instanceof PagerBeautyHttpServerStartError) {
+        this.stop(error.server);
+      }
       return false;
     }
-
-    this.server = server;
+    this.httpServer = server;
     return true;
   }
 
-  async stop() {
-    await PagerBeautyWebApp.startWebStopAsync(this.server);
+  async stop(httpServer) {
+    logger.info('Graceful shut down');
+    await this.stopControllers();
+
+    await PagerBeautyApp.stopHttpServerAsync(httpServer || this.httpServer);
     return true;
   }
 
   // ------- Internal machinery  -----------------------------------------------
 
 
-  loadWebApp() {
+  initWebApp() {
     const app = new Koa();
 
     // @todo: Set app env?
@@ -99,7 +110,8 @@ export class PagerBeautyWebApp {
     }));
 
     // Custom Routes
-    const { schedulesController } = this.controllers;
+
+    const schedulesController = this.controllers.get('SchedulesController');
     // Redirects
     app.use(route.get('/', redirect('/v1')));
     app.use(route.get('/v1', redirect('/v1/schedules.html')));
@@ -116,39 +128,58 @@ export class PagerBeautyWebApp {
     return app;
   }
 
-  loadControllers() {
-    const controllers = {};
-    controllers.schedulesController = new SchedulesController(this);
+  async startControllers() {
+    const controllerEntries = Array.from(this.controllers.entries());
+    return Promise.all(controllerEntries.map(([name, controller]) => {
+      logger.debug(`Starting web controller ${name}`);
+      return controller.start(this);
+    }));
+  }
+
+  async stopControllers() {
+    const controllerEntries = Array.from(this.controllers.entries());
+    return Promise.all(controllerEntries.map(([name, controller]) => {
+      logger.debug(`Stopping web controller ${name}`);
+      return controller.stop(this);
+    }));
+  }
+
+  static initControllersRegistry() {
+    const controllers = new Map();
+    controllers.set('SchedulesController', new SchedulesController());
     return controllers;
   }
 
-  static startWebServerAsync(connectionListener) {
+  static startHttpServerAsync(connectionListener) {
     // Wrap HTTP server callbacks into a promise
     return new Promise((resolve, reject) => {
       // Start HTTP server
       const server = http.createServer(connectionListener);
       server.on('listening', () => {
-        // @todo logging
+        const address = server.address();
+        const readableUrl = `http://${address.address}:${address.port}`;
+        logger.info(`HTTP server is listening on ${readableUrl}`);
         resolve(server);
       });
       server.on('error', (error) => {
-        // @todo logging
-        reject(error);
+        logger.error(error.toString());
+        reject(new PagerBeautyHttpServerStartError(error.message, server));
       });
       server.listen({
         host: '0.0.0.0',
+        // @todo: make configurable.
         port: 8080,
       });
     });
   }
 
-  static startWebStopAsync(server) {
+  static stopHttpServerAsync(server) {
     // Wrap HTTP server callbacks into a promise
     return new Promise((resolve) => {
       server.close((error) => {
         if (error) {
-          // Already stopped
-          // @todo logging
+          // Already stopped.
+          logger.verbose(`HTTP server: graceful shut down error: ${error.message}`);
         }
         resolve();
       });

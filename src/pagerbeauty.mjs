@@ -4,19 +4,39 @@ import dotenv from 'dotenv';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { PagerBeautyWebApp } from './app/PagerBeautyWebApp';
+import { EXIT_CODES } from './errors';
+import { PagerBeautyApp } from './app/PagerBeautyApp';
+import { setupDefaultLogger } from './init';
 
 // ------- Program -------------------------------------------------------------
 
 dotenv.config();
 
+// Human-readable logs by default.
+let logFormat = 'human';
+// Machine-readable logs on production.
+if (process.env.NODE_ENV === 'production') {
+  logFormat = 'machine';
+}
+// Or, force the override
+if (process.env.PAGERBEAUTY_LOG_FORMAT) {
+  logFormat = process.env.PAGERBEAUTY_LOG_FORMAT;
+}
+
+const logger = setupDefaultLogger({
+  level: process.env.PAGERBEAUTY_LOG_LEVEL,
+  logFormat,
+});
+
 // From environment
 if (!process.env.PAGERBEAUTY_PD_API_KEY) {
-  throw Error('Pager Duty API key is required');
+  logger.error('Pager Duty API key is required');
+  process.exit(EXIT_CODES.get('insufficient_config'));
 }
 
 if (!process.env.PAGERBEAUTY_PD_SCHEDULES) {
-  throw Error('Pager Duty schedules list is required');
+  logger.error('Pager Duty schedules list is required');
+  process.exit(EXIT_CODES.get('insufficient_config'));
 }
 
 const config = {
@@ -33,9 +53,11 @@ const config = {
     pass: process.env.PAGERBEAUTY_HTTP_PASSWORD,
   },
   env: process.env.NODE_ENV || 'development',
+  version: process.env.npm_package_version || '0.0.0-dev',
 };
 
-const webApp = new PagerBeautyWebApp(config);
-webApp.start();
+
+const pagerBeautyApp = new PagerBeautyApp(config);
+pagerBeautyApp.start();
 
 // ------- End -----------------------------------------------------------------

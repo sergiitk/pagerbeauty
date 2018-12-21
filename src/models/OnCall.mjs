@@ -49,6 +49,10 @@ export class OnCall {
     };
   }
 
+  toString() {
+    return JSON.stringify(this.serialize());
+  }
+
   userAvatarSized(size = 2048) {
     const url = new URL(this.userAvatarURL);
     const searchParams = new URLSearchParams(url.searchParams);

@@ -1,5 +1,7 @@
 // ------- Imports -------------------------------------------------------------
 
+import logger from 'winston';
+
 // ------- Internal imports ----------------------------------------------------
 
 import { PagerBeautyInitError } from '../errors';
@@ -15,10 +17,10 @@ export class SchedulesController {
     this.show = this.show.bind(this);
     this.schedulesService = false;
     this.intervalId = false;
-    this.skipLock = false;
+    this.loadSchedulesSemaphore = true;
   }
 
-  async init(app) {
+  async start(app) {
     // Todo: move to it's own app thing
     const pagerDutyConfig = app.config.pagerDuty;
     const pagerDutyClient = new PagerDutyClient(
@@ -31,31 +33,41 @@ export class SchedulesController {
     await this.loadSchedules(schedules);
 
     // Set refresh.
-    const refreshRate = Number(pagerDutyConfig.schedules.refreshRate) * 60 * 1000;
-    if (Number.isNaN(refreshRate)) {
+    const refreshRateMinutes = Number(pagerDutyConfig.schedules.refreshRate);
+    if (Number.isNaN(refreshRateMinutes)) {
       throw new PagerBeautyInitError('Refresh rate is not a number');
     }
+
+    const refreshRateMS = refreshRateMinutes * 60 * 1000;
     this.intervalId = setInterval(() => {
+      logger.verbose(`Timer-initiated schedule refresh (every ${refreshRateMinutes}m)`);
       this.loadSchedules(schedules);
-    }, refreshRate);
+    }, refreshRateMS);
+  }
+
+  stop() {
+    clearInterval(this.intervalId);
   }
 
   async loadSchedules(pdSchedules) {
-    if (this.skipLock) {
-      // @todo: log
+    if (!this.loadSchedulesSemaphore) {
+      logger.warn(
+        'Attempting schedule refresh while the previous request is '
+        + 'still running. This should not normally happen. Try decreasing '
+        + 'schedule refresh rate',
+      );
       return false;
     }
-    // console.log(`Loading ${pdSchedules}`)
-    this.skipLock = true;
+
+    this.loadSchedulesSemaphore = false;
     let result = false;
     try {
       await this.schedulesService.load(pdSchedules);
-      // console.log(`Loaded ${pdSchedules}`)
       result = true;
     } catch (e) {
-      // Todo: log
+      // Do nothing
     }
-    this.skipLock = false;
+    this.loadSchedulesSemaphore = true;
 
     return result;
   }
