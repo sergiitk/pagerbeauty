@@ -16,7 +16,7 @@ import views from 'koa-views';
 
 import { SchedulesController } from '../controllers/SchedulesController';
 import { redirect } from '../middleware/redirect';
-import { PagerBeautyWebServerStartError } from '../errors';
+import { PagerBeautyHttpServerStartError } from '../errors';
 
 // ------- Class ---------------------------------------------------------------
 
@@ -30,7 +30,7 @@ export class PagerBeautyApp {
     this.config = config;
 
     // Nothing running yet.
-    this.server = false;
+    this.httpServer = false;
 
     // Init controllers mapping.
     this.controllers = PagerBeautyApp.buildControllersRegistry();
@@ -48,25 +48,25 @@ export class PagerBeautyApp {
     // Controllers
     await this.startControllers();
 
-    // Web Server
+    // HTTP Server
     let server;
     try {
-      server = await PagerBeautyApp.startWebServerAsync(this.app.callback());
+      server = await PagerBeautyApp.startHttpServerAsync(this.app.callback());
     } catch (error) {
-      if (error instanceof PagerBeautyWebServerStartError) {
+      if (error instanceof PagerBeautyHttpServerStartError) {
         this.stop(error.server);
       }
       return false;
     }
-    this.server = server;
+    this.httpServer = server;
     return true;
   }
 
-  async stop(server) {
+  async stop(httpServer) {
     logger.info('Graceful shut down');
-    const serverToStop = server || this.server;
     await this.stopControllers();
-    await PagerBeautyApp.stopWebServerAsync(serverToStop);
+
+    await PagerBeautyApp.stopHttpServerAsync(httpServer || this.httpServer);
     return true;
   }
 
@@ -150,7 +150,7 @@ export class PagerBeautyApp {
     return controllers;
   }
 
-  static startWebServerAsync(connectionListener) {
+  static startHttpServerAsync(connectionListener) {
     // Wrap HTTP server callbacks into a promise
     return new Promise((resolve, reject) => {
       // Start HTTP server
@@ -163,7 +163,7 @@ export class PagerBeautyApp {
       });
       server.on('error', (error) => {
         logger.error(error.toString());
-        reject(new PagerBeautyWebServerStartError(error.message, server));
+        reject(new PagerBeautyHttpServerStartError(error.message, server));
       });
       server.listen({
         host: '0.0.0.0',
@@ -173,7 +173,7 @@ export class PagerBeautyApp {
     });
   }
 
-  static stopWebServerAsync(server) {
+  static stopHttpServerAsync(server) {
     // Wrap HTTP server callbacks into a promise
     return new Promise((resolve) => {
       server.close((error) => {

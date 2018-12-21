@@ -28,13 +28,13 @@ export class PagerBeautyError extends Error {
 export class PagerBeautyInitError extends PagerBeautyError {}
 
 
-export class PagerBeautyWebServerStartError extends PagerBeautyError {
+export class PagerBeautyHttpServerStartError extends PagerBeautyError {
   /**
-   * Can't start web server.
+   * Can't start HTTP server.
    *
    * @param  {Error} message
    *   The message with the error that prevented server from starting
-   * @param  {http.Server} server Failing web server
+   * @param  {http.Server} server Failing HTTP server
    */
   constructor(message, server) {
     super(message);
