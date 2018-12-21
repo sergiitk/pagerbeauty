@@ -20,7 +20,7 @@ import { PagerBeautyWebServerStartError } from '../errors';
 
 // ------- Class ---------------------------------------------------------------
 
-export class PagerBeautyWebApp {
+export class PagerBeautyApp {
   constructor(config) {
     // Attach Public API functions to object context.
     this.start = this.start.bind(this);
@@ -33,7 +33,7 @@ export class PagerBeautyWebApp {
     this.server = false;
 
     // Init controllers mapping.
-    this.controllers = PagerBeautyWebApp.buildControllersRegistry();
+    this.controllers = PagerBeautyApp.buildControllersRegistry();
 
     // Configure web sever.
     this.app = this.loadWebApp();
@@ -51,7 +51,7 @@ export class PagerBeautyWebApp {
     // Web Server
     let server;
     try {
-      server = await PagerBeautyWebApp.startWebServerAsync(this.app.callback());
+      server = await PagerBeautyApp.startWebServerAsync(this.app.callback());
     } catch (error) {
       if (error instanceof PagerBeautyWebServerStartError) {
         this.stop(error.server);
@@ -66,7 +66,7 @@ export class PagerBeautyWebApp {
     logger.info('Graceful shut down');
     const serverToStop = server || this.server;
     await this.stopControllers();
-    await PagerBeautyWebApp.stopWebServerAsync(serverToStop);
+    await PagerBeautyApp.stopWebServerAsync(serverToStop);
     return true;
   }
 

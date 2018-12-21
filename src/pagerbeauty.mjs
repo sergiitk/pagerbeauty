@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 // ------- Internal imports ----------------------------------------------------
 
 import { EXIT_CODES } from './errors';
-import { PagerBeautyWebApp } from './app/PagerBeautyWebApp';
+import { PagerBeautyApp } from './app/PagerBeautyApp';
 import { setupDefaultLogger } from './init';
 
 // ------- Program -------------------------------------------------------------
@@ -42,7 +42,7 @@ const config = {
 };
 
 
-const webApp = new PagerBeautyWebApp(config);
-webApp.start();
+const pagerBeautyApp = new PagerBeautyApp(config);
+pagerBeautyApp.start();
 
 // ------- End -----------------------------------------------------------------
