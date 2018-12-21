@@ -14,58 +14,82 @@ export function withAjaxBackend(WrappedComponent, endpoint, pollIntervalSeconds=
   return class extends React.Component {
     constructor(props) {
       super(props);
-      // this.handleChange = this.handleChange.bind(this);
       this.state = {
-        isLoading: true,
+        // Initial data is loaded successful
+        isLoaded: false,
+        // Fetching is in progress
+        isFetching: false,
         data: null,
         error: null,
       };
       this.intervalId = false;
     }
 
-    componentDidMount() {
+    async componentDidMount() {
       // First load
-      this.loadData(endpoint);
+      await this.poll(endpoint);
 
       // And start polling every pollIntervalSeconds;
       const pollIntervalMs = pollIntervalSeconds * 1000;
-      this.intervalId = setInterval(() => {
-        this.loadData(endpoint);
-      }, pollIntervalMs);
+      this.intervalId = setInterval(() => this.poll(endpoint), pollIntervalMs);
     }
 
     componentWillUnmount() {
       clearInterval(this.intervalId);
     }
 
-    loadData() {
-      fetch(endpoint)
-        .then((response) => {
-          if (!response.ok) {
-              throw new PagerBeautyHttpNotFoundUiError(response.statusText);
-          }
-          return response.json();
-        })
-        .then((data) => {
-          this.setState({ isLoading: false, error: null, data });
-        })
-        .catch((error) => {
-          this.setState({ isLoading: false, error });
-        })
+    async poll(endpoint) {
+      if (this.state.isFetching) {
+        // Another fetch is in progress, so skip this one.
+        return false;
+      }
+      // Indicate start fetching
+      this.setState({ isFetching: true });
+
+      try {
+        const data = await this.fetchData(endpoint);
+
+        // Got data, update state.
+        this.setState({
+          // First data load is complete
+          isLoaded: true,
+          // No longer fetching
+          isFetching: false,
+          // Data is loaded successfully, therefore reset errors
+          error: null,
+          data,
+        });
+      } catch (error) {
+        // Got error, update state
+        this.setState({
+          // No longer fetching
+          isFetching: false,
+          // Got error. However, data is not update
+          // in case a view still wants to show it.
+          error,
+        });
+      }
+    }
+
+    async fetchData(endpoint) {
+      const response = await fetch(endpoint);
+      if (!response.ok) {
+          throw new PagerBeautyHttpNotFoundUiError(response.statusText);
+      }
+      return response.json();
     }
 
     render() {
-      const { error, isLoading, data } = this.state;
-
-      if (isLoading) {
-        return <WrappedComponent isLoading={isLoading} {...this.props} />;
-      }
-
-      if (error) {
-        return <WrappedComponent error={error} {...this.props} />;
-      }
-
-      return <WrappedComponent data={data} {...this.props} />;
+      const { isLoaded, isFetching, data, error } = this.state;
+      return (
+        <WrappedComponent
+          isLoaded={isLoaded}
+          isFetching={isFetching}
+          data={data}
+          error={error}
+          {...this.props}
+        />
+      );
     }
   };
 }

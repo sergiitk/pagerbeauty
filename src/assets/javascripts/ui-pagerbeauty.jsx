@@ -17,6 +17,7 @@ if (schedulesListRoot) {
   const SchedulesListWithBackend = withAjaxBackend(
     SchedulesListView,
     '/v1/schedules.json',
+    1
   );
 
   ReactDOM.render(

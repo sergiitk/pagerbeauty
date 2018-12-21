@@ -12,7 +12,7 @@ module.exports = {
       chunkFilename: '[id].css',
     }),
   ],
-  entry: './src/assets/javascripts/webpack-entry.js',
+  entry: ['babel-polyfill', './src/assets/javascripts/webpack-entry.js'],
   output: {
     path: `${__dirname}/assets/dist`,
     // publicPath: '/assets',

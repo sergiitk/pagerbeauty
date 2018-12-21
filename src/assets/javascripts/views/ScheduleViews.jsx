@@ -8,14 +8,19 @@ import React from 'react';
 
 export class SchedulesListView extends React.Component {
   render() {
-    const { data, error, isLoading } = this.props;
-    if (isLoading) {
+    const { isLoaded, data, error } = this.props;
+
+    // Handle cases prior to first successful data load.
+    if (!isLoaded) {
+      if (error) {
+        // Data hasn't been loaded even once, got an error.
+        return <span>Loading error: {error.message}</span>;
+      }
+      // Still loading.
       return <span>Loading...</span>;
     }
-    if (error) {
-      return <span>Loading error: {error.message}</span>;
-    }
 
+    // Ignore errors and show stale content after first successful data load.
     const schedulesListItems = data.map((schedule) =>
       <SchedulesListItemView key={schedule.scheduleId} schedule={schedule} />
     );
