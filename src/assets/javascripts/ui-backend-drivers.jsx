@@ -4,7 +4,7 @@ import React from 'react';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { PagerBeautyHttpNotFoundUiError } from './ui-errors';
+import { PagerBeautyFetchNotFoundUiError, PagerBeautyFetchUiError } from './ui-errors';
 
 // ------- withAjaxBackend -----------------------------------------------------
 
@@ -14,8 +14,8 @@ export function withAjaxBackend({
   endpoint,
   pollIntervalSeconds=30,
 }) {
-  // Return wrapped component
-  return class extends React.Component {
+  // AJAX backend driver
+  class WithAjaxBackend extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -39,7 +39,9 @@ export function withAjaxBackend({
     }
 
     componentWillUnmount() {
-      clearInterval(this.intervalId);
+      if (this.intervalId) {
+        clearInterval(this.intervalId);
+      }
     }
 
     async poll(endpoint) {
@@ -78,7 +80,17 @@ export function withAjaxBackend({
     async fetchData(endpoint) {
       const response = await fetch(endpoint);
       if (!response.ok) {
-          throw new PagerBeautyHttpNotFoundUiError(response.statusText);
+        if (response.status === 404) {
+          throw new PagerBeautyFetchNotFoundUiError(
+            response.status,
+            response.statusText,
+          );
+        } else {
+          throw new PagerBeautyFetchUiError(
+            response.status,
+            response.statusText,
+          );
+        }
       }
       return response.json();
     }
@@ -96,6 +108,21 @@ export function withAjaxBackend({
       );
     }
   };
+
+  // Convention: Wrap the Display Name for Easy Debugging
+  // See https://reactjs.org/docs/higher-order-components.html
+  const displayName = getDisplayName(WrappedComponent);
+  WithAjaxBackend.displayName = `WithAjaxBackend(${displayName})`;
+  return WithAjaxBackend;
+}
+
+/**
+ * HOC wrapped class display name helper
+ *
+ * See https://reactjs.org/docs/higher-order-components.html
+ */
+function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 }
 
 // ------- End -----------------------------------------------------------------

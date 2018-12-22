@@ -1,3 +1,4 @@
+// Variables
 $yellow: #fecb2e;
 $green: #25c151;
 $textBlack: #454545;
@@ -5,8 +6,46 @@ $textWhite: white;
 $borderDark: #343434;
 $scheduleRowDefaultPadding: 1vw;
 
+// Reconsider?
+$statusError: #C9404D;
+$statusWarning: #FFC182;
+$statusSuccess: #94E185;
+
+// Animation
+@keyframes fadeIn {
+  from { opacity: 0; }
+}
+
+// Styles
 body {
   font-family: 'Roboto Mono', monospace;
+}
+
+.status_indicator {
+  display: block;
+
+  &.blink-slow {
+    animation: fadeIn 1s infinite alternate;
+  }
+
+  &.blink-fast {
+    animation: fadeIn 0.5s infinite alternate;
+  }
+
+  &:before {
+    content: ' ';
+    display: inline-block;
+    border: 1px solid #000;
+  }
+
+  @mixin status($color) {
+    background-color: $color;
+    border-color: $color;
+    box-shadow: 0px 0px 3px 1px $color;
+  }
+  &.error:before { @include status($statusError); }
+  &.warning:before { @include status($statusWarning); }
+  &.success:before { @include status($statusSuccess); }
 }
 
 a {
@@ -24,9 +63,8 @@ a {
   color: $textBlack;
   margin: 2.5vw;
 
+  $row_size: 2vw;
   .schedule_row {
-    display: flex;
-    justify-content: space-around;
     border-bottom: 1px solid $green;
     padding: $scheduleRowDefaultPadding;
     text-align: center;
@@ -35,7 +73,6 @@ a {
       background-color: $green;
       color: $textWhite;
 
-      $row_size: 2vw;
       font-size: $row_size;
       min-height: $row_size;
 
@@ -47,6 +84,33 @@ a {
       @media (max-width: 500px) {
         font-size: $row_size + 2;
         min-height: $row_size + 2;
+      }
+    }
+
+    &.equal_spacing {
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+
+  @mixin statusSize($size) {
+    width: $size;
+    height: $size;
+    border-radius: $size;
+  }
+  .status_indicator {
+    float: right;
+    margin-top: 0.5;
+
+    &:before {
+      $status_size: $row_size - 0.5;
+      @include statusSize($status_size);
+
+      @media (max-width: 1000px) {
+        @include statusSize($status_size + 1);
+      }
+      @media (max-width: 500px) {
+        @include statusSize($status_size + 2);
       }
     }
   }
@@ -98,7 +162,7 @@ a {
     &.filled_row { background-color: $yellow; }
   }
 
-  .error {
+  .user_name.error {
     padding: $scheduleRowDefaultPadding;
   }
 
