@@ -30,7 +30,7 @@ jobs:
 
   # Docker
   docker-image:
-    machine: true:
+    machine: true
     steps:
       - checkout
       # Restore assets
