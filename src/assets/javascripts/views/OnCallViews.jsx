@@ -67,20 +67,20 @@ export class OnCallView extends React.Component {
         { /* Dates */ }
         <OnCallScheduleRowView filled equalSpacing>
           {onCall &&
-            <React.Fragment>
+            [
               <OnCallDateRowView
                 className="date_start"
                 label="From"
                 date={onCall.dateStart}
                 timezone={onCall.scheduleTimezone}
-              />
+              />,
               <OnCallDateRowView
                 className="date_end"
                 label="To"
                 date={onCall.dateEnd}
                 timezone={onCall.scheduleTimezone}
-              />
-            </React.Fragment>
+              />,
+            ]
           }
         </OnCallScheduleRowView>
 
@@ -138,8 +138,6 @@ export class OnCallStatusIndicatorView extends React.Component {
   componentDidUpdate(prevProps) {
     // Blink for next 3 seconds when swithcing state
     const { isFetching } = this.props;
-    const { isBlinking } = this.state;
-
     if (!prevProps.isFetching && this.props.isFetching) {
       this.registerBlink();
     }
