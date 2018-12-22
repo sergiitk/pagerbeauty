@@ -1,5 +1,17 @@
 # PagerBeauty Changelog
 
+# [0.3.0](https://github.com/sergiitk/pagerbeauty/compare/v0.2.0...v0.3.0) (2018-12-22)
+
+
+### Cleanup
+
+- [60](https://github.com/sergiitk/pagerbeauty/pull/60) **ui** Lint UI assets
+
+### Features
+
+- [59](https://github.com/sergiitk/pagerbeauty/pull/59) **ui** Add status indicator to on-call
+- [58](https://github.com/sergiitk/pagerbeauty/pull/58) **ui** Replace hard page refresh with AJAX Long Polling
+
 # [0.2.0](https://github.com/sergiitk/pagerbeauty/compare/v0.1.1...v0.2.0) (2018-12-21)
 
 
