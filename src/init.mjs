@@ -32,7 +32,8 @@ export function setupDefaultLogger({ level = 'info', logFormat = 'human' }) {
     level,
     format: logFormat === 'machine' ? machineReadable : humanReadable,
     transports: [
-      new winston.transports.Console({}),
+      // Unix FTW.
+      new winston.transports.Console({ eol: '\n' }),
     ],
   });
   winston.debug('Configured logger');

@@ -3,6 +3,7 @@ services:
 
   pagerbeauty:
     build: .
+    image: "sergiitk/pagerbeauty"
     command: ["yarn", "app:watch"]
     ports:
       - "8080:8080"

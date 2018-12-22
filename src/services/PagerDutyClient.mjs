@@ -1,5 +1,4 @@
 // ------- Imports -------------------------------------------------------------
-
 import { URL, URLSearchParams } from 'url';
 
 import fetch from 'node-fetch';

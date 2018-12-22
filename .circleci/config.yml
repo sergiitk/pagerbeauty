@@ -28,6 +28,45 @@ jobs:
             - 'assets/dist-prod/bundle.css'
             - 'assets/dist-prod/bundle.js'
 
+  # Docker
+  docker-image:
+    machine: true
+    steps:
+      - checkout
+      # Restore assets
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Restore assets
+          command: cp -rv /tmp/workspace/assets/dist-prod assets
+      # build the application image
+      - run:
+          name: Build docker image
+          command: docker build -t sergiitk/pagerbeauty:dev-$CIRCLE_SHA1 .
+      # build the application image
+      - run:
+          name: "Start PagerBeauty"
+          command: >
+            docker run -d -t --name=pagerbeauty -p 8080:8080
+            -e PAGERBEAUTY_PD_API_KEY
+            -e PAGERBEAUTY_PD_SCHEDULES
+            -e PAGERBEAUTY_REFRESH_RATE_MINUTES
+            -e PAGERBEAUTY_LOG_LEVEL
+            -e PAGERBEAUTY_LOG_FORMAT
+            sergiitk/pagerbeauty:dev-$CIRCLE_SHA1
+      - run:
+          name: "Wait for container and show logs"
+          command: |
+            sleep 2
+            docker logs pagerbeauty
+      - run:
+          name: "Ensure basic sanity"
+          command: |
+            docker run --rm --network container:pagerbeauty appropriate/curl -vs --retry 10 --retry-connrefused http://localhost:8080/v1/schedules.json
+            docker run --rm --network container:pagerbeauty appropriate/curl -vs --output /dev/null --retry 10 --retry-connrefused http://localhost:8080/assets/dist-prod/bundle.js
+            docker run --rm --network container:pagerbeauty appropriate/curl -vs --output /dev/null --retry 10 --retry-connrefused http://localhost:8080/assets/dist-prod/bundle.css
+            docker rm -f pagerbeauty
+
   # Lint
   lint:
     docker:
@@ -38,8 +77,18 @@ jobs:
       - restore_cache:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run:
-          name: Lint
-          command: yarn lint
+          name: Create temp folders
+          command: mkdir -p /tmp/pb/test-results/eslint
+      - run:
+          name: Lint in JUnit XML format
+          command: >
+            yarn eslint --cache --cache-location=/tmp/pb/
+            -f junit --output-file=/tmp/pb/test-results/eslint/results.xml . || true
+      - run:
+          name: Human readable report
+          command: yarn eslint --cache --cache-location=/tmp/pb/ -f table .
+      - store_test_results:
+          path: /tmp/pb/test-results
 
   # Test
   test:
@@ -80,6 +129,9 @@ workflows:
   build-test-release:
     jobs:
       - build
+      - docker-image:
+          requires:
+            - build
       - lint:
           requires:
             - build
@@ -90,3 +142,4 @@ workflows:
           requires:
             - lint
             - test
+            - docker-image
