@@ -123,12 +123,13 @@ export class OnCallScheduleRowView extends React.Component {
 OnCallScheduleRowView.propTypes = {
   equalSpacing: PropTypes.bool,
   filled: PropTypes.bool,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 OnCallScheduleRowView.defaultProps = {
   equalSpacing: false,
   filled: false,
+  children: null,
 };
 
 // ------- OnCallStatusIndicatorView -------------------------------------------
