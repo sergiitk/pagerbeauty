@@ -40,7 +40,9 @@ jobs:
           name: Restore assets
           command: cp -rv /tmp/workspace/assets/dist-prod assets
       # build the application image
-      - run: docker build -t sergiitk/pagerbeauty:dev-$CIRCLE_SHA1 .
+      - run:
+          name: Build docker image
+          command: docker build -t sergiitk/pagerbeauty:dev-$CIRCLE_SHA1 .
 
   # Lint
   lint:
