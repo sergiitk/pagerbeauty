@@ -11,8 +11,3 @@ services:
       - .env
     volumes:
       - .:/usr/src/app/
-
-  sut:
-    build:
-      context: .
-      dockerfile: ./Dockerfile-test
