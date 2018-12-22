@@ -1,5 +1,3 @@
-'use strict';
-
 // ------- Imports -------------------------------------------------------------
 
 import React from 'react';
@@ -14,16 +12,17 @@ export class SchedulesListView extends React.Component {
     if (!isLoaded) {
       if (error) {
         // Data hasn't been loaded even once, got an error.
-        return <span>Loading error: {error.message}</span>;
+        return <span>{`Loading error: ${error.message}`}</span>;
       }
       // Still loading.
       return <span>Loading...</span>;
     }
 
     // Ignore errors and show stale content after first successful data load.
-    const schedulesListItems = data.map((schedule) =>
-      <SchedulesListItemView key={schedule.scheduleId} schedule={schedule} />
-    );
+    const schedulesListItems = data.map((schedule) => {
+      const item = <SchedulesListItemView key={schedule.scheduleId} schedule={schedule} />;
+      return item;
+    });
 
     return <ul>{schedulesListItems}</ul>;
   }
@@ -33,7 +32,7 @@ export class SchedulesListView extends React.Component {
 
 export class SchedulesListItemView extends React.Component {
   render() {
-    const schedule = this.props.schedule;
+    const { schedule } = this.props;
     return (
       <li>
         <a href={`/v1/schedules/${schedule.scheduleId}.html`}>

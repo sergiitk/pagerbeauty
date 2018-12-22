@@ -16,7 +16,7 @@
     "test:unit": "NODE_ENV=test ava test/unit",
     "test:integration": "NODE_ENV=test ava test/integration",
     "test:full": "npm run test:unit && npm run test:integration",
-    "lint": "eslint --ext .js --ext .mjs --ext .jsx .",
+    "lint": "eslint --ext .js --ext .mjs --ext .jsx -f unix .",
     "build": "webpack --config webpack.dev.js",
     "build:watch": "webpack --watch --config webpack.dev.js",
     "build:prod": "NODE_ENV=production webpack --config webpack.prod.js",

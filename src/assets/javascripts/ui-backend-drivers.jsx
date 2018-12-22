@@ -6,16 +6,45 @@ import React from 'react';
 
 import { PagerBeautyFetchNotFoundUiError, PagerBeautyFetchUiError } from './ui-errors';
 
+// ------- getDisplayName -----------------------------------------------------
+
+/**
+ * HOC wrapped class display name helper
+ *
+ * See https://reactjs.org/docs/higher-order-components.html
+ */
+function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+}
+
 // ------- withAjaxBackend -----------------------------------------------------
 
 // HOC
 export function withAjaxBackend({
   WrappedComponent,
   endpoint,
-  pollIntervalSeconds=30,
+  pollIntervalSeconds = 30,
 }) {
   // AJAX backend driver
   class WithAjaxBackend extends React.Component {
+    static async fetchData(url) {
+      const response = await fetch(url);
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new PagerBeautyFetchNotFoundUiError(
+            response.status,
+            response.statusText,
+          );
+        } else {
+          throw new PagerBeautyFetchUiError(
+            response.status,
+            response.statusText,
+          );
+        }
+      }
+      return response.json();
+    }
+
     constructor(props) {
       super(props);
       this.state = {
@@ -44,8 +73,9 @@ export function withAjaxBackend({
       }
     }
 
-    async poll(endpoint) {
-      if (this.state.isFetching) {
+    async poll(url) {
+      const { isFetching } = this.state;
+      if (isFetching) {
         // Another fetch is in progress, so skip this one.
         return false;
       }
@@ -53,7 +83,7 @@ export function withAjaxBackend({
       this.setState({ isFetching: true });
 
       try {
-        const data = await this.fetchData(endpoint);
+        const data = await WithAjaxBackend.fetchData(url);
 
         // Got data, update state.
         this.setState({
@@ -75,24 +105,7 @@ export function withAjaxBackend({
           error,
         });
       }
-    }
-
-    async fetchData(endpoint) {
-      const response = await fetch(endpoint);
-      if (!response.ok) {
-        if (response.status === 404) {
-          throw new PagerBeautyFetchNotFoundUiError(
-            response.status,
-            response.statusText,
-          );
-        } else {
-          throw new PagerBeautyFetchUiError(
-            response.status,
-            response.statusText,
-          );
-        }
-      }
-      return response.json();
+      return true;
     }
 
     render() {
@@ -107,22 +120,13 @@ export function withAjaxBackend({
         />
       );
     }
-  };
+  }
 
   // Convention: Wrap the Display Name for Easy Debugging
   // See https://reactjs.org/docs/higher-order-components.html
   const displayName = getDisplayName(WrappedComponent);
   WithAjaxBackend.displayName = `WithAjaxBackend(${displayName})`;
   return WithAjaxBackend;
-}
-
-/**
- * HOC wrapped class display name helper
- *
- * See https://reactjs.org/docs/higher-order-components.html
- */
-function getDisplayName(WrappedComponent) {
-  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 }
 
 // ------- End -----------------------------------------------------------------

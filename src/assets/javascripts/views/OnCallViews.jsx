@@ -1,5 +1,3 @@
-'use strict';
-
 // ------- Imports -------------------------------------------------------------
 
 import React from 'react';
@@ -22,7 +20,7 @@ export class OnCallView extends React.Component {
     if (!isLoaded && !is404) {
       if (error) {
         // Data hasn't been loaded even once, got an error.
-        return <span>Loading error: {error.message}</span>;
+        return <span>{`Loading error: ${error.message}`}</span>;
       }
       // Still loading.
       return <span>Loading...</span>;
@@ -45,7 +43,7 @@ export class OnCallView extends React.Component {
     }
 
     return (
-      <div className={'schedule ' + (is404 ? 'not_found' : '')}>
+      <div className={`schedule ${is404 ? 'not_found' : ''}`}>
         { /* Header */ }
         <OnCallScheduleRowView filled>
           <span>ON CALL</span>
@@ -53,11 +51,11 @@ export class OnCallView extends React.Component {
         </OnCallScheduleRowView>
 
         { /* Schedule name */ }
-        {onCall &&
+        {onCall && (
           <OnCallScheduleRowView>
             <a href={onCall.scheduleURL} className="schedule_name">{onCall.scheduleName}</a>
           </OnCallScheduleRowView>
-        }
+        )}
 
         { /* User info */ }
         <OnCallScheduleRowView equalSpacing>
@@ -66,27 +64,27 @@ export class OnCallView extends React.Component {
 
         { /* Dates */ }
         <OnCallScheduleRowView filled equalSpacing>
-          {onCall &&
-            [
+          {onCall && (
+            <React.Fragment>
               <OnCallDateRowView
                 className="date_start"
                 label="From"
                 date={onCall.dateStart}
                 timezone={onCall.scheduleTimezone}
-              />,
+              />
               <OnCallDateRowView
                 className="date_end"
                 label="To"
                 date={onCall.dateEnd}
                 timezone={onCall.scheduleTimezone}
-              />,
-            ]
-          }
+              />
+            </React.Fragment>
+          )}
         </OnCallScheduleRowView>
 
         { /* End */ }
       </div>
-    )
+    );
   }
 }
 
@@ -117,6 +115,14 @@ export class OnCallStatusIndicatorView extends React.Component {
     this.timeoutId = false;
   }
 
+  componentDidUpdate(prevProps) {
+    // Blink for next 3 seconds when swithcing state
+    const { isFetching } = this.props;
+    if (!prevProps.isFetching && isFetching) {
+      this.registerBlink();
+    }
+  }
+
   componentWillUnmount() {
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
@@ -129,22 +135,14 @@ export class OnCallStatusIndicatorView extends React.Component {
     if (isBlinking) {
       return;
     }
-    this.setState({ isBlinking: true })
+    this.setState({ isBlinking: true });
     this.timeoutId = setTimeout(() => {
-      this.setState({ isBlinking: false })
+      this.setState({ isBlinking: false });
     }, 2000);
   }
 
-  componentDidUpdate(prevProps) {
-    // Blink for next 3 seconds when swithcing state
-    const { isFetching } = this.props;
-    if (!prevProps.isFetching && this.props.isFetching) {
-      this.registerBlink();
-    }
-  }
-
   render() {
-    const { error, isFetching } = this.props;
+    const { error } = this.props;
     const { isBlinking } = this.state;
 
     let type = 'success';
@@ -171,7 +169,7 @@ export class OnCallStatusIndicatorView extends React.Component {
       title = error.toString();
     }
 
-    return <StatusIndicatorView type={type} blink={blink} title={title} />
+    return <StatusIndicatorView type={type} blink={blink} title={title} />;
   }
 }
 
@@ -184,20 +182,20 @@ export class OnCallUserInfoView extends React.Component {
       <React.Fragment>
         <div className="user_avatar">
           {userInfo ? (
-             <a href={userInfo.url}><img src={userInfo.avatar} /></a>
-           ) : (
-             <img src="https://www.gravatar.com/avatar/0?s=2048&amp;d=mp" />
-           )}
+            <a href={userInfo.url}><img src={userInfo.avatar} alt={userInfo.name} /></a>
+          ) : (
+            <img src="https://www.gravatar.com/avatar/0?s=2048&amp;d=mp" alt="Generic avatar" />
+          )}
         </div>
-        <div className={'user_name ' + (!userInfo ? 'error' : '')}>
+        <div className={`user_name ${!userInfo ? 'error' : ''}`}>
           {userInfo ? (
-             <a href={userInfo.url}>{userInfo.name}</a>
-           ) : (
-             "No one is on call"
-           )}
+            <a href={userInfo.url}>{userInfo.name}</a>
+          ) : (
+            'No one is on call'
+          )}
         </div>
       </React.Fragment>
-    )
+    );
   }
 }
 
@@ -205,11 +203,11 @@ export class OnCallUserInfoView extends React.Component {
 
 export class OnCallDateRowView extends React.Component {
   render() {
-    const { date, timezone, className, children, label } = this.props;
+    const { date, timezone, className, label } = this.props;
 
     return (
       <div className={`date ${className}`}>
-        <span>{label}: </span>
+        <span>{`${label}: `}</span>
         <OnCallDateTimeView date={date} timezone={timezone} />
       </div>
     );
@@ -226,8 +224,8 @@ export class OnCallDateTimeView extends React.Component {
     }
     return (
       <React.Fragment>
-        <span className="date_weekday">{date.format('dddd')}, </span>
-        <span className="date_date">{date.format('MMM DD')} </span>
+        <span className="date_weekday">{`${date.format('dddd')}, `}</span>
+        <span className="date_date">{`${date.format('MMM DD')} `}</span>
         <span className="date_time">{date.format('LT')}</span>
       </React.Fragment>
     );

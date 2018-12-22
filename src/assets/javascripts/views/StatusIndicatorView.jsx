@@ -1,10 +1,8 @@
-'use strict';
-
 // ------- Imports -------------------------------------------------------------
 
 import React from 'react';
 
-// ------- StatusIndicatorView ----------------------------------------------------------
+// ------- StatusIndicatorView -------------------------------------------------
 
 export class StatusIndicatorView extends React.Component {
   render() {
@@ -13,11 +11,11 @@ export class StatusIndicatorView extends React.Component {
     const { type, blink, title } = this.props;
 
     const classes = ['status_indicator'];
-    classes.push(type ? type : 'success');
+    classes.push(type || 'success');
     if (blink) {
       classes.push(`blink-${blink}`);
     }
-    return <span className={classes.join(' ')} title={title}></span>
+    return <span className={classes.join(' ')} title={title} />;
   }
 }
 
