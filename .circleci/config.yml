@@ -63,8 +63,8 @@ jobs:
           name: "Ensure basic sanity"
           command: |
             docker run --rm --network container:pagerbeauty appropriate/curl -vs --retry 10 --retry-connrefused http://localhost:8080/v1/schedules.json
-            docker run --rm --network container:pagerbeauty appropriate/curl -vs --retry 10 --retry-connrefused http://localhost:8080/assets/dist-prod/bundle.js
-            docker run --rm --network container:pagerbeauty appropriate/curl -vs --retry 10 --retry-connrefused http://localhost:8080/assets/dist-prod/bundle.css
+            docker run --rm --network container:pagerbeauty appropriate/curl -vs --output /dev/null --retry 10 --retry-connrefused http://localhost:8080/assets/dist-prod/bundle.js
+            docker run --rm --network container:pagerbeauty appropriate/curl -vs --output /dev/null --retry 10 --retry-connrefused http://localhost:8080/assets/dist-prod/bundle.css
             docker rm -f pagerbeauty
 
   # Lint
