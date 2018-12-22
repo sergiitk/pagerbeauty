@@ -46,7 +46,7 @@ jobs:
       # build the application image
       - run:
           name: "Start PagerBeauty"
-          command: >-
+          command: >
             docker run -d -t --name=pagerbeauty -p 8080:8080
             -e PAGERBEAUTY_PD_API_KEY
             -e PAGERBEAUTY_PD_SCHEDULES
@@ -81,10 +81,9 @@ jobs:
           command: mkdir -p /tmp/pb/test-results/eslint
       - run:
           name: Lint in JUnit XML format
-          command: >-
+          command: >
             yarn eslint --cache --cache-location=/tmp/pb/
-             -f junit --output-file=/tmp/pb/test-results/eslint/results.xml .
-            || true
+            -f junit --output-file=/tmp/pb/test-results/eslint/results.xml . || true
       - run:
           name: Human readable report
           command: yarn eslint --cache --cache-location=/tmp/pb/ -f table .
