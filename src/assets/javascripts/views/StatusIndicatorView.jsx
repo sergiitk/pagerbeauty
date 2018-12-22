@@ -8,7 +8,13 @@ import React from 'react';
 
 export class StatusIndicatorView extends React.Component {
   render() {
-    return <span className="status_indicator success"></span>
+    const { type, blink } = this.props;
+    const classes = ['status_indicator'];
+    classes.push(type ? type : 'success');
+    if (blink) {
+      classes.push(`blink-${blink}`);
+    }
+    return <span className={classes.join(' ')}></span>
   }
 }
 

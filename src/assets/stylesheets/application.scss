@@ -9,8 +9,20 @@ body {
   font-family: 'Roboto Mono', monospace;
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+}
+
 .status_indicator {
   display: block;
+
+  &.blink-slow {
+    animation: fadeIn 1s infinite alternate;
+  }
+
+  &.blink-fast {
+    animation: fadeIn 0.5s infinite alternate;
+  }
 
   &:before {
     content: ' ';
@@ -35,6 +47,7 @@ body {
     border-color: #94E185;
     box-shadow: 0px 0px 3px 1px #94E185;
   }
+
 }
 
 a {
@@ -82,9 +95,10 @@ a {
     }
   }
 
-  $status_size: $row_size + 0.5;
+  $status_size: $row_size - 0.5;
   .status_indicator {
     float: right;
+    margin-top: 0.5;
 
     &:before {
       width: $status_size;
