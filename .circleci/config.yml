@@ -80,13 +80,13 @@ jobs:
           name: Create temp folders
           command: mkdir -p /tmp/pb/test-results/eslint
       - run:
-          name: Lint
-          command: yarn eslint --cache --cache-location=/tmp/pb/ -f unix .
-      - run:
-          name: Save results as JUnit XML
+          name: Lint in JUnit XML format
           command:  >-
             yarn eslint --cache --cache-location=/tmp/pb/
-             -f junit --output-file=/tmp/pb/test-results/eslint/results.xml .
+             -f junit --output-file=/tmp/pb/test-results/eslint/results.xml . || true
+      - run:
+          name: Human readable report
+          command: yarn eslint --cache --cache-location=/tmp/pb/ -f table .
       - store_test_results:
           path: /tmp/pb/test-results
 
