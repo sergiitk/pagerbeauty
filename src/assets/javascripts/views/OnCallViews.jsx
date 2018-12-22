@@ -45,10 +45,12 @@ export class OnCallView extends React.Component {
       console.dir(onCall, { colors: true, showHidden: true });
     }
 
+
+
     return (
-      <div className={`schedule ${is404 && "not_found"}`}>
+      <div className={'schedule ' + (is404 ? 'not_found' : '')}>
         { /* Header */ }
-        <OnCallScheduleRowView filled={true}>
+        <OnCallScheduleRowView filled>
           <span>ON CALL</span>
           <OnCallStatusIndicatorView error={error} isFetching={isFetching} />
         </OnCallScheduleRowView>
@@ -61,12 +63,12 @@ export class OnCallView extends React.Component {
         }
 
         { /* User info */ }
-        <OnCallScheduleRowView equalSpacing={true}>
+        <OnCallScheduleRowView equalSpacing>
           <OnCallUserInfoView userInfo={userInfo} />
         </OnCallScheduleRowView>
 
         { /* Dates */ }
-        <OnCallScheduleRowView filled={true} equalSpacing={true}>
+        <OnCallScheduleRowView filled equalSpacing>
           {onCall &&
             <React.Fragment>
               <OnCallDateRowView
@@ -192,7 +194,7 @@ export class OnCallUserInfoView extends React.Component {
              <img src="https://www.gravatar.com/avatar/0?s=2048&amp;d=mp" />
            )}
         </div>
-        <div className={`user_name ${!userInfo && "error"}`}>
+        <div className={'user_name ' + (!userInfo ? 'error' : '')}>
           {userInfo ? (
              <a href={userInfo.url}>{userInfo.name}</a>
            ) : (

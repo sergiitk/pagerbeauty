@@ -72,7 +72,7 @@ This project is under active development.
 - [x] HTTP Basic Authentication
 - [x] On-call TimeZone is loaded from the PagerDuty schedule settings
 - [x] Application logging
-- [ ] Ajax refresh
+- [x] Ajax refresh
 - [ ] Automated Testing
 - [ ] Automated builds
 - [ ] Load all API pages
