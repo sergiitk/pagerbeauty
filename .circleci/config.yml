@@ -46,7 +46,7 @@ jobs:
       # build the application image
       - run:
           name: "Start PagerBeauty"
-          command: docker run -d --name=pagerbeauty -p 8080:8080 -t sergiitk/pagerbeauty:dev-$CIRCLE_SHA1
+          command: docker run -i --name=pagerbeauty -p 8080:8080 -t sergiitk/pagerbeauty:dev-$CIRCLE_SHA1
       - run:
           name: "Show logs"
           command: docker logs pagerbeauty
