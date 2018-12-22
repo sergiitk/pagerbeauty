@@ -47,7 +47,7 @@ jobs:
       - run:
           name: "Start PagerBeauty"
           command: >-
-            docker run -it --name=pagerbeauty -p 8080:8080
+            docker run -d -t --name=pagerbeauty -p 8080:8080
             -e PAGERBEAUTY_PD_API_KEY
             -e PAGERBEAUTY_PD_SCHEDULES
             -e PAGERBEAUTY_REFRESH_RATE_MINUTES
