@@ -6,8 +6,9 @@ import React from 'react';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { PagerBeautyHttpNotFoundUiError } from '../ui-errors';
 import { OnCall } from '../../../models/OnCall.mjs';
+import { PagerBeautyHttpNotFoundUiError } from '../ui-errors';
+import { StatusIndicatorView } from './StatusIndicatorView';
 
 // ------- OnCallView ----------------------------------------------------------
 
@@ -45,17 +46,20 @@ export class OnCallViewFound extends React.Component {
   render() {
     const { onCall } = this.props;
     return <div className="schedule">
-      <div className="schedule_row filled_row">ON CALL</div>
+      <div className="schedule_row filled_row">
+        <span>ON CALL</span>
+        <StatusIndicatorView />
+      </div>
       <div className="schedule_row">
         <a href={onCall.scheduleURL} className="schedule_name">{onCall.scheduleName}</a>
       </div>
-      <div className="schedule_row">
+      <div className="schedule_row equal_spacing">
         <div className="user_avatar">
         <a href={onCall.userURL}><img src={onCall.userAvatarSized()}></img></a>
         </div>
         <div className="user_name"><a href={onCall.userURL}>{onCall.userName}</a></div>
       </div>
-      <div className="schedule_row filled_row">
+      <div className="schedule_row filled_row equal_spacing">
         <div className="date date_start">
           <span>From: </span>
           <OnCallDateTimeView date={onCall.dateStart} timezone={onCall.scheduleTimezone} />

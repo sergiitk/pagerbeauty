@@ -9,6 +9,34 @@ body {
   font-family: 'Roboto Mono', monospace;
 }
 
+.status_indicator {
+  display: block;
+
+  &:before {
+    content: ' ';
+    display: inline-block;
+    border: 1px solid #000;
+  }
+
+  &.error:before {
+    background-color: #C9404D;
+    border-color: #C9404D;
+    box-shadow: 0px 0px 3px 1px #C9404D;
+  }
+
+  &.warning:before {
+    background-color: #FFC182;
+    border-color: #FFC182;
+    box-shadow: 0px 0px 3px 1px #FFC182;
+  }
+
+  &.success:before {
+    background-color: #94E185;
+    border-color: #94E185;
+    box-shadow: 0px 0px 3px 1px #94E185;
+  }
+}
+
 a {
   color: black;
   text-decoration: none;
@@ -24,9 +52,8 @@ a {
   color: $textBlack;
   margin: 2.5vw;
 
+  $row_size: 2vw;
   .schedule_row {
-    display: flex;
-    justify-content: space-around;
     border-bottom: 1px solid $green;
     padding: $scheduleRowDefaultPadding;
     text-align: center;
@@ -35,7 +62,6 @@ a {
       background-color: $green;
       color: $textWhite;
 
-      $row_size: 2vw;
       font-size: $row_size;
       min-height: $row_size;
 
@@ -47,6 +73,34 @@ a {
       @media (max-width: 500px) {
         font-size: $row_size + 2;
         min-height: $row_size + 2;
+      }
+    }
+
+    &.equal_spacing {
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+
+  $status_size: $row_size + 0.5;
+  .status_indicator {
+    float: right;
+
+    &:before {
+      width: $status_size;
+      height: $status_size;
+      border-radius: $status_size;
+
+      @media (max-width: 1000px) {
+        height: $status_size + 1;
+        width: $status_size + 1;
+        border-radius: $status_size;
+      }
+
+      @media (max-width: 500px) {
+        height: $status_size + 2;
+        width: $status_size + 2;
+        border-radius: $status_size + 2;
       }
     }
   }
