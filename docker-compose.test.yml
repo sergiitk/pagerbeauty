@@ -1,6 +1,7 @@
 version: '3'
 services:
 
+  # https://docs.docker.com/docker-hub/builds/automated-testing/
   sut:
     build:
       context: .
