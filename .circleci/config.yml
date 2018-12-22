@@ -45,10 +45,13 @@ jobs:
           command: docker build -t sergiitk/pagerbeauty:dev-$CIRCLE_SHA1 .
       # build the application image
       - run:
-          name: "Start PagerBeauty and ensure basic sanity"
+          name: "Start PagerBeauty"
           command: |
             docker run -d --name=pagerbeauty -p 8080:8080 -t sergiitk/pagerbeauty:dev-$CIRCLE_SHA1
             docker logs pagerbeauty
+      - run:
+          name: "Ensure basic sanity"
+          command: |
             docker run --rm --network container:pagerbeauty appropriate/curl -vs --retry 10 --retry-connrefused http://localhost:8080/v1/schedules.json
             docker run --rm --network container:pagerbeauty appropriate/curl -vs --retry 10 --retry-connrefused http://localhost:8080/assets/dist-prod/bundle.js
             docker run --rm --network container:pagerbeauty appropriate/curl -vs --retry 10 --retry-connrefused http://localhost:8080/assets/dist-prod/bundle.css
