@@ -55,8 +55,10 @@ jobs:
             -e PAGERBEAUTY_LOG_FORMAT
             sergiitk/pagerbeauty:dev-$CIRCLE_SHA1
       - run:
-          name: "Show logs"
-          command: docker logs pagerbeauty
+          name: "Wait for container and show logs"
+          command: |
+            sleep 2
+            docker logs pagerbeauty
       - run:
           name: "Ensure basic sanity"
           command: |
