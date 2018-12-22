@@ -42,10 +42,7 @@ export class OnCallView extends React.Component {
         url: onCall.userURL,
         avatar: onCall.userAvatarSized(),
       };
-      console.dir(onCall, { colors: true, showHidden: true });
     }
-
-
 
     return (
       <div className={'schedule ' + (is404 ? 'not_found' : '')}>
