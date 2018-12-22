@@ -4,7 +4,7 @@ import React from 'react';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { PagerBeautyHttpNotFoundUiError } from './ui-errors';
+import { PagerBeautyFetchNotFoundUiError, PagerBeautyFetchUiError } from './ui-errors';
 
 // ------- withAjaxBackend -----------------------------------------------------
 
@@ -39,7 +39,9 @@ export function withAjaxBackend({
     }
 
     componentWillUnmount() {
-      clearInterval(this.intervalId);
+      if (this.intervalId) {
+        clearInterval(this.intervalId);
+      }
     }
 
     async poll(endpoint) {
@@ -78,7 +80,17 @@ export function withAjaxBackend({
     async fetchData(endpoint) {
       const response = await fetch(endpoint);
       if (!response.ok) {
-          throw new PagerBeautyHttpNotFoundUiError(response.statusText);
+        if (response.status === 404) {
+          throw new PagerBeautyFetchNotFoundUiError(
+            response.status,
+            response.statusText,
+          );
+        } else {
+          throw new PagerBeautyFetchUiError(
+            response.status,
+            response.statusText,
+          );
+        }
       }
       return response.json();
     }

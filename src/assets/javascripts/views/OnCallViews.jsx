@@ -7,7 +7,7 @@ import React from 'react';
 // ------- Internal imports ----------------------------------------------------
 
 import { OnCall } from '../../../models/OnCall.mjs';
-import { PagerBeautyHttpNotFoundUiError } from '../ui-errors';
+import { PagerBeautyFetchNotFoundUiError } from '../ui-errors';
 import { StatusIndicatorView } from './StatusIndicatorView';
 
 // ------- OnCallView ----------------------------------------------------------
@@ -16,7 +16,7 @@ export class OnCallView extends React.Component {
   render() {
     const { isLoaded, data, error, isFetching } = this.props;
 
-    const is404 = error instanceof PagerBeautyHttpNotFoundUiError;
+    const is404 = error instanceof PagerBeautyFetchNotFoundUiError;
 
     // Handle cases prior to first successful data load.
     if (!isLoaded && !is404) {
@@ -42,6 +42,7 @@ export class OnCallView extends React.Component {
         url: onCall.userURL,
         avatar: onCall.userAvatarSized(),
       };
+      console.dir(onCall, { colors: true, showHidden: true });
     }
 
     return (
@@ -49,7 +50,7 @@ export class OnCallView extends React.Component {
         { /* Header */ }
         <OnCallScheduleRowView filled={true}>
           <span>ON CALL</span>
-          <StatusIndicatorView />
+          <OnCallStatusIndicatorView error={error} isFetching={isFetching} />
         </OnCallScheduleRowView>
 
         { /* Schedule name */ }
@@ -103,6 +104,77 @@ export class OnCallScheduleRowView extends React.Component {
       classes.push('filled_row');
     }
     return <div className={classes.join(' ')}>{children}</div>;
+  }
+}
+
+// ------- OnCallStatusIndicatorView -------------------------------------------
+
+export class OnCallStatusIndicatorView extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isBlinking: false,
+    };
+    this.timeoutId = false;
+  }
+
+  componentWillUnmount() {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
+  }
+
+  registerBlink() {
+    // Blink for 3 seconds
+    const { isBlinking } = this.state;
+    if (isBlinking) {
+      return;
+    }
+    this.setState({ isBlinking: true })
+    this.timeoutId = setTimeout(() => {
+      this.setState({ isBlinking: false })
+    }, 2000);
+  }
+
+  componentDidUpdate(prevProps) {
+    // Blink for next 3 seconds when swithcing state
+    const { isFetching } = this.props;
+    const { isBlinking } = this.state;
+
+    if (!prevProps.isFetching && this.props.isFetching) {
+      this.registerBlink();
+    }
+  }
+
+  render() {
+    const { error, isFetching } = this.props;
+    const { isBlinking } = this.state;
+
+    let type = 'success';
+    let blink = false;
+    if (error instanceof PagerBeautyFetchNotFoundUiError) {
+      // No one on call.
+      type = 'error';
+      blink = 'slow';
+    } else if (error) {
+      // All errors
+      type = 'warning';
+      blink = 'fast';
+    } else {
+      // Success
+      type = 'success';
+      // Blink on success in post-render componentDidUpdate.
+      if (isBlinking) {
+        blink = 'fast';
+      }
+    }
+
+    let title = 'OK';
+    if (error) {
+      title = error.toString();
+    }
+
+    return <StatusIndicatorView type={type} blink={blink} title={title} />
   }
 }
 

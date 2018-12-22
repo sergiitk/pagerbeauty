@@ -87,6 +87,8 @@ export class SchedulesController {
   }
 
   async show(ctx, scheduleId, format = 'html') {
+    // ctx.status = 500;
+    // return;
     const schedule = this.schedulesService.onCallRepo.get(scheduleId);
 
     switch (format) {
