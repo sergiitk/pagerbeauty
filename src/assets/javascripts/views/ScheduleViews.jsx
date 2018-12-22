@@ -1,5 +1,6 @@
 // ------- Imports -------------------------------------------------------------
 
+import PropTypes from 'prop-types';
 import React from 'react';
 
 // ------- SchedulesListView ---------------------------------------------------
@@ -28,6 +29,20 @@ export class SchedulesListView extends React.Component {
   }
 }
 
+SchedulesListView.propTypes = {
+  isLoaded: PropTypes.bool,
+  isFetching: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+  data: PropTypes.arrayOf(PropTypes.object),
+  error: PropTypes.instanceOf(Error),
+};
+
+SchedulesListView.defaultProps = {
+  isLoaded: false,
+  isFetching: false,
+  data: [],
+  error: null,
+};
+
 // ------- SchedulesListItemView -----------------------------------------------
 
 export class SchedulesListItemView extends React.Component {
@@ -41,5 +56,9 @@ export class SchedulesListItemView extends React.Component {
       </li>);
   }
 }
+
+SchedulesListItemView.propTypes = {
+  schedule: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+};
 
 // ------- End -----------------------------------------------------------------

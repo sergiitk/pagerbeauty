@@ -1,5 +1,7 @@
 // ------- Imports -------------------------------------------------------------
 
+import moment from 'moment-timezone';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 // ------- Internal imports ----------------------------------------------------
@@ -88,6 +90,20 @@ export class OnCallView extends React.Component {
   }
 }
 
+OnCallView.propTypes = {
+  isLoaded: PropTypes.bool,
+  isFetching: PropTypes.bool,
+  data: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  error: PropTypes.instanceOf(Error),
+};
+
+OnCallView.defaultProps = {
+  isLoaded: false,
+  isFetching: false,
+  data: null,
+  error: null,
+};
+
 // ------- OnCallScheduleRowView -----------------------------------------------
 
 export class OnCallScheduleRowView extends React.Component {
@@ -103,6 +119,17 @@ export class OnCallScheduleRowView extends React.Component {
     return <div className={classes.join(' ')}>{children}</div>;
   }
 }
+
+OnCallScheduleRowView.propTypes = {
+  equalSpacing: PropTypes.bool,
+  filled: PropTypes.bool,
+  children: PropTypes.node.isRequired,
+};
+
+OnCallScheduleRowView.defaultProps = {
+  equalSpacing: false,
+  filled: false,
+};
 
 // ------- OnCallStatusIndicatorView -------------------------------------------
 
@@ -146,7 +173,7 @@ export class OnCallStatusIndicatorView extends React.Component {
     const { isBlinking } = this.state;
 
     let type = 'success';
-    let blink = false;
+    let blink = null;
     if (error instanceof PagerBeautyFetchNotFoundUiError) {
       // No one on call.
       type = 'error';
@@ -172,6 +199,16 @@ export class OnCallStatusIndicatorView extends React.Component {
     return <StatusIndicatorView type={type} blink={blink} title={title} />;
   }
 }
+
+OnCallStatusIndicatorView.propTypes = {
+  isFetching: PropTypes.bool,
+  error: PropTypes.instanceOf(Error),
+};
+
+OnCallStatusIndicatorView.defaultProps = {
+  isFetching: false,
+  error: null,
+};
 
 // ------- OnCallUserInfoView --------------------------------------------------
 
@@ -199,6 +236,18 @@ export class OnCallUserInfoView extends React.Component {
   }
 }
 
+OnCallUserInfoView.propTypes = {
+  userInfo: PropTypes.shape({
+    name: PropTypes.string,
+    url: PropTypes.string,
+    avatar: PropTypes.string,
+  }),
+};
+
+OnCallUserInfoView.defaultProps = {
+  userInfo: null,
+};
+
 // ------- OnCallDateTimeView --------------------------------------------------
 
 export class OnCallDateRowView extends React.Component {
@@ -213,6 +262,19 @@ export class OnCallDateRowView extends React.Component {
     );
   }
 }
+
+OnCallDateRowView.propTypes = {
+  date: PropTypes.instanceOf(moment).isRequired,
+  timezone: PropTypes.string,
+  className: PropTypes.string,
+  label: PropTypes.string,
+};
+
+OnCallDateRowView.defaultProps = {
+  timezone: null,
+  className: '',
+  label: '',
+};
 
 // ------- OnCallDateTimeView --------------------------------------------------
 
@@ -231,5 +293,14 @@ export class OnCallDateTimeView extends React.Component {
     );
   }
 }
+
+OnCallDateTimeView.propTypes = {
+  date: PropTypes.instanceOf(moment).isRequired,
+  timezone: PropTypes.string,
+};
+
+OnCallDateTimeView.defaultProps = {
+  timezone: null,
+};
 
 // ------- End -----------------------------------------------------------------

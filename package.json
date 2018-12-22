@@ -60,6 +60,7 @@
     "node-sass": "^4.10.0",
     "nodemon": "^1.18.5",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "prop-types": "^15.6.2",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "sass-loader": "^7.1.0",
