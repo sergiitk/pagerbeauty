@@ -1,7 +1,7 @@
-'use strict';
-
 // ------- Imports -------------------------------------------------------------
 
+import moment from 'moment-timezone';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 // ------- Internal imports ----------------------------------------------------
@@ -22,7 +22,7 @@ export class OnCallView extends React.Component {
     if (!isLoaded && !is404) {
       if (error) {
         // Data hasn't been loaded even once, got an error.
-        return <span>Loading error: {error.message}</span>;
+        return <span>{`Loading error: ${error.message}`}</span>;
       }
       // Still loading.
       return <span>Loading...</span>;
@@ -45,7 +45,7 @@ export class OnCallView extends React.Component {
     }
 
     return (
-      <div className={'schedule ' + (is404 ? 'not_found' : '')}>
+      <div className={`schedule ${is404 ? 'not_found' : ''}`}>
         { /* Header */ }
         <OnCallScheduleRowView filled>
           <span>ON CALL</span>
@@ -53,11 +53,11 @@ export class OnCallView extends React.Component {
         </OnCallScheduleRowView>
 
         { /* Schedule name */ }
-        {onCall &&
+        {onCall && (
           <OnCallScheduleRowView>
             <a href={onCall.scheduleURL} className="schedule_name">{onCall.scheduleName}</a>
           </OnCallScheduleRowView>
-        }
+        )}
 
         { /* User info */ }
         <OnCallScheduleRowView equalSpacing>
@@ -66,29 +66,43 @@ export class OnCallView extends React.Component {
 
         { /* Dates */ }
         <OnCallScheduleRowView filled equalSpacing>
-          {onCall &&
-            [
+          {onCall && (
+            <React.Fragment>
               <OnCallDateRowView
                 className="date_start"
                 label="From"
                 date={onCall.dateStart}
                 timezone={onCall.scheduleTimezone}
-              />,
+              />
               <OnCallDateRowView
                 className="date_end"
                 label="To"
                 date={onCall.dateEnd}
                 timezone={onCall.scheduleTimezone}
-              />,
-            ]
-          }
+              />
+            </React.Fragment>
+          )}
         </OnCallScheduleRowView>
 
         { /* End */ }
       </div>
-    )
+    );
   }
 }
+
+OnCallView.propTypes = {
+  isLoaded: PropTypes.bool,
+  isFetching: PropTypes.bool,
+  data: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  error: PropTypes.instanceOf(Error),
+};
+
+OnCallView.defaultProps = {
+  isLoaded: false,
+  isFetching: false,
+  data: null,
+  error: null,
+};
 
 // ------- OnCallScheduleRowView -----------------------------------------------
 
@@ -106,6 +120,18 @@ export class OnCallScheduleRowView extends React.Component {
   }
 }
 
+OnCallScheduleRowView.propTypes = {
+  equalSpacing: PropTypes.bool,
+  filled: PropTypes.bool,
+  children: PropTypes.node,
+};
+
+OnCallScheduleRowView.defaultProps = {
+  equalSpacing: false,
+  filled: false,
+  children: null,
+};
+
 // ------- OnCallStatusIndicatorView -------------------------------------------
 
 export class OnCallStatusIndicatorView extends React.Component {
@@ -115,6 +141,14 @@ export class OnCallStatusIndicatorView extends React.Component {
       isBlinking: false,
     };
     this.timeoutId = false;
+  }
+
+  componentDidUpdate(prevProps) {
+    // Blink for next 3 seconds when swithcing state
+    const { isFetching } = this.props;
+    if (!prevProps.isFetching && isFetching) {
+      this.registerBlink();
+    }
   }
 
   componentWillUnmount() {
@@ -129,26 +163,18 @@ export class OnCallStatusIndicatorView extends React.Component {
     if (isBlinking) {
       return;
     }
-    this.setState({ isBlinking: true })
+    this.setState({ isBlinking: true });
     this.timeoutId = setTimeout(() => {
-      this.setState({ isBlinking: false })
+      this.setState({ isBlinking: false });
     }, 2000);
   }
 
-  componentDidUpdate(prevProps) {
-    // Blink for next 3 seconds when swithcing state
-    const { isFetching } = this.props;
-    if (!prevProps.isFetching && this.props.isFetching) {
-      this.registerBlink();
-    }
-  }
-
   render() {
-    const { error, isFetching } = this.props;
+    const { error } = this.props;
     const { isBlinking } = this.state;
 
     let type = 'success';
-    let blink = false;
+    let blink = null;
     if (error instanceof PagerBeautyFetchNotFoundUiError) {
       // No one on call.
       type = 'error';
@@ -171,9 +197,19 @@ export class OnCallStatusIndicatorView extends React.Component {
       title = error.toString();
     }
 
-    return <StatusIndicatorView type={type} blink={blink} title={title} />
+    return <StatusIndicatorView type={type} blink={blink} title={title} />;
   }
 }
+
+OnCallStatusIndicatorView.propTypes = {
+  isFetching: PropTypes.bool,
+  error: PropTypes.instanceOf(Error),
+};
+
+OnCallStatusIndicatorView.defaultProps = {
+  isFetching: false,
+  error: null,
+};
 
 // ------- OnCallUserInfoView --------------------------------------------------
 
@@ -184,37 +220,62 @@ export class OnCallUserInfoView extends React.Component {
       <React.Fragment>
         <div className="user_avatar">
           {userInfo ? (
-             <a href={userInfo.url}><img src={userInfo.avatar} /></a>
-           ) : (
-             <img src="https://www.gravatar.com/avatar/0?s=2048&amp;d=mp" />
-           )}
+            <a href={userInfo.url}><img src={userInfo.avatar} alt={userInfo.name} /></a>
+          ) : (
+            <img src="https://www.gravatar.com/avatar/0?s=2048&amp;d=mp" alt="Generic avatar" />
+          )}
         </div>
-        <div className={'user_name ' + (!userInfo ? 'error' : '')}>
+        <div className={`user_name ${!userInfo ? 'error' : ''}`}>
           {userInfo ? (
-             <a href={userInfo.url}>{userInfo.name}</a>
-           ) : (
-             "No one is on call"
-           )}
+            <a href={userInfo.url}>{userInfo.name}</a>
+          ) : (
+            'No one is on call'
+          )}
         </div>
       </React.Fragment>
-    )
+    );
   }
 }
+
+OnCallUserInfoView.propTypes = {
+  userInfo: PropTypes.shape({
+    name: PropTypes.string,
+    url: PropTypes.string,
+    avatar: PropTypes.string,
+  }),
+};
+
+OnCallUserInfoView.defaultProps = {
+  userInfo: null,
+};
 
 // ------- OnCallDateTimeView --------------------------------------------------
 
 export class OnCallDateRowView extends React.Component {
   render() {
-    const { date, timezone, className, children, label } = this.props;
+    const { date, timezone, className, label } = this.props;
 
     return (
       <div className={`date ${className}`}>
-        <span>{label}: </span>
+        <span>{`${label}: `}</span>
         <OnCallDateTimeView date={date} timezone={timezone} />
       </div>
     );
   }
 }
+
+OnCallDateRowView.propTypes = {
+  date: PropTypes.instanceOf(moment).isRequired,
+  timezone: PropTypes.string,
+  className: PropTypes.string,
+  label: PropTypes.string,
+};
+
+OnCallDateRowView.defaultProps = {
+  timezone: null,
+  className: '',
+  label: '',
+};
 
 // ------- OnCallDateTimeView --------------------------------------------------
 
@@ -226,12 +287,21 @@ export class OnCallDateTimeView extends React.Component {
     }
     return (
       <React.Fragment>
-        <span className="date_weekday">{date.format('dddd')}, </span>
-        <span className="date_date">{date.format('MMM DD')} </span>
+        <span className="date_weekday">{`${date.format('dddd')}, `}</span>
+        <span className="date_date">{`${date.format('MMM DD')} `}</span>
         <span className="date_time">{date.format('LT')}</span>
       </React.Fragment>
     );
   }
 }
+
+OnCallDateTimeView.propTypes = {
+  date: PropTypes.instanceOf(moment).isRequired,
+  timezone: PropTypes.string,
+};
+
+OnCallDateTimeView.defaultProps = {
+  timezone: null,
+};
 
 // ------- End -----------------------------------------------------------------

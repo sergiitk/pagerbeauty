@@ -1,7 +1,6 @@
-'use strict';
-
 // ------- Imports -------------------------------------------------------------
 
+import PropTypes from 'prop-types';
 import React from 'react';
 
 // ------- SchedulesListView ---------------------------------------------------
@@ -14,26 +13,41 @@ export class SchedulesListView extends React.Component {
     if (!isLoaded) {
       if (error) {
         // Data hasn't been loaded even once, got an error.
-        return <span>Loading error: {error.message}</span>;
+        return <span>{`Loading error: ${error.message}`}</span>;
       }
       // Still loading.
       return <span>Loading...</span>;
     }
 
     // Ignore errors and show stale content after first successful data load.
-    const schedulesListItems = data.map((schedule) =>
-      <SchedulesListItemView key={schedule.scheduleId} schedule={schedule} />
-    );
+    const schedulesListItems = data.map((schedule) => {
+      const item = <SchedulesListItemView key={schedule.scheduleId} schedule={schedule} />;
+      return item;
+    });
 
     return <ul>{schedulesListItems}</ul>;
   }
 }
 
+SchedulesListView.propTypes = {
+  isLoaded: PropTypes.bool,
+  isFetching: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+  data: PropTypes.arrayOf(PropTypes.object),
+  error: PropTypes.instanceOf(Error),
+};
+
+SchedulesListView.defaultProps = {
+  isLoaded: false,
+  isFetching: false,
+  data: [],
+  error: null,
+};
+
 // ------- SchedulesListItemView -----------------------------------------------
 
 export class SchedulesListItemView extends React.Component {
   render() {
-    const schedule = this.props.schedule;
+    const { schedule } = this.props;
     return (
       <li>
         <a href={`/v1/schedules/${schedule.scheduleId}.html`}>
@@ -42,5 +56,9 @@ export class SchedulesListItemView extends React.Component {
       </li>);
   }
 }
+
+SchedulesListItemView.propTypes = {
+  schedule: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+};
 
 // ------- End -----------------------------------------------------------------
