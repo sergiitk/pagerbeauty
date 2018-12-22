@@ -81,7 +81,7 @@ jobs:
           command: mkdir -p /tmp/pb/test-results/eslint
       - run:
           name: Lint
-          command: yarn eslint --cache --cache-location=/tmp/pb/ -f unix - .
+          command: yarn eslint --cache --cache-location=/tmp/pb/ -f unix .
       - run:
           name: Save results as JUnit XML
           command:  >-
