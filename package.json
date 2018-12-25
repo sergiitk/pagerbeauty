@@ -17,7 +17,7 @@
     "test:integration": "NODE_ENV=test ava test/integration",
     "test:acceptance": "NODE_ENV=test ava test/acceptance",
     "test:full": "npm run test:unit && npm run test:integration",
-    "test:start_mockserver": "mockserver -p 8081 -m test/mocks",
+    "mock:pagerduty_api": "mockserver -p 8081 -m test/mocks",
     "lint": "eslint --ext .js --ext .mjs --ext .jsx -f unix .",
     "eslint": "eslint --ext .js --ext .mjs --ext .jsx",
     "build": "webpack --config webpack.dev.js",

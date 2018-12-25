@@ -14,9 +14,17 @@ RUN yarn install --prod --frozen-lockfile
 # Pagerbeauty default port
 EXPOSE 8080
 
-# ---------- Prod image from here
+# ---------- Dev image from here
+# Fix for yarn
+RUN npm config set scripts-prepend-node-path true
+
+# Install the rest
+RUN yarn install --frozen-lockfile
+
+# Acceptance test mock server
+EXPOSE 8081
 
 # Bundle app source
 COPY . .
 
-CMD ["yarn", "-s", "run", "app:prod"]
+CMD ["yarn", "run", "app"]

@@ -1,13 +1,59 @@
 version: '3'
 services:
 
-  pagerbeauty:
-    build: .
-    image: "sergiitk/pagerbeauty"
-    command: ["yarn", "app:watch"]
+  pagerbeauty-dev:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-dev
+    command: ["yarn", "run", "app:watch"]
+    environment:
+      # Use PagerDuty API Mock server for development
+      PAGERBEAUTY_PD_API_URL: http://mock-pagerduty-api:8081
+      # API key is required, but Mock PD API will ignore it
+      PAGERBEAUTY_PD_API_KEY: v2_api_key
+      # Mock Mock PD APInow only responds with these two schedules
+      PAGERBEAUTY_PD_SCHEDULES: P538IZH,PJ1P5JQ
     ports:
       - "8080:8080"
     env_file:
       - .env
     volumes:
       - .:/usr/src/app/
+      - node_modules:/usr/src/app/node_modules
+    depends_on:
+      - mock-pagerduty-api
+      - pagerbeauty-dev-assets
+
+  pagerbeauty-dev-assets:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-dev
+    command: ["yarn", "run", "build:watch"]
+    volumes:
+      - .:/usr/src/app/
+      - node_modules:/usr/src/app/node_modules
+
+  mock-pagerduty-api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-dev
+    command: ["yarn", "run", "mock:pagerduty_api"]
+    ports:
+      - "8081:8081"
+    volumes:
+      - .:/usr/src/app/
+      - node_modules:/usr/src/app/node_modules
+
+  yarn-run:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-dev
+    entrypoint: ["yarn", "run"]
+    command: []
+    volumes:
+      - .:/usr/src/app/
+      - node_modules:/usr/src/app/node_modules
+
+# Use shared node_modules
+volumes:
+  node_modules:
