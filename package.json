@@ -15,6 +15,7 @@
     "test": "npm run test:unit",
     "test:unit": "NODE_ENV=test ava test/unit",
     "test:integration": "NODE_ENV=test ava test/integration",
+    "test:acceptance": "NODE_ENV=test ava test/acceptance",
     "test:full": "npm run test:unit && npm run test:integration",
     "lint": "eslint --ext .js --ext .mjs --ext .jsx -f unix .",
     "eslint": "eslint --ext .js --ext .mjs --ext .jsx",
