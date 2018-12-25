@@ -16,10 +16,10 @@ export async function withPage(t, run) {
 export async function openBrowser(t) {
   t.context.browser = await puppeteer.launch();
   t.context.page = await t.context.browser.newPage();
-};
+}
 
 export async function closeBrowser(t) {
   const { page, browser } = t.context;
   await page.close();
   await browser.close();
-};
+}

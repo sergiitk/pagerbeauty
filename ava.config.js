@@ -3,7 +3,7 @@ const avaConfig = {
   require: ['esm'],
   babel: false,
   compileEnhancements: false,
-  'extensions': [
+  extensions: [
     'js',
     'mjs',
   ],

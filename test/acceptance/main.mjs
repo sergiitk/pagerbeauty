@@ -4,7 +4,7 @@ import test from 'ava';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { openBrowser,  closeBrowser } from '../helpers/AcceptanceHelpers';
+import { openBrowser, closeBrowser } from '../helpers/AcceptanceHelpers';
 
 // ------- Init ----------------------------------------------------------------
 
