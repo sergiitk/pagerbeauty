@@ -25,8 +25,6 @@ RUN yarn install --frozen-lockfile
 # ---------- Acceptance test image from here
 # https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md
 
-# https://pkgs.alpinelinux.org/package/edge/community/x86_64/chromium
-
 # Installs latest Chromium (71) package:
 # https://pkgs.alpinelinux.org/package/edge/community/x86_64/chromium
 # Corresponds to Puppeteer 1.9.0:
