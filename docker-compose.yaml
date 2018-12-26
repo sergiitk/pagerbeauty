@@ -44,11 +44,11 @@ services:
       - .:/usr/src/app/
       - node_modules:/usr/src/app/node_modules
 
-  yarn-run:
+  yarn:
     build:
       context: .
       dockerfile: ./Dockerfile-dev
-    entrypoint: ["yarn", "run"]
+    entrypoint: ["yarn"]
     command: []
     volumes:
       - .:/usr/src/app/
