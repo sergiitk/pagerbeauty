@@ -11,7 +11,7 @@ import { openBrowser, closeBrowser } from '../helpers/AcceptanceHelpers';
 test.before(openBrowser);
 test.after.always(closeBrowser);
 
-const BASE_URL = 'http://127.0.0.1:8080';
+const BASE_URL = process.env.PAGERBEAUTY_URL || 'http://127.0.0.1:8080';
 
 // ------- Tests ---------------------------------------------------------------
 

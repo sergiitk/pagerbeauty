@@ -14,7 +14,14 @@ export async function withPage(t, run) {
 }
 
 export async function openBrowser(t) {
-  t.context.browser = await puppeteer.launch();
+  t.context.browser = await puppeteer.launch({
+    executablePath: process.env.CHROME_PATH,
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+    ],
+  });
   t.context.page = await t.context.browser.newPage();
 }
 
