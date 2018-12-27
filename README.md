@@ -20,7 +20,9 @@ Configure PagerBeauty with `.env` file or by exporting environment variables:
 # For Docker compatibility, do not placed quotation marks around the values.
 # https://docs.docker.com/compose/env-file/
 
-# PagerDuty API key
+# PagerDuty REST API v2 Access Key
+# Read-only access is sufficient
+# Docs: https://support.pagerduty.com/docs/using-the-api
 PAGERBEAUTY_PD_API_KEY=yourkey
 
 # A list of schedule ids to load

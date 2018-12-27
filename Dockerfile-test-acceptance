@@ -1,0 +1,47 @@
+# https://hub.docker.com/_/node/
+FROM node:10.14.2-alpine
+
+# Environment
+ENV APP_DIR=/usr/src/app/
+
+# Create app directory
+WORKDIR $APP_DIR
+
+# Install
+COPY package.json yarn.lock $APP_DIR
+RUN yarn install --prod --frozen-lockfile
+
+# Pagerbeauty default port
+EXPOSE 8080
+
+# ---------- Dev image from here
+# NPM config
+RUN  npm config set scripts-prepend-node-path true \
+  && npm config set puppeteer_skip_chromium_download true
+
+# Install the rest
+RUN yarn install --frozen-lockfile
+
+# ---------- Acceptance test image from here
+# https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md
+
+# Installs latest Chromium (71) package:
+# https://pkgs.alpinelinux.org/package/edge/community/x86_64/chromium
+# Corresponds to Puppeteer 1.9.0:
+# https://github.com/GoogleChrome/puppeteer/releases/tag/v1.9.0
+# Puppeteer Rolled back to 1.8.0 because of a bug in ESM:
+# https://github.com/GoogleChrome/puppeteer/issues/3382
+RUN apk update && apk upgrade && \
+    echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
+    echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
+    apk add --no-cache \
+      chromium@edge \
+      harfbuzz@edge \
+      nss@edge
+
+# TODO: create a user and omit no-sandbox
+
+# Bundle app source
+COPY . .
+
+ENTRYPOINT ["yarn", "run", "test:acceptance"]

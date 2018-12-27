@@ -5,4 +5,5 @@ services:
   sut:
     build:
       context: .
-      dockerfile: ./Dockerfile-test
+      dockerfile: ./Dockerfile-dev
+    command: ["yarn", "run", "test:full"]
