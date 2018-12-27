@@ -26,8 +26,8 @@ docker-compose up
 PagerBeauty for local development is preconfigured, no `.env` file is necessary.  
 It's using [Mockserver](https://github.com/namshi/mockserver) in place of real PagerBeaty API v2.
 
-HTTP server and webpack are running in watch mode.
-All changes you make should be picked up automatically on the next page refres.
+Application HTTP server and webpack are running in `watch` mode.
+All changes you make should be picked up automatically on the next page refresh. It is available on [localhost:8081](http://localhost:8081).
 
 ### Additional configuration
 
@@ -54,7 +54,7 @@ PAGERBEAUTY_PD_API_URL=https://api.pagerduty.com
 PAGERBEAUTY_PD_API_KEY=real_key
 ```
 
-Note, this will not break local acceptance tests. It shouldn't be a problem for development.
+Note, using real PagerDuty API will break local acceptance tests. It shouldn't be a problem for development.
 
 ### Other
 
