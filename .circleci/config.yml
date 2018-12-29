@@ -139,11 +139,27 @@ jobs:
       - run:
           name: List Docker images to ensure PagerBeauty is loaded
           command: docker image ls
+      # Build dependencies individually to track how long they take.
+      # Build mock-pagerduty-api
+      - run:
+          name: Build PagerDuty API Mock server
+          command: >
+            docker-compose -f docker-compose.circleci.yaml
+            build mock-pagerduty-api
+      # Build test-acceptance
+      - run:
+          name: Build PagerDuty API Mock server
+          command: >
+            docker-compose -f docker-compose.circleci.yaml
+            build test-acceptance
       # Run Puppeteer!
       - run:
           name: Run acceptance tests
           command: >
-            docker-compose -f docker-compose.circleci.yaml up test-acceptance
+            docker-compose -f docker-compose.circleci.yaml
+            up --no-build
+            --abort-on-container-exit --exit-code-from=test-acceptance
+            test-acceptance
       # Everybody cleanup.
       - run:
           name: "Show logs and cleanup"
