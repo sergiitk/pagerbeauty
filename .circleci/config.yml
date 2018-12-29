@@ -4,7 +4,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:10.14.2-stretch
-    working_directory: ~/repo
+    working_directory: ~/project
     steps:
       - checkout
       - restore_cache:
@@ -28,9 +28,10 @@ jobs:
             - 'assets/dist-prod/bundle.css'
             - 'assets/dist-prod/bundle.js'
 
-  # Docker
+  # Build Docker image in production mode
   docker-image:
     machine: true
+    working_directory: ~/project
     steps:
       - checkout
       # Restore assets.
@@ -85,8 +86,11 @@ jobs:
       - run:
           name: "Stop and remove application container"
           command: |
+            echo "Stopping container"
             docker stop pagerbeauty
+            echo "Logs:"
             docker logs pagerbeauty
+            echo "Removing the image"
             docker rm pagerbeauty
       # Prepare temporary folder to save built Docker image.
       - run:
@@ -109,12 +113,55 @@ jobs:
           paths:
             - docker/pagerbeauty-ci-*.tar.gz
 
+  # Run acceptance tests (Puppeteer) against the app running in Docker
+  test-acceptance:
+    machine: true
+    working_directory: ~/project
+    steps:
+      - checkout
+      # List Docker images to verify the app image isn't loaded.
+      - run:
+          name: List Docker images on the clean system
+          command: docker image ls
+      # Attach workspace with application saved Docker image.
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: List docker images in the workspace
+          command: ls -la /tmp/workspace/docker/
+      # Load pagerbeauty image from the workspace
+      - run:
+          name: Load PagerBeauty Docker image
+          command: >
+            docker load --input
+            /tmp/workspace/docker/pagerbeauty-ci-$CIRCLE_SHA1.tar.gz
+      # List Docker images to verify pagerbeauty image is loaded.
+      - run:
+          name: List Docker images to ensure PagerBeauty is loaded
+          command: docker image ls
+
+
+  # Run isolated tests: unit and integration
+  test:
+    docker:
+      - image: circleci/node:10.14.2-stretch
+    working_directory: ~/project
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+      - run:
+          name: Unit Tests
+          command: yarn test:unit
+      - run:
+          name: Integration Tests
+          command: yarn test:integration
 
   # Lint
   lint:
     docker:
       - image: circleci/node:10.14.2-stretch
-    working_directory: ~/repo
+    working_directory: ~/project
     steps:
       - checkout
       - restore_cache:
@@ -133,24 +180,11 @@ jobs:
       - store_test_results:
           path: /tmp/pb/test-results
 
-  # Test
-  test:
-    docker:
-      - image: circleci/node:10.14.2-stretch
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - restore_cache:
-          key: v1-dependencies-{{ checksum "yarn.lock" }}
-      - run:
-          name: Test
-          command: yarn test:full
-
   # Release
   semantic-release:
     docker:
       - image: circleci/node:10.14.2-stretch
-    working_directory: ~/repo
+    working_directory: ~/project
     steps:
       - checkout
       - restore_cache:
@@ -175,14 +209,18 @@ workflows:
       - docker-image:
           requires:
             - build
-      - lint:
+      - test-acceptance:
+          requires:
+            - docker-image
+      - test:
           requires:
             - build
-      - test:
+      - lint:
           requires:
             - build
       - semantic-release:
           requires:
             - lint
             - test
+            - test-acceptance
             - docker-image
