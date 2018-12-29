@@ -12,6 +12,8 @@ services:
       PAGERBEAUTY_PD_SCHEDULES: P538IZH,PJ1P5JQ
       # Faster refresh for dev server
       PAGERBEAUTY_REFRESH_RATE_MINUTES: 0.1
+      # Verbose
+      PAGERBEAUTY_LOG_LEVEL: verbose
     ports:
       - "8080:8080"
     depends_on:
@@ -25,7 +27,6 @@ services:
     ports:
       - "8081:8081"
     volumes:
-      - .:/usr/src/app/
       - node_modules:/usr/src/app/node_modules
 
   test-acceptance:
@@ -36,7 +37,6 @@ services:
       PAGERBEAUTY_URL: http://pagerbeauty-ci:8080
       CHROME_PATH: '/usr/bin/chromium-browser'
     volumes:
-      - .:/usr/src/app/
       - node_modules:/usr/src/app/node_modules
     depends_on:
       - pagerbeauty-ci

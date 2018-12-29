@@ -148,7 +148,7 @@ jobs:
             build mock-pagerduty-api
       # Build test-acceptance
       - run:
-          name: Build PagerDuty API Mock server
+          name: Build Puppeteer test container
           command: >
             docker-compose -f docker-compose.circleci.yaml
             build test-acceptance
