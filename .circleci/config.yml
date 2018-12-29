@@ -89,9 +89,9 @@ jobs:
             docker save sergiitk/pagerbeauty:dev-$CIRCLE_SHA1 | gzip -c >
             /tmp/pb/docker-images/pagerbeauty-dkimg-$CIRCLE_SHA1.tar.gz
       - persist_to_workspace:
-          root: /tmp/pb/
+          root: /tmp/pb
           paths:
-            - 'docker-images/pagerbeauty-dkimg-$CIRCLE_SHA1.tar.gz'
+            - docker-images/pagerbeauty-dkimg-$CIRCLE_SHA1.tar.gz
 
 
   # Lint
