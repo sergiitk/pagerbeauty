@@ -33,11 +33,15 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile-test-acceptance
+    entrypoint: ""
+    command: ["./test/run-acceptance-with-reports.sh"]
     environment:
       PAGERBEAUTY_URL: http://pagerbeauty-ci:8080
       CHROME_PATH: '/usr/bin/chromium-browser'
     volumes:
+      - .:/usr/src/app/
       - node_modules:/usr/src/app/node_modules
+      - ./tmp:/usr/src/app/tmp
     depends_on:
       - pagerbeauty-ci
 
