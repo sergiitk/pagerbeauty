@@ -4,7 +4,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:10.14.2-stretch
-    working_directory: ~/project
+    working_directory: ~/repo
     steps:
       - checkout
       - restore_cache:
@@ -31,7 +31,7 @@ jobs:
   # Build Docker image in production mode
   docker-image:
     machine: true
-    working_directory: ~/project
+    working_directory: ~/repo
     steps:
       - checkout
       # Restore assets.
@@ -116,7 +116,7 @@ jobs:
   # Run acceptance tests (Puppeteer) against the app running in Docker
   test-acceptance:
     machine: true
-    working_directory: ~/project
+    working_directory: ~/repo
     steps:
       - checkout
       # List Docker images to verify the app image isn't loaded.
@@ -145,7 +145,7 @@ jobs:
   test:
     docker:
       - image: circleci/node:10.14.2-stretch
-    working_directory: ~/project
+    working_directory: ~/repo
     steps:
       - checkout
       - restore_cache:
@@ -161,7 +161,7 @@ jobs:
   lint:
     docker:
       - image: circleci/node:10.14.2-stretch
-    working_directory: ~/project
+    working_directory: ~/repo
     steps:
       - checkout
       - restore_cache:
@@ -184,7 +184,7 @@ jobs:
   semantic-release:
     docker:
       - image: circleci/node:10.14.2-stretch
-    working_directory: ~/project
+    working_directory: ~/repo
     steps:
       - checkout
       - restore_cache:
