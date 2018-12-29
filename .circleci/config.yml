@@ -84,7 +84,7 @@ jobs:
             http://localhost:8080/assets/dist-prod/bundle.css
       # Minor cleanup plus a verification that that the app stops properly.
       - run:
-          name: "Stop and remove application container"
+          name: "Show logs and cleanup"
           command: |
             echo "Stopping container"
             docker stop pagerbeauty
@@ -139,7 +139,19 @@ jobs:
       - run:
           name: List Docker images to ensure PagerBeauty is loaded
           command: docker image ls
-
+      # Run Puppeteer!
+      - run:
+          name: Run acceptance tests
+          command: >
+            docker-compose -f docker-compose.circleci.yaml up test-acceptance
+      # Everybody cleanup.
+      - run:
+          name: "Show logs and cleanup"
+          command: |
+            echo "Logs:"
+            docker-compose -f docker-compose.circleci.yaml logs
+            echo "Stopping the containers"
+            docker-compose -f docker-compose.circleci.yaml down
 
   # Run isolated tests: unit and integration
   test:
