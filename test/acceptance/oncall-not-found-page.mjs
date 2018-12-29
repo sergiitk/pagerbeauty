@@ -16,6 +16,7 @@ const BASE_URL = process.env.PAGERBEAUTY_URL || 'http://127.0.0.1:8080';
 // ------- Tests ---------------------------------------------------------------
 
 test.serial('No one On-Call: Navigate to page', async (t) => {
+  t.true(false);
   const { page } = t.context;
   const response = await page.goto(`${BASE_URL}/v1/schedules/404.html`);
   // Sic! 404 is temporary shown as 200 here.
