@@ -39,11 +39,11 @@ jobs:
       - run:
           name: Restore assets
           command: cp -rv /tmp/workspace/assets/dist-prod assets
-      # build the application image
+      # Build the application image.
       - run:
           name: Build docker image
-          command: docker build -t sergiitk/pagerbeauty:dev-$CIRCLE_SHA1 .
-      # build the application image
+          command: docker build -t sergiitk/pagerbeauty:ci-$CIRCLE_SHA1 .
+      # Start the app in Docker
       - run:
           name: "Start PagerBeauty"
           command: >
@@ -53,45 +53,57 @@ jobs:
             -e PAGERBEAUTY_REFRESH_RATE_MINUTES
             -e PAGERBEAUTY_LOG_LEVEL
             -e PAGERBEAUTY_LOG_FORMAT
-            sergiitk/pagerbeauty:dev-$CIRCLE_SHA1
+            sergiitk/pagerbeauty:ci-$CIRCLE_SHA1
+      # Wait for the app to ne launched by Docker and show logs
       - run:
           name: "Wait for container and show logs"
           command: |
             sleep 2
             docker logs pagerbeauty
+      # Check that the app servers schedules.json on port 8080
       - run:
           name: "Sanity: check the app is serving requests"
           command: >
             docker run --rm --network container:pagerbeauty appropriate/curl
             -vs --retry 10 --retry-connrefused
             http://localhost:8080/v1/schedules.json
+      # Check that the app servers main js file
       - run:
           name: "Sanity: verify bundle.js"
           command: >
             docker run --rm --network container:pagerbeauty appropriate/curl
             -vs --output /dev/null
             http://localhost:8080/assets/dist-prod/bundle.js
+      # Check that the app servers main css file
       - run:
           name: "Sanity: verify bundle.css"
           command: >
             docker run --rm --network container:pagerbeauty appropriate/curl
             -vs --output /dev/null
             http://localhost:8080/assets/dist-prod/bundle.css
+      # Minor cleanup, not really ncecessary
       - run:
           name: "Stop and remove application container"
           command: docker rm -f pagerbeauty
+      # Prepare temporary folder to save built Docker image
       - run:
           name: Create temp folders
-          command: mkdir -p /tmp/pb/docker-images/
+          command: mkdir -p /tmp/pb/docker/
+      # Save the image and compress it.
       - run:
           name: "Save docker image"
           command: >
-            docker save sergiitk/pagerbeauty:dev-$CIRCLE_SHA1 | gzip -c >
-            /tmp/pb/docker-images/pagerbeauty-dkimg-$CIRCLE_SHA1.tar.gz
+            docker save sergiitk/pagerbeauty:ci-$CIRCLE_SHA1
+            | gzip --verbose -c
+            > /tmp/pb/docker/pagerbeauty-ci-$CIRCLE_SHA1.tar.gz
+      # Store the compressed image as an artifact
+      - store_artifacts:
+          path: /tmp/pb/docker/pagerbeauty-ci-$CIRCLE_SHA1.tar.gz
+          destination: /artifacts/docker
       - persist_to_workspace:
           root: /tmp/pb
           paths:
-            - docker-images/pagerbeauty-dkimg-$CIRCLE_SHA1.tar.gz
+            - docker/pagerbeauty-ci-$CIRCLE_SHA1.tar.gz
 
 
   # Lint
