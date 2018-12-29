@@ -60,12 +60,39 @@ jobs:
             sleep 2
             docker logs pagerbeauty
       - run:
-          name: "Ensure basic sanity"
-          command: |
-            docker run --rm --network container:pagerbeauty appropriate/curl -vs --retry 10 --retry-connrefused http://localhost:8080/v1/schedules.json
-            docker run --rm --network container:pagerbeauty appropriate/curl -vs --output /dev/null --retry 10 --retry-connrefused http://localhost:8080/assets/dist-prod/bundle.js
-            docker run --rm --network container:pagerbeauty appropriate/curl -vs --output /dev/null --retry 10 --retry-connrefused http://localhost:8080/assets/dist-prod/bundle.css
-            docker rm -f pagerbeauty
+          name: "Sanity: check the app is serving requests"
+          command: >
+            docker run --rm --network container:pagerbeauty appropriate/curl
+            -vs --retry 10 --retry-connrefused
+            http://localhost:8080/v1/schedules.json
+      - run:
+          name: "Sanity: verify bundle.js"
+          command: >
+            docker run --rm --network container:pagerbeauty appropriate/curl
+            -vs --output /dev/null
+            http://localhost:8080/assets/dist-prod/bundle.js
+      - run:
+          name: "Sanity: verify bundle.css"
+          command: >
+            docker run --rm --network container:pagerbeauty appropriate/curl
+            -vs --output /dev/null
+            http://localhost:8080/assets/dist-prod/bundle.css
+      - run:
+          name: "Stop and remove application container"
+          command: docker rm -f pagerbeauty
+      - run:
+          name: Create temp folders
+          command: mkdir -p /tmp/pb/docker-images/
+      - run:
+          name: "Save docker image"
+          command: >
+            docker save sergiitk/pagerbeauty:dev-$CIRCLE_SHA1 | gzip -c >
+            /tmp/pb/docker-images/pagerbeauty-dkimg-$CIRCLE_SHA1.tar.gz
+      - persist_to_workspace:
+          root: /tmp/pb/
+          paths:
+            - 'docker-images/pagerbeauty-dkimg-$CIRCLE_SHA1.tar.gz'
+
 
   # Lint
   lint:
