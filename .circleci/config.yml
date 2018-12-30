@@ -51,9 +51,9 @@ jobs:
             docker run -d -t --name=pagerbeauty -p 8080:8080
             -e PAGERBEAUTY_PD_API_KEY
             -e PAGERBEAUTY_PD_SCHEDULES
-            -e PAGERBEAUTY_REFRESH_RATE_MINUTES
-            -e PAGERBEAUTY_LOG_LEVEL
-            -e PAGERBEAUTY_LOG_FORMAT
+            -e PAGERBEAUTY_REFRESH_RATE_MINUTES=10
+            -e PAGERBEAUTY_LOG_LEVEL=verbose
+            -e PAGERBEAUTY_LOG_FORMAT=human
             sergiitk/pagerbeauty:ci-$CIRCLE_SHA1
       # Wait for the app to b y launched by Docker and show logs.
       - run:

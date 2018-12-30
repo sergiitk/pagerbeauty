@@ -13,7 +13,7 @@ services:
       # Faster refresh for dev server
       PAGERBEAUTY_REFRESH_RATE_MINUTES: 0.1
       # Verbose
-      PAGERBEAUTY_LOG_LEVEL: verbose
+      PAGERBEAUTY_LOG_LEVEL: silly
     ports:
       - "8080:8080"
     depends_on:
