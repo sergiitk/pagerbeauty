@@ -51,6 +51,8 @@
     "ava": "^1.0.1",
     "babel-loader": "^8.0.4",
     "babel-polyfill": "^6.26.0",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
     "conventional-changelog-ember": "^2.0.2",
     "css-loader": "^2.0.1",
     "eslint": "^5.8.0",
