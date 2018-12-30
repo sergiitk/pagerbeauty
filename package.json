@@ -66,6 +66,7 @@
     "mockserver": "^2.2.0",
     "node-sass": "^4.10.0",
     "nodemon": "^1.18.5",
+    "nyc": "^13.1.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "prop-types": "^15.6.2",
     "puppeteer": "1.8.0",
