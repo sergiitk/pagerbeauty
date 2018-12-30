@@ -108,6 +108,14 @@ export class AcceptanceHooks {
       t.context.pageTest = new PageTest(page);
     };
   }
+
+  static waitFor(selector) {
+    return async (t, run) => {
+      const { page } = t.context;
+      await page.waitForSelector(selector);
+      await run(t);
+    };
+  }
 }
 
 // ------- End -----------------------------------------------------------------

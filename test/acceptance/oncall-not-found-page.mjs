@@ -10,6 +10,7 @@ import { AcceptanceHooks } from '../helpers/AcceptanceHelpers';
 // ------- Init ----------------------------------------------------------------
 
 const { expect } = chai;
+const { waitFor } = AcceptanceHooks;
 
 test.before(AcceptanceHooks.openBrowser);
 test.serial.before(AcceptanceHooks.openPage('/v1/schedules/404.html'));
@@ -25,44 +26,32 @@ test('No one On-Call: Check page response', (t) => {
 
 test('No one On-Call: "Schedule not found" in page title', async (t) => {
   const { pageTest } = t.context;
-
   await pageTest.expectTitleContains('Schedule not found');
 });
 
-test('No one On-Call: block has class not_found', async (t) => {
-  const { page, pageTest } = t.context;
-  await page.waitForSelector('.schedule');
-
+test('No one On-Call: ensure classes', waitFor('.schedule'), async (t) => {
+  const { pageTest } = t.context;
   await pageTest.expectClass('.schedule', 'not_found');
 });
 
-test('No one On-Call: block does not shows schedule name', async (t) => {
-  const { page, pageTest } = t.context;
-  // Wait for React to render.
-  await page.waitForSelector('.schedule');
-
+test('No one On-Call: no schedule name', waitFor('.schedule'), async (t) => {
+  const { pageTest } = t.context;
   await pageTest.expectNoElements('a.schedule_name');
 });
 
-test('No one On-Call: block shows "No One on call"', async (t) => {
-  const { page, pageTest } = t.context;
-  await page.waitForSelector('.schedule');
-
+test('No one On-Call: no user name', waitFor('.schedule'), async (t) => {
+  const { pageTest } = t.context;
   await pageTest.expectText('.user_name', 'No one is on call');
 });
 
-test('No one On-Call: block shows no dates', async (t) => {
-  const { page, pageTest } = t.context;
-  await page.waitForSelector('.schedule');
-
+test('No one On-Call: no dates shown', waitFor('.schedule'), async (t) => {
+  const { pageTest } = t.context;
   await pageTest.expectNoElements('.date_start');
   await pageTest.expectNoElements('.date_end');
 });
 
-test('No one On-Call: block shows generic user avatar', async (t) => {
-  const { page, pageTest } = t.context;
-  await page.waitForSelector('.schedule');
-
+test('No one On-Call: generic user avatar', waitFor('.schedule'), async (t) => {
+  const { pageTest } = t.context;
   await pageTest.expectAttr(
     '.user_avatar img',
     'src',
@@ -70,10 +59,8 @@ test('No one On-Call: block shows generic user avatar', async (t) => {
   );
 });
 
-test('No one On-Call: indicator shows error', async (t) => {
-  const { page, pageTest } = t.context;
-  await page.waitForSelector('.schedule');
-
+test('No one On-Call: indicator errors', waitFor('.schedule'), async (t) => {
+  const { pageTest } = t.context;
   await pageTest.expectClass('.status_indicator', 'error');
   await pageTest.expectNoClass('.status_indicator', 'success');
   await pageTest.expectAttrContains(
