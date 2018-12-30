@@ -5,6 +5,7 @@ import chai from 'chai';
 
 // ------- Init ----------------------------------------------------------------
 
+const BASE_URL = process.env.PAGERBEAUTY_URL || 'http://127.0.0.1:8080';
 const { expect } = chai;
 
 // ------- Helpers -------------------------------------------------------------
@@ -27,10 +28,17 @@ export class AcceptanceHooks {
     await page.close();
     await browser.close();
   }
+
+  static openPage(url) {
+    return async (t) => {
+      const { page } = t.context;
+      t.context.pageResponse = await page.goto(`${BASE_URL}${url}`);
+    };
+  }
 }
 
 export class AcceptanceAssert {
-  static async expectTitletoContain(page, text) {
+  static async expectTitleContains(page, text) {
     expect(await page.title()).to.contain(text);
   }
 

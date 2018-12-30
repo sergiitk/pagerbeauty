@@ -12,22 +12,19 @@ import { AcceptanceHooks, AcceptanceAssert } from '../helpers/AcceptanceHelpers'
 const { expect } = chai;
 
 test.before(AcceptanceHooks.openBrowser);
+test.serial.before(AcceptanceHooks.openPage('/v1/schedules.html'));
 test.after.always(AcceptanceHooks.closeBrowser);
-
-const BASE_URL = process.env.PAGERBEAUTY_URL || 'http://127.0.0.1:8080';
 
 // ------- Tests ---------------------------------------------------------------
 
-test.serial('Navigate to Schedules List page', async (t) => {
-  const { page } = t.context;
-  const response = await page.goto(`${BASE_URL}/v1/schedules.html`);
-  expect(response.ok()).to.be.true;
+test.serial('Schedules List: Check page response', (t) => {
+  expect(t.context.pageResponse.ok()).to.be.true;
 });
 
 test('Schedules list page title includes "Schedules"', async (t) => {
   const { page } = t.context;
 
-  await AcceptanceAssert.expectTitletoContain(page, 'Schedules');
+  await AcceptanceAssert.expectTitleContains(page, 'Schedules');
 });
 
 test('Schedules is loaded', async (t) => {

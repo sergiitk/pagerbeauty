@@ -1,6 +1,7 @@
 // ------- Imports -------------------------------------------------------------
 
 import test from 'ava';
+import chai from 'chai';
 
 // ------- Internal imports ----------------------------------------------------
 
@@ -8,25 +9,24 @@ import { AcceptanceHooks, AcceptanceAssert } from '../helpers/AcceptanceHelpers'
 
 // ------- Init ----------------------------------------------------------------
 
-test.before(AcceptanceHooks.openBrowser);
-test.after.always(AcceptanceHooks.closeBrowser);
+const { expect } = chai;
 
-const BASE_URL = process.env.PAGERBEAUTY_URL || 'http://127.0.0.1:8080';
+test.before(AcceptanceHooks.openBrowser);
+test.serial.before(AcceptanceHooks.openPage('/v1/schedules/404.html'));
+test.after.always(AcceptanceHooks.closeBrowser);
 
 // ------- Tests ---------------------------------------------------------------
 
-test.serial('No one On-Call: Navigate to page', async (t) => {
-  const { page } = t.context;
-  const response = await page.goto(`${BASE_URL}/v1/schedules/404.html`);
+test('No one On-Call: Check page response', (t) => {
   // Sic! 404 is temporary shown as 200 here.
   // This will be updated after refactoring schedules repository.
-  t.true(response.ok());
+  expect(t.context.pageResponse.ok()).to.be.true;
 });
 
 test('No one On-Call: "Schedule not found" in page title', async (t) => {
   const { page } = t.context;
 
-  await AcceptanceAssert.expectTitletoContain(page, 'Schedule not found');
+  await AcceptanceAssert.expectTitleContains(page, 'Schedule not found');
 });
 
 test('No one On-Call: block has class not_found', async (t) => {

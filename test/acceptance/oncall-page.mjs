@@ -12,22 +12,19 @@ import { AcceptanceHooks, AcceptanceAssert } from '../helpers/AcceptanceHelpers'
 const { expect } = chai;
 
 test.before(AcceptanceHooks.openBrowser);
+test.serial.before(AcceptanceHooks.openPage('/v1/schedules/P538IZH.html'));
 test.after.always(AcceptanceHooks.closeBrowser);
-
-const BASE_URL = process.env.PAGERBEAUTY_URL || 'http://127.0.0.1:8080';
 
 // ------- Tests ---------------------------------------------------------------
 
-test.serial('On-Call: Navigate to page', async (t) => {
-  const { page } = t.context;
-  const response = await page.goto(`${BASE_URL}/v1/schedules/P538IZH.html`);
-  expect(response.ok()).to.be.true;
+test.serial('On-Call: Check page response', (t) => {
+  expect(t.context.pageResponse.ok()).to.be.true;
 });
 
 test('On-Call has schedule name in page title', async (t) => {
   const { page } = t.context;
 
-  await AcceptanceAssert.expectTitletoContain(page, 'Schedule a quasi illum');
+  await AcceptanceAssert.expectTitleContains(page, 'Schedule a quasi illum');
 });
 
 test('No one On-Call: block has no class not_found', async (t) => {
