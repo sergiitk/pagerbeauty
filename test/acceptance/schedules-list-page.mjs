@@ -5,7 +5,7 @@ import chai from 'chai';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { AcceptanceHooks, AcceptanceAssert } from '../helpers/AcceptanceHelpers';
+import { AcceptanceHooks } from '../helpers/AcceptanceHelpers';
 
 // ------- Init ----------------------------------------------------------------
 
@@ -17,14 +17,14 @@ test.after.always(AcceptanceHooks.closeBrowser);
 
 // ------- Tests ---------------------------------------------------------------
 
-test.serial('Schedules List: Check page response', (t) => {
+test('Schedules List: Check page response', (t) => {
   expect(t.context.pageResponse.ok()).to.be.true;
 });
 
 test('Schedules list page title includes "Schedules"', async (t) => {
-  const { page } = t.context;
+  const { pageTest } = t.context;
 
-  await AcceptanceAssert.expectTitleContains(page, 'Schedules');
+  await pageTest.expectTitleContains('Schedules');
 });
 
 test('Schedules is loaded', async (t) => {

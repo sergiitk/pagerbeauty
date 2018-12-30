@@ -10,6 +10,78 @@ const { expect } = chai;
 
 // ------- Helpers -------------------------------------------------------------
 
+export class PageTest {
+  constructor(page) {
+    this.page = page;
+  }
+
+  async expectTitleContains(text) {
+    expect(await this.page.title()).to.contain(text);
+  }
+
+  async expectClass(selector, className) {
+    expect(
+      await this.hasClass(selector, className),
+    ).to.be.true;
+  }
+
+  async expectNoClass(selector, className) {
+    expect(
+      await this.hasClass(selector, className),
+    ).to.be.false;
+  }
+
+  async expectText(selector, text) {
+    expect(
+      await this.getTextContent(selector),
+    ).to.equal(text);
+  }
+
+  async expectAttr(selector, attr, value) {
+    expect(
+      await this.getAttr(selector, attr),
+    ).to.equal(value);
+  }
+
+  async expectAttrMatch(selector, attr, re) {
+    expect(
+      await this.getAttr(selector, attr),
+    ).to.match(re);
+  }
+
+  async expectAttrContains(selector, attr, substring) {
+    expect(
+      await this.getAttr(selector, attr),
+    ).to.contain(substring);
+  }
+
+  async expectNoElements(selector) {
+    expect(
+      await this.page.$$eval(selector, nodes => nodes.length),
+    ).to.equal(0);
+  }
+
+  async hasClass(selector, className) {
+    return this.page.$eval(
+      selector,
+      (node, classInBrowser) => node.classList.contains(classInBrowser),
+      className,
+    );
+  }
+
+  async getTextContent(selector) {
+    return this.page.$eval(selector, node => node.textContent);
+  }
+
+  async getAttr(selector, attr) {
+    return this.page.$eval(
+      selector,
+      (node, attrInBrowser) => node.getAttribute(attrInBrowser),
+      attr,
+    );
+  }
+}
+
 export class AcceptanceHooks {
   static async openBrowser(t) {
     t.context.browser = await puppeteer.launch({
@@ -33,75 +105,8 @@ export class AcceptanceHooks {
     return async (t) => {
       const { page } = t.context;
       t.context.pageResponse = await page.goto(`${BASE_URL}${url}`);
+      t.context.pageTest = new PageTest(page);
     };
-  }
-}
-
-export class AcceptanceAssert {
-  static async expectTitleContains(page, text) {
-    expect(await page.title()).to.contain(text);
-  }
-
-  static async expectClass(page, selector, className) {
-    expect(
-      await AcceptanceAssert.hasClass(page, selector, className),
-    ).to.be.true;
-  }
-
-  static async expectNoClass(page, selector, className) {
-    expect(
-      await AcceptanceAssert.hasClass(page, selector, className),
-    ).to.be.false;
-  }
-
-  static async expectText(page, selector, text) {
-    expect(
-      await AcceptanceAssert.getTextContent(page, selector),
-    ).to.equal(text);
-  }
-
-  static async expectAttr(page, selector, attr, value) {
-    expect(
-      await AcceptanceAssert.getAttr(page, selector, attr),
-    ).to.equal(value);
-  }
-
-  static async expectAttrMatch(page, selector, attr, re) {
-    expect(
-      await AcceptanceAssert.getAttr(page, selector, attr),
-    ).to.match(re);
-  }
-
-  static async expectAttrContains(page, selector, attr, substring) {
-    expect(
-      await AcceptanceAssert.getAttr(page, selector, attr),
-    ).to.contain(substring);
-  }
-
-  static async expectNoElements(page, selector) {
-    expect(
-      await page.$$eval(selector, nodes => nodes.length),
-    ).to.equal(0);
-  }
-
-  static async hasClass(page, selector, className) {
-    return page.$eval(
-      selector,
-      (node, classInBrowser) => node.classList.contains(classInBrowser),
-      className,
-    );
-  }
-
-  static async getTextContent(page, selector) {
-    return page.$eval(selector, node => node.textContent);
-  }
-
-  static async getAttr(page, selector, attr) {
-    return page.$eval(
-      selector,
-      (node, attrInBrowser) => node.getAttribute(attrInBrowser),
-      attr,
-    );
   }
 }
 
