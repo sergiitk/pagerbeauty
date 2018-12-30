@@ -15,9 +15,10 @@ RUN yarn install --prod --frozen-lockfile
 EXPOSE 8080
 
 # ---------- Dev image from here
-# NPM config
+# NPM config and dev environment
 RUN  npm config set scripts-prepend-node-path true \
-  && npm config set puppeteer_skip_chromium_download true
+  && npm config set puppeteer_skip_chromium_download true \
+  && mkdir -v $APP_DIR/tmp
 
 # Install the rest
 RUN yarn install --frozen-lockfile
