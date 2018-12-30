@@ -85,7 +85,7 @@ test('No one On-Call: indicator shows error', async (t) => {
     page,
     '.status_indicator',
     'title',
-    '404 Not Found'
+    '404 Not Found',
   );
 });
 

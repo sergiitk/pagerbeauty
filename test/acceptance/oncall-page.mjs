@@ -9,7 +9,7 @@ import { AcceptanceHooks, AcceptanceAssert } from '../helpers/AcceptanceHelpers'
 
 // ------- Init ----------------------------------------------------------------
 
-const expect = chai.expect;
+const { expect } = chai;
 
 test.before(AcceptanceHooks.openBrowser);
 test.after.always(AcceptanceHooks.closeBrowser);
@@ -35,7 +35,7 @@ test('No one On-Call: block has no class not_found', async (t) => {
   await page.waitForSelector('.schedule');
 
   // Block has no not_found class
-  await AcceptanceAssert.expectNoClass(page, '.schedule', 'not_found')
+  await AcceptanceAssert.expectNoClass(page, '.schedule', 'not_found');
 });
 
 
@@ -58,7 +58,7 @@ test('On-Call block shows user name', async (t) => {
   await AcceptanceAssert.expectText(
     page,
     '.user_name',
-    'Rosanna Runolfsdottir'
+    'Rosanna Runolfsdottir',
   );
 });
 
@@ -69,13 +69,13 @@ test('On-Call block shows correct dates', async (t) => {
   await AcceptanceAssert.expectText(
     page,
     '.date_start',
-    'From: Tuesday, Dec 25 12:00 AM'
+    'From: Tuesday, Dec 25 12:00 AM',
   );
 
   await AcceptanceAssert.expectText(
     page,
     '.date_end',
-    'To: Tuesday, Dec 25 12:00 PM'
+    'To: Tuesday, Dec 25 12:00 PM',
   );
 });
 

@@ -6,5 +6,7 @@ module.exports = {
       props: true,
       ignorePropertyModificationsFor: ['t'],
     }],
+    // We use chai: expect(this).to.be.ok
+    'no-unused-expressions': 'off',
   },
 }

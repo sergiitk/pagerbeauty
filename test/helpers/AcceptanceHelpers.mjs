@@ -5,7 +5,7 @@ import chai from 'chai';
 
 // ------- Init ----------------------------------------------------------------
 
-const expect = chai.expect;
+const { expect } = chai;
 
 // ------- Helpers -------------------------------------------------------------
 
@@ -36,50 +36,50 @@ export class AcceptanceAssert {
 
   static async expectClass(page, selector, className) {
     expect(
-      await AcceptanceAssert.hasClass(page, selector, className)
+      await AcceptanceAssert.hasClass(page, selector, className),
     ).to.be.true;
   }
 
   static async expectNoClass(page, selector, className) {
     expect(
-      await AcceptanceAssert.hasClass(page, selector, className)
+      await AcceptanceAssert.hasClass(page, selector, className),
     ).to.be.false;
   }
 
   static async expectText(page, selector, text) {
     expect(
-      await AcceptanceAssert.getTextContent(page, selector)
+      await AcceptanceAssert.getTextContent(page, selector),
     ).to.equal(text);
   }
 
   static async expectAttr(page, selector, attr, value) {
     expect(
-      await AcceptanceAssert.getAttr(page, selector, attr)
+      await AcceptanceAssert.getAttr(page, selector, attr),
     ).to.equal(value);
   }
 
   static async expectAttrMatch(page, selector, attr, re) {
     expect(
-      await AcceptanceAssert.getAttr(page, selector, attr)
+      await AcceptanceAssert.getAttr(page, selector, attr),
     ).to.match(re);
   }
 
   static async expectAttrContains(page, selector, attr, substring) {
     expect(
-      await AcceptanceAssert.getAttr(page, selector, attr)
+      await AcceptanceAssert.getAttr(page, selector, attr),
     ).to.contain(substring);
   }
 
   static async expectNoElements(page, selector) {
     expect(
-      await page.$$eval(selector, nodes => nodes.length)
+      await page.$$eval(selector, nodes => nodes.length),
     ).to.equal(0);
   }
 
   static async hasClass(page, selector, className) {
     return page.$eval(
       selector,
-      (node, className) => node.classList.contains(className),
+      (node, classInBrowser) => node.classList.contains(classInBrowser),
       className,
     );
   }
@@ -89,7 +89,11 @@ export class AcceptanceAssert {
   }
 
   static async getAttr(page, selector, attr) {
-    return page.$eval(selector, (node, attr) => node.getAttribute(attr), attr);
+    return page.$eval(
+      selector,
+      (node, attrInBrowser) => node.getAttribute(attrInBrowser),
+      attr,
+    );
   }
 }
 

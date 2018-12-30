@@ -9,7 +9,7 @@ import { AcceptanceHooks, AcceptanceAssert } from '../helpers/AcceptanceHelpers'
 
 // ------- Init ----------------------------------------------------------------
 
-const expect = chai.expect;
+const { expect } = chai;
 
 test.before(AcceptanceHooks.openBrowser);
 test.after.always(AcceptanceHooks.closeBrowser);
