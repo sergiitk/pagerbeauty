@@ -52,7 +52,6 @@ services:
       dockerfile: ./Dockerfile-test-acceptance
     environment:
       PAGERBEAUTY_URL: http://pagerbeauty-dev:8080
-      CHROME_PATH: '/usr/bin/chromium-browser'
     volumes:
       - .:/usr/src/app/
       - node_modules:/usr/src/app/node_modules

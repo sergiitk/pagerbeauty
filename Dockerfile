@@ -2,13 +2,13 @@
 FROM node:10.14.2-alpine
 
 # Environment
-ENV APP_DIR=/usr/src/app/
+ENV APP_DIR=/usr/src/app
 
 # Create app directory
 WORKDIR $APP_DIR
 
 # Install
-COPY package.json yarn.lock $APP_DIR
+COPY package.json yarn.lock $APP_DIR/
 RUN yarn install --prod --frozen-lockfile
 
 # Pagerbeauty default port
