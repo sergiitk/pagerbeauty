@@ -41,6 +41,9 @@ RUN apk update && apk upgrade && \
 
 # TODO: create a user and omit no-sandbox
 
+# Set default chrome path
+ENV CHROME_PATH=/usr/bin/chromium-browser
+
 # Bundle app source
 COPY . .
 
