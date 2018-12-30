@@ -1,15 +1,18 @@
 // ------- Imports -------------------------------------------------------------
 
 import test from 'ava';
+import chai from 'chai';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { openBrowser, closeBrowser } from '../helpers/AcceptanceHelpers';
+import { AcceptanceHooks, AcceptanceAssert } from '../helpers/AcceptanceHelpers';
 
 // ------- Init ----------------------------------------------------------------
 
-test.before(openBrowser);
-test.after.always(closeBrowser);
+const expect = chai.expect;
+
+test.before(AcceptanceHooks.openBrowser);
+test.after.always(AcceptanceHooks.closeBrowser);
 
 const BASE_URL = process.env.PAGERBEAUTY_URL || 'http://127.0.0.1:8080';
 
@@ -18,23 +21,21 @@ const BASE_URL = process.env.PAGERBEAUTY_URL || 'http://127.0.0.1:8080';
 test.serial('On-Call: Navigate to page', async (t) => {
   const { page } = t.context;
   const response = await page.goto(`${BASE_URL}/v1/schedules/P538IZH.html`);
-  t.true(response.ok());
+  expect(response.ok()).to.be.true;
 });
 
 test('On-Call has schedule name in page title', async (t) => {
   const { page } = t.context;
 
-  t.true((await page.title()).includes('Schedule a quasi illum'));
+  await AcceptanceAssert.expectTitletoContain(page, 'Schedule a quasi illum');
 });
 
 test('No one On-Call: block has no class not_found', async (t) => {
   const { page } = t.context;
   await page.waitForSelector('.schedule');
 
-  t.false(await page.$eval(
-    '.schedule',
-    node => node.classList.contains('not_found'),
-  ));
+  // Block has no not_found class
+  await AcceptanceAssert.expectNoClass(page, '.schedule', 'not_found')
 });
 
 
@@ -43,8 +44,9 @@ test('On-Call block shows schedule name', async (t) => {
   // Wait for React to render.
   await page.waitForSelector('.schedule');
 
-  t.is(
-    await page.$eval('a.schedule_name', node => node.textContent),
+  await AcceptanceAssert.expectText(
+    page,
+    'a.schedule_name',
     'Schedule a quasi illum',
   );
 });
@@ -53,9 +55,10 @@ test('On-Call block shows user name', async (t) => {
   const { page } = t.context;
   await page.waitForSelector('.schedule');
 
-  t.is(
-    await page.$eval('.user_name', node => node.textContent),
-    'Rosanna Runolfsdottir',
+  await AcceptanceAssert.expectText(
+    page,
+    '.user_name',
+    'Rosanna Runolfsdottir'
   );
 });
 
@@ -63,14 +66,16 @@ test('On-Call block shows correct dates', async (t) => {
   const { page } = t.context;
   await page.waitForSelector('.schedule');
 
-  t.is(
-    await page.$eval('.date_start', node => node.textContent),
-    'From: Tuesday, Dec 25 12:00 AM',
+  await AcceptanceAssert.expectText(
+    page,
+    '.date_start',
+    'From: Tuesday, Dec 25 12:00 AM'
   );
 
-  t.is(
-    await page.$eval('.date_end', node => node.textContent),
-    'To: Tuesday, Dec 25 12:00 PM',
+  await AcceptanceAssert.expectText(
+    page,
+    '.date_end',
+    'To: Tuesday, Dec 25 12:00 PM'
   );
 });
 
@@ -78,8 +83,10 @@ test('On-Call block shows user avatar', async (t) => {
   const { page } = t.context;
   await page.waitForSelector('.schedule');
 
-  t.regex(
-    await page.$eval('.user_avatar img', node => node.src),
+  AcceptanceAssert.expectAttrMatch(
+    page,
+    '.user_avatar img',
+    'src',
     /^https:\/\/secure\.gravatar\.com\/avatar(.*)&s=2048/,
   );
 });
@@ -88,18 +95,9 @@ test('No one On-Call: indicator is OK', async (t) => {
   const { page } = t.context;
   await page.waitForSelector('.schedule');
 
-  t.false(await page.$eval(
-    '.status_indicator',
-    node => node.classList.contains('error'),
-  ));
-
-  t.true(await page.$eval(
-    '.status_indicator',
-    node => node.classList.contains('success'),
-  ));
-
-  const title = await page.$eval('.status_indicator', node => node.title);
-  t.true(title.includes('OK'));
+  await AcceptanceAssert.expectNoClass(page, '.status_indicator', 'error');
+  await AcceptanceAssert.expectClass(page, '.status_indicator', 'success');
+  await AcceptanceAssert.expectAttr(page, '.status_indicator', 'title', 'OK');
 });
 
 // ------- End -----------------------------------------------------------------

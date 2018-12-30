@@ -1,15 +1,18 @@
 // ------- Imports -------------------------------------------------------------
 
 import test from 'ava';
+import chai from 'chai';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { openBrowser, closeBrowser } from '../helpers/AcceptanceHelpers';
+import { AcceptanceHooks, AcceptanceAssert } from '../helpers/AcceptanceHelpers';
 
 // ------- Init ----------------------------------------------------------------
 
-test.before(openBrowser);
-test.after.always(closeBrowser);
+const expect = chai.expect;
+
+test.before(AcceptanceHooks.openBrowser);
+test.after.always(AcceptanceHooks.closeBrowser);
 
 const BASE_URL = process.env.PAGERBEAUTY_URL || 'http://127.0.0.1:8080';
 
@@ -18,13 +21,13 @@ const BASE_URL = process.env.PAGERBEAUTY_URL || 'http://127.0.0.1:8080';
 test.serial('Navigate to Schedules List page', async (t) => {
   const { page } = t.context;
   const response = await page.goto(`${BASE_URL}/v1/schedules.html`);
-  t.true(response.ok());
+  expect(response.ok()).to.be.true;
 });
 
 test('Schedules list page title includes "Schedules"', async (t) => {
   const { page } = t.context;
 
-  t.true((await page.title()).includes('Schedules'));
+  await AcceptanceAssert.expectTitletoContain(page, 'Schedules');
 });
 
 test('Schedules is loaded', async (t) => {
@@ -36,11 +39,9 @@ test('Schedules is loaded', async (t) => {
     '#schedules_list li',
     nodes => nodes.map(n => n.textContent),
   );
-  const expectedLinks = [
-    'Schedule a quasi illum',
-    'Schedule aliquid eum qui',
-  ];
-  t.deepEqual(links, expectedLinks);
+
+  expect(links).to.contain('Schedule a quasi illum');
+  expect(links).to.contain('Schedule aliquid eum qui');
 });
 
 // ------- End -----------------------------------------------------------------
