@@ -38,7 +38,6 @@ services:
     environment:
       PAGERBEAUTY_URL: http://pagerbeauty-ci:8080
     volumes:
-      - .:/usr/src/app/
       - node_modules:/usr/src/app/node_modules
       - ./tmp:/usr/src/app/tmp
     depends_on:
