@@ -1,46 +1,41 @@
 // ------- Imports -------------------------------------------------------------
 
 import test from 'ava';
+import chai from 'chai';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { openBrowser, closeBrowser } from '../helpers/AcceptanceHelpers';
+import { AcceptanceHooks } from '../helpers/AcceptanceHelpers';
 
 // ------- Init ----------------------------------------------------------------
 
-test.before(openBrowser);
-test.after.always(closeBrowser);
+const { expect } = chai;
+const { waitFor } = AcceptanceHooks;
 
-const BASE_URL = process.env.PAGERBEAUTY_URL || 'http://127.0.0.1:8080';
+test.before(AcceptanceHooks.openBrowser);
+test.serial.before(AcceptanceHooks.openPage('/v1/schedules.html'));
+test.after.always(AcceptanceHooks.closeBrowser);
 
 // ------- Tests ---------------------------------------------------------------
 
-test.serial('Navigate to Schedules List page', async (t) => {
-  const { page } = t.context;
-  const response = await page.goto(`${BASE_URL}/v1/schedules.html`);
-  t.true(response.ok());
+test('Schedules List: Check page response', (t) => {
+  expect(t.context.pageResponse.ok()).to.be.true;
 });
 
-test('Schedules list page title includes "Schedules"', async (t) => {
-  const { page } = t.context;
-
-  t.true((await page.title()).includes('Schedules'));
+test('Schedules List: "Schedules" on page title', async (t) => {
+  const { pageTest } = t.context;
+  await pageTest.expectTitleContains('Schedules');
 });
 
-test('Schedules is loaded', async (t) => {
+test('Schedules List: Loaded', waitFor('#schedules_list > ul'), async (t) => {
   const { page } = t.context;
-  // Wait for React to render.
-  await page.waitForSelector('#schedules_list > ul');
 
   const links = await page.$$eval(
     '#schedules_list li',
     nodes => nodes.map(n => n.textContent),
   );
-  const expectedLinks = [
-    'Schedule a quasi illum',
-    'Schedule aliquid eum qui',
-  ];
-  t.deepEqual(links, expectedLinks);
+  expect(links).to.contain('Schedule a quasi illum');
+  expect(links).to.contain('Schedule aliquid eum qui');
 });
 
 // ------- End -----------------------------------------------------------------

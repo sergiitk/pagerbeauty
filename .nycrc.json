@@ -1,0 +1,14 @@
+{
+  "exclude": [
+    "assets",
+    "src/assets",
+    "coverage",
+    "test",
+    "webpack.*",
+    "ava.config.js"
+  ],
+  "extension": [
+    ".jsx",
+    ".mjs"
+  ]
+}
