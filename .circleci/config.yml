@@ -179,8 +179,8 @@ jobs:
             docker-compose -f docker-compose.circleci.yaml down
           when: always
 
-  # Run isolated tests: unit and integration
-  test:
+  # Run unit tests
+  test-unit:
     docker:
       - image: circleci/node:10.14.2-stretch
     working_directory: ~/repo
@@ -192,9 +192,19 @@ jobs:
           name: Unit tests
           command: yarn test:unit:coverage
       - run:
-          name: Publish unit test coverage report to CodeCov
+          name: Publish coverage report to CodeCov
           command: yarn coverage:report:codecov
           when: always
+
+  # Run integration tests
+  test-integration:
+    docker:
+      - image: circleci/node:10.14.2-stretch
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run:
           name: Integration tests
           command: yarn test:integration
@@ -251,18 +261,22 @@ workflows:
       - docker-image:
           requires:
             - build
+      - lint:
+          requires:
+            - build
       - test-acceptance:
           requires:
             - docker-image
-      - test:
+      - test-integration:
           requires:
             - build
-      - lint:
+      - test-unit:
           requires:
             - build
       - semantic-release:
           requires:
-            - lint
-            - test
-            - test-acceptance
             - docker-image
+            - lint
+            - test-acceptance
+            - test-integration
+            - test-unit
