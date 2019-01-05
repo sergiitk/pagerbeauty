@@ -207,7 +207,16 @@ jobs:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run:
           name: Integration tests
-          command: yarn test:integration
+          command: ./test/test-with-xunit.sh integration
+      # Copy AVA test results
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p /tmp/pb/test-results/integration
+            cp ./tmp/xunit-integration.xml /tmp/pb/test-results/integration/results.xml
+          when: always
+      - store_test_results:
+          path: /tmp/pb/test-results
 
   # Lint
   lint:
