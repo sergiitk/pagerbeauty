@@ -189,7 +189,7 @@ jobs:
       - restore_cache:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run:
-          name: Prepare test requisistes
+          name: Prepare test requisites
           command: |
             npm config set scripts-prepend-node-path true
             mkdir -p /tmp/pb/test-results/unit
@@ -223,7 +223,7 @@ jobs:
       - restore_cache:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run:
-          name: Prepare test requisistes
+          name: Prepare test requisites
           command: |
             npm config set scripts-prepend-node-path true
             mkdir -p /tmp/pb/test-results/integration
@@ -253,16 +253,19 @@ jobs:
       - restore_cache:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run:
-          name: Create temp folders
-          command: mkdir -p /tmp/pb/test-results/eslint
+          name: Prepare test requisites
+          command: |
+            npm config set scripts-prepend-node-path true
+            mkdir -p /tmp/pb/test-results/eslint
       - run:
           name: Lint in JUnit XML format
           command: >
             yarn eslint --cache --cache-location=/tmp/pb/
-            -f junit --output-file=/tmp/pb/test-results/eslint/results.xml . || true
+            -f junit --output-file=/tmp/pb/test-results/eslint/results.xml .
       - run:
           name: Human readable report
           command: yarn eslint --cache --cache-location=/tmp/pb/ -f table .
+          when: always
       - store_test_results:
           path: /tmp/pb/test-results
 
