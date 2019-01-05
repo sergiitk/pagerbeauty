@@ -193,7 +193,7 @@ jobs:
           command: yarn test:unit:coverage
       - run:
           name: Publish unit test coverage report to CodeCov
-          command: yarn coverage:report:publish
+          command: yarn coverage:report:codecov
           when: always
       - run:
           name: Integration tests
