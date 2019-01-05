@@ -75,8 +75,8 @@ This project is under active development.
 - [x] On-call TimeZone is loaded from the PagerDuty schedule settings
 - [x] Application logging
 - [x] Ajax refresh
-- [ ] Automated Testing
-- [ ] Automated builds
+- [x] Automated Testing
+- [x] Automated Builds
 - [ ] Load all API pages
 - [ ] Full README.md and examples
 - [ ] Change color to red when an incident is triggered
