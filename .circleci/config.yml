@@ -165,7 +165,7 @@ jobs:
           name: Save test results
           command: |
             mkdir -p /tmp/pb/test-results/acceptance
-            cp ./tmp/tap-xunit.xml /tmp/pb/test-results/acceptance/results.xml
+            cp ./tmp/tap-xunit-acceptance.xml /tmp/pb/test-results/acceptance/results.xml
           when: always
       - store_test_results:
           path: /tmp/pb/test-results
