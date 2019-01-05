@@ -200,7 +200,11 @@ jobs:
           # Which has no pipefail support.
           command: bash ./test/test-with-xunit.sh unit:coverage
       - run:
-          name: Publish coverage report to CodeCov
+          name: Human-readable code coverage report
+          command: yarn coverage:report:text
+          when: always
+      - run:
+          name: Publish code coverage report to CodeCov
           command: yarn coverage:report:codecov
           when: always
       # Store AVA report in xUnit format
@@ -263,7 +267,7 @@ jobs:
             yarn eslint --cache --cache-location=/tmp/pb/
             -f junit --output-file=/tmp/pb/test-results/eslint/results.xml .
       - run:
-          name: Human readable report
+          name: Human-readable report
           command: yarn eslint --cache --cache-location=/tmp/pb/ -f table .
           when: always
       - store_test_results:
