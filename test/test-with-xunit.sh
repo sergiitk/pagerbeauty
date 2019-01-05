@@ -12,7 +12,7 @@ case "$1" in
     TEST_TYPE=$1
     ;;
   'unit:coverage')
-    # Same tests, different mode
+    # Same unit tests, just with coverage
     TEST_SCRIPT="test:$1 --tap"
     TEST_TYPE='unit'
     ;;
