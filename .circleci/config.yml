@@ -189,10 +189,14 @@ jobs:
       - restore_cache:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run:
-          name: Unit Tests
-          command: yarn test:unit
+          name: Unit tests
+          command: yarn test:unit:coverage
       - run:
-          name: Integration Tests
+          name: Publish unit test coverage report to CodeCov
+          command: yarn coverage:report:publish
+          when: always
+      - run:
+          name: Integration tests
           command: yarn test:integration
 
   # Lint
