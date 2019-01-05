@@ -206,14 +206,21 @@ jobs:
       - restore_cache:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run:
-          name: Integration tests
-          command: ./test/test-with-xunit.sh integration
+          name: Prepare report output folders
+          command: |
+            mkdir -p /tmp/pb/test-results/integration
+            mkdir -p ./tmp
+      - run:
+          name: Run integration tests
+          # Run with bash because Ubuntu uses dash for /bin/sh
+          # Which has no pipefail support.
+          command: bash ./test/test-with-xunit.sh integration
       # Copy AVA test results
       - run:
           name: Save test results
-          command: |
-            mkdir -p /tmp/pb/test-results/integration
-            cp ./tmp/xunit-integration.xml /tmp/pb/test-results/integration/results.xml
+          command: >
+            cp ./tmp/xunit-integration.xml
+            /tmp/pb/test-results/integration/results.xml
           when: always
       - store_test_results:
           path: /tmp/pb/test-results

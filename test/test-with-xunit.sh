@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Note: pipefail is not suppored in dash, which is used for /bin/sh
+# in some distributions (f.e. Ubuntu). In this cases, just run script
+# with bash:
+# bash ./test/test-with-xunit.sh
 set -o pipefail
 
 case "$1" in
