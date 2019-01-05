@@ -189,8 +189,9 @@ jobs:
       - restore_cache:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run:
-          name: Prepare report output folders
+          name: Prepare test requisistes
           command: |
+            npm config set scripts-prepend-node-path true
             mkdir -p /tmp/pb/test-results/unit
             mkdir -p ./tmp
       - run:
@@ -222,8 +223,9 @@ jobs:
       - restore_cache:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run:
-          name: Prepare report output folders
+          name: Prepare test requisistes
           command: |
+            npm config set scripts-prepend-node-path true
             mkdir -p /tmp/pb/test-results/integration
             mkdir -p ./tmp
       - run:
