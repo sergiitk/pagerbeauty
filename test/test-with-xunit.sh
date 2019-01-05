@@ -27,7 +27,7 @@ XUNIT_OUTPUT_FILE="./tmp/xunit-$TEST_TYPE.xml"
 
 # Run ava in TAP format and output to correspinding file.
 echo "Running $TEST_TYPE tests, tap output to $TAP_OUTPUT_FILE"
-yarn run $TEST_SCRIPT > $TAP_OUTPUT_FILE
+yarn -s run $TEST_SCRIPT > $TAP_OUTPUT_FILE
 test_exit_code=$?
 
 # Human-readable diff
