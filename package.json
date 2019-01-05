@@ -19,7 +19,7 @@
     "test:acceptance": "NODE_ENV=test ava test/acceptance",
     "test:full": "npm run test:unit && npm run test:integration",
     "coverage:report:html": "nyc report --reporter=html",
-    "coverage:report:codecov": "nyc report --reporter=lcov && codecov",
+    "coverage:report:codecov": "nyc report --reporter=lcovonly && codecov",
     "lint": "eslint --ext .js --ext .mjs --ext .jsx -f unix .",
     "eslint": "eslint --ext .js --ext .mjs --ext .jsx",
     "mock:pagerduty_api": "mockserver -p 8081 -m test/mocks",
