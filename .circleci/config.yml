@@ -160,12 +160,12 @@ jobs:
             up --no-build
             --abort-on-container-exit --exit-code-from=test-acceptance
             test-acceptance
-      # Copy AVA test results
+      # Store AVA report in xUnit format
       - run:
           name: Save test results
           command: |
             mkdir -p /tmp/pb/test-results/acceptance
-            cp ./tmp/tap-xunit.xml /tmp/pb/test-results/acceptance/results.xml
+            cp ./tmp/xunit-acceptance.xml /tmp/pb/test-results/acceptance/results.xml
           when: always
       - store_test_results:
           path: /tmp/pb/test-results
@@ -179,8 +179,8 @@ jobs:
             docker-compose -f docker-compose.circleci.yaml down
           when: always
 
-  # Run isolated tests: unit and integration
-  test:
+  # Run unit tests
+  test-unit:
     docker:
       - image: circleci/node:10.14.2-stretch
     working_directory: ~/repo
@@ -189,11 +189,63 @@ jobs:
       - restore_cache:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run:
-          name: Unit Tests
-          command: yarn test:unit
+          name: Prepare test requisites
+          command: |
+            npm config set scripts-prepend-node-path true
+            mkdir -p /tmp/pb/test-results/unit
+            mkdir -p ./tmp
       - run:
-          name: Integration Tests
-          command: yarn test:integration
+          name: Run unit tests
+          # Run with bash because Ubuntu uses dash for /bin/sh
+          # Which has no pipefail support.
+          command: bash ./test/test-with-xunit.sh unit:coverage
+      - run:
+          name: Human-readable code coverage report
+          command: yarn coverage:report:text
+          when: always
+      - run:
+          name: Publish code coverage report to CodeCov
+          command: yarn coverage:report:codecov
+          when: always
+      # Store AVA report in xUnit format
+      - run:
+          name: Save test results
+          command: >
+            cp ./tmp/xunit-unit.xml
+            /tmp/pb/test-results/unit/results.xml
+          when: always
+      - store_test_results:
+          path: /tmp/pb/test-results
+
+  # Run integration tests
+  test-integration:
+    docker:
+      - image: circleci/node:10.14.2-stretch
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+      - run:
+          name: Prepare test requisites
+          command: |
+            npm config set scripts-prepend-node-path true
+            mkdir -p /tmp/pb/test-results/integration
+            mkdir -p ./tmp
+      - run:
+          name: Run integration tests
+          # Run with bash because Ubuntu uses dash for /bin/sh
+          # Which has no pipefail support.
+          command: bash ./test/test-with-xunit.sh integration
+      # Store AVA report in xUnit format
+      - run:
+          name: Save test results
+          command: >
+            cp ./tmp/xunit-integration.xml
+            /tmp/pb/test-results/integration/results.xml
+          when: always
+      - store_test_results:
+          path: /tmp/pb/test-results
 
   # Lint
   lint:
@@ -205,16 +257,19 @@ jobs:
       - restore_cache:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run:
-          name: Create temp folders
-          command: mkdir -p /tmp/pb/test-results/eslint
+          name: Prepare test requisites
+          command: |
+            npm config set scripts-prepend-node-path true
+            mkdir -p /tmp/pb/test-results/eslint
       - run:
           name: Lint in JUnit XML format
           command: >
             yarn eslint --cache --cache-location=/tmp/pb/
-            -f junit --output-file=/tmp/pb/test-results/eslint/results.xml . || true
+            -f junit --output-file=/tmp/pb/test-results/eslint/results.xml .
       - run:
-          name: Human readable report
+          name: Human-readable report
           command: yarn eslint --cache --cache-location=/tmp/pb/ -f table .
+          when: always
       - store_test_results:
           path: /tmp/pb/test-results
 
@@ -247,18 +302,22 @@ workflows:
       - docker-image:
           requires:
             - build
+      - lint:
+          requires:
+            - build
       - test-acceptance:
           requires:
             - docker-image
-      - test:
+      - test-integration:
           requires:
             - build
-      - lint:
+      - test-unit:
           requires:
             - build
       - semantic-release:
           requires:
-            - lint
-            - test
-            - test-acceptance
             - docker-image
+            - lint
+            - test-acceptance
+            - test-integration
+            - test-unit

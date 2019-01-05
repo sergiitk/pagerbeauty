@@ -34,10 +34,12 @@ services:
       context: .
       dockerfile: ./Dockerfile-test-acceptance
     entrypoint: ""
-    command: ["./test/run-acceptance-with-reports.sh"]
+    command: ["./test/test-with-xunit.sh", "acceptance"]
     environment:
       PAGERBEAUTY_URL: http://pagerbeauty-ci:8080
     volumes:
+      # Uncomment for verifying service locally.
+      # - .:/usr/src/app/
       - node_modules:/usr/src/app/node_modules
       - ./tmp:/usr/src/app/tmp
     depends_on:
