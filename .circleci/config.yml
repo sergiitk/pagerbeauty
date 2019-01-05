@@ -160,7 +160,7 @@ jobs:
             up --no-build
             --abort-on-container-exit --exit-code-from=test-acceptance
             test-acceptance
-      # Copy AVA test results
+      # Store AVA report in xUnit format
       - run:
           name: Save test results
           command: |
@@ -189,12 +189,28 @@ jobs:
       - restore_cache:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run:
-          name: Unit tests
-          command: yarn test:unit:coverage
+          name: Prepare report output folders
+          command: |
+            mkdir -p /tmp/pb/test-results/unit
+            mkdir -p ./tmp
+      - run:
+          name: Run unit tests
+          # Run with bash because Ubuntu uses dash for /bin/sh
+          # Which has no pipefail support.
+          command: bash ./test/test-with-xunit.sh unit:coverage
       - run:
           name: Publish coverage report to CodeCov
           command: yarn coverage:report:codecov
           when: always
+      # Store AVA report in xUnit format
+      - run:
+          name: Save test results
+          command: >
+            cp ./tmp/xunit-unit.xml
+            /tmp/pb/test-results/unit/unit.xml
+          when: always
+      - store_test_results:
+          path: /tmp/pb/test-results
 
   # Run integration tests
   test-integration:
@@ -215,7 +231,7 @@ jobs:
           # Run with bash because Ubuntu uses dash for /bin/sh
           # Which has no pipefail support.
           command: bash ./test/test-with-xunit.sh integration
-      # Copy AVA test results
+      # Store AVA report in xUnit format
       - run:
           name: Save test results
           command: >

@@ -10,6 +10,10 @@ case "$1" in
   'acceptance' | 'unit' | 'integration')
     TEST_TYPE=$1
     ;;
+  'unit:coverage')
+    # Same tests, different mode
+    TEST_TYPE='unit'
+    ;;
   *)
     echo "Usage: $0 {acceptance|unit|integration}"
     exit 1
