@@ -12,14 +12,20 @@ case "$1" in
     ;;
 esac
 
+TAP_OUTPUT_FILE="./tmp/tap-$TEST_TYPE.txt"
+XUNIT_OUTPUT_FILE="./tmp/xunit-$TEST_TYPE.xml"
+
 # Run ava in TAP format and output to correspinding file.
-yarn -s run test:$TEST_TYPE --tap > ./tmp/tap-ava-$TEST_TYPE.txt
+echo "Running $TEST_TYPE tests, tap output to $TAP_OUTPUT_FILE"
+yarn -s run test:$TEST_TYPE --tap > $TAP_OUTPUT_FILE
 test_exit_code=$?
 
 # Human-readable diff
-FORCE_COLOR=t yarn -s run tap-spec < ./tmp/tap-ava-$TEST_TYPE.txt
+echo "Test results:"
+FORCE_COLOR=t yarn -s run tap-spec < $TAP_OUTPUT_FILE
 
 # Machine-readable xUnit report
-yarn -s run tap-xunit < ./tmp/tap-ava-$TEST_TYPE.txt > ./tmp/tap-xunit-$TEST_TYPE.xml
+echo "Saving xUnit report to to $XUNIT_OUTPUT_FILE"
+yarn -s run tap-xunit < $TAP_OUTPUT_FILE > $XUNIT_OUTPUT_FILE
 
 exit $test_exit_code
