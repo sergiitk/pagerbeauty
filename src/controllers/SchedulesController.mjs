@@ -9,7 +9,7 @@ export class SchedulesController {
   }
 
   async index(ctx, format = 'html') {
-    const schedules = this.db.get('schedules').serialize();
+    const schedules = this.db.get('oncalls').serialize();
     switch (format) {
       case 'json':
         ctx.body = schedules;
@@ -23,7 +23,7 @@ export class SchedulesController {
   }
 
   async show(ctx, scheduleId, format = 'html') {
-    const schedule = this.db.get('schedules').onCallRepo.get(scheduleId);
+    const schedule = this.db.get('oncalls').onCallRepo.get(scheduleId);
 
     switch (format) {
       case 'json':

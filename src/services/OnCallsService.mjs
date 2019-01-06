@@ -7,9 +7,9 @@ import logger from 'winston';
 import { OnCall } from '../models/OnCall';
 import { INCLUDE_USERS, INCLUDE_SCHEDULES } from './PagerDutyClient';
 
-// ------- SchedulesService -----------------------------------------------------
+// ------- OnCallsService ------------------------------------------------------
 
-export class SchedulesService {
+export class OnCallsService {
   constructor(pagerDutyClient) {
     this.client = pagerDutyClient;
     this.onCallRepo = new Map();

@@ -6,7 +6,7 @@ import logger from 'winston';
 
 import { PagerBeautyInitError } from '../errors';
 import { PagerDutyClient } from '../services/PagerDutyClient';
-import { SchedulesService } from '../services/SchedulesService';
+import { OnCallsService } from '../services/OnCallsService';
 
 // ------- Class ---------------------------------------------------------------
 
@@ -90,19 +90,19 @@ class Timer {
 /* eslint-disable class-methods-use-this */
 // Don't requre hooks to be static for consitency.
 // TimerTask implementations decide whether they need to use this in them.
-class SchedulesTimerTask {
-  constructor({ db, schedulesService, schedulesList }) {
+class OnCallsTimerTask {
+  constructor({ db, onCallsService, schedulesList }) {
     this.db = db;
-    this.schedulesService = schedulesService;
+    this.onCallsService = onCallsService;
     this.schedulesList = schedulesList;
   }
 
   async run(runNumber, intervalMs) {
     logger.verbose(`Schedules refresh run #${runNumber}, every ${intervalMs}ms`);
-    const result = await this.schedulesService.load(this.schedulesList);
+    const result = await this.onCallsService.load(this.schedulesList);
     if (result) {
       // @todo: refresh without full override.
-      this.db.set('schedules', this.schedulesService);
+      this.db.set('oncalls', this.onCallsService);
     }
     return result;
   }
@@ -138,8 +138,8 @@ export class PagerBeautyWorker {
       pagerDutyConfig.apiKey,
       pagerDutyConfig.apiURL,
     );
-    this.schedulesService = new SchedulesService(this.pagerDutyClient);
-    this.schedulesTimer = false;
+    this.onCallsService = new OnCallsService(this.pagerDutyClient);
+    this.onCallsTimer = false;
   }
 
   // ------- Public API  -------------------------------------------------------
@@ -147,15 +147,15 @@ export class PagerBeautyWorker {
   async start() {
     const { db } = this;
     logger.debug('Initializing database.');
-    db.set('schedules', new Map());
+    db.set('oncalls', new Map());
 
     await this.startSchedulesWorker();
     return true;
   }
 
   async stop() {
-    if (this.schedulesTimer) {
-      await this.schedulesTimer.stop();
+    if (this.onCallsTimer) {
+      await this.onCallsTimer.stop();
     }
 
     const { db } = this;
@@ -176,13 +176,13 @@ export class PagerBeautyWorker {
     const refreshRateMS = refreshRateMinutes * 60 * 1000;
     const schedulesList = pagerDutyConfig.schedules.list;
 
-    const schedulesTimerTask = new SchedulesTimerTask({
+    const onCallsTimerTask = new OnCallsTimerTask({
       db: this.db,
-      schedulesService: this.schedulesService,
+      onCallsService: this.onCallsService,
       schedulesList,
     });
-    this.schedulesTimer = new Timer(schedulesTimerTask, refreshRateMS);
-    await this.schedulesTimer.start();
+    this.onCallsTimer = new Timer(onCallsTimerTask, refreshRateMS);
+    await this.onCallsTimer.start();
   }
 
   // ------- Class end  --------------------------------------------------------
