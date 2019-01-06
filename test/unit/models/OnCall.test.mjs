@@ -16,16 +16,18 @@ const { expect } = chai;
 test('OnCall', () => {
   // TODO: fake properly.
   const onCall = new OnCall({
-    scheduleId: 'scheduleId',
-    scheduleName: 'scheduleName',
-    scheduleURL: 'scheduleURL',
-    scheduleTimezone: 'scheduleTimezone',
     userId: 'userId',
     userName: 'userName',
     userAvatarURL: 'userAvatarURL',
     userURL: 'userURL',
     dateStart: '2018-12-25T05:00:00.000Z',
     dateEnd: '2018-12-25T17:00:00.000Z',
+    schedule: {
+      id: 'scheduleId',
+      name: 'scheduleName',
+      url: 'scheduleURL',
+      timezone: 'scheduleTimezone',
+    },
   });
 
   // Verify public API.

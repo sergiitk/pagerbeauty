@@ -1,0 +1,9 @@
+{% set title = 'Schedule ' + (oncall.schedule.name or 'not found') %}
+{% extends 'layout.html.j2' %}
+
+{% block content %}
+{# {{ oncall | dump }} #}
+
+<div class="on_call_root" data-id="{{ oncall.schedule.id }}"></div>
+
+{% endblock %}

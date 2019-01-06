@@ -55,7 +55,7 @@ export class OnCallView extends React.Component {
         { /* Schedule name */ }
         {onCall && (
           <OnCallScheduleRowView>
-            <a href={onCall.scheduleURL} className="schedule_name">{onCall.scheduleName}</a>
+            <a href={onCall.schedule.url} className="schedule_name">{onCall.schedule.name}</a>
           </OnCallScheduleRowView>
         )}
 
@@ -72,13 +72,13 @@ export class OnCallView extends React.Component {
                 className="date_start"
                 label="From"
                 date={onCall.dateStart}
-                timezone={onCall.scheduleTimezone}
+                timezone={onCall.schedule.timezone}
               />
               <OnCallDateRowView
                 className="date_end"
                 label="To"
                 date={onCall.dateEnd}
-                timezone={onCall.scheduleTimezone}
+                timezone={onCall.schedule.timezone}
               />
             </React.Fragment>
           )}

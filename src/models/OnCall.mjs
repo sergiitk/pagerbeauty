@@ -7,45 +7,44 @@ import 'url';
 import 'url-search-params-polyfill';
 import moment from 'moment-timezone';
 
+// ------- Internal imports ----------------------------------------------------
+
+import { Schedule } from './Schedule';
+
 // ------- OnCall --------------------------------------------------------------
 
 export class OnCall {
   constructor({
-    scheduleId,
-    scheduleName,
-    scheduleURL,
-    scheduleTimezone,
     userId,
     userName,
     userAvatarURL,
     userURL,
     dateStart,
     dateEnd,
+    schedule,
   }) {
-    this.scheduleId = scheduleId;
-    this.scheduleName = scheduleName;
-    this.scheduleURL = scheduleURL;
-    this.scheduleTimezone = scheduleTimezone;
     this.userId = userId;
     this.userName = userName;
     this.userAvatarURL = userAvatarURL;
     this.userURL = userURL;
     this.dateStart = moment(dateStart);
     this.dateEnd = moment(dateEnd);
+    if (schedule instanceof Schedule) {
+      this.schedule = schedule;
+    } else {
+      this.schedule = new Schedule(schedule);
+    }
   }
 
   serialize() {
     return {
-      scheduleId: this.scheduleId,
-      scheduleName: this.scheduleName,
-      scheduleURL: this.scheduleURL,
-      scheduleTimezone: this.scheduleTimezone,
       userId: this.userId,
       userName: this.userName,
       userAvatarURL: this.userAvatarURL,
       userURL: this.userURL,
       dateStart: this.dateStart.utc(),
       dateEnd: this.dateEnd.utc(),
+      schedule: this.schedule.serialize(),
     };
   }
 
@@ -61,18 +60,15 @@ export class OnCall {
     return url.href;
   }
 
-  static fromApiRecord(record) {
+  static fromApiRecord(record, schedule) {
     const attributes = {
-      scheduleId: record.schedule.id,
-      scheduleName: record.schedule.summary,
-      scheduleURL: record.schedule.html_url,
-      scheduleTimezone: record.schedule.time_zone,
       userId: record.user.id,
       userName: record.user.name,
       userAvatarURL: record.user.avatar_url,
       userURL: record.user.html_url,
       dateStart: record.start,
       dateEnd: record.end,
+      schedule,
     };
     return new OnCall(attributes);
   }

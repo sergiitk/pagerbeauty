@@ -21,7 +21,7 @@ export class SchedulesListView extends React.Component {
 
     // Ignore errors and show stale content after first successful data load.
     const schedulesListItems = data.map((schedule) => {
-      const item = <SchedulesListItemView key={schedule.scheduleId} schedule={schedule} />;
+      const item = <SchedulesListItemView key={schedule.id} schedule={schedule} />;
       return item;
     });
 
@@ -50,8 +50,8 @@ export class SchedulesListItemView extends React.Component {
     const { schedule } = this.props;
     return (
       <li>
-        <a href={`/v1/schedules/${schedule.scheduleId}.html`}>
-          {schedule.scheduleName}
+        <a href={`/v1/schedules/${schedule.id}.html`}>
+          {schedule.name}
         </a>
       </li>);
   }
