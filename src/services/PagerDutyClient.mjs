@@ -105,6 +105,12 @@ export class PagerDutyClient {
     return record;
   }
 
+  async getActiveIncidentForUserOnSchedule(userId, scheduleId) {
+    // WIP.
+    this.get(`incidents/${userId}/${scheduleId}`);
+    return false;
+  }
+
   async getSchedule(scheduleId) {
     const response = await this.get(`schedules/${scheduleId}`);
     if (response.schedule === undefined || !response.schedule.id) {

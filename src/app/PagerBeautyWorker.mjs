@@ -6,8 +6,10 @@ import logger from 'winston';
 
 import { Timer } from './Timer';
 import { PagerBeautyInitError } from '../errors';
+import { IncidentsTimerTask } from '../tasks/IncidentsTimerTask';
 import { OnCallsTimerTask } from '../tasks/OnCallsTimerTask';
 import { SchedulesTimerTask } from '../tasks/SchedulesTimerTask';
+import { IncidentsService } from '../services/IncidentsService';
 import { OnCallsService } from '../services/OnCallsService';
 import { SchedulesService } from '../services/SchedulesService';
 import { PagerDutyClient } from '../services/PagerDutyClient';
@@ -37,10 +39,13 @@ export class PagerBeautyWorker {
     );
     this.onCallsService = new OnCallsService(this.pagerDutyClient);
     this.schedulesService = new SchedulesService(this.pagerDutyClient);
+    // Optional
+    this.incidentsService = false;
 
     // Timers
     this.onCallsTimer = false;
     this.schedulesTimer = false;
+    this.incidentsTimer = false;
 
     // Requested schedules list.
     this.schedulesList = pagerDutyConfig.schedules.list;
@@ -57,13 +62,14 @@ export class PagerBeautyWorker {
       this.incidentsRefreshMS = PagerBeautyWorker.refreshRateToMs(
         pagerDutyConfig.incidents.refreshRate,
       );
+      this.incidentsService = new IncidentsService(this.pagerDutyClient);
     }
   }
 
   // ------- Public API  -------------------------------------------------------
 
   async start() {
-    const { db } = this;
+    const { db, incidentsEnabled } = this;
     logger.debug('Initializing database.');
     db.set('oncalls', new Map());
     db.set('schedules', new Map());
@@ -73,6 +79,12 @@ export class PagerBeautyWorker {
 
     // Then load on-calls.
     await this.startOnCallsWorker();
+
+    // Incidents
+    if (incidentsEnabled) {
+      // No need to await on incidents.
+      this.startIncidentsWorker();
+    }
     return true;
   }
 
@@ -110,6 +122,16 @@ export class PagerBeautyWorker {
     });
     this.onCallsTimer = new Timer(onCallsTimerTask, schedulesRefreshMS);
     await this.onCallsTimer.start();
+  }
+
+  async startIncidentsWorker() {
+    const { incidentsRefreshMS } = this;
+    const incidentsTimerTask = new IncidentsTimerTask({
+      db: this.db,
+      incidentsService: this.incidentsService,
+    });
+    this.incidentsTimer = new Timer(incidentsTimerTask, incidentsRefreshMS);
+    await this.incidentsTimer.start();
   }
 
   static refreshRateToMs(minutesStr) {
