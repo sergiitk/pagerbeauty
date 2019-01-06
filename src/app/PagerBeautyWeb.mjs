@@ -36,7 +36,8 @@ export class PagerBeautyWeb {
     this.httpServer = false;
 
     // Init controllers mapping.
-    this.controllers = PagerBeautyWeb.initControllersRegistry();
+    this.controllers = new Map();
+    this.controllers.set('SchedulesController', new SchedulesController(app));
 
     // Configure web app.
     this.webApp = this.initWebApp();
@@ -45,9 +46,6 @@ export class PagerBeautyWeb {
   // ------- Public API  -------------------------------------------------------
 
   async start() {
-    // Controllers
-    await this.startControllers();
-
     // HTTP Server
     let server;
     try {
@@ -63,8 +61,6 @@ export class PagerBeautyWeb {
   }
 
   async stop(httpServer) {
-    await this.stopControllers();
-
     await PagerBeautyWeb.stopHttpServerAsync(httpServer || this.httpServer);
     return true;
   }
@@ -125,28 +121,6 @@ export class PagerBeautyWeb {
       schedulesController.show,
     ));
     return app;
-  }
-
-  async startControllers() {
-    const controllerEntries = Array.from(this.controllers.entries());
-    return Promise.all(controllerEntries.map(([name, controller]) => {
-      logger.debug(`Starting web controller ${name}`);
-      return controller.start(this);
-    }));
-  }
-
-  async stopControllers() {
-    const controllerEntries = Array.from(this.controllers.entries());
-    return Promise.all(controllerEntries.map(([name, controller]) => {
-      logger.debug(`Stopping web controller ${name}`);
-      return controller.stop(this);
-    }));
-  }
-
-  static initControllersRegistry() {
-    const controllers = new Map();
-    controllers.set('SchedulesController', new SchedulesController());
-    return controllers;
   }
 
   static startHttpServerAsync(connectionListener) {
