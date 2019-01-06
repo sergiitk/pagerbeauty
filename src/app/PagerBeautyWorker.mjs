@@ -4,11 +4,13 @@ import logger from 'winston';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { OnCallsService } from '../services/OnCallsService';
-import { PagerBeautyInitError } from '../errors';
-import { PagerDutyClient } from '../services/PagerDutyClient';
-import { OnCallsTimerTask } from '../tasks/OnCallsTimerTask';
 import { Timer } from './Timer';
+import { PagerBeautyInitError } from '../errors';
+import { OnCallsTimerTask } from '../tasks/OnCallsTimerTask';
+import { SchedulesTimerTask } from '../tasks/SchedulesTimerTask';
+import { OnCallsService } from '../services/OnCallsService';
+import { SchedulesService } from '../services/SchedulesService';
+import { PagerDutyClient } from '../services/PagerDutyClient';
 
 // ------- PagerBeautyWorker ---------------------------------------------------
 
@@ -27,14 +29,18 @@ export class PagerBeautyWorker {
     // DB
     this.db = app.db;
 
-    // PD Client
+    // PD Client and services.
     const pagerDutyConfig = this.config.pagerDuty;
     this.pagerDutyClient = new PagerDutyClient(
       pagerDutyConfig.apiKey,
       pagerDutyConfig.apiURL,
     );
     this.onCallsService = new OnCallsService(this.pagerDutyClient);
+    this.schedulesService = new SchedulesService(this.pagerDutyClient);
+
+    // Timers
     this.onCallsTimer = false;
+    this.schedulesTimer = false;
 
     // Parse refresh interval
     const refreshRateMinutes = Number(pagerDutyConfig.schedules.refreshRate);
@@ -53,7 +59,12 @@ export class PagerBeautyWorker {
     const { db } = this;
     logger.debug('Initializing database.');
     db.set('oncalls', new Map());
+    db.set('schedules', new Map());
 
+    // Load schedules first.
+    await this.startSchedulesWorker();
+
+    // Then load on-calls.
     await this.startOnCallsWorker();
     return true;
   }
@@ -62,6 +73,9 @@ export class PagerBeautyWorker {
     if (this.onCallsTimer) {
       await this.onCallsTimer.stop();
     }
+    if (this.schedulesTimer) {
+      await this.schedulesTimer.stop();
+    }
 
     const { db } = this;
     db.clear();
@@ -69,6 +83,17 @@ export class PagerBeautyWorker {
   }
 
   // ------- Internal machinery  -----------------------------------------------
+
+  async startSchedulesWorker() {
+    const { refreshRateMS, schedulesList } = this;
+    const schedulesTimerTask = new SchedulesTimerTask({
+      db: this.db,
+      schedulesService: this.schedulesService,
+      schedulesList,
+    });
+    this.schedulesTimer = new Timer(schedulesTimerTask, refreshRateMS);
+    await this.schedulesTimer.start();
+  }
 
   async startOnCallsWorker() {
     const { refreshRateMS, schedulesList } = this;

@@ -64,6 +64,14 @@ export class PagerDutyClient {
     return response.oncalls;
   }
 
+  async getSchedule(scheduleId) {
+    const response = await this.get(`schedules/${scheduleId}`);
+    if (response.schedule === undefined || !response.schedule.id) {
+      throw new PagerDutyClientResponseError('Unexpected parsing errors');
+    }
+    return response.schedule;
+  }
+
   async get(endpoint, searchParams) {
     const url = new URL(endpoint, this.apiUrl);
     url.search = searchParams;

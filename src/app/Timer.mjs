@@ -59,7 +59,7 @@ export class Timer {
       if (task.onRunError) {
         this.runHookSafely('onRunError');
       } else {
-        logger.error(`Timer ${taskName} run #${this.runNumber} error: ${error}`);
+        logger.warn(`Timer ${taskName} run #${this.runNumber} error: ${error}`);
       }
     } finally {
       // Always green the semaphore: on errors timer continues to run tasks.
