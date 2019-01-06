@@ -26,6 +26,10 @@ export const INCLUDE_USERS = 'users';
 export const INCLUDE_SCHEDULES = 'schedules';
 export const INCLUDE_ESCALATION_POLICIES = 'escalation_policies';
 
+export const INCIDENT_STATUS_TRIGGERED = 'triggered';
+export const INCIDENT_STATUS_ACKNOWLEDGED = 'acknowledged';
+export const INCIDENT_STATUS_RESOLVED = 'resolved';
+
 // ------- PagerDutyClient -----------------------------------------------------
 
 export class PagerDutyClient {
@@ -103,6 +107,47 @@ export class PagerDutyClient {
     }
 
     return record;
+  }
+
+  async getActiveIncidentForUserOnSchedule(userId, scheduleEscalationPolicies) {
+    const searchParams = new URLSearchParams([
+      ['user_ids[]', userId],
+      // Active = triggered + acknowledged
+      ['statuses[]', INCIDENT_STATUS_TRIGGERED],
+      ['statuses[]', INCIDENT_STATUS_ACKNOWLEDGED],
+    ]);
+
+    // Set limit to maximum possible value.
+    // https://v2.developer.pagerduty.com/v2/docs/pagination
+    searchParams.append('limit', 100);
+
+    // Order: most recent on top.
+    searchParams.append('sort_by', 'created_at:desc');
+
+    const response = await this.get('incidents', searchParams);
+    if (response.incidents === undefined) {
+      throw new PagerDutyClientResponseError('Unexpected parsing errors');
+    }
+
+    // No incidents.
+    if (!response.incidents.length) {
+      return null;
+    }
+
+    // Active incident for this schedule.
+    // Match incidents with the schedule through escalation policies.
+    for (const incident of response.incidents) {
+      // Find the one with the right schedule
+      const escalationPolicy = incident.escalation_policy.id;
+      if (!escalationPolicy) {
+        continue;
+      }
+      if (scheduleEscalationPolicies.has(escalationPolicy)) {
+        return incident;
+      }
+    }
+    // Not found.
+    return null;
   }
 
   async getSchedule(scheduleId) {

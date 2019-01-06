@@ -47,6 +47,10 @@ const config = {
       list: process.env.PAGERBEAUTY_PD_SCHEDULES.replace(/\s*/g, '').split(','),
       refreshRate: process.env.PAGERBEAUTY_REFRESH_RATE_MINUTES || 10,
     },
+    incidents: {
+      enabled: !process.env.PAGERBEAUTY_INCIDENTS_DISABLE,
+      refreshRate: process.env.PAGERBEAUTY_INCIDENTS_REFRESH_RATE_MINUTES || 1,
+    },
   },
   auth: {
     name: process.env.PAGERBEAUTY_HTTP_USER,

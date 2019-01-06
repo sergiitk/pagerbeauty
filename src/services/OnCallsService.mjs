@@ -44,7 +44,9 @@ export class OnCallsService {
     }
 
     if (missingSchedules.size) {
-      logger.warn(`Missing data for schedules: ${Array.from(missingSchedules).join()}`);
+      logger.warn(
+        `Missing oncall data for schedules: ${Array.from(missingSchedules).join()}`,
+      );
     }
     return true;
   }
