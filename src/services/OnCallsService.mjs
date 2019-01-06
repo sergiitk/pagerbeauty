@@ -15,8 +15,21 @@ export class OnCallsService {
     this.onCallRepo = new Map();
   }
 
-  async load(scheduleIds) {
+  async load(schedules) {
+    const scheduleIds = [];
+    const missingSchedules = [];
+    for (const [scheduleId, schedule] of schedules.schedulesRepo.entries()) {
+      if (schedule.id) {
+        scheduleIds.push(scheduleId);
+      } else {
+        missingSchedules.push(scheduleId);
+      }
+    }
+
     logger.verbose(`Loading on-calls for schedules ${scheduleIds}`);
+    if (missingSchedules) {
+      logger.warn(`Missing data for schedules ${missingSchedules}`);
+    }
 
     let records;
     try {

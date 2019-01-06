@@ -5,15 +5,15 @@ import logger from 'winston';
 // ------- OnCallsTimerTask ----------------------------------------------------
 
 export class OnCallsTimerTask {
-  constructor({ db, onCallsService, schedulesList }) {
+  constructor({ db, onCallsService }) {
     this.db = db;
     this.onCallsService = onCallsService;
-    this.schedulesList = schedulesList;
   }
 
   async run(runNumber, intervalMs) {
     logger.verbose(`On-calls refresh run #${runNumber}, every ${intervalMs}ms`);
-    const result = await this.onCallsService.load(this.schedulesList);
+    const schedules = this.db.get('schedules');
+    const result = await this.onCallsService.load(schedules);
     if (result) {
       // @todo: refresh without full override.
       this.db.set('oncalls', this.onCallsService);

@@ -96,11 +96,10 @@ export class PagerBeautyWorker {
   }
 
   async startOnCallsWorker() {
-    const { refreshRateMS, schedulesList } = this;
+    const { refreshRateMS } = this;
     const onCallsTimerTask = new OnCallsTimerTask({
       db: this.db,
       onCallsService: this.onCallsService,
-      schedulesList,
     });
     this.onCallsTimer = new Timer(onCallsTimerTask, refreshRateMS);
     await this.onCallsTimer.start();
