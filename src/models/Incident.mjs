@@ -2,12 +2,6 @@
 
 // This model to be compatible both with backend and frontend.
 
-// import moment from 'moment-timezone';
-
-// ------- Internal imports ----------------------------------------------------
-
-// import { OnCall } from './OnCall';
-
 // ------- OnCall --------------------------------------------------------------
 
 export class Incident {

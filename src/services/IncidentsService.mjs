@@ -42,7 +42,7 @@ export class IncidentsService {
           );
           logger.silly(`Incident ${incident.toString()}`);
         } else {
-          // No incidenta, clear.
+          // No incidents, clear.
           const existed = this.incidentsRepo.delete(scheduleId);
           onCall.clearIncident();
           if (existed) {

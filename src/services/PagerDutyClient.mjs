@@ -124,7 +124,6 @@ export class PagerDutyClient {
     // Order: most recent on top.
     searchParams.append('sort_by', 'created_at:desc');
 
-    // @todo: filter by escalation policies
     const response = await this.get('incidents', searchParams);
     if (response.incidents === undefined) {
       throw new PagerDutyClientResponseError('Unexpected parsing errors');
@@ -136,6 +135,7 @@ export class PagerDutyClient {
     }
 
     // Active incident for this schedule.
+    // Match incidents with the schedule through escalation policies.
     for (const incident of response.incidents) {
       // Find the one with the right schedule
       const escalationPolicy = incident.escalation_policy.id;
