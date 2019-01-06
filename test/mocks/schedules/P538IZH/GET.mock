@@ -1,0 +1,180 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Cache-Control: max-age=0, private, must-revalidate
+
+{
+  "schedule": {
+    "id": "P538IZH",
+    "type": "schedule",
+    "summary": "Schedule a quasi illum",
+    "self": "https://api.pagerduty.com/schedules/P538IZH",
+    "html_url": "https://apidocs.pagerduty.com/schedules/P538IZH",
+    "name": "Schedule a quasi illum",
+    "time_zone": "America/New_York",
+    "description": null,
+    "users": [
+      {
+        "id": "PRUXCXH",
+        "type": "user_reference",
+        "summary": "Domingo Abshire",
+        "self": "https://api.pagerduty.com/users/PRUXCXH",
+        "html_url": "https://apidocs.pagerduty.com/users/PRUXCXH"
+      },
+      {
+        "id": "PFNNZP8",
+        "type": "user_reference",
+        "summary": "Rosanna Runolfsdottir",
+        "self": "https://api.pagerduty.com/users/PFNNZP8",
+        "html_url": "https://apidocs.pagerduty.com/users/PFNNZP8"
+      },
+      {
+        "id": "P8Q172P",
+        "type": "user_reference",
+        "summary": "Audrey Satterfield",
+        "self": "https://api.pagerduty.com/users/P8Q172P",
+        "html_url": "https://apidocs.pagerduty.com/users/P8Q172P"
+      },
+      {
+        "id": "PBPDVGQ",
+        "type": "user_reference",
+        "summary": "Jakayla Gulgowski",
+        "self": "https://api.pagerduty.com/users/PBPDVGQ",
+        "html_url": "https://apidocs.pagerduty.com/users/PBPDVGQ"
+      },
+      {
+        "id": "P3N8KHT",
+        "type": "user_reference",
+        "summary": "Desiree Rau",
+        "self": "https://api.pagerduty.com/users/P3N8KHT",
+        "html_url": "https://apidocs.pagerduty.com/users/P3N8KHT"
+      }
+    ],
+    "escalation_policies": [
+      {
+        "id": "PIHTNQ7",
+        "type": "escalation_policy_reference",
+        "summary": "Escalation Policy et aut vel",
+        "self": "https://api.pagerduty.com/escalation_policies/PIHTNQ7",
+        "html_url": "https://apidocs.pagerduty.com/escalation_policies/PIHTNQ7"
+      },
+      {
+        "id": "PIYVU5O",
+        "type": "escalation_policy_reference",
+        "summary": "Escalation Policy eaque ipsam porro",
+        "self": "https://api.pagerduty.com/escalation_policies/PIYVU5O",
+        "html_url": "https://apidocs.pagerduty.com/escalation_policies/PIYVU5O"
+      },
+      {
+        "id": "PE9WAY3",
+        "type": "escalation_policy_reference",
+        "summary": "Escalation Policy numquam sit esse",
+        "self": "https://api.pagerduty.com/escalation_policies/PE9WAY3",
+        "html_url": "https://apidocs.pagerduty.com/escalation_policies/PE9WAY3"
+      },
+      {
+        "id": "PRQ43NH",
+        "type": "escalation_policy_reference",
+        "summary": "Escalation Policy repellat mollitia sunt",
+        "self": "https://api.pagerduty.com/escalation_policies/PRQ43NH",
+        "html_url": "https://apidocs.pagerduty.com/escalation_policies/PRQ43NH"
+      },
+      {
+        "id": "P73PS3O",
+        "type": "escalation_policy_reference",
+        "summary": "Escalation Policy voluptatem sunt dolor",
+        "self": "https://api.pagerduty.com/escalation_policies/P73PS3O",
+        "html_url": "https://apidocs.pagerduty.com/escalation_policies/P73PS3O"
+      }
+    ],
+    "schedule_layers": [
+      {
+        "name": "Schedule Layer 2",
+        "rendered_schedule_entries": [],
+        "rendered_coverage_percentage": null,
+        "id": "PKPYMWB",
+        "start": "2017-04-07T13:24:41-04:00",
+        "end": null,
+        "rotation_virtual_start": "2012-08-05T00:00:00-04:00",
+        "rotation_turn_length_seconds": 86400,
+        "users": [
+          {
+            "user": {
+              "id": "P8Q172P",
+              "type": "user_reference",
+              "summary": "Audrey Satterfield",
+              "self": "https://api.pagerduty.com/users/P8Q172P",
+              "html_url": "https://apidocs.pagerduty.com/users/P8Q172P"
+            }
+          },
+          {
+            "user": {
+              "id": "PRUXCXH",
+              "type": "user_reference",
+              "summary": "Domingo Abshire",
+              "self": "https://api.pagerduty.com/users/PRUXCXH",
+              "html_url": "https://apidocs.pagerduty.com/users/PRUXCXH"
+            }
+          },
+          {
+            "user": {
+              "id": "PFNNZP8",
+              "type": "user_reference",
+              "summary": "Rosanna Runolfsdottir",
+              "self": "https://api.pagerduty.com/users/PFNNZP8",
+              "html_url": "https://apidocs.pagerduty.com/users/PFNNZP8"
+            }
+          }
+        ],
+        "restrictions": [
+          {
+            "type": "daily_restriction",
+            "start_time_of_day": "00:00:00",
+            "duration_seconds": 43200
+          }
+        ]
+      },
+      {
+        "name": "Schedule Layer 1",
+        "rendered_schedule_entries": [],
+        "rendered_coverage_percentage": null,
+        "id": "PXC48UO",
+        "start": "2017-04-07T13:24:41-04:00",
+        "end": null,
+        "rotation_virtual_start": "2012-08-05T00:00:00-04:00",
+        "rotation_turn_length_seconds": 604800,
+        "users": [
+          {
+            "user": {
+              "id": "PBPDVGQ",
+              "type": "user_reference",
+              "summary": "Jakayla Gulgowski",
+              "self": "https://api.pagerduty.com/users/PBPDVGQ",
+              "html_url": "https://apidocs.pagerduty.com/users/PBPDVGQ"
+            }
+          },
+          {
+            "user": {
+              "id": "P3N8KHT",
+              "type": "user_reference",
+              "summary": "Desiree Rau",
+              "self": "https://api.pagerduty.com/users/P3N8KHT",
+              "html_url": "https://apidocs.pagerduty.com/users/P3N8KHT"
+            }
+          }
+        ],
+        "restrictions": []
+      }
+    ],
+    "overrides_subschedule": {
+      "name": "Overrides",
+      "rendered_schedule_entries": [],
+      "rendered_coverage_percentage": null
+    },
+    "final_schedule": {
+      "name": "Final Schedule",
+      "rendered_schedule_entries": [],
+      "rendered_coverage_percentage": null
+    },
+    "teams": []
+  }
+}
