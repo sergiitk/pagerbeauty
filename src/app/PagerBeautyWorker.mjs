@@ -13,7 +13,7 @@ import { SchedulesService } from '../services/SchedulesService';
 class Timer {
   constructor(task, intervalMs) {
     this.task = task;
-    this.taskName = task.constructor.name;
+    this.taskName = task.name || task.constructor.name;
     this.intervalMs = intervalMs;
     this.intervalId = false;
     this.semaphore = true;
@@ -26,8 +26,8 @@ class Timer {
     if (task.onStart) {
       this.runHookSafely('onStart', intervalMs);
     }
-    // TODO: Unit test the hell out of it.
-    // Run the task.
+    // @todo: Unit test the hell out of it.
+    // Run the task first time immediately.
     await this.runTask();
     // Schedule timer after the task is done.
     this.intervalId = setInterval(() => this.runTask(), intervalMs);
@@ -42,7 +42,7 @@ class Timer {
     }
   }
 
-  // Should not throw errors.
+  // MUST not throw errors.
   async runTask() {
     const { task, taskName, intervalMs } = this;
     if (!this.semaphore) {
@@ -52,6 +52,7 @@ class Timer {
       return false;
     }
 
+    // Red the semaphore.
     this.semaphore = false;
     this.runNumber = this.runNumber + 1;
     let result = false;
@@ -65,7 +66,7 @@ class Timer {
         logger.error(`Timer ${taskName} run #${this.runNumber} error: ${error}`);
       }
     } finally {
-      // Always release the semaphore.
+      // Always green the semaphore: on errors timer continues to run tasks.
       this.semaphore = true;
     }
     if (result) {
@@ -100,7 +101,7 @@ class SchedulesTimerTask {
     logger.verbose(`Schedules refresh run #${runNumber}, every ${intervalMs}ms`);
     const result = await this.schedulesService.load(this.schedulesList);
     if (result) {
-      // Todo: refresh without full override.
+      // @todo: refresh without full override.
       this.db.set('schedules', this.schedulesService);
     }
     return result;

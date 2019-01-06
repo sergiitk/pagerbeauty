@@ -67,7 +67,6 @@ export class PagerBeautyWeb {
 
   // ------- Internal machinery  -----------------------------------------------
 
-
   initWebApp() {
     const app = new Koa();
 
@@ -104,14 +103,13 @@ export class PagerBeautyWeb {
       extension: 'j2',
     }));
 
-    // Custom Routes
-
-    const schedulesController = this.controllers.get('SchedulesController');
     // Redirects
     app.use(route.get('/', redirect('/v1')));
     app.use(route.get('/v1', redirect('/v1/schedules.html')));
     app.use(route.get('/v1/schedules', redirect('/v1/schedules.html')));
-    // Controllers
+
+    // Controller routes
+    const schedulesController = this.controllers.get('SchedulesController');
     app.use(route.get(
       '/v1/schedules.(json|html)',
       schedulesController.index,
