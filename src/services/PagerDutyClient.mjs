@@ -106,9 +106,31 @@ export class PagerDutyClient {
   }
 
   async getActiveIncidentForUserOnSchedule(userId, scheduleId) {
-    // WIP.
-    this.get(`incidents/${userId}/${scheduleId}`);
-    return false;
+    const searchParams = new URLSearchParams([
+      ['user_ids[]', userId],
+    ]);
+
+    // @todo: limit and make sure it's a current one.
+    const response = await this.get('incidents', searchParams);
+    if (response.incidents === undefined) {
+      throw new PagerDutyClientResponseError('Unexpected parsing errors');
+    }
+
+    // No incidents.
+    if (!response.incidents.length) {
+      return null;
+    }
+
+    // Active incident for this schedule.
+    for (const incident of response.incidents) {
+      // Find the one with the right schedule
+      if (incident.scheduleId === scheduleId) {
+        return incident;
+      }
+    }
+    // Not found.
+    // @todo: Log?
+    return null;
   }
 
   async getSchedule(scheduleId) {
