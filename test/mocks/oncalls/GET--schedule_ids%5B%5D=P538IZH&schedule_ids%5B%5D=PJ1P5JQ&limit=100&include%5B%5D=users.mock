@@ -78,8 +78,8 @@ Cache-Control: max-age=0, private, must-revalidate
         "self": "https://api.pagerduty.com/users/PFNNZP8",
         "html_url": "https://apidocs.pagerduty.com/users/PFNNZP8"
       },
-      "start": "2019-01-06T05:00:00Z",
-      "end": "2019-01-06T17:00:00Z"
+      "start": "2018-12-25T05:00:00Z",
+      "end": "2018-12-25T17:00:00Z"
     },
     {
       "escalation_policy": {
@@ -155,8 +155,8 @@ Cache-Control: max-age=0, private, must-revalidate
         "self": "https://api.pagerduty.com/users/PFNNZP8",
         "html_url": "https://apidocs.pagerduty.com/users/PFNNZP8"
       },
-      "start": "2019-01-06T05:00:00Z",
-      "end": "2019-01-06T17:00:00Z"
+      "start": "2018-12-25T05:00:00Z",
+      "end": "2018-12-25T17:00:00Z"
     },
     {
       "escalation_policy": {
@@ -232,8 +232,8 @@ Cache-Control: max-age=0, private, must-revalidate
         "self": "https://api.pagerduty.com/users/PT6BV4C",
         "html_url": "https://apidocs.pagerduty.com/users/PT6BV4C"
       },
-      "start": "2019-01-06T05:00:00Z",
-      "end": "2019-01-06T17:00:00Z"
+      "start": "2018-12-25T05:00:00Z",
+      "end": "2018-12-25T17:00:00Z"
     },
     {
       "escalation_policy": {
@@ -309,8 +309,8 @@ Cache-Control: max-age=0, private, must-revalidate
         "self": "https://api.pagerduty.com/users/PFNNZP8",
         "html_url": "https://apidocs.pagerduty.com/users/PFNNZP8"
       },
-      "start": "2019-01-06T05:00:00Z",
-      "end": "2019-01-06T17:00:00Z"
+      "start": "2018-12-25T05:00:00Z",
+      "end": "2018-12-25T17:00:00Z"
     },
     {
       "escalation_policy": {
@@ -386,8 +386,8 @@ Cache-Control: max-age=0, private, must-revalidate
         "self": "https://api.pagerduty.com/users/PFNNZP8",
         "html_url": "https://apidocs.pagerduty.com/users/PFNNZP8"
       },
-      "start": "2019-01-06T05:00:00Z",
-      "end": "2019-01-06T17:00:00Z"
+      "start": "2018-12-25T05:00:00Z",
+      "end": "2018-12-25T17:00:00Z"
     },
     {
       "escalation_policy": {
@@ -463,8 +463,8 @@ Cache-Control: max-age=0, private, must-revalidate
         "self": "https://api.pagerduty.com/users/PT6BV4C",
         "html_url": "https://apidocs.pagerduty.com/users/PT6BV4C"
       },
-      "start": "2019-01-06T05:00:00Z",
-      "end": "2019-01-06T17:00:00Z"
+      "start": "2018-12-25T05:00:00Z",
+      "end": "2018-12-25T17:00:00Z"
     },
     {
       "escalation_policy": {
@@ -540,8 +540,8 @@ Cache-Control: max-age=0, private, must-revalidate
         "self": "https://api.pagerduty.com/users/PFNNZP8",
         "html_url": "https://apidocs.pagerduty.com/users/PFNNZP8"
       },
-      "start": "2019-01-06T05:00:00Z",
-      "end": "2019-01-06T17:00:00Z"
+      "start": "2018-12-25T05:00:00Z",
+      "end": "2018-12-25T17:00:00Z"
     },
     {
       "escalation_policy": {
@@ -617,8 +617,8 @@ Cache-Control: max-age=0, private, must-revalidate
         "self": "https://api.pagerduty.com/users/PFNNZP8",
         "html_url": "https://apidocs.pagerduty.com/users/PFNNZP8"
       },
-      "start": "2019-01-06T05:00:00Z",
-      "end": "2019-01-06T17:00:00Z"
+      "start": "2018-12-25T05:00:00Z",
+      "end": "2018-12-25T17:00:00Z"
     }
   ],
   "limit": 25,
