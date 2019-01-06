@@ -42,15 +42,22 @@ export class PagerBeautyWorker {
     this.onCallsTimer = false;
     this.schedulesTimer = false;
 
-    // Parse refresh interval
-    const refreshRateMinutes = Number(pagerDutyConfig.schedules.refreshRate);
-    if (Number.isNaN(refreshRateMinutes)) {
-      throw new PagerBeautyInitError('Refresh rate is not a number');
-    }
-    this.refreshRateMS = refreshRateMinutes * 60 * 1000;
-
     // Requested schedules list.
     this.schedulesList = pagerDutyConfig.schedules.list;
+
+    // Schedules and on-calls poll interval.
+    this.schedulesRefreshMS = PagerBeautyWorker.refreshRateToMs(
+      pagerDutyConfig.schedules.refreshRate,
+    );
+
+    // Incidents are optional
+    this.incidentsEnabled = pagerDutyConfig.incidents.enabled;
+    // Incidents poll interval.
+    if (this.incidentsEnabled) {
+      this.incidentsRefreshMS = PagerBeautyWorker.refreshRateToMs(
+        pagerDutyConfig.incidents.refreshRate,
+      );
+    }
   }
 
   // ------- Public API  -------------------------------------------------------
@@ -85,24 +92,33 @@ export class PagerBeautyWorker {
   // ------- Internal machinery  -----------------------------------------------
 
   async startSchedulesWorker() {
-    const { refreshRateMS, schedulesList } = this;
+    const { schedulesRefreshMS, schedulesList } = this;
     const schedulesTimerTask = new SchedulesTimerTask({
       db: this.db,
       schedulesService: this.schedulesService,
       schedulesList,
     });
-    this.schedulesTimer = new Timer(schedulesTimerTask, refreshRateMS);
+    this.schedulesTimer = new Timer(schedulesTimerTask, schedulesRefreshMS);
     await this.schedulesTimer.start();
   }
 
   async startOnCallsWorker() {
-    const { refreshRateMS } = this;
+    const { schedulesRefreshMS } = this;
     const onCallsTimerTask = new OnCallsTimerTask({
       db: this.db,
       onCallsService: this.onCallsService,
     });
-    this.onCallsTimer = new Timer(onCallsTimerTask, refreshRateMS);
+    this.onCallsTimer = new Timer(onCallsTimerTask, schedulesRefreshMS);
     await this.onCallsTimer.start();
+  }
+
+  static refreshRateToMs(minutesStr) {
+    // String minutes to integer milliseconds.
+    const minutes = Number(minutesStr);
+    if (Number.isNaN(minutes)) {
+      throw new PagerBeautyInitError(`Incorrect refresh rate: ${minutesStr}`);
+    }
+    return minutes * 60 * 1000;
   }
 
   // ------- Class end  --------------------------------------------------------
