@@ -1,0 +1,123 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Cache-Control: max-age=0, private, must-revalidate
+
+{
+  "oncalls": [
+    {
+      "escalation_policy": {
+        "id": "POQTAHN",
+        "type": "escalation_policy_reference",
+        "summary": "PagerBeauty Default Escalation",
+        "self": "https://api.pagerduty.com/escalation_policies/POQTAHN",
+        "html_url": "https://apidocs.pagerduty.com/escalation_policies/POQTAHN"
+      },
+      "escalation_level": 1,
+      "schedule": {
+        "id": "P2RFGIP",
+        "type": "schedule_reference",
+        "summary": "PagerBeauty Level 1",
+        "self": "https://api.pagerduty.com/schedules/P2RFGIP",
+        "html_url": "https://apidocs.pagerduty.com/schedules/P2RFGIP"
+      },
+      "user": {
+        "name": "Sergii Tkachenko",
+        "email": "hi@sergii.org",
+        "time_zone": "America/New_York",
+        "color": "sea-green",
+        "avatar_url": "https://secure.gravatar.com/avatar/b9a01745599088f5cc56b03e9e824eae.png?d=mm&r=PG",
+        "billed": true,
+        "role": "user",
+        "description": "Managed by LDAP-Pagerduty opsrunner.",
+        "invitation_sent": false,
+        "job_title": "Senior Software Engineer",
+        "teams": [],
+        "contact_methods": [
+          {
+            "id": "P8RCC40",
+            "type": "email_contact_method_reference",
+            "summary": "Default",
+            "self": "https://api.pagerduty.com/users/P6MDP9N/contact_methods/P8RCC40",
+            "html_url": null
+          },
+          {
+            "id": "PJAF9UY",
+            "type": "phone_contact_method_reference",
+            "summary": "Mobile",
+            "self": "https://api.pagerduty.com/users/P6MDP9N/contact_methods/PJAF9UY",
+            "html_url": null
+          },
+          {
+            "id": "PD3U3KC",
+            "type": "push_notification_contact_method_reference",
+            "summary": "Sergii's iPhone",
+            "self": "https://api.pagerduty.com/users/P6MDP9N/contact_methods/PD3U3KC",
+            "html_url": null
+          },
+          {
+            "id": "P805NZ4",
+            "type": "sms_contact_method_reference",
+            "summary": "Mobile",
+            "self": "https://api.pagerduty.com/users/P6MDP9N/contact_methods/P805NZ4",
+            "html_url": null
+          }
+        ],
+        "notification_rules": [
+          {
+            "id": "PL7GTSY",
+            "type": "assignment_notification_rule_reference",
+            "summary": "0 minutes: channel P8RCC40",
+            "self": "https://api.pagerduty.com/users/P6MDP9N/notification_rules/PL7GTSY",
+            "html_url": null
+          },
+          {
+            "id": "P9X6UX4",
+            "type": "assignment_notification_rule_reference",
+            "summary": "0 minutes: channel P8RCC40",
+            "self": "https://api.pagerduty.com/users/P6MDP9N/notification_rules/P9X6UX4",
+            "html_url": null
+          },
+          {
+            "id": "PO992M6",
+            "type": "assignment_notification_rule_reference",
+            "summary": "0 minutes: channel PJAF9UY",
+            "self": "https://api.pagerduty.com/users/P6MDP9N/notification_rules/PO992M6",
+            "html_url": null
+          },
+          {
+            "id": "PM3TW11",
+            "type": "assignment_notification_rule_reference",
+            "summary": "5 minutes: channel PJAF9UY",
+            "self": "https://api.pagerduty.com/users/P6MDP9N/notification_rules/PM3TW11",
+            "html_url": null
+          },
+          {
+            "id": "PSS4JM1",
+            "type": "assignment_notification_rule_reference",
+            "summary": "0 minutes: channel PD3U3KC",
+            "self": "https://api.pagerduty.com/users/P6MDP9N/notification_rules/PSS4JM1",
+            "html_url": null
+          },
+          {
+            "id": "P7V0CV9",
+            "type": "assignment_notification_rule_reference",
+            "summary": "0 minutes: channel PD3U3KC",
+            "self": "https://api.pagerduty.com/users/P6MDP9N/notification_rules/P7V0CV9",
+            "html_url": null
+          }
+        ],
+        "id": "P6MDP9N",
+        "type": "user",
+        "summary": "Sergii Tkachenko",
+        "self": "https://api.pagerduty.com/users/P6MDP9N",
+        "html_url": "https://apidocs.pagerduty.com/users/P6MDP9N"
+      },
+      "start": "2019-01-06T18:08:09Z",
+      "end": null
+    }
+  ],
+  "limit": 1,
+  "offset": 0,
+  "more": false,
+  "total": null
+}

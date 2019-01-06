@@ -15,52 +15,36 @@ export class OnCallsService {
     this.onCallRepo = new Map();
   }
 
-  async load(schedules) {
-    const scheduleIds = [];
+  async load(schedulesService) {
+    const schedules = schedulesService.schedulesRepo;
+    if (!schedules.size) {
+      logger.verbose('Skipping on-calls load: Schedules not loaded yet');
+      return false;
+    }
+
     const missingSchedules = new Set();
-    for (const [scheduleId, schedule] of schedules.schedulesRepo.entries()) {
-      if (schedule.id) {
-        scheduleIds.push(scheduleId);
-      } else {
-        missingSchedules.add(scheduleId);
-      }
-    }
+    const includeFlags = new Set([INCLUDE_USERS]);
 
-    logger.verbose(`Loading on-calls for schedules ${scheduleIds}`);
-    if (missingSchedules.size) {
-      logger.warn(`Missing data for schedules: ${Array.from(missingSchedules).join()}`);
-    }
+    for (const schedule of schedules.values()) {
+      try {
+        // Limit the number of requests by sending them in sync.
+        // eslint-disable-next-line no-await-in-loop
+        const record = await this.client.getOnCallForSchedule(
+          schedule.id,
+          includeFlags,
+        );
 
-    let records;
-    try {
-      const includeFlags = new Set([INCLUDE_USERS]);
-      records = await this.client.oncalls(scheduleIds, includeFlags);
-    } catch (e) {
-      logger.warn(`Error loading schedules ${scheduleIds}: ${e}`);
-      throw e;
-    }
-
-    // Set of processed schedules. Needed because schedules are returned
-    // once per each per each evaluation policy.
-    const processed = new Set();
-    for (const record of records) {
-      if (!record.schedule || !record.schedule.id) {
-        logger.warn(`Wrong on-call record: ${record}`);
-        continue;
-      }
-      const schedule = schedules.schedulesRepo.get(record.schedule.id);
-      if (!schedule) {
-        logger.warn(`Can't find schedule ${record.schedule.id} for on-call ${record}`);
-        continue;
-      }
-      const oncall = OnCall.fromApiRecord(record, schedule);
-
-      if (!processed.has(schedule.id)) {
+        const oncall = OnCall.fromApiRecord(record, schedule);
         logger.verbose(`On-call for schedule ${schedule.id} is loaded`);
         logger.silly(`On-call loaded ${oncall.toString()}`);
         this.onCallRepo.set(schedule.id, oncall);
-        processed.add(schedule.id);
+      } catch (e) {
+        logger.warn(`Error loading on-call for ${schedule.id}: ${e}`);
       }
+    }
+
+    if (missingSchedules.size) {
+      logger.warn(`Missing data for schedules: ${Array.from(missingSchedules).join()}`);
     }
     return true;
   }

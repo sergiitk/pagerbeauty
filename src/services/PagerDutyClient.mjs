@@ -64,6 +64,47 @@ export class PagerDutyClient {
     return response.oncalls;
   }
 
+  async getOnCallForSchedule(scheduleId, include = false) {
+    const searchParams = new URLSearchParams([
+      ['schedule_ids[]', scheduleId],
+    ]);
+    // Just load one oncall.
+    searchParams.append('limit', 1);
+
+    const allowedIncludes = new Set([
+      INCLUDE_USERS,
+      INCLUDE_SCHEDULES,
+      INCLUDE_ESCALATION_POLICIES,
+    ]);
+    if (include) {
+      PagerDutyClient.attachIncludeFields(searchParams, include, allowedIncludes);
+    }
+
+    const response = await this.get('oncalls', searchParams);
+    if (response.oncalls === undefined) {
+      throw new PagerDutyClientResponseError('Unexpected parsing errors');
+    }
+
+    const record = response.oncalls[0];
+
+    // Ensure correct record.
+    if (!record || !record.schedule || !record.schedule.id) {
+      throw new PagerDutyClientResponseError(
+        `On-Call unexpected response: ${JSON.stringify(record)}`,
+      );
+    }
+
+    // Returned record for incorrect schedule. Shouldn't happen.
+    if (record.schedule.id !== scheduleId) {
+      throw new PagerDutyClientResponseError(
+        `On-Call is returned for unexpected schedule: ${record.schedule.id}, `
+        + `expected: ${scheduleId}`,
+      );
+    }
+
+    return record;
+  }
+
   async getSchedule(scheduleId) {
     const response = await this.get(`schedules/${scheduleId}`);
     if (response.schedule === undefined || !response.schedule.id) {
