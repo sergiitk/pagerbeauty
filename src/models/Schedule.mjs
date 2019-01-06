@@ -12,6 +12,7 @@ export class Schedule {
     url,
     summary,
     description,
+    escalationPolicies = [],
   }) {
     this.id = id;
     this.name = name;
@@ -19,6 +20,7 @@ export class Schedule {
     this.timezone = timezone;
     this.summary = summary;
     this.description = description;
+    this.escalationPolicies = new Set(escalationPolicies);
   }
 
   serialize() {
@@ -29,6 +31,7 @@ export class Schedule {
       timezone: this.timezone,
       summary: this.summary,
       description: this.description,
+      escalationPolicies: Array.from(this.escalationPolicies),
     };
   }
 
@@ -45,6 +48,10 @@ export class Schedule {
       summary: record.summary,
       description: record.description,
     };
+    const escalationPolicies = record.escalation_policies;
+    if (escalationPolicies) {
+      attributes.escalationPolicies = escalationPolicies.map(policy => policy.id);
+    }
     return new Schedule(attributes);
   }
   // ------- Class end  --------------------------------------------------------
