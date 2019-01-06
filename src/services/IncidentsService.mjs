@@ -29,7 +29,7 @@ export class IncidentsService {
         // eslint-disable-next-line no-await-in-loop
         const record = await this.client.getActiveIncidentForUserOnSchedule(
           onCall.userId,
-          scheduleId,
+          onCall.schedule.escalationPolicies,
         );
         // console.dir(record, { colors: true, showHidden: true });
 

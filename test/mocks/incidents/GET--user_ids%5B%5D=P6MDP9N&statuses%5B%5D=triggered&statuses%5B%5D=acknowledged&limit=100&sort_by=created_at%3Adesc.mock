@@ -91,7 +91,7 @@ Cache-Control: max-age=0, private, must-revalidate
       "html_url": "https://apidocs.pagerduty.com/incidents/PTM70NY"
     }
   ],
-  "limit": 25,
+  "limit": 100,
   "offset": 0,
   "total": null,
   "more": false

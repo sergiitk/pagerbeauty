@@ -109,13 +109,20 @@ export class PagerDutyClient {
     return record;
   }
 
-  async getActiveIncidentForUserOnSchedule(userId, scheduleId) {
+  async getActiveIncidentForUserOnSchedule(userId, scheduleEscalationPolicies) {
     const searchParams = new URLSearchParams([
       ['user_ids[]', userId],
       // Active = triggered + acknowledged
       ['statuses[]', INCIDENT_STATUS_TRIGGERED],
       ['statuses[]', INCIDENT_STATUS_ACKNOWLEDGED],
     ]);
+
+    // Set limit to maximum possible value.
+    // https://v2.developer.pagerduty.com/v2/docs/pagination
+    searchParams.append('limit', 100);
+
+    // Order: most recent on top.
+    searchParams.append('sort_by', 'created_at:desc');
 
     // @todo: filter by escalation policies
     const response = await this.get('incidents', searchParams);
@@ -131,12 +138,15 @@ export class PagerDutyClient {
     // Active incident for this schedule.
     for (const incident of response.incidents) {
       // Find the one with the right schedule
-      if (incident.scheduleId === scheduleId) {
+      const escalationPolicy = incident.escalation_policy.id;
+      if (!escalationPolicy) {
+        continue;
+      }
+      if (scheduleEscalationPolicies.has(escalationPolicy)) {
         return incident;
       }
     }
     // Not found.
-    // @todo: Log?
     return null;
   }
 
