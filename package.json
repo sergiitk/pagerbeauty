@@ -101,47 +101,5 @@
       "@babel/preset-env",
       "@babel/preset-react"
     ]
-  },
-  "release": {
-    "branch": "production",
-    "plugins": [
-      [
-        "@semantic-release/commit-analyzer",
-        {
-          "preset": "ember",
-          "parserOpts": {
-            "headerPattern": "\\[(.*) (.*)] ?(.*)"
-          }
-        }
-      ],
-      [
-        "@semantic-release/release-notes-generator",
-        {
-          "preset": "ember",
-          "parserOpts": {
-            "headerPattern": "\\[(.*) (.*)] ?(.*)"
-          }
-        }
-      ],
-      [
-        "@semantic-release/changelog",
-        {
-          "changelogTitle": "# PagerBeauty Changelog"
-        }
-      ],
-      "@semantic-release/npm",
-      [
-        "@semantic-release/git",
-        {
-          "assets": [
-            "CHANGELOG.md",
-            "assets/dist-prod/**/*.{js,css}",
-            "package.json"
-          ],
-          "message": "${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-        }
-      ],
-      "@semantic-release/github"
-    ]
   }
 }
