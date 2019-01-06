@@ -32,6 +32,14 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 # Default: 10.
 # PAGERBEAUTY_REFRESH_RATE_MINUTES=10
 
+# (Optional) Disable polling for active incidents.
+# Default: false
+# PAGERBEAUTY_INCIDENTS_DISABLE=true
+
+# (Optional) How often to refresh active incidents, in minutes.
+# Default: 1
+# PAGERBEAUTY_INCIDENTS_REFRESH_RATE_MINUTES=5
+
 # (Optional) Highest logging level to include into application logs.
 # One of: error, warn, info, verbose, debug, silly
 # Default: info
