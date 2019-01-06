@@ -7,40 +7,8 @@ import logger from 'winston';
 import { OnCallsService } from '../services/OnCallsService';
 import { PagerBeautyInitError } from '../errors';
 import { PagerDutyClient } from '../services/PagerDutyClient';
+import { OnCallsTimerTask } from '../tasks/OnCallsTimerTask';
 import { Timer } from './Timer';
-
-// ------- OnCallsTimerTask ----------------------------------------------------
-
-
-/* eslint-disable class-methods-use-this */
-// Don't requre hooks to be static for consitency.
-// TimerTask implementations decide whether they need to use this in them.
-class OnCallsTimerTask {
-  constructor({ db, onCallsService, schedulesList }) {
-    this.db = db;
-    this.onCallsService = onCallsService;
-    this.schedulesList = schedulesList;
-  }
-
-  async run(runNumber, intervalMs) {
-    logger.verbose(`Schedules refresh run #${runNumber}, every ${intervalMs}ms`);
-    const result = await this.onCallsService.load(this.schedulesList);
-    if (result) {
-      // @todo: refresh without full override.
-      this.db.set('oncalls', this.onCallsService);
-    }
-    return result;
-  }
-
-  onRunSkip() {
-    logger.warn(
-      'Attempting schedule refresh while the previous request is '
-      + 'still running. This should not normally happen. Try decreasing '
-      + 'schedule refresh rate',
-    );
-  }
-}
-/* eslint-enable class-methods-use-this */
 
 // ------- PagerBeautyWorker ---------------------------------------------------
 
