@@ -12,7 +12,7 @@ services:
       # API key is required, but Mock PD API will ignore it
       PAGERBEAUTY_PD_API_KEY: ${PAGERBEAUTY_PD_API_KEY:-v2_api_key}
       # Mock Mock PD APInow only responds with these two schedules
-      PAGERBEAUTY_PD_SCHEDULES: ${PAGERBEAUTY_PD_SCHEDULES:-P538IZH,PJ1P5JQ}
+      PAGERBEAUTY_PD_SCHEDULES: ${PAGERBEAUTY_PD_SCHEDULES:-P538IZH,PJ1P5JQ,P2RFGIP}
       # Faster refresh for dev server
       PAGERBEAUTY_REFRESH_RATE_MINUTES: ${PAGERBEAUTY_REFRESH_RATE_MINUTES:-0.1}
     ports:

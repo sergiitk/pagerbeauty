@@ -1,0 +1,69 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Cache-Control: max-age=0, private, must-revalidate
+
+{
+  "schedule": {
+    "id": "P2RFGIP",
+    "type": "schedule",
+    "summary": "PagerBeauty Level 1",
+    "self": "https://api.pagerduty.com/schedules/P2RFGIP",
+    "html_url": "https://apidocs.pagerduty.com/users/schedules/P2RFGIP",
+    "name": "PagerBeauty Level 1",
+    "time_zone": "America/New_York",
+    "description": null,
+    "users": [
+      {
+        "id": "P6MDP9N",
+        "type": "user_reference",
+        "summary": "Sergii Tkachenko",
+        "self": "https://api.pagerduty.com/users/P6MDP9N",
+        "html_url": "https://apidocs.pagerduty.com/users/users/P6MDP9N"
+      }
+    ],
+    "escalation_policies": [
+      {
+        "id": "POQTAHN",
+        "type": "escalation_policy_reference",
+        "summary": "PagerBeauty Default Escalation",
+        "self": "https://api.pagerduty.com/escalation_policies/POQTAHN",
+        "html_url": "https://apidocs.pagerduty.com/users/escalation_policies/POQTAHN"
+      }
+    ],
+    "schedule_layers": [
+      {
+        "name": "Layer 1",
+        "rendered_schedule_entries": [],
+        "rendered_coverage_percentage": null,
+        "id": "PGKWP9X",
+        "start": "2019-01-06T13:08:55-05:00",
+        "end": null,
+        "rotation_virtual_start": "2019-01-06T13:00:00-05:00",
+        "rotation_turn_length_seconds": 604800,
+        "users": [
+          {
+            "user": {
+              "id": "P6MDP9N",
+              "type": "user_reference",
+              "summary": "Sergii Tkachenko",
+              "self": "https://api.pagerduty.com/users/P6MDP9N",
+              "html_url": "https://apidocs.pagerduty.com/users/users/P6MDP9N"
+            }
+          }
+        ],
+        "restrictions": []
+      }
+    ],
+    "overrides_subschedule": {
+      "name": "Overrides",
+      "rendered_schedule_entries": [],
+      "rendered_coverage_percentage": null
+    },
+    "final_schedule": {
+      "name": "Final Schedule",
+      "rendered_schedule_entries": [],
+      "rendered_coverage_percentage": null
+    },
+    "teams": []
+  }
+}
