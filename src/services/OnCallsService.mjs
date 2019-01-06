@@ -50,7 +50,7 @@ export class OnCallsService {
       }
       const schedule = schedules.schedulesRepo.get(record.schedule.id);
       if (!schedule) {
-        logger.warn(`Can't find schedule ${record.schedule.id} for on-call ${record}`)
+        logger.warn(`Can't find schedule ${record.schedule.id} for on-call ${record}`);
         continue;
       }
       const oncall = OnCall.fromApiRecord(record, schedule);

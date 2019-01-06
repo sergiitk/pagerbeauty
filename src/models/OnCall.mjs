@@ -7,6 +7,10 @@ import 'url';
 import 'url-search-params-polyfill';
 import moment from 'moment-timezone';
 
+// ------- Internal imports ----------------------------------------------------
+
+import { Schedule } from './Schedule';
+
 // ------- OnCall --------------------------------------------------------------
 
 export class OnCall {
@@ -25,7 +29,11 @@ export class OnCall {
     this.userURL = userURL;
     this.dateStart = moment(dateStart);
     this.dateEnd = moment(dateEnd);
-    this.schedule = schedule;
+    if (schedule instanceof Schedule) {
+      this.schedule = schedule;
+    } else {
+      this.schedule = new Schedule(schedule);
+    }
   }
 
   serialize() {
