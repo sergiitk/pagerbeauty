@@ -24,9 +24,12 @@ class Timer {
     const { intervalMs, task, taskName } = this;
     logger.debug(`Scheduling ${taskName} every ${intervalMs}ms`);
     if (task.onStart) {
-      task.onStart(intervalMs);
+      this.runHookSafely('onStart', intervalMs);
     }
-    // Todo: first load immidiatelly.
+    // TODO: Unit test the hell out of it.
+    // Run the task.
+    await this.runTask();
+    // Schedule timer after the task is done.
     this.intervalId = setInterval(() => this.runTask(), intervalMs);
   }
 
@@ -35,15 +38,16 @@ class Timer {
     logger.debug(`Stopping ${taskName}`);
     clearInterval(this.intervalId);
     if (task.onStop) {
-      task.onStop();
+      this.runHookSafely('onStop');
     }
   }
 
+  // Should not throw errors.
   async runTask() {
     const { task, taskName, intervalMs } = this;
     if (!this.semaphore) {
       if (task.onRunSkip) {
-        task.onRunSkip();
+        this.runHookSafely('onRunSkip');
       }
       return false;
     }
@@ -54,18 +58,31 @@ class Timer {
     try {
       await task.run(this.runNumber, intervalMs);
       result = true;
-      if (task.onRunSuccess) {
-        task.onRunSuccess();
-      }
     } catch (error) {
       if (task.onRunError) {
-        task.onRunError();
+        this.runHookSafely('onRunError');
       } else {
         logger.error(`Timer ${taskName} run #${this.runNumber} error: ${error}`);
       }
+    } finally {
+      // Always release the semaphore.
+      this.semaphore = true;
     }
-    this.semaphore = true;
+    if (result) {
+      this.runHookSafely('onRunSuccess');
+    }
     return result;
+  }
+
+  runHookSafely(hookName, ...args) {
+    const { task, taskName } = this;
+    try {
+      if (typeof task[hookName] === 'function') {
+        task[hookName](...args);
+      }
+    } catch (error) {
+      logger.error(`Unexpected ${taskName} error in hook ${hookName}: ${error}`);
+    }
   }
 }
 
