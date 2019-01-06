@@ -32,7 +32,7 @@ test_exit_code=$?
 
 # Human-readable diff
 echo "Test results:"
-FORCE_COLOR=t yarn -s run tap-spec < $TAP_OUTPUT_FILE
+FORCE_COLOR=t yarn -s run faucet < $TAP_OUTPUT_FILE
 
 # Machine-readable xUnit report
 echo "Saving xUnit report to to $XUNIT_OUTPUT_FILE"
