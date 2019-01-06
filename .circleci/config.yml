@@ -288,6 +288,9 @@ jobs:
           name: Restore assets
           command: cp -rv /tmp/workspace/assets/dist-prod assets
       - run:
+          name: Release dry run
+          command: yarn run semantic-release --dry-run
+      - run:
           name: Release!
           command: yarn run semantic-release --debug
 
