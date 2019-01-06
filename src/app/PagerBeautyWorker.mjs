@@ -35,6 +35,16 @@ export class PagerBeautyWorker {
     );
     this.onCallsService = new OnCallsService(this.pagerDutyClient);
     this.onCallsTimer = false;
+
+    // Parse refresh interval
+    const refreshRateMinutes = Number(pagerDutyConfig.schedules.refreshRate);
+    if (Number.isNaN(refreshRateMinutes)) {
+      throw new PagerBeautyInitError('Refresh rate is not a number');
+    }
+    this.refreshRateMS = refreshRateMinutes * 60 * 1000;
+
+    // Requested schedules list.
+    this.schedulesList = pagerDutyConfig.schedules.list;
   }
 
   // ------- Public API  -------------------------------------------------------
@@ -44,7 +54,7 @@ export class PagerBeautyWorker {
     logger.debug('Initializing database.');
     db.set('oncalls', new Map());
 
-    await this.startSchedulesWorker();
+    await this.startOnCallsWorker();
     return true;
   }
 
@@ -60,17 +70,8 @@ export class PagerBeautyWorker {
 
   // ------- Internal machinery  -----------------------------------------------
 
-  async startSchedulesWorker() {
-    // Set refresh.
-    const pagerDutyConfig = this.config.pagerDuty;
-    const refreshRateMinutes = Number(pagerDutyConfig.schedules.refreshRate);
-    if (Number.isNaN(refreshRateMinutes)) {
-      throw new PagerBeautyInitError('Refresh rate is not a number');
-    }
-
-    const refreshRateMS = refreshRateMinutes * 60 * 1000;
-    const schedulesList = pagerDutyConfig.schedules.list;
-
+  async startOnCallsWorker() {
+    const { refreshRateMS, schedulesList } = this;
     const onCallsTimerTask = new OnCallsTimerTask({
       db: this.db,
       onCallsService: this.onCallsService,
