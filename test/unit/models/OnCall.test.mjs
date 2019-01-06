@@ -27,7 +27,7 @@ test('OnCall', () => {
       name: 'scheduleName',
       url: 'scheduleURL',
       timezone: 'scheduleTimezone',
-    }
+    },
   });
 
   // Verify public API.
