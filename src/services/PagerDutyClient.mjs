@@ -74,7 +74,9 @@ export class PagerDutyClient {
 
   async get(endpoint, searchParams) {
     const url = new URL(endpoint, this.apiUrl);
-    url.search = searchParams;
+    if (searchParams) {
+      url.search = searchParams;
+    }
 
     const params = {
       headers: this.headers(),
