@@ -47,7 +47,8 @@ const config = {
     [
       '@semantic-release/git',
       {
-        assets,,
+        assets,
+        // eslint-disable-next-line no-template-curly-in-string
         message: '${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
       },
     ],
