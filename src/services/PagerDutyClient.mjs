@@ -26,6 +26,10 @@ export const INCLUDE_USERS = 'users';
 export const INCLUDE_SCHEDULES = 'schedules';
 export const INCLUDE_ESCALATION_POLICIES = 'escalation_policies';
 
+export const INCIDENT_STATUS_TRIGGERED = 'triggered';
+export const INCIDENT_STATUS_ACKNOWLEDGED = 'acknowledged';
+export const INCIDENT_STATUS_RESOLVED = 'resolved';
+
 // ------- PagerDutyClient -----------------------------------------------------
 
 export class PagerDutyClient {
@@ -108,9 +112,12 @@ export class PagerDutyClient {
   async getActiveIncidentForUserOnSchedule(userId, scheduleId) {
     const searchParams = new URLSearchParams([
       ['user_ids[]', userId],
+      // Active = triggered + acknowledged
+      ['statuses[]', INCIDENT_STATUS_TRIGGERED],
+      ['statuses[]', INCIDENT_STATUS_ACKNOWLEDGED],
     ]);
 
-    // @todo: limit and make sure it's a current one.
+    // @todo: filter by escalation policies
     const response = await this.get('incidents', searchParams);
     if (response.incidents === undefined) {
       throw new PagerDutyClientResponseError('Unexpected parsing errors');
