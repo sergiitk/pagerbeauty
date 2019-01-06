@@ -34,6 +34,7 @@ export class OnCall {
     } else {
       this.schedule = new Schedule(schedule);
     }
+    this.incident = false;
   }
 
   serialize() {
@@ -45,11 +46,20 @@ export class OnCall {
       dateStart: this.dateStart.utc(),
       dateEnd: this.dateEnd.utc(),
       schedule: this.schedule.serialize(),
+      incident: this.incident ? this.incident.serialize() : null,
     };
   }
 
   toString() {
     return JSON.stringify(this.serialize());
+  }
+
+  setIncident(incident) {
+    this.incident = incident;
+  }
+
+  clearIncident() {
+    this.incident = false;
   }
 
   userAvatarSized(size = 2048) {

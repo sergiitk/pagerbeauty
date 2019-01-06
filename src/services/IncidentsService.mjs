@@ -4,7 +4,7 @@ import logger from 'winston';
 
 // ------- Internal imports ----------------------------------------------------
 
-// import { OnCall } from '../models/OnCall';
+import { Incident } from '../models/Incident';
 
 // ------- IncidentsService ----------------------------------------------------
 
@@ -31,12 +31,24 @@ export class IncidentsService {
           onCall.userId,
           onCall.schedule.escalationPolicies,
         );
-        // console.dir(record, { colors: true, showHidden: true });
 
-        // const oncall = OnCall.fromApiRecord(record, schedule);
-        // logger.verbose(`On-call for schedule ${schedule.id} is loaded`);
-        // logger.silly(`On-call loaded ${oncall.toString()}`);
-        this.incidentsRepo.set(scheduleId, record);
+        if (record) {
+          const incident = Incident.fromApiRecord(record, scheduleId);
+          this.incidentsRepo.set(scheduleId, incident);
+          // @todo: log when oncall already has an incident and it's different
+          onCall.setIncident(incident);
+          logger.verbose(
+            `Incident ${incident.id} is active for schedule ${scheduleId}`,
+          );
+          logger.silly(`Incident ${incident.toString()}`);
+        } else {
+          // No incidenta, clear.
+          const existed = this.incidentsRepo.delete(scheduleId);
+          onCall.clearIncident();
+          if (existed) {
+            logger.verbose(`Incident resolved for schedule ${scheduleId}`);
+          }
+        }
       } catch (e) {
         logger.warn(
           `Error loading incident for user ${onCall.userId} `
