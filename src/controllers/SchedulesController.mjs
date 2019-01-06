@@ -23,20 +23,20 @@ export class SchedulesController {
   }
 
   async show(ctx, scheduleId, format = 'html') {
-    const schedule = this.db.get('oncalls').onCallRepo.get(scheduleId);
+    const oncall = this.db.get('oncalls').onCallRepo.get(scheduleId);
 
     switch (format) {
       case 'json':
-        if (!schedule) {
+        if (!oncall) {
           // Only error out in json repsonses.
           ctx.status = 404;
         } else {
-          ctx.body = schedule.serialize();
+          ctx.body = oncall.serialize();
         }
         break;
       case 'html':
         // HTML will handle it for now
-        await ctx.render('schedules/show.html', { schedule });
+        await ctx.render('oncalls/show.html', { oncall });
         break;
       default:
         break;

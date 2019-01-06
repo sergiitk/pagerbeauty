@@ -1,9 +1,0 @@
-{% set title = 'Schedule ' + (schedule.scheduleName or 'not found') %}
-{% extends 'layout.html.j2' %}
-
-{% block content %}
-{# {{ schedule | dump }} #}
-
-<div class="on_call_root" data-id="{{ schedule.scheduleId }}"></div>
-
-{% endblock %}
