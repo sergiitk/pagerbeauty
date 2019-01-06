@@ -4,7 +4,7 @@ import logger from 'winston';
 
 // ------- Internal imports ----------------------------------------------------
 
-// import { OnCall } from '../models/OnCall';
+import { Schedule } from '../models/Schedule';
 
 // ------- SchedulesService ------------------------------------------------------
 
@@ -21,9 +21,13 @@ export class SchedulesService {
       try {
         // Limit the number of requests by sending them in sync.
         // eslint-disable-next-line no-await-in-loop
-        const schedule = await this.client.getSchedule(scheduleId);
-        // @todo: model.
-        this.schedulesRepo.set(schedule.id, schedule);
+        const record = await this.client.getSchedule(scheduleId);
+        const schedule = Schedule.fromApiRecord(record);
+        if (schedule.id) {
+          logger.verbose(`Schedule ${schedule.id} is loaded`);
+          logger.silly(`Schedule loaded ${schedule.toString()}`);
+          this.schedulesRepo.set(schedule.id, schedule);
+        }
       } catch (e) {
         logger.warn(`Error loading schedule ${scheduleId}: ${e}`);
         this.schedulesRepo.set(scheduleId, null);

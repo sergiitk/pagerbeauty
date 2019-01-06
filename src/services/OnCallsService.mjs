@@ -34,7 +34,7 @@ export class OnCallsService {
       const oncall = OnCall.fromApiRecord(record);
       if (oncall.scheduleId && !processed.has(oncall.scheduleId)) {
         logger.verbose(`On-call for schedule ${oncall.scheduleId} is loaded`);
-        logger.silly(`Schedule loaded ${oncall.toString()}`);
+        logger.silly(`On-call loaded ${oncall.toString()}`);
         this.onCallRepo.set(oncall.scheduleId, oncall);
         processed.add(oncall.scheduleId);
       }
