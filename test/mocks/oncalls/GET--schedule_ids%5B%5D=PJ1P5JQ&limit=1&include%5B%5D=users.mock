@@ -1,0 +1,89 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Cache-Control: max-age=0, private, must-revalidate
+
+{
+  "oncalls": [
+    {
+      "escalation_policy": {
+        "id": "PFREGN4",
+        "type": "escalation_policy_reference",
+        "summary": "Escalation Policy minus omnis qui",
+        "self": "https://api.pagerduty.com/escalation_policies/PFREGN4",
+        "html_url": "https://apidocs.pagerduty.com/escalation_policies/PFREGN4"
+      },
+      "escalation_level": 1,
+      "schedule": {
+        "id": "PJ1P5JQ",
+        "type": "schedule_reference",
+        "summary": "Schedule aliquid eum qui",
+        "self": "https://api.pagerduty.com/schedules/PJ1P5JQ",
+        "html_url": "https://apidocs.pagerduty.com/schedules/PJ1P5JQ"
+      },
+      "user": {
+        "name": "Chesley Williamson",
+        "email": "chesley.williamson@example.com",
+        "time_zone": "America/Los_Angeles",
+        "color": "purple",
+        "avatar_url": "https://secure.gravatar.com/avatar/a1d18bf9a40447f4c024cec37c62aa60.png?d=mm&r=PG",
+        "billed": true,
+        "role": "limited_user",
+        "description": null,
+        "invitation_sent": true,
+        "job_title": null,
+        "teams": [],
+        "contact_methods": [
+          {
+            "id": "PRVNP0O",
+            "type": "email_contact_method_reference",
+            "summary": "Default",
+            "self": "https://api.pagerduty.com/users/PT6BV4C/contact_methods/PRVNP0O",
+            "html_url": null
+          },
+          {
+            "id": "P5YP9KQ",
+            "type": "phone_contact_method_reference",
+            "summary": "work",
+            "self": "https://api.pagerduty.com/users/PT6BV4C/contact_methods/P5YP9KQ",
+            "html_url": null
+          },
+          {
+            "id": "PH8M8FH",
+            "type": "sms_contact_method_reference",
+            "summary": "cell",
+            "self": "https://api.pagerduty.com/users/PT6BV4C/contact_methods/PH8M8FH",
+            "html_url": null
+          }
+        ],
+        "notification_rules": [
+          {
+            "id": "PJES9ZA",
+            "type": "assignment_notification_rule_reference",
+            "summary": "0 minutes: channel PRVNP0O",
+            "self": "https://api.pagerduty.com/users/PT6BV4C/notification_rules/PJES9ZA",
+            "html_url": null
+          },
+          {
+            "id": "P83FNE6",
+            "type": "assignment_notification_rule_reference",
+            "summary": "0 minutes: channel PRVNP0O",
+            "self": "https://api.pagerduty.com/users/PT6BV4C/notification_rules/P83FNE6",
+            "html_url": null
+          }
+        ],
+        "coordinated_incidents": [],
+        "id": "PT6BV4C",
+        "type": "user",
+        "summary": "Chesley Williamson",
+        "self": "https://api.pagerduty.com/users/PT6BV4C",
+        "html_url": "https://apidocs.pagerduty.com/users/PT6BV4C"
+      },
+      "start": "2018-12-25T05:00:00Z",
+      "end": "2018-12-25T17:00:00Z"
+    }
+  ],
+  "limit": 1,
+  "offset": 0,
+  "more": true,
+  "total": null
+}

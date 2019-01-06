@@ -63,6 +63,8 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 
 This project is under active development.
 
+#### Version 1.0
+
 - [x] Load and process on-calls
 - [x] JSON response
 - [x] HTML response
@@ -77,12 +79,21 @@ This project is under active development.
 - [x] Ajax refresh
 - [x] Automated Testing
 - [x] Automated Builds
-- [ ] Load all API pages
-- [ ] Full README.md and examples
+- [x] No limit on the total number of schedules supported
 - [ ] Change color to red when an incident is triggered
+
+#### Version 2.0
+
 - [ ] Next on duty
-- [ ] Websocket refresh
 - [ ] HTTP authentication bypass support for embeds
+- [ ] Websocket refresh
+
+#### Documentation and examples
+
+- [ ] Live demo on Heroku
+- [ ] Example: Heroku
+- [ ] Example: Custom SSL certificate using Docker
+- [ ] Example: Digital Ocean
 
 ## Sponsors and Supporters
 

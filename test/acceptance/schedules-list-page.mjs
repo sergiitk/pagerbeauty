@@ -36,6 +36,7 @@ test('Schedules List: Loaded', waitFor('#schedules_list > ul'), async (t) => {
   );
   expect(links).to.contain('Schedule a quasi illum');
   expect(links).to.contain('Schedule aliquid eum qui');
+  expect(links).to.contain('PagerBeauty Level 1');
 });
 
 // ------- End -----------------------------------------------------------------

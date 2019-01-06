@@ -1,0 +1,89 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Cache-Control: max-age=0, private, must-revalidate
+
+{
+  "oncalls": [
+    {
+      "escalation_policy": {
+        "id": "PIYVU5O",
+        "type": "escalation_policy_reference",
+        "summary": "Escalation Policy eaque ipsam porro",
+        "self": "https://api.pagerduty.com/escalation_policies/PIYVU5O",
+        "html_url": "https://apidocs.pagerduty.com/escalation_policies/PIYVU5O"
+      },
+      "escalation_level": 1,
+      "schedule": {
+        "id": "P538IZH",
+        "type": "schedule_reference",
+        "summary": "Schedule a quasi illum",
+        "self": "https://api.pagerduty.com/schedules/P538IZH",
+        "html_url": "https://apidocs.pagerduty.com/schedules/P538IZH"
+      },
+      "user": {
+        "name": "Rosanna Runolfsdottir",
+        "email": "rosanna.runolfsdottir@example.com",
+        "time_zone": "America/Los_Angeles",
+        "color": "dark-slate-gray",
+        "avatar_url": "https://secure.gravatar.com/avatar/67d85839071c2eb0be5662e87d254328.png?d=mm&r=PG",
+        "billed": true,
+        "role": "limited_user",
+        "description": null,
+        "invitation_sent": true,
+        "job_title": null,
+        "teams": [],
+        "contact_methods": [
+          {
+            "id": "PIY7G1O",
+            "type": "email_contact_method_reference",
+            "summary": "Default",
+            "self": "https://api.pagerduty.com/users/PFNNZP8/contact_methods/PIY7G1O",
+            "html_url": null
+          },
+          {
+            "id": "PJ70HXY",
+            "type": "phone_contact_method_reference",
+            "summary": "work",
+            "self": "https://api.pagerduty.com/users/PFNNZP8/contact_methods/PJ70HXY",
+            "html_url": null
+          },
+          {
+            "id": "PYP3FTV",
+            "type": "sms_contact_method_reference",
+            "summary": "cell",
+            "self": "https://api.pagerduty.com/users/PFNNZP8/contact_methods/PYP3FTV",
+            "html_url": null
+          }
+        ],
+        "notification_rules": [
+          {
+            "id": "PPZBK48",
+            "type": "assignment_notification_rule_reference",
+            "summary": "0 minutes: channel PIY7G1O",
+            "self": "https://api.pagerduty.com/users/PFNNZP8/notification_rules/PPZBK48",
+            "html_url": null
+          },
+          {
+            "id": "PAUYM8O",
+            "type": "assignment_notification_rule_reference",
+            "summary": "0 minutes: channel PIY7G1O",
+            "self": "https://api.pagerduty.com/users/PFNNZP8/notification_rules/PAUYM8O",
+            "html_url": null
+          }
+        ],
+        "coordinated_incidents": [],
+        "id": "PFNNZP8",
+        "type": "user",
+        "summary": "Rosanna Runolfsdottir",
+        "self": "https://api.pagerduty.com/users/PFNNZP8",
+        "html_url": "https://apidocs.pagerduty.com/users/PFNNZP8"
+      },
+      "start": "2018-12-25T05:00:00Z",
+      "end": "2018-12-25T17:00:00Z"
+    }
+  ],
+  "limit": 1,
+  "offset": 0,
+  "more": true,
+  "total": null
+}
