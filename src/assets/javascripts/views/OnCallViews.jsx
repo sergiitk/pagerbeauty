@@ -330,13 +330,16 @@ OnCallDateRowView.defaultProps = {
 export class OnCallIncidentRowView extends React.Component {
   render() {
     const { incident, className } = this.props;
-    const incidentSummary = `Incident ${incident.status}: ${incident.summary}`;
-    const incidentService = `Service: ${incident.serviceName}`;
-
     return (
       <div className={`incident ${className}`}>
-        <div className="incident_summary">{incidentSummary}</div>
-        <div className="incident_service">{incidentService}</div>
+        <div className="incident_summary">
+          <span>{`Incident ${incident.status}: `}</span>
+          <a href={incident.url}>{incident.title}</a>
+        </div>
+        <div className="incident_service">
+          <span>Service: </span>
+          <a href={incident.serviceUrl}>{incident.serviceName}</a>
+        </div>
       </div>
     );
   }

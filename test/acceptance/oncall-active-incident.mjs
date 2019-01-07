@@ -55,7 +55,7 @@ test('On-Call Incident: show user avatar', waitFor('.schedule'), async (t) => {
 
 test('On-Call Incident: displays an accident', waitFor('.schedule'), async (t) => {
   const { pageTest } = t.context;
-  await pageTest.expectText('.incident_summary', 'Incident triggered: [#10279] Just a drill');
+  await pageTest.expectText('.incident_summary', 'Incident triggered: Just a drill');
   await pageTest.expectText('.incident_service', 'Service: PagerBeauty');
 });
 
