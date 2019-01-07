@@ -32,6 +32,7 @@ test('No one On-Call: "Schedule not found" in page title', async (t) => {
 test('No one On-Call: ensure classes', waitFor('.schedule'), async (t) => {
   const { pageTest } = t.context;
   await pageTest.expectClass('.schedule', 'not_found');
+  await pageTest.expectNoClass('.schedule', 'active_incident');
 });
 
 test('No one On-Call: no schedule name', waitFor('.schedule'), async (t) => {

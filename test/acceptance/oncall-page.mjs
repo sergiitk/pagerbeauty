@@ -30,6 +30,7 @@ test('On-Call: Schedule name in page title', async (t) => {
 test('On-Call: ensure classes', waitFor('.schedule'), async (t) => {
   const { pageTest } = t.context;
   await pageTest.expectNoClass('.schedule', 'not_found');
+  await pageTest.expectNoClass('.schedule', 'active_incident');
 });
 
 
