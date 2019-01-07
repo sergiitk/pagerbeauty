@@ -13,11 +13,8 @@ export class OnCallsTimerTask {
   async run(runNumber, intervalMs) {
     logger.verbose(`On-calls refresh run #${runNumber}, every ${intervalMs}ms`);
     const schedules = this.db.get('schedules');
-    const result = await this.onCallsService.load(schedules);
-    if (result) {
-      // @todo: refresh without full override.
-      this.db.set('oncalls', this.onCallsService);
-    }
+    const incidents = this.db.get('incidents');
+    const result = await this.onCallsService.load(schedules, incidents);
     return result;
   }
 

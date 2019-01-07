@@ -14,10 +14,6 @@ export class SchedulesTimerTask {
   async run(runNumber, intervalMs) {
     logger.verbose(`Schedules refresh run #${runNumber}, every ${intervalMs}ms`);
     const result = await this.schedulesService.load(this.schedulesList);
-    if (result) {
-      // @todo: refresh without full override.
-      this.db.set('schedules', this.schedulesService);
-    }
     return result;
   }
 

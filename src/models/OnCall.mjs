@@ -9,6 +9,7 @@ import moment from 'moment-timezone';
 
 // ------- Internal imports ----------------------------------------------------
 
+import { Incident } from './Incident';
 import { Schedule } from './Schedule';
 
 // ------- OnCall --------------------------------------------------------------
@@ -22,6 +23,7 @@ export class OnCall {
     dateStart,
     dateEnd,
     schedule,
+    incident = null,
   }) {
     this.userId = userId;
     this.userName = userName;
@@ -34,7 +36,13 @@ export class OnCall {
     } else {
       this.schedule = new Schedule(schedule);
     }
-    this.incident = false;
+    if (incident instanceof Incident) {
+      this.incident = incident;
+    } else if (incident) {
+      this.incident = new Incident(incident);
+    } else {
+      this.incident = false;
+    }
   }
 
   serialize() {

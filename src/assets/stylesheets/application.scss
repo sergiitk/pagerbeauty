@@ -1,5 +1,6 @@
 // Variables
 $yellow: #fecb2e;
+$red: #eb364b;
 $green: #25c151;
 $textBlack: #454545;
 $textWhite: white;
@@ -76,6 +77,10 @@ a {
       font-size: $row_size;
       min-height: $row_size;
 
+      a {
+        color: $textWhite;
+      }
+
       @media (max-width: 1000px) {
         font-size: $row_size + 1;
         min-height: $row_size + 1;
@@ -150,23 +155,21 @@ a {
       margin-right: $dateMargin;
     }
   }
-
 }
 
-// Not found
-.schedule.not_found {
-  border-color: $yellow;
-
+// Schedule states
+@mixin schedule_state($color) {
+  border-color: $color;
   .schedule_row {
-    border-color: $yellow;
-    &.filled_row { background-color: $yellow; }
+    border-color: $color;
+    &.filled_row { background-color: $color; }
   }
-
   .user_name.error {
     padding: $scheduleRowDefaultPadding;
   }
-
   .user_avatar img {
-    border-color: $yellow;
+    border-color: $color;
   }
 }
+.schedule.state_not_found { @include schedule_state($yellow); }
+.schedule.state_active_incident { @include schedule_state($red); }

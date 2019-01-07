@@ -28,12 +28,23 @@ test('OnCall', () => {
       url: 'scheduleURL',
       timezone: 'scheduleTimezone',
     },
+    incident: {
+      id: 'PTM70NY',
+      scheduleId: 'P2RFGIP',
+      status: 'triggered',
+      title: 'Just a drill',
+      summary: '[#10279] Just a drill',
+      serviceName: 'PagerBeauty',
+      url: 'https://apidocs.pagerduty.com/incidents/PTM70NY',
+    },
   });
 
   // Verify public API.
   expect(onCall).to.respondTo('serialize');
   expect(onCall).to.respondTo('toString');
   expect(onCall).to.respondTo('userAvatarSized');
+  expect(onCall).to.respondTo('setIncident');
+  expect(onCall).to.respondTo('clearIncident');
 
   // Static.
   expect(OnCall).itself.to.respondTo('fromApiRecord');

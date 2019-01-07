@@ -7,6 +7,7 @@ import React from 'react';
 // ------- Internal imports ----------------------------------------------------
 
 import { OnCall } from '../../../models/OnCall.mjs';
+import { Incident } from '../../../models/Incident.mjs';
 import { PagerBeautyFetchNotFoundUiError } from '../ui-errors';
 import { StatusIndicatorView } from './StatusIndicatorView';
 
@@ -35,6 +36,8 @@ export class OnCallView extends React.Component {
 
     let onCall;
     let userInfo;
+
+    let state;
     if (!is404) {
       onCall = new OnCall(data);
       userInfo = {
@@ -42,10 +45,45 @@ export class OnCallView extends React.Component {
         url: onCall.userURL,
         avatar: onCall.userAvatarSized(),
       };
+      state = onCall.incident ? 'active_incident' : 'normal';
+    } else {
+      state = 'not_found';
+    }
+
+    // Resolve what to show on status row.
+    let statusRow;
+    switch (state) {
+      case 'not_found':
+        statusRow = <OnCallStatusRowView />;
+        break;
+      case 'active_incident':
+        statusRow = (
+          <OnCallStatusRowView>
+            <OnCallIncidentRowView incident={onCall.incident} />
+          </OnCallStatusRowView>
+        );
+        break;
+      default:
+        statusRow = (
+          <OnCallStatusRowView>
+            <OnCallDateRowView
+              className="date_start"
+              label="From"
+              date={onCall.dateStart}
+              timezone={onCall.schedule.timezone}
+            />
+            <OnCallDateRowView
+              className="date_end"
+              label="To"
+              date={onCall.dateEnd}
+              timezone={onCall.schedule.timezone}
+            />
+          </OnCallStatusRowView>
+        );
     }
 
     return (
-      <div className={`schedule ${is404 ? 'not_found' : ''}`}>
+      <div className={`schedule state_${state}`}>
         { /* Header */ }
         <OnCallScheduleRowView filled>
           <span>ON CALL</span>
@@ -53,7 +91,7 @@ export class OnCallView extends React.Component {
         </OnCallScheduleRowView>
 
         { /* Schedule name */ }
-        {onCall && (
+        {state !== 'not_found' && (
           <OnCallScheduleRowView>
             <a href={onCall.schedule.url} className="schedule_name">{onCall.schedule.name}</a>
           </OnCallScheduleRowView>
@@ -64,25 +102,8 @@ export class OnCallView extends React.Component {
           <OnCallUserInfoView userInfo={userInfo} />
         </OnCallScheduleRowView>
 
-        { /* Dates */ }
-        <OnCallScheduleRowView filled equalSpacing>
-          {onCall && (
-            <React.Fragment>
-              <OnCallDateRowView
-                className="date_start"
-                label="From"
-                date={onCall.dateStart}
-                timezone={onCall.schedule.timezone}
-              />
-              <OnCallDateRowView
-                className="date_end"
-                label="To"
-                date={onCall.dateEnd}
-                timezone={onCall.schedule.timezone}
-              />
-            </React.Fragment>
-          )}
-        </OnCallScheduleRowView>
+        { /* Status row */ }
+        {statusRow}
 
         { /* End */ }
       </div>
@@ -108,13 +129,16 @@ OnCallView.defaultProps = {
 
 export class OnCallScheduleRowView extends React.Component {
   render() {
-    const { equalSpacing, filled, children } = this.props;
+    const { equalSpacing, filled, statusRow, children } = this.props;
     const classes = ['schedule_row'];
     if (equalSpacing) {
       classes.push('equal_spacing');
     }
     if (filled) {
       classes.push('filled_row');
+    }
+    if (statusRow) {
+      classes.push('status_row');
     }
     return <div className={classes.join(' ')}>{children}</div>;
   }
@@ -123,12 +147,35 @@ export class OnCallScheduleRowView extends React.Component {
 OnCallScheduleRowView.propTypes = {
   equalSpacing: PropTypes.bool,
   filled: PropTypes.bool,
+  statusRow: PropTypes.bool,
   children: PropTypes.node,
 };
 
 OnCallScheduleRowView.defaultProps = {
   equalSpacing: false,
   filled: false,
+  statusRow: false,
+  children: null,
+};
+
+// ------- OnCallStatusRowView -------------------------------------------------
+
+export class OnCallStatusRowView extends React.Component {
+  render() {
+    const { children } = this.props;
+    return (
+      <OnCallScheduleRowView filled equalSpacing statusRow>
+        {children}
+      </OnCallScheduleRowView>
+    );
+  }
+}
+
+OnCallStatusRowView.propTypes = {
+  children: PropTypes.node,
+};
+
+OnCallStatusRowView.defaultProps = {
   children: null,
 };
 
@@ -275,6 +322,35 @@ OnCallDateRowView.defaultProps = {
   timezone: null,
   className: '',
   label: '',
+};
+
+// ------- OnCallIncidentRowView -----------------------------------------------
+
+export class OnCallIncidentRowView extends React.Component {
+  render() {
+    const { incident, className } = this.props;
+    return (
+      <div className={`incident ${className}`}>
+        <div className="incident_summary">
+          <span>{`Incident ${incident.status}: `}</span>
+          <a href={incident.url}>{incident.title}</a>
+        </div>
+        <div className="incident_service">
+          <span>Service: </span>
+          <a href={incident.serviceUrl}>{incident.serviceName}</a>
+        </div>
+      </div>
+    );
+  }
+}
+
+OnCallIncidentRowView.propTypes = {
+  incident: PropTypes.instanceOf(Incident).isRequired,
+  className: PropTypes.string,
+};
+
+OnCallIncidentRowView.defaultProps = {
+  className: '',
 };
 
 // ------- OnCallDateTimeView --------------------------------------------------

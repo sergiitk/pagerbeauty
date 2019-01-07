@@ -13,6 +13,7 @@ export class Incident {
     summary,
     url,
     serviceName,
+    serviceUrl,
   }) {
     this.id = id;
     this.scheduleId = scheduleId;
@@ -21,6 +22,7 @@ export class Incident {
     this.summary = summary;
     this.url = url;
     this.serviceName = serviceName;
+    this.serviceUrl = serviceUrl;
   }
 
   serialize() {
@@ -30,8 +32,9 @@ export class Incident {
       status: this.status,
       title: this.title,
       summary: this.summary,
-      serviceName: this.serviceName,
       url: this.url,
+      serviceName: this.serviceName,
+      serviceUrl: this.serviceUrl,
     };
   }
 
@@ -48,6 +51,7 @@ export class Incident {
       summary: record.summary,
       url: record.html_url,
       serviceName: record.service ? record.service.summary : 'Unknown',
+      serviceUrl: record.service ? record.service.html_url : null,
       scheduleId,
     };
     return new Incident(attributes);
