@@ -39,8 +39,7 @@ export class PagerBeautyWorker {
     );
     this.onCallsService = new OnCallsService(this.pagerDutyClient);
     this.schedulesService = new SchedulesService(this.pagerDutyClient);
-    // Optional
-    this.incidentsService = false;
+    this.incidentsService = new IncidentsService(this.pagerDutyClient);
 
     // Timers
     this.onCallsTimer = false;
@@ -62,7 +61,6 @@ export class PagerBeautyWorker {
       this.incidentsRefreshMS = PagerBeautyWorker.refreshRateToMs(
         pagerDutyConfig.incidents.refreshRate,
       );
-      this.incidentsService = new IncidentsService(this.pagerDutyClient);
     }
   }
 
@@ -71,8 +69,9 @@ export class PagerBeautyWorker {
   async start() {
     const { db, incidentsEnabled } = this;
     logger.debug('Initializing database.');
-    db.set('oncalls', new Map());
-    db.set('schedules', new Map());
+    db.set('oncalls', this.onCallsService);
+    db.set('schedules', this.schedulesService);
+    db.set('incidents', this.incidentsService);
 
     // Load schedules first.
     await this.startSchedulesWorker();
@@ -94,6 +93,9 @@ export class PagerBeautyWorker {
     }
     if (this.schedulesTimer) {
       await this.schedulesTimer.stop();
+    }
+    if (this.incidentsTimer) {
+      await this.incidentsTimer.stop();
     }
 
     const { db } = this;

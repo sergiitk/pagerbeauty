@@ -34,24 +34,23 @@ test('On-Call: ensure classes', waitFor('.schedule'), async (t) => {
   await pageTest.expectNoClass('.schedule', 'state_active_incident');
 });
 
-
-test('On-Call block shows schedule name', waitFor('.schedule'), async (t) => {
+test('On-Call: show schedule name', waitFor('.schedule'), async (t) => {
   const { pageTest } = t.context;
   await pageTest.expectText('a.schedule_name', 'Schedule a quasi illum');
 });
 
-test('On-Call block shows user name', waitFor('.schedule'), async (t) => {
+test('On-Call: show user name', waitFor('.schedule'), async (t) => {
   const { pageTest } = t.context;
   await pageTest.expectText('.user_name', 'Rosanna Runolfsdottir');
 });
 
-test('On-Call block shows correct dates', waitFor('.schedule'), async (t) => {
+test('On-Call: status row shows dates', waitFor('.schedule'), async (t) => {
   const { pageTest } = t.context;
   await pageTest.expectText('.date_start', 'From: Tuesday, Dec 25 12:00 AM');
   await pageTest.expectText('.date_end', 'To: Tuesday, Dec 25 12:00 PM');
 });
 
-test('On-Call block shows user avatar', waitFor('.schedule'), async (t) => {
+test('On-Call: show user avatar', waitFor('.schedule'), async (t) => {
   const { pageTest } = t.context;
   pageTest.expectAttrMatch(
     '.user_avatar img',
@@ -60,7 +59,7 @@ test('On-Call block shows user avatar', waitFor('.schedule'), async (t) => {
   );
 });
 
-test('No one On-Call: indicator is OK', waitFor('.schedule'), async (t) => {
+test('On-Call: indicator is OK', waitFor('.schedule'), async (t) => {
   const { pageTest } = t.context;
   await pageTest.expectNoClass('.status_indicator', 'error');
   await pageTest.expectClass('.status_indicator', 'success');

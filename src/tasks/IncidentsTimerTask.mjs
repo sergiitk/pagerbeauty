@@ -14,10 +14,6 @@ export class IncidentsTimerTask {
     logger.verbose(`Incidents refresh run #${runNumber}, every ${intervalMs}ms`);
     const oncalls = this.db.get('oncalls');
     const result = await this.incidentsService.load(oncalls);
-    if (result) {
-      // @todo: refresh without full override.
-      this.db.set('incidents', this.incidentsService);
-    }
     return result;
   }
 

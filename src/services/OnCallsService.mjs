@@ -15,8 +15,9 @@ export class OnCallsService {
     this.onCallRepo = new Map();
   }
 
-  async load(schedulesService) {
+  async load(schedulesService, incidentsService) {
     const schedules = schedulesService.schedulesRepo;
+    const incidents = incidentsService.incidentsRepo;
     if (!schedules.size) {
       logger.verbose('Skipping on-calls load: Schedules not loaded yet');
       return false;
@@ -34,10 +35,17 @@ export class OnCallsService {
           includeFlags,
         );
 
-        const oncall = OnCall.fromApiRecord(record, schedule);
+        const onCall = OnCall.fromApiRecord(record, schedule);
+
+        // Needed because of full override.
+        if (incidents.has(schedule.id)) {
+          onCall.setIncident(incidents.get(schedule.id));
+        }
+
         logger.verbose(`On-call for schedule ${schedule.id} is loaded`);
-        logger.silly(`On-call loaded ${oncall.toString()}`);
-        this.onCallRepo.set(schedule.id, oncall);
+        logger.silly(`On-call loaded ${onCall.toString()}`);
+
+        this.onCallRepo.set(schedule.id, onCall);
       } catch (e) {
         logger.warn(`Error loading on-call for ${schedule.id}: ${e}`);
       }

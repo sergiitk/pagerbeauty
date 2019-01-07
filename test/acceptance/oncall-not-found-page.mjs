@@ -46,7 +46,7 @@ test('No one On-Call: no user name', waitFor('.schedule'), async (t) => {
   await pageTest.expectText('.user_name', 'No one is on call');
 });
 
-test('No one On-Call: no dates shown', waitFor('.schedule'), async (t) => {
+test('No one On-Call: status row has no dates', waitFor('.schedule'), async (t) => {
   const { pageTest } = t.context;
   await pageTest.expectNoElements('.date_start');
   await pageTest.expectNoElements('.date_end');

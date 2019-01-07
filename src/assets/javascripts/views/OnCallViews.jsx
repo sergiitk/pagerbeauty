@@ -53,18 +53,18 @@ export class OnCallView extends React.Component {
     let statusRow;
     switch (state) {
       case 'not_found':
-        statusRow = <OnCallScheduleRowView filled equalSpacing />;
+        statusRow = <OnCallStatusRowView />;
         break;
       case 'active_incident':
         statusRow = (
-          <OnCallScheduleRowView filled equalSpacing>
+          <OnCallStatusRowView>
             Active incident
-          </OnCallScheduleRowView>
+          </OnCallStatusRowView>
         );
         break;
       default:
         statusRow = (
-          <OnCallScheduleRowView filled equalSpacing>
+          <OnCallStatusRowView>
             <OnCallDateRowView
               className="date_start"
               label="From"
@@ -77,7 +77,7 @@ export class OnCallView extends React.Component {
               date={onCall.dateEnd}
               timezone={onCall.schedule.timezone}
             />
-          </OnCallScheduleRowView>
+          </OnCallStatusRowView>
         );
     }
 
@@ -128,13 +128,16 @@ OnCallView.defaultProps = {
 
 export class OnCallScheduleRowView extends React.Component {
   render() {
-    const { equalSpacing, filled, children } = this.props;
+    const { equalSpacing, filled, statusRow, children } = this.props;
     const classes = ['schedule_row'];
     if (equalSpacing) {
       classes.push('equal_spacing');
     }
     if (filled) {
       classes.push('filled_row');
+    }
+    if (statusRow) {
+      classes.push('status_row');
     }
     return <div className={classes.join(' ')}>{children}</div>;
   }
@@ -143,12 +146,36 @@ export class OnCallScheduleRowView extends React.Component {
 OnCallScheduleRowView.propTypes = {
   equalSpacing: PropTypes.bool,
   filled: PropTypes.bool,
+  statusRow: PropTypes.bool,
   children: PropTypes.node,
 };
 
 OnCallScheduleRowView.defaultProps = {
   equalSpacing: false,
   filled: false,
+  statusRow: false,
+  children: null,
+};
+
+
+// ------- OnCallStatusRowView -------------------------------------------------
+
+export class OnCallStatusRowView extends React.Component {
+  render() {
+    const { children } = this.props;
+    return (
+      <OnCallScheduleRowView filled equalSpacing statusRow>
+        {children}
+      </OnCallScheduleRowView>
+    );
+  }
+}
+
+OnCallStatusRowView.propTypes = {
+  children: PropTypes.node,
+};
+
+OnCallStatusRowView.defaultProps = {
   children: null,
 };
 
