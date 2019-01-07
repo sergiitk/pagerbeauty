@@ -44,12 +44,6 @@ test('On-Call: show user name', waitFor('.schedule'), async (t) => {
   await pageTest.expectText('.user_name', 'Rosanna Runolfsdottir');
 });
 
-test('On-Call: status row shows dates', waitFor('.schedule'), async (t) => {
-  const { pageTest } = t.context;
-  await pageTest.expectText('.date_start', 'From: Tuesday, Dec 25 12:00 AM');
-  await pageTest.expectText('.date_end', 'To: Tuesday, Dec 25 12:00 PM');
-});
-
 test('On-Call: show user avatar', waitFor('.schedule'), async (t) => {
   const { pageTest } = t.context;
   pageTest.expectAttrMatch(
@@ -57,6 +51,12 @@ test('On-Call: show user avatar', waitFor('.schedule'), async (t) => {
     'src',
     /^https:\/\/secure\.gravatar\.com\/avatar(.*)&s=2048/,
   );
+});
+
+test('On-Call: status row shows dates', waitFor('.schedule'), async (t) => {
+  const { pageTest } = t.context;
+  await pageTest.expectText('.date_start', 'From: Tuesday, Dec 25 12:00 AM');
+  await pageTest.expectText('.date_end', 'To: Tuesday, Dec 25 12:00 PM');
 });
 
 test('On-Call: indicator is OK', waitFor('.schedule'), async (t) => {

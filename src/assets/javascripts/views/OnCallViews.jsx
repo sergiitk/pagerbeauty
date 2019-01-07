@@ -91,7 +91,7 @@ export class OnCallView extends React.Component {
         </OnCallScheduleRowView>
 
         { /* Schedule name */ }
-        {state === 'normal' && (
+        {state !== 'not_found' && (
           <OnCallScheduleRowView>
             <a href={onCall.schedule.url} className="schedule_name">{onCall.schedule.name}</a>
           </OnCallScheduleRowView>

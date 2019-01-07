@@ -34,6 +34,25 @@ test('On-Call Incident: ensure classes', waitFor('.schedule'), async (t) => {
   await pageTest.expectNoClass('.schedule', 'state_not_found');
 });
 
+test('On-Call Incident: show schedule name', waitFor('.schedule'), async (t) => {
+  const { pageTest } = t.context;
+  await pageTest.expectText('a.schedule_name', 'PagerBeauty Level 1');
+});
+
+test('On-Call Incident: show user name', waitFor('.schedule'), async (t) => {
+  const { pageTest } = t.context;
+  await pageTest.expectText('.user_name', 'Sergii Tkachenko');
+});
+
+test('On-Call Incident: show user avatar', waitFor('.schedule'), async (t) => {
+  const { pageTest } = t.context;
+  pageTest.expectAttrMatch(
+    '.user_avatar img',
+    'src',
+    /^https:\/\/secure\.gravatar\.com\/avatar(.*)&s=2048/,
+  );
+});
+
 test('On-Call Incident: displays an accident', waitFor('.schedule'), async (t) => {
   const { pageTest } = t.context;
   await pageTest.expectText('.incident_summary', 'Incident triggered: [#10279] Just a drill');
