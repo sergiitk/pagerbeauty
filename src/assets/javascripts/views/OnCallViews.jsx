@@ -35,7 +35,8 @@ export class OnCallView extends React.Component {
 
     let onCall;
     let userInfo;
-    let scheduleClass = '';
+
+    let state;
     if (!is404) {
       onCall = new OnCall(data);
       userInfo = {
@@ -43,16 +44,13 @@ export class OnCallView extends React.Component {
         url: onCall.userURL,
         avatar: onCall.userAvatarSized(),
       };
-      console.dir(onCall, { colors: true, showHidden: true });
-      if (onCall.incident) {
-        scheduleClass = 'active_incident';
-      }
+      state = onCall.incident ? 'active_incident' : 'normal';
     } else {
-      scheduleClass = 'not_found';
+      state = 'not_found';
     }
 
     return (
-      <div className={`schedule ${scheduleClass}`}>
+      <div className={`schedule state_${state}`}>
         { /* Header */ }
         <OnCallScheduleRowView filled>
           <span>ON CALL</span>
@@ -60,7 +58,7 @@ export class OnCallView extends React.Component {
         </OnCallScheduleRowView>
 
         { /* Schedule name */ }
-        {onCall && (
+        {state === 'normal' && (
           <OnCallScheduleRowView>
             <a href={onCall.schedule.url} className="schedule_name">{onCall.schedule.name}</a>
           </OnCallScheduleRowView>
@@ -73,7 +71,7 @@ export class OnCallView extends React.Component {
 
         { /* Dates */ }
         <OnCallScheduleRowView filled equalSpacing>
-          {onCall && (
+          {state === 'normal' && (
             <React.Fragment>
               <OnCallDateRowView
                 className="date_start"
