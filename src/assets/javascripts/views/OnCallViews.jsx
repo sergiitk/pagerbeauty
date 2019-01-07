@@ -7,6 +7,7 @@ import React from 'react';
 // ------- Internal imports ----------------------------------------------------
 
 import { OnCall } from '../../../models/OnCall.mjs';
+import { Incident } from '../../../models/Incident.mjs';
 import { PagerBeautyFetchNotFoundUiError } from '../ui-errors';
 import { StatusIndicatorView } from './StatusIndicatorView';
 
@@ -58,7 +59,7 @@ export class OnCallView extends React.Component {
       case 'active_incident':
         statusRow = (
           <OnCallStatusRowView>
-            Active incident
+            <OnCallIncidentRowView incident={onCall.incident} />
           </OnCallStatusRowView>
         );
         break;
@@ -322,6 +323,32 @@ OnCallDateRowView.defaultProps = {
   timezone: null,
   className: '',
   label: '',
+};
+
+// ------- OnCallIncidentRowView -----------------------------------------------
+
+export class OnCallIncidentRowView extends React.Component {
+  render() {
+    const { incident, className } = this.props;
+    const incidentSummary = `Incident ${incident.status}: ${incident.summary}`;
+    const incidentService = `Service: ${incident.serviceName}`;
+
+    return (
+      <div className={`incident ${className}`}>
+        <div className="incident_summary">{incidentSummary}</div>
+        <div className="incident_service">{incidentService}</div>
+      </div>
+    );
+  }
+}
+
+OnCallIncidentRowView.propTypes = {
+  incident: PropTypes.instanceOf(Incident).isRequired,
+  className: PropTypes.string,
+};
+
+OnCallIncidentRowView.defaultProps = {
+  className: '',
 };
 
 // ------- OnCallDateTimeView --------------------------------------------------

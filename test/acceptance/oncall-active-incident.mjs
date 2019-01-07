@@ -36,7 +36,8 @@ test('On-Call Incident: ensure classes', waitFor('.schedule'), async (t) => {
 
 test('On-Call Incident: displays an accident', waitFor('.schedule'), async (t) => {
   const { pageTest } = t.context;
-  await pageTest.expectText('.status_row', 'Active incident');
+  await pageTest.expectText('.incident_summary', 'Incident triggered: [#10279] Just a drill');
+  await pageTest.expectText('.incident_service', 'Service: PagerBeauty');
 });
 
 test('On-Call Incident: indicator is OK', waitFor('.schedule'), async (t) => {

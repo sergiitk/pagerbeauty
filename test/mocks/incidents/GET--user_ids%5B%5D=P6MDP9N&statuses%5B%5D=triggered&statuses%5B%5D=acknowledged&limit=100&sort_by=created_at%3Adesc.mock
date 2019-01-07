@@ -6,8 +6,8 @@ Cache-Control: max-age=0, private, must-revalidate
   "incidents": [
     {
       "incident_number": 10279,
-      "title": "Test incident",
-      "description": "Test incident",
+      "title": "Just a drill",
+      "description": "Just a drill",
       "created_at": "2019-01-06T21:54:40Z",
       "status": "triggered",
       "pending_actions": [],
@@ -86,7 +86,7 @@ Cache-Control: max-age=0, private, must-revalidate
       "urgency": "high",
       "id": "PTM70NY",
       "type": "incident",
-      "summary": "[#10279] Test incident",
+      "summary": "[#10279] Just a drill",
       "self": "https://api.pagerduty.com/incidents/PTM70NY",
       "html_url": "https://apidocs.pagerduty.com/incidents/PTM70NY"
     }
