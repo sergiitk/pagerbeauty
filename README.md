@@ -88,7 +88,7 @@ This project is under active development.
 - [x] Automated Testing
 - [x] Automated Builds
 - [x] No limit on the total number of schedules supported
-- [ ] Change color to red when an incident is triggered
+- [x] Make on-call view red during an active incident
 
 #### Version 2.0
 

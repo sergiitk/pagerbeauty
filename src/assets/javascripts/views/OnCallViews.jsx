@@ -158,7 +158,6 @@ OnCallScheduleRowView.defaultProps = {
   children: null,
 };
 
-
 // ------- OnCallStatusRowView -------------------------------------------------
 
 export class OnCallStatusRowView extends React.Component {
