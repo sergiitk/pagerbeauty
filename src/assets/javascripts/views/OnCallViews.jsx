@@ -49,6 +49,38 @@ export class OnCallView extends React.Component {
       state = 'not_found';
     }
 
+    // Resolve what to show on status row.
+    let statusRow;
+    switch (state) {
+      case 'not_found':
+        statusRow = <OnCallScheduleRowView filled equalSpacing />;
+        break;
+      case 'active_incident':
+        statusRow = (
+          <OnCallScheduleRowView filled equalSpacing>
+            Active incident
+          </OnCallScheduleRowView>
+        );
+        break;
+      default:
+        statusRow = (
+          <OnCallScheduleRowView filled equalSpacing>
+            <OnCallDateRowView
+              className="date_start"
+              label="From"
+              date={onCall.dateStart}
+              timezone={onCall.schedule.timezone}
+            />
+            <OnCallDateRowView
+              className="date_end"
+              label="To"
+              date={onCall.dateEnd}
+              timezone={onCall.schedule.timezone}
+            />
+          </OnCallScheduleRowView>
+        );
+    }
+
     return (
       <div className={`schedule state_${state}`}>
         { /* Header */ }
@@ -69,25 +101,8 @@ export class OnCallView extends React.Component {
           <OnCallUserInfoView userInfo={userInfo} />
         </OnCallScheduleRowView>
 
-        { /* Dates */ }
-        <OnCallScheduleRowView filled equalSpacing>
-          {state === 'normal' && (
-            <React.Fragment>
-              <OnCallDateRowView
-                className="date_start"
-                label="From"
-                date={onCall.dateStart}
-                timezone={onCall.schedule.timezone}
-              />
-              <OnCallDateRowView
-                className="date_end"
-                label="To"
-                date={onCall.dateEnd}
-                timezone={onCall.schedule.timezone}
-              />
-            </React.Fragment>
-          )}
-        </OnCallScheduleRowView>
+        { /* Status row */ }
+        {statusRow}
 
         { /* End */ }
       </div>
