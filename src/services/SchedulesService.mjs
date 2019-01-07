@@ -4,45 +4,40 @@ import logger from 'winston';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { OnCall } from '../models/OnCall';
-import { INCLUDE_USERS, INCLUDE_SCHEDULES } from './PagerDutyClient';
+import { Schedule } from '../models/Schedule';
 
-// ------- SchedulesService -----------------------------------------------------
+// ------- SchedulesService ------------------------------------------------------
 
 export class SchedulesService {
   constructor(pagerDutyClient) {
     this.client = pagerDutyClient;
-    this.onCallRepo = new Map();
+    this.schedulesRepo = new Map();
   }
 
   async load(scheduleIds) {
-    logger.verbose(`Loading on-calls for schedules ${scheduleIds}`);
+    logger.verbose(`Loading schedules ${scheduleIds}`);
 
-    let records;
-    try {
-      const includeFlags = new Set([INCLUDE_USERS, INCLUDE_SCHEDULES]);
-      records = await this.client.oncalls(scheduleIds, includeFlags);
-    } catch (e) {
-      logger.warn(`Error loading schedules ${scheduleIds}: ${e}`);
-      throw e;
-    }
-
-    // Set of processed schedules. Needed because schedules are returned
-    // once per each per each evaluation policy.
-    const processed = new Set();
-    for (const record of records) {
-      const oncall = OnCall.fromApiRecord(record);
-      if (oncall.scheduleId && !processed.has(oncall.scheduleId)) {
-        logger.verbose(`On-call for schedule ${oncall.scheduleId} is loaded`);
-        logger.debug(`Schedule loaded ${oncall.toString()}`);
-        this.onCallRepo.set(oncall.scheduleId, oncall);
-        processed.add(oncall.scheduleId);
+    for (const scheduleId of scheduleIds) {
+      try {
+        // Limit the number of requests by sending them in sync.
+        // eslint-disable-next-line no-await-in-loop
+        const record = await this.client.getSchedule(scheduleId);
+        const schedule = Schedule.fromApiRecord(record);
+        if (schedule.id) {
+          logger.verbose(`Schedule ${schedule.id} is loaded`);
+          logger.silly(`Schedule loaded ${schedule.toString()}`);
+          this.schedulesRepo.set(schedule.id, schedule);
+        }
+      } catch (e) {
+        logger.warn(`Error loading schedule ${scheduleId}: ${e}`);
+        this.schedulesRepo.set(scheduleId, null);
       }
     }
+    return true;
   }
 
   serialize() {
-    return Array.from(this.onCallRepo.values(), r => r.serialize());
+    return Array.from(this.schedulesRepo.values(), r => r.serialize());
   }
   // ------- Class end  --------------------------------------------------------
 }

@@ -1,0 +1,98 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Cache-Control: max-age=0, private, must-revalidate
+
+{
+  "incidents": [
+    {
+      "incident_number": 10279,
+      "title": "Just a drill",
+      "description": "Just a drill",
+      "created_at": "2019-01-06T21:54:40Z",
+      "status": "triggered",
+      "pending_actions": [],
+      "incident_key": "c8c0d19200534e44bdf6abd0be0059ff",
+      "service": {
+        "id": "P1HPKZR",
+        "type": "service_reference",
+        "summary": "PagerBeauty",
+        "self": "https://api.pagerduty.com/services/P1HPKZR",
+        "html_url": "https://apidocs.pagerduty.com/services/P1HPKZR"
+      },
+      "assignments": [
+        {
+          "at": "2019-01-06T21:54:40Z",
+          "assignee": {
+            "id": "P6MDP9N",
+            "type": "user_reference",
+            "summary": "Sergii Tkachenko",
+            "self": "https://api.pagerduty.com/users/P6MDP9N",
+            "html_url": "https://apidocs.pagerduty.com/users/P6MDP9N"
+          }
+        }
+      ],
+      "acknowledgements": [],
+      "last_status_change_at": "2019-01-06T21:54:40Z",
+      "last_status_change_by": {
+        "id": "P1HPKZR",
+        "type": "service_reference",
+        "summary": "PagerBeauty",
+        "self": "https://api.pagerduty.com/services/P1HPKZR",
+        "html_url": "https://apidocs.pagerduty.com/services/P1HPKZR"
+      },
+      "first_trigger_log_entry": {
+        "id": "R5XBJY83EFH7U7C45HHRDW1DGJ",
+        "type": "trigger_log_entry_reference",
+        "summary": "Triggered through the website",
+        "self": "https://api.pagerduty.com/log_entries/R5XBJY83EFH7U7C45HHRDW1DGJ",
+        "html_url": "https://apidocs.pagerduty.com/incidents/PTM70NY/log_entries/R5XBJY83EFH7U7C45HHRDW1DGJ"
+      },
+      "escalation_policy": {
+        "id": "POQTAHN",
+        "type": "escalation_policy_reference",
+        "summary": "PagerBeauty Default Escalation",
+        "self": "https://api.pagerduty.com/escalation_policies/POQTAHN",
+        "html_url": "https://apidocs.pagerduty.com/escalation_policies/POQTAHN"
+      },
+      "teams": [],
+      "alert_counts": {
+        "all": 0,
+        "triggered": 0,
+        "resolved": 0
+      },
+      "impacted_services": [
+        {
+          "id": "P1HPKZR",
+          "type": "service_reference",
+          "summary": "PagerBeauty",
+          "self": "https://api.pagerduty.com/services/P1HPKZR",
+          "html_url": "https://apidocs.pagerduty.com/services/P1HPKZR"
+        }
+      ],
+      "is_mergeable": true,
+      "basic_alert_grouping": null,
+      "alert_grouping": null,
+      "priority": {
+        "id": "PR0RYVX",
+        "type": "priority",
+        "summary": "P5",
+        "self": "https://api.pagerduty.com/priorities/PR0RYVX",
+        "html_url": null,
+        "name": "P5",
+        "description": "",
+        "order": 64,
+        "color": "666666"
+      },
+      "urgency": "high",
+      "id": "PTM70NY",
+      "type": "incident",
+      "summary": "[#10279] Just a drill",
+      "self": "https://api.pagerduty.com/incidents/PTM70NY",
+      "html_url": "https://apidocs.pagerduty.com/incidents/PTM70NY"
+    }
+  ],
+  "limit": 100,
+  "offset": 0,
+  "total": null,
+  "more": false
+}

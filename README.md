@@ -20,7 +20,9 @@ Configure PagerBeauty with `.env` file or by exporting environment variables:
 # For Docker compatibility, do not placed quotation marks around the values.
 # https://docs.docker.com/compose/env-file/
 
-# PagerDuty API key
+# PagerDuty REST API v2 Access Key
+# Read-only access is sufficient
+# Docs: https://support.pagerduty.com/docs/using-the-api
 PAGERBEAUTY_PD_API_KEY=yourkey
 
 # A list of schedule ids to load
@@ -29,6 +31,14 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 # (Optional) How often to refresh schedules list, in minutes.
 # Default: 10.
 # PAGERBEAUTY_REFRESH_RATE_MINUTES=10
+
+# (Optional) Disable polling for active incidents.
+# Default: false
+# PAGERBEAUTY_INCIDENTS_DISABLE=true
+
+# (Optional) How often to refresh active incidents, in minutes.
+# Default: 1
+# PAGERBEAUTY_INCIDENTS_REFRESH_RATE_MINUTES=5
 
 # (Optional) Highest logging level to include into application logs.
 # One of: error, warn, info, verbose, debug, silly
@@ -61,6 +71,8 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 
 This project is under active development.
 
+#### Version 1.0
+
 - [x] Load and process on-calls
 - [x] JSON response
 - [x] HTML response
@@ -73,14 +85,23 @@ This project is under active development.
 - [x] On-call TimeZone is loaded from the PagerDuty schedule settings
 - [x] Application logging
 - [x] Ajax refresh
-- [ ] Automated Testing
-- [ ] Automated builds
-- [ ] Load all API pages
-- [ ] Full README.md and examples
-- [ ] Change color to red when an incident is triggered
+- [x] Automated Testing
+- [x] Automated Builds
+- [x] No limit on the total number of schedules supported
+- [x] Make on-call view red during an active incident
+
+#### Version 2.0
+
 - [ ] Next on duty
-- [ ] Websocket refresh
 - [ ] HTTP authentication bypass support for embeds
+- [ ] Websocket refresh
+
+#### Documentation and examples
+
+- [ ] Live demo on Heroku
+- [ ] Example: Heroku
+- [ ] Example: Custom SSL certificate using Docker
+- [ ] Example: Digital Ocean
 
 ## Sponsors and Supporters
 

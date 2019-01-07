@@ -1,0 +1,32 @@
+# https://hub.docker.com/_/node/
+FROM node:10.14.2-alpine
+
+# Environment
+ENV APP_DIR=/usr/src/app
+
+# Create app directory
+WORKDIR $APP_DIR
+
+# Install
+COPY package.json yarn.lock $APP_DIR/
+RUN yarn install --prod --frozen-lockfile
+
+# Pagerbeauty default port
+EXPOSE 8080
+
+# ---------- Dev image from here
+# NPM config and dev environment
+RUN  npm config set scripts-prepend-node-path true \
+  && npm config set puppeteer_skip_chromium_download true \
+  && mkdir -v $APP_DIR/tmp
+
+# Install the rest
+RUN yarn install --frozen-lockfile
+
+# Acceptance test mock server
+EXPOSE 8081
+
+# Bundle app source
+COPY . .
+
+CMD ["yarn", "run", "app"]

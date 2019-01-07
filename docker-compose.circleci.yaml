@@ -1,0 +1,51 @@
+version: '3'
+services:
+
+  pagerbeauty-ci:
+    image: sergiitk/pagerbeauty:ci-${CIRCLE_SHA1}
+    environment:
+      # Use PagerDuty API Mock server for development
+      PAGERBEAUTY_PD_API_URL: http://mock-pagerduty-api:8081
+      # API key is required, but Mock PD API will ignore it
+      PAGERBEAUTY_PD_API_KEY: v2_api_key
+      # Mock Mock PD APInow only responds with these two schedules
+      PAGERBEAUTY_PD_SCHEDULES: P538IZH,PJ1P5JQ,P2RFGIP
+      # Faster refreshes for dev server
+      PAGERBEAUTY_REFRESH_RATE_MINUTES: 0.1
+      PAGERBEAUTY_INCIDENTS_REFRESH_RATE_MINUTES: 0.05
+      # Verbose
+      PAGERBEAUTY_LOG_LEVEL: silly
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mock-pagerduty-api
+
+  mock-pagerduty-api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-dev
+    command: ["yarn", "run", "mock:pagerduty_api"]
+    ports:
+      - "8081:8081"
+    volumes:
+      - node_modules:/usr/src/app/node_modules
+
+  test-acceptance:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-test-acceptance
+    entrypoint: ""
+    command: ["./test/test-with-xunit.sh", "acceptance"]
+    environment:
+      PAGERBEAUTY_URL: http://pagerbeauty-ci:8080
+    volumes:
+      # Uncomment for verifying service locally.
+      # - .:/usr/src/app/
+      - node_modules:/usr/src/app/node_modules
+      - ./tmp:/usr/src/app/tmp
+    depends_on:
+      - pagerbeauty-ci
+
+# Use shared node_modules
+volumes:
+  node_modules:

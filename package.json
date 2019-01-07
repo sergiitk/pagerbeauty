@@ -14,10 +14,17 @@
   "scripts": {
     "test": "npm run test:unit",
     "test:unit": "NODE_ENV=test ava test/unit",
+    "test:unit:coverage": "NODE_ENV=test nyc --all -s ava test/unit",
+    "test:unit:coverage:report": "npm run test:unit:coverage && npm run coverage:report:text",
     "test:integration": "NODE_ENV=test ava test/integration",
+    "test:acceptance": "NODE_ENV=test ava test/acceptance",
     "test:full": "npm run test:unit && npm run test:integration",
+    "coverage:report:text": "nyc report --reporter=text",
+    "coverage:report:html": "nyc report --reporter=html",
+    "coverage:report:codecov": "nyc report --reporter=lcovonly && codecov",
     "lint": "eslint --ext .js --ext .mjs --ext .jsx -f unix .",
     "eslint": "eslint --ext .js --ext .mjs --ext .jsx",
+    "mock:pagerduty_api": "mockserver -p 8081 -m test/mocks",
     "build": "webpack --config webpack.dev.js",
     "build:watch": "webpack --watch --config webpack.dev.js",
     "build:prod": "NODE_ENV=production webpack --config webpack.prod.js --display-modules",
@@ -49,24 +56,35 @@
     "ava": "^1.0.1",
     "babel-loader": "^8.0.4",
     "babel-polyfill": "^6.26.0",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "codecov": "^3.1.0",
     "conventional-changelog-ember": "^2.0.2",
     "css-loader": "^2.0.1",
     "eslint": "^5.8.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-ava": "^5.1.1",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
+    "faucet": "^0.0.1",
     "mini-css-extract-plugin": "^0.5.0",
+    "mockserver": "^2.2.0",
     "node-sass": "^4.10.0",
     "nodemon": "^1.18.5",
+    "nyc": "^13.1.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "prop-types": "^15.6.2",
+    "puppeteer": "1.8.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "sass-loader": "^7.1.0",
     "semantic-release": "^15.10.7",
+    "sinon": "^7.2.2",
+    "sinon-chai": "^3.3.0",
     "style-loader": "^0.23.1",
+    "tap-xunit": "^2.3.0",
     "webpack": "^4.28.0",
     "webpack-cli": "^3.1.2",
     "webpack-merge": "^4.1.5"
@@ -82,48 +100,6 @@
     "presets": [
       "@babel/preset-env",
       "@babel/preset-react"
-    ]
-  },
-  "release": {
-    "branch": "production",
-    "plugins": [
-      [
-        "@semantic-release/commit-analyzer",
-        {
-          "preset": "ember",
-          "parserOpts": {
-            "headerPattern": "\\[(.*) (.*)] ?(.*)"
-          }
-        }
-      ],
-      [
-        "@semantic-release/release-notes-generator",
-        {
-          "preset": "ember",
-          "parserOpts": {
-            "headerPattern": "\\[(.*) (.*)] ?(.*)"
-          }
-        }
-      ],
-      [
-        "@semantic-release/changelog",
-        {
-          "changelogTitle": "# PagerBeauty Changelog"
-        }
-      ],
-      "@semantic-release/npm",
-      [
-        "@semantic-release/git",
-        {
-          "assets": [
-            "CHANGELOG.md",
-            "assets/dist-prod/**/*.{js,css}",
-            "package.json"
-          ],
-          "message": "${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-        }
-      ],
-      "@semantic-release/github"
     ]
   }
 }

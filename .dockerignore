@@ -7,3 +7,4 @@ node_modules
 .github
 _config.yml
 assets/dist
+tmp/

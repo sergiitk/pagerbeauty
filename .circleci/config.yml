@@ -28,44 +28,224 @@ jobs:
             - 'assets/dist-prod/bundle.css'
             - 'assets/dist-prod/bundle.js'
 
-  # Docker
+  # Build Docker image in production mode
   docker-image:
     machine: true
+    working_directory: ~/repo
     steps:
       - checkout
-      # Restore assets
+      # Restore assets.
       - attach_workspace:
           at: /tmp/workspace
       - run:
           name: Restore assets
           command: cp -rv /tmp/workspace/assets/dist-prod assets
-      # build the application image
+      # Build the application image.
       - run:
           name: Build docker image
-          command: docker build -t sergiitk/pagerbeauty:dev-$CIRCLE_SHA1 .
-      # build the application image
+          command: docker build -t sergiitk/pagerbeauty:ci-$CIRCLE_SHA1 .
+      # Start the app in Docker.
       - run:
           name: "Start PagerBeauty"
           command: >
             docker run -d -t --name=pagerbeauty -p 8080:8080
             -e PAGERBEAUTY_PD_API_KEY
             -e PAGERBEAUTY_PD_SCHEDULES
-            -e PAGERBEAUTY_REFRESH_RATE_MINUTES
-            -e PAGERBEAUTY_LOG_LEVEL
-            -e PAGERBEAUTY_LOG_FORMAT
-            sergiitk/pagerbeauty:dev-$CIRCLE_SHA1
+            -e PAGERBEAUTY_REFRESH_RATE_MINUTES=10
+            -e PAGERBEAUTY_LOG_LEVEL=verbose
+            -e PAGERBEAUTY_LOG_FORMAT=human
+            sergiitk/pagerbeauty:ci-$CIRCLE_SHA1
+      # Wait for the app to b y launched by Docker and show logs.
       - run:
           name: "Wait for container and show logs"
           command: |
             sleep 2
             docker logs pagerbeauty
+      # Check that the app servers schedules.json on port 8080.
       - run:
-          name: "Ensure basic sanity"
+          name: "Sanity: check the app is serving requests"
+          command: >
+            docker run --rm --network container:pagerbeauty appropriate/curl
+            -vs --retry 10 --retry-connrefused
+            http://localhost:8080/v1/schedules.json
+      # Check that the app servers main JS file.
+      - run:
+          name: "Sanity: verify bundle.js"
+          command: >
+            docker run --rm --network container:pagerbeauty appropriate/curl
+            -vs --output /dev/null
+            http://localhost:8080/assets/dist-prod/bundle.js
+      # Check that the app servers main CSS file.
+      - run:
+          name: "Sanity: verify bundle.css"
+          command: >
+            docker run --rm --network container:pagerbeauty appropriate/curl
+            -vs --output /dev/null
+            http://localhost:8080/assets/dist-prod/bundle.css
+      # Minor cleanup plus a verification that that the app stops properly.
+      - run:
+          name: "Show logs and cleanup"
           command: |
-            docker run --rm --network container:pagerbeauty appropriate/curl -vs --retry 10 --retry-connrefused http://localhost:8080/v1/schedules.json
-            docker run --rm --network container:pagerbeauty appropriate/curl -vs --output /dev/null --retry 10 --retry-connrefused http://localhost:8080/assets/dist-prod/bundle.js
-            docker run --rm --network container:pagerbeauty appropriate/curl -vs --output /dev/null --retry 10 --retry-connrefused http://localhost:8080/assets/dist-prod/bundle.css
-            docker rm -f pagerbeauty
+            echo "Stopping container"
+            docker stop pagerbeauty
+            echo "Logs:"
+            docker logs pagerbeauty
+            echo "Removing the image"
+            docker rm pagerbeauty
+      # Prepare temporary folder to save built Docker image.
+      - run:
+          name: Create temp folders
+          command: mkdir -p /tmp/pb/docker/
+      # Save the image and compress it.
+      - run:
+          name: "Save docker image"
+          command: >
+            docker save sergiitk/pagerbeauty:ci-$CIRCLE_SHA1
+            | gzip --verbose -c
+            > /tmp/pb/docker/pagerbeauty-ci-$CIRCLE_SHA1.tar.gz
+      # Store the compressed image as an artifact.
+      - store_artifacts:
+          path: /tmp/pb/docker
+          destination: /artifacts/docker
+      # Store the image to workspace so it can be used in dependent jobs.
+      - persist_to_workspace:
+          root: /tmp/pb
+          paths:
+            - docker/pagerbeauty-ci-*.tar.gz
+
+  # Run acceptance tests (Puppeteer) against the app running in Docker
+  test-acceptance:
+    machine: true
+    working_directory: ~/repo
+    steps:
+      - checkout
+      # List Docker images to verify the app image isn't loaded.
+      - run:
+          name: List Docker images on the clean system
+          command: docker image ls
+      # Attach workspace with application saved Docker image.
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: List docker images in the workspace
+          command: ls -la /tmp/workspace/docker/
+      # Load pagerbeauty image from the workspace
+      - run:
+          name: Load PagerBeauty Docker image
+          command: >
+            docker load --input
+            /tmp/workspace/docker/pagerbeauty-ci-$CIRCLE_SHA1.tar.gz
+      # List Docker images to verify pagerbeauty image is loaded.
+      - run:
+          name: List Docker images to ensure PagerBeauty is loaded
+          command: docker image ls
+      # Build dependencies individually to track how long they take.
+      # Build mock-pagerduty-api
+      - run:
+          name: Build PagerDuty API Mock server
+          command: >
+            docker-compose -f docker-compose.circleci.yaml
+            build mock-pagerduty-api
+      # Build test-acceptance
+      - run:
+          name: Build Puppeteer test container
+          command: >
+            docker-compose -f docker-compose.circleci.yaml
+            build test-acceptance
+      # Run Puppeteer!
+      - run:
+          name: Run acceptance tests
+          command: >
+            docker-compose -f docker-compose.circleci.yaml
+            up --no-build
+            --abort-on-container-exit --exit-code-from=test-acceptance
+            test-acceptance
+      # Store AVA report in xUnit format
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p /tmp/pb/test-results/acceptance
+            cp ./tmp/xunit-acceptance.xml /tmp/pb/test-results/acceptance/results.xml
+          when: always
+      - store_test_results:
+          path: /tmp/pb/test-results
+      # Everybody cleanup.
+      - run:
+          name: "Show logs and cleanup"
+          command: |
+            echo "Logs:"
+            docker-compose -f docker-compose.circleci.yaml logs
+            echo "Stopping the containers"
+            docker-compose -f docker-compose.circleci.yaml down
+          when: always
+
+  # Run unit tests
+  test-unit:
+    docker:
+      - image: circleci/node:10.14.2-stretch
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+      - run:
+          name: Prepare test requisites
+          command: |
+            npm config set scripts-prepend-node-path true
+            mkdir -p /tmp/pb/test-results/unit
+            mkdir -p ./tmp
+      - run:
+          name: Run unit tests
+          # Run with bash because Ubuntu uses dash for /bin/sh
+          # Which has no pipefail support.
+          command: bash ./test/test-with-xunit.sh unit:coverage
+      - run:
+          name: Human-readable code coverage report
+          command: yarn coverage:report:text
+          when: always
+      - run:
+          name: Publish code coverage report to CodeCov
+          command: yarn coverage:report:codecov
+          when: always
+      # Store AVA report in xUnit format
+      - run:
+          name: Save test results
+          command: >
+            cp ./tmp/xunit-unit.xml
+            /tmp/pb/test-results/unit/results.xml
+          when: always
+      - store_test_results:
+          path: /tmp/pb/test-results
+
+  # Run integration tests
+  test-integration:
+    docker:
+      - image: circleci/node:10.14.2-stretch
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+      - run:
+          name: Prepare test requisites
+          command: |
+            npm config set scripts-prepend-node-path true
+            mkdir -p /tmp/pb/test-results/integration
+            mkdir -p ./tmp
+      - run:
+          name: Run integration tests
+          # Run with bash because Ubuntu uses dash for /bin/sh
+          # Which has no pipefail support.
+          command: bash ./test/test-with-xunit.sh integration
+      # Store AVA report in xUnit format
+      - run:
+          name: Save test results
+          command: >
+            cp ./tmp/xunit-integration.xml
+            /tmp/pb/test-results/integration/results.xml
+          when: always
+      - store_test_results:
+          path: /tmp/pb/test-results
 
   # Lint
   lint:
@@ -77,31 +257,21 @@ jobs:
       - restore_cache:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run:
-          name: Create temp folders
-          command: mkdir -p /tmp/pb/test-results/eslint
+          name: Prepare test requisites
+          command: |
+            npm config set scripts-prepend-node-path true
+            mkdir -p /tmp/pb/test-results/eslint
       - run:
           name: Lint in JUnit XML format
           command: >
             yarn eslint --cache --cache-location=/tmp/pb/
-            -f junit --output-file=/tmp/pb/test-results/eslint/results.xml . || true
+            -f junit --output-file=/tmp/pb/test-results/eslint/results.xml .
       - run:
-          name: Human readable report
+          name: Human-readable report
           command: yarn eslint --cache --cache-location=/tmp/pb/ -f table .
+          when: always
       - store_test_results:
           path: /tmp/pb/test-results
-
-  # Test
-  test:
-    docker:
-      - image: circleci/node:10.14.2-stretch
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - restore_cache:
-          key: v1-dependencies-{{ checksum "yarn.lock" }}
-      - run:
-          name: Test
-          command: yarn test:full
 
   # Release
   semantic-release:
@@ -135,11 +305,19 @@ workflows:
       - lint:
           requires:
             - build
-      - test:
+      - test-acceptance:
+          requires:
+            - docker-image
+      - test-integration:
+          requires:
+            - build
+      - test-unit:
           requires:
             - build
       - semantic-release:
           requires:
-            - lint
-            - test
             - docker-image
+            - lint
+            - test-acceptance
+            - test-integration
+            - test-unit

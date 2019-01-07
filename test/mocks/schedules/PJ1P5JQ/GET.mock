@@ -1,0 +1,159 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Cache-Control: max-age=0, private, must-revalidate
+
+{
+  "schedule": {
+    "id": "PJ1P5JQ",
+    "type": "schedule",
+    "summary": "Schedule aliquid eum qui",
+    "self": "https://api.pagerduty.com/schedules/PJ1P5JQ",
+    "html_url": "https://apidocs.pagerduty.com/schedules/PJ1P5JQ",
+    "name": "Schedule aliquid eum qui",
+    "time_zone": "America/New_York",
+    "description": null,
+    "users": [
+      {
+        "id": "PWTJ2RO",
+        "type": "user_reference",
+        "summary": "Marlon Gutkowski",
+        "self": "https://api.pagerduty.com/users/PWTJ2RO",
+        "html_url": "https://apidocs.pagerduty.com/users/PWTJ2RO"
+      },
+      {
+        "id": "PKS2IM6",
+        "type": "user_reference",
+        "summary": "Ola Schoen",
+        "self": "https://api.pagerduty.com/users/PKS2IM6",
+        "html_url": "https://apidocs.pagerduty.com/users/PKS2IM6"
+      },
+      {
+        "id": "PT6BV4C",
+        "type": "user_reference",
+        "summary": "Chesley Williamson",
+        "self": "https://api.pagerduty.com/users/PT6BV4C",
+        "html_url": "https://apidocs.pagerduty.com/users/PT6BV4C"
+      },
+      {
+        "id": "PGMRRJ3",
+        "type": "user_reference",
+        "summary": "Zoe Fay",
+        "self": "https://api.pagerduty.com/users/PGMRRJ3",
+        "html_url": "https://apidocs.pagerduty.com/users/PGMRRJ3"
+      },
+      {
+        "id": "PR55MLW",
+        "type": "user_reference",
+        "summary": "Deondre Haley",
+        "self": "https://api.pagerduty.com/users/PR55MLW",
+        "html_url": "https://apidocs.pagerduty.com/users/PR55MLW"
+      }
+    ],
+    "escalation_policies": [
+      {
+        "id": "PGWMLM5",
+        "type": "escalation_policy_reference",
+        "summary": "Escalation Policy voluptas autem perspiciatis",
+        "self": "https://api.pagerduty.com/escalation_policies/PGWMLM5",
+        "html_url": "https://apidocs.pagerduty.com/escalation_policies/PGWMLM5"
+      },
+      {
+        "id": "PFREGN4",
+        "type": "escalation_policy_reference",
+        "summary": "Escalation Policy minus omnis qui",
+        "self": "https://api.pagerduty.com/escalation_policies/PFREGN4",
+        "html_url": "https://apidocs.pagerduty.com/escalation_policies/PFREGN4"
+      }
+    ],
+    "schedule_layers": [
+      {
+        "name": "Schedule Layer 2",
+        "rendered_schedule_entries": [],
+        "rendered_coverage_percentage": null,
+        "id": "PD6O7DX",
+        "start": "2017-04-07T13:24:41-04:00",
+        "end": null,
+        "rotation_virtual_start": "2012-08-05T00:00:00-04:00",
+        "rotation_turn_length_seconds": 86400,
+        "users": [
+          {
+            "user": {
+              "id": "PKS2IM6",
+              "type": "user_reference",
+              "summary": "Ola Schoen",
+              "self": "https://api.pagerduty.com/users/PKS2IM6",
+              "html_url": "https://apidocs.pagerduty.com/users/PKS2IM6"
+            }
+          },
+          {
+            "user": {
+              "id": "PWTJ2RO",
+              "type": "user_reference",
+              "summary": "Marlon Gutkowski",
+              "self": "https://api.pagerduty.com/users/PWTJ2RO",
+              "html_url": "https://apidocs.pagerduty.com/users/PWTJ2RO"
+            }
+          },
+          {
+            "user": {
+              "id": "PT6BV4C",
+              "type": "user_reference",
+              "summary": "Chesley Williamson",
+              "self": "https://api.pagerduty.com/users/PT6BV4C",
+              "html_url": "https://apidocs.pagerduty.com/users/PT6BV4C"
+            }
+          }
+        ],
+        "restrictions": [
+          {
+            "type": "daily_restriction",
+            "start_time_of_day": "00:00:00",
+            "duration_seconds": 43200
+          }
+        ]
+      },
+      {
+        "name": "Schedule Layer 1",
+        "rendered_schedule_entries": [],
+        "rendered_coverage_percentage": null,
+        "id": "PRS3G5P",
+        "start": "2017-04-07T13:24:41-04:00",
+        "end": null,
+        "rotation_virtual_start": "2012-08-05T00:00:00-04:00",
+        "rotation_turn_length_seconds": 604800,
+        "users": [
+          {
+            "user": {
+              "id": "PR55MLW",
+              "type": "user_reference",
+              "summary": "Deondre Haley",
+              "self": "https://api.pagerduty.com/users/PR55MLW",
+              "html_url": "https://apidocs.pagerduty.com/users/PR55MLW"
+            }
+          },
+          {
+            "user": {
+              "id": "PGMRRJ3",
+              "type": "user_reference",
+              "summary": "Zoe Fay",
+              "self": "https://api.pagerduty.com/users/PGMRRJ3",
+              "html_url": "https://apidocs.pagerduty.com/users/PGMRRJ3"
+            }
+          }
+        ],
+        "restrictions": []
+      }
+    ],
+    "overrides_subschedule": {
+      "name": "Overrides",
+      "rendered_schedule_entries": [],
+      "rendered_coverage_percentage": null
+    },
+    "final_schedule": {
+      "name": "Final Schedule",
+      "rendered_schedule_entries": [],
+      "rendered_coverage_percentage": null
+    },
+    "teams": []
+  }
+}
