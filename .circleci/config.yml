@@ -1,9 +1,11 @@
 version: 2
+
 jobs:
   # Build
   build:
     docker:
-      - image: circleci/node:10.14.2-stretch
+      <<: &node_image
+        - image: circleci/node:10.15.0-stretch
     working_directory: ~/repo
     steps:
       - checkout
@@ -182,7 +184,7 @@ jobs:
   # Run unit tests
   test-unit:
     docker:
-      - image: circleci/node:10.14.2-stretch
+      <<: *node_image
     working_directory: ~/repo
     steps:
       - checkout
@@ -220,7 +222,7 @@ jobs:
   # Run integration tests
   test-integration:
     docker:
-      - image: circleci/node:10.14.2-stretch
+      <<: *node_image
     working_directory: ~/repo
     steps:
       - checkout
@@ -250,7 +252,7 @@ jobs:
   # Lint
   lint:
     docker:
-      - image: circleci/node:10.14.2-stretch
+      <<: *node_image
     working_directory: ~/repo
     steps:
       - checkout
@@ -276,7 +278,7 @@ jobs:
   # Release
   semantic-release:
     docker:
-      - image: circleci/node:10.14.2-stretch
+      <<: *node_image
     working_directory: ~/repo
     steps:
       - checkout
