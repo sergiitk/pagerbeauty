@@ -53,7 +53,8 @@ export class SchedulesListItemView extends React.Component {
         <a href={`/v1/schedules/${schedule.id}.html`}>
           {schedule.name}
         </a>
-      </li>);
+      </li>
+    );
   }
 }
 
