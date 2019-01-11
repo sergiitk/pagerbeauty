@@ -241,7 +241,7 @@ export class OnCallStatusIndicatorView extends React.Component {
 
     let title = 'OK';
     if (error) {
-      title = error.toString();
+      title = error.message || error.toString();
     }
 
     return <StatusIndicatorView type={type} blink={blink} title={title} />;
