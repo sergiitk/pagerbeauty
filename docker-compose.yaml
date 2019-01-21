@@ -17,9 +17,7 @@ services:
       PAGERBEAUTY_REFRESH_RATE_MINUTES: ${PAGERBEAUTY_REFRESH_RATE_MINUTES:-0.1}
       PAGERBEAUTY_INCIDENTS_REFRESH_RATE_MINUTES: ${PAGERBEAUTY_INCIDENTS_REFRESH_RATE_MINUTES:-0.05}
     ports:
-      - "8080:8080"
-    env_file:
-      - .env
+      - "${PAGERBEAUTY_HTTP_PORT:-8080}:${PAGERBEAUTY_HTTP_PORT:-8080}"
     volumes:
       - .:/usr/src/app/
       - node_modules:/usr/src/app/node_modules
@@ -52,7 +50,7 @@ services:
       context: .
       dockerfile: ./Dockerfile-test-acceptance
     environment:
-      PAGERBEAUTY_URL: http://pagerbeauty-dev:8080
+      PAGERBEAUTY_URL: http://pagerbeauty-dev:${PAGERBEAUTY_HTTP_PORT:-8080}
     volumes:
       - .:/usr/src/app/
       - node_modules:/usr/src/app/node_modules
