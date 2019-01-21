@@ -32,25 +32,11 @@ export class PagerBeautyWeb {
     // App
     this.app = app;
 
-    // Parse host and port
+    // Parse web config
     try {
-      const webConfig = app.config.web;
-      this.auth = webConfig.auth;
-      this.hostRequested = webConfig.host || '0.0.0.0';
-
-      // Parse port or use default.
-      let port = 8080;
-      if ('port' in webConfig && webConfig.port !== undefined) {
-        // Custom port is configured
-        port = Number(webConfig.port);
-        // Check incorrect cases
-        if (Number.isNaN(port) || port < 0 || port > 65535) {
-          throw new RangeError(
-            `port should be a number >= 0 and < 65536: -1, provided: ${port}`,
-          );
-        }
-      }
-      this.httpPortRequested = port;
+      this.auth = app.config.web.auth;
+      this.hostRequested = app.config.web.host || '0.0.0.0';
+      this.httpPortRequested = PagerBeautyWeb.parseHttpPortFromConfig(app.config);
     } catch (error) {
       throw new PagerBeautyConfigError(error.toString());
     }
@@ -187,6 +173,36 @@ export class PagerBeautyWeb {
         resolve();
       });
     });
+  }
+
+  // ------- Helpers -----------------------------------------------------------
+
+  static parseHttpPortFromConfig(config) {
+    // Default port.
+    const defaultPort = 8080;
+
+    // Default when no config provided
+    if (!config || !config.web) {
+      return defaultPort;
+    }
+
+    const { httpPort } = config.web;
+    // Default when config.web.httpPort is omitted or empty string.
+    if (httpPort === undefined || httpPort === '' || httpPort === null) {
+      return defaultPort;
+    }
+
+    // Custom port is configured.
+    const result = Number(httpPort);
+
+    // Check incorrect cases.
+    if (Number.isNaN(result) || result < 0 || result > 65535) {
+      throw new RangeError(
+        `result should be a number >= 0 and < 65536: -1, provided: ${httpPort}`,
+      );
+    }
+
+    return result;
   }
 
   // ------- Class end  --------------------------------------------------------

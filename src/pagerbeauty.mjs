@@ -55,7 +55,7 @@ const config = {
   env: process.env.NODE_ENV || 'development',
   version: process.env.npm_package_version || '0.0.0-dev',
   web: {
-    port: process.env.PAGERBEAUTY_HTTP_PORT,
+    httpPort: process.env.PAGERBEAUTY_HTTP_PORT,
     auth: {
       name: process.env.PAGERBEAUTY_HTTP_USER,
       pass: process.env.PAGERBEAUTY_HTTP_PASSWORD,
