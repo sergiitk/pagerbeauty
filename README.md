@@ -25,7 +25,7 @@ Configure PagerBeauty with `.env` file or by exporting environment variables:
 # Docs: https://support.pagerduty.com/docs/using-the-api
 PAGERBEAUTY_PD_API_KEY=yourkey
 
-# The list of schedule ids to load
+# Comma-separated list of PagerDuty schedule ids
 PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 
 # (Optional) How often to refresh the schedules, in minutes.

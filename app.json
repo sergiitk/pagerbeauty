@@ -20,5 +20,14 @@
     "embeds",
     "pager",
     "oncalls-widget"
-  ]
+  ],
+  "env": {
+    "PAGERBEAUTY_PD_API_KEY": {
+      "description": "PagerDuty REST API v2 Access Key"
+    },
+    "PAGERBEAUTY_PD_SCHEDULES": {
+      "description": "Comma-separated list of PagerDuty schedule ids"
+    }
+  },
+  "success_url": "/"
 }
