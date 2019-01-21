@@ -25,10 +25,10 @@ Configure PagerBeauty with `.env` file or by exporting environment variables:
 # Docs: https://support.pagerduty.com/docs/using-the-api
 PAGERBEAUTY_PD_API_KEY=yourkey
 
-# A list of schedule ids to load
+# The list of schedule ids to load
 PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 
-# (Optional) How often to refresh schedules list, in minutes.
+# (Optional) How often to refresh the schedules, in minutes.
 # Default: 10.
 # PAGERBEAUTY_REFRESH_RATE_MINUTES=10
 
@@ -50,6 +50,10 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 # human   - Human-readable colorized format
 # Default: resolved to `human` for development and `machine` for production.
 # PAGERBEAUTY_LOG_FORMAT=machine
+
+# (Optional) The port for HTTP server to listen on.
+# Default: 8080
+# PAGERBEAUTY_HTTP_PORT=80
 
 # (Optional) Enable basic HTTP authentication
 # Note: embedding iframes with basic HTTP auth is not supported by all browsers.

@@ -52,12 +52,15 @@ const config = {
       refreshRate: process.env.PAGERBEAUTY_INCIDENTS_REFRESH_RATE_MINUTES || 1,
     },
   },
-  auth: {
-    name: process.env.PAGERBEAUTY_HTTP_USER,
-    pass: process.env.PAGERBEAUTY_HTTP_PASSWORD,
-  },
   env: process.env.NODE_ENV || 'development',
   version: process.env.npm_package_version || '0.0.0-dev',
+  web: {
+    httpPort: process.env.PAGERBEAUTY_HTTP_PORT,
+    auth: {
+      name: process.env.PAGERBEAUTY_HTTP_USER,
+      pass: process.env.PAGERBEAUTY_HTTP_PASSWORD,
+    },
+  },
 };
 
 

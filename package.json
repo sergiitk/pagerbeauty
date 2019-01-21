@@ -14,6 +14,7 @@
   "scripts": {
     "test": "npm run test:unit",
     "test:unit": "NODE_ENV=test ava test/unit",
+    "test:unit:watch": "NODE_ENV=test ava --watch test/unit",
     "test:unit:coverage": "NODE_ENV=test nyc --all -s ava test/unit",
     "test:unit:coverage:report": "npm run test:unit:coverage && npm run coverage:report:text",
     "test:integration": "NODE_ENV=test ava test/integration",

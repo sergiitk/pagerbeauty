@@ -35,19 +35,24 @@ Use `.env` to override the [default settings](https://github.com/sergiitk/pagerb
 for example:
 
 **Verbose logging**
+
 ```sh
 PAGERBEAUTY_LOG_LEVEL=verbose
 ```
 
-**Fast schedule refreshes**
+**Custom HTTP port**
+
+In case you have another service running on port 8080, the following option
+will start PagerBeauty on custom port and bind it to the same port on the host.
+
 ```sh
-# (Optional) Highest logging level to include into application logs.
-# One of: error, warn, info, verbose, debug, silly
-# Default: info
-PAGERBEAUTY_LOG_LEVEL=verbose
+# Start PagerBeauty on port 8181 in Docker and bind it to port 8181 on the host:
+# http://localhost:8181/
+PAGERBEAUTY_HTTP_PORT=8181
 ```
 
 **Using real PagerDuty API**
+
 ```sh
 # Use real API
 PAGERBEAUTY_PD_API_URL=https://api.pagerduty.com
