@@ -1,0 +1,24 @@
+{
+  "name": "PagerBeauty",
+  "description": "PagerDuty on-call dashboard widget",
+  "repository": "https://github.com/sergiitk/pagerbeauty",
+  "website": "http://work.sergii.org/pagerbeauty",
+  "keywords": [
+    "pagerduty",
+    "datadog",
+    "dashboard",
+    "wallboard",
+    "on-call",
+    "widget",
+    "monitor",
+    "oncall",
+    "incidents",
+    "incident-management",
+    "schedules",
+    "schedule",
+    "datadog-dashboard",
+    "embeds",
+    "pager",
+    "oncalls-widget"
+  ]
+}

@@ -71,6 +71,11 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 4. Drag "IFrame" widget to the board
 5. Copy PagerBeauty URL of your schedule and paste to IFrame URL on DataDog board
 
+
+## Deploying
+### Heroku
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 ## Roadmap
 
 This project is under active development.
