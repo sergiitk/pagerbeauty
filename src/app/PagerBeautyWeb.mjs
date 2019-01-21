@@ -16,7 +16,10 @@ import views from 'koa-views';
 
 import { SchedulesController } from '../controllers/SchedulesController';
 import { redirect } from '../middleware/redirect';
-import { PagerBeautyHttpServerStartError } from '../errors';
+import {
+  PagerBeautyConfigError,
+  PagerBeautyHttpServerStartError,
+} from '../errors';
 
 // ------- Class ---------------------------------------------------------------
 
@@ -29,11 +32,33 @@ export class PagerBeautyWeb {
     // App
     this.app = app;
 
-    // Config
-    this.config = app.config;
+    // Parse host and port
+    try {
+      const webConfig = app.config.web;
+      this.auth = webConfig.auth;
+      this.hostRequested = webConfig.host || '0.0.0.0';
+
+      // Parse port or use default.
+      let port = 8080;
+      if ('port' in webConfig && webConfig.port !== undefined) {
+        // Custom port is configured
+        port = Number(webConfig.port);
+        // Check incorrect cases
+        if (Number.isNaN(port) || port < 0 || port > 65535) {
+          throw new RangeError(
+            `port should be a number >= 0 and < 65536: -1, provided: ${port}`,
+          );
+        }
+      }
+      this.httpPortRequested = port;
+    } catch (error) {
+      throw new PagerBeautyConfigError(error.toString());
+    }
 
     // Nothing running yet.
     this.httpServer = false;
+    this.httpPort = false;
+    this.host = false;
 
     // Init controllers mapping.
     this.controllers = new Map();
@@ -49,8 +74,23 @@ export class PagerBeautyWeb {
     // HTTP Server
     let server;
     try {
-      server = await PagerBeautyWeb.startHttpServerAsync(this.webApp.callback());
+      server = await PagerBeautyWeb.startHttpServerAsync(
+        this.webApp.callback(),
+        this.hostRequested,
+        this.httpPortRequested,
+      );
+
+      // Note: actual address and port might be different from requested:
+      // - httpPortRequested=0 means result in random port
+      // - hostRequested='' will result in `::`` host when IPv6 is available
+      // See https://nodejs.org/api/net.html#net_server_listen_port_host_backlog_callback
+      const address = server.address();
+      this.host = address.address;
+      this.httpPort = address.port;
+      const readableUrl = `http://${this.host}:${this.httpPort}`;
+      logger.info(`HTTP server is listening on ${readableUrl}`);
     } catch (error) {
+      logger.error(error.toString());
       if (error instanceof PagerBeautyHttpServerStartError) {
         this.stop(error.server);
       }
@@ -77,8 +117,8 @@ export class PagerBeautyWeb {
 
     // @todo: Enforce https?
     // @todo: Generate unique request id?
-    if (this.config.auth && this.config.auth.name && this.config.auth.pass) {
-      app.use(auth(this.config.auth));
+    if (this.auth && this.auth.name && this.auth.pass) {
+      app.use(auth(this.auth));
     }
 
     // Static assets
@@ -90,7 +130,7 @@ export class PagerBeautyWeb {
       new nunjucks.FileSystemLoader(viewsPath),
     );
     // Global template variables.
-    const assetsPath = this.config.env === 'production'
+    const assetsPath = this.app.config.env === 'production'
       ? '/assets/dist-prod'
       : '/assets/dist';
     nunjucksEnv.addGlobal('assetsPath', assetsPath);
@@ -121,26 +161,18 @@ export class PagerBeautyWeb {
     return app;
   }
 
-  static startHttpServerAsync(connectionListener) {
+  static startHttpServerAsync(connectionListener, host, port) {
     // Wrap HTTP server callbacks into a promise
     return new Promise((resolve, reject) => {
       // Start HTTP server
       const server = http.createServer(connectionListener);
       server.on('listening', () => {
-        const address = server.address();
-        const readableUrl = `http://${address.address}:${address.port}`;
-        logger.info(`HTTP server is listening on ${readableUrl}`);
         resolve(server);
       });
       server.on('error', (error) => {
-        logger.error(error.toString());
         reject(new PagerBeautyHttpServerStartError(error.message, server));
       });
-      server.listen({
-        host: '0.0.0.0',
-        // @todo: make configurable.
-        port: 8080,
-      });
+      server.listen({ host, port });
     });
   }
 

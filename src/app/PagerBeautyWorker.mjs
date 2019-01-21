@@ -5,7 +5,7 @@ import logger from 'winston';
 // ------- Internal imports ----------------------------------------------------
 
 import { Timer } from './Timer';
-import { PagerBeautyInitError } from '../errors';
+import { PagerBeautyConfigError } from '../errors';
 import { IncidentsTimerTask } from '../tasks/IncidentsTimerTask';
 import { OnCallsTimerTask } from '../tasks/OnCallsTimerTask';
 import { SchedulesTimerTask } from '../tasks/SchedulesTimerTask';
@@ -140,7 +140,7 @@ export class PagerBeautyWorker {
     // String minutes to integer milliseconds.
     const minutes = Number(minutesStr);
     if (Number.isNaN(minutes)) {
-      throw new PagerBeautyInitError(`Incorrect refresh rate: ${minutesStr}`);
+      throw new PagerBeautyConfigError(`Incorrect refresh rate: ${minutesStr}`);
     }
     return minutes * 60 * 1000;
   }
