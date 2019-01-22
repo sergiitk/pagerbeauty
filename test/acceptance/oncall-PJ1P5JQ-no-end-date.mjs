@@ -56,7 +56,7 @@ test('On-Call PJ1P5JQ: show user avatar', waitFor('.schedule'), async (t) => {
 test('On-Call PJ1P5JQ: status row shows dates', waitFor('.schedule'), async (t) => {
   const { pageTest } = t.context;
   await pageTest.expectText('.date_start', 'From: Tuesday, Dec 25 12:00 AM');
-  await pageTest.expectText('.date_end', 'To: Tuesday, Dec 25 12:00 PM');
+  await pageTest.expectNoElements('.date_end');
 });
 
 test('On-Call PJ1P5JQ: indicator is OK', waitFor('.schedule'), async (t) => {

@@ -66,18 +66,7 @@ export class OnCallView extends React.Component {
       default:
         statusRow = (
           <OnCallStatusRowView>
-            <OnCallDateRowView
-              className="date_start"
-              label="From"
-              date={onCall.dateStart}
-              timezone={onCall.schedule.timezone}
-            />
-            <OnCallDateRowView
-              className="date_end"
-              label="To"
-              date={onCall.dateEnd}
-              timezone={onCall.schedule.timezone}
-            />
+            <OnCallDatesRowView onCall={onCall} />
           </OnCallStatusRowView>
         );
     }
@@ -295,6 +284,48 @@ OnCallUserInfoView.propTypes = {
 OnCallUserInfoView.defaultProps = {
   userInfo: null,
 };
+
+
+// ------- OnCallDatesRowView -----------------------------------------------
+
+export class OnCallDatesRowView extends React.Component {
+  render() {
+    const { onCall } = this.props;
+    const fromDate = (
+      <OnCallDateRowView
+        className="date_start"
+        label="From"
+        date={onCall.dateStart}
+        timezone={onCall.schedule.timezone}
+      />
+    );
+
+    // dateEnd is null when there's only one user on schedule.
+    let toDate = null;
+    if (onCall.dateEnd.isValid()) {
+      toDate = (
+        <OnCallDateRowView
+          className="date_end"
+          label="To"
+          date={onCall.dateEnd}
+          timezone={onCall.schedule.timezone}
+        />
+      );
+    }
+
+    return (
+      <React.Fragment>
+        {fromDate}
+        {toDate}
+      </React.Fragment>
+    );
+  }
+}
+
+OnCallDatesRowView.propTypes = {
+  onCall: PropTypes.instanceOf(OnCall).isRequired,
+};
+
 
 // ------- OnCallDateTimeView --------------------------------------------------
 
