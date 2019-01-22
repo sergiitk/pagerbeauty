@@ -98,7 +98,12 @@
   },
   "babel": {
     "presets": [
-      "@babel/preset-env",
+      [
+        "@babel/preset-env",
+        {
+          "useBuiltIns": "usage"
+        }
+      ],
       "@babel/preset-react"
     ]
   }
