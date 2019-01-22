@@ -2,9 +2,6 @@
 
 // This model to be compatible both with backend and frontend.
 
-import 'url';
-
-import 'url-search-params-polyfill';
 import luxon from 'luxon';
 
 // ------- Internal imports ----------------------------------------------------
