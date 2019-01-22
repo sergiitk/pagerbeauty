@@ -79,7 +79,7 @@ Cache-Control: max-age=0, private, must-revalidate
         "html_url": "https://apidocs.pagerduty.com/users/PT6BV4C"
       },
       "start": "2018-12-25T05:00:00Z",
-      "end": "2018-12-25T17:00:00Z"
+      "end": null
     }
   ],
   "limit": 1,

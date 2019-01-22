@@ -37,7 +37,14 @@ export class SchedulesService {
   }
 
   serialize() {
-    return Array.from(this.schedulesRepo.values(), r => r.serialize());
+    const result = [];
+    for (const schedule of this.schedulesRepo.values()) {
+      if (!schedule || !schedule.id) {
+        continue;
+      }
+      result.push(schedule.serialize());
+    }
+    return result;
   }
   // ------- Class end  --------------------------------------------------------
 }

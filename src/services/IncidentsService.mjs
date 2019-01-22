@@ -24,6 +24,14 @@ export class IncidentsService {
     const missingSchedules = new Set();
 
     for (const [scheduleId, onCall] of onCalls.entries()) {
+      if (!onCall || !onCall.userId) {
+        logger.verbose(
+          `Skip loading incidents for schedule ${scheduleId}: `
+          + 'on-call not loaded',
+        );
+        continue;
+      }
+
       try {
         // Limit the number of requests by sending them in sync.
         // eslint-disable-next-line no-await-in-loop
@@ -66,7 +74,14 @@ export class IncidentsService {
   }
 
   serialize() {
-    return Array.from(this.incidentsRepo.values(), r => r.serialize());
+    const result = [];
+    for (const incident of this.incidentsRepo.values()) {
+      if (!incident || !incident.id) {
+        continue;
+      }
+      result.push(incident.serialize());
+    }
+    return result;
   }
   // ------- Class end  --------------------------------------------------------
 }
