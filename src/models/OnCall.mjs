@@ -5,12 +5,16 @@
 import 'url';
 
 import 'url-search-params-polyfill';
-import moment from 'moment-timezone';
+import luxon from 'luxon';
 
 // ------- Internal imports ----------------------------------------------------
 
 import { Incident } from './Incident';
 import { Schedule } from './Schedule';
+
+// ------- Init --------------------------------------------------------------
+
+const { DateTime } = luxon;
 
 // ------- OnCall --------------------------------------------------------------
 
@@ -29,8 +33,8 @@ export class OnCall {
     this.userName = userName;
     this.userAvatarURL = userAvatarURL;
     this.userURL = userURL;
-    this.dateStart = moment(dateStart);
-    this.dateEnd = moment(dateEnd);
+    this.dateStart = DateTime.fromISO(dateStart);
+    this.dateEnd = DateTime.fromISO(dateEnd);
     if (schedule instanceof Schedule) {
       this.schedule = schedule;
     } else {
@@ -51,8 +55,8 @@ export class OnCall {
       userName: this.userName,
       userAvatarURL: this.userAvatarURL,
       userURL: this.userURL,
-      dateStart: this.dateStart.utc(),
-      dateEnd: this.dateEnd.utc(),
+      dateStart: this.dateStart.toUTC(),
+      dateEnd: this.dateEnd.toUTC(),
       schedule: this.schedule.serialize(),
       incident: this.incident ? this.incident.serialize() : null,
     };

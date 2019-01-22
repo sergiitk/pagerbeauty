@@ -1,6 +1,6 @@
 // ------- Imports -------------------------------------------------------------
 
-import moment from 'moment-timezone';
+import { DateTime } from 'luxon';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -10,6 +10,11 @@ import { OnCall } from '../../../models/OnCall.mjs';
 import { Incident } from '../../../models/Incident.mjs';
 import { PagerBeautyFetchNotFoundUiError } from '../ui-errors';
 import { StatusIndicatorView } from './StatusIndicatorView';
+
+
+// ------- Init --------------------------------------------------------------
+
+// const { DateTime } = luxon;
 
 // ------- OnCallView ----------------------------------------------------------
 
@@ -302,7 +307,7 @@ export class OnCallDatesRowView extends React.Component {
 
     // dateEnd is null when there's only one user on schedule.
     let toDate = null;
-    if (onCall.dateEnd.isValid()) {
+    if (onCall.dateEnd.isValid) {
       toDate = (
         <OnCallDateRowView
           className="date_end"
@@ -343,7 +348,7 @@ export class OnCallDateRowView extends React.Component {
 }
 
 OnCallDateRowView.propTypes = {
-  date: PropTypes.instanceOf(moment).isRequired,
+  date: PropTypes.instanceOf(DateTime).isRequired,
   timezone: PropTypes.string,
   className: PropTypes.string,
   label: PropTypes.string,
@@ -389,21 +394,22 @@ OnCallIncidentRowView.defaultProps = {
 export class OnCallDateTimeView extends React.Component {
   render() {
     const { date, timezone } = this.props;
+    let dateInTz = date;
     if (timezone) {
-      date.tz(timezone);
+      dateInTz = date.setZone(timezone);
     }
     return (
       <React.Fragment>
-        <span className="date_weekday">{`${date.format('dddd')}, `}</span>
-        <span className="date_date">{`${date.format('MMM DD')} `}</span>
-        <span className="date_time">{date.format('LT')}</span>
+        <span className="date_weekday">{`${dateInTz.toFormat('EEEE')}, `}</span>
+        <span className="date_date">{`${dateInTz.toFormat('MMM dd')} `}</span>
+        <span className="date_time">{dateInTz.toFormat('t')}</span>
       </React.Fragment>
     );
   }
 }
 
 OnCallDateTimeView.propTypes = {
-  date: PropTypes.instanceOf(moment).isRequired,
+  date: PropTypes.instanceOf(DateTime).isRequired,
   timezone: PropTypes.string,
 };
 
