@@ -9,8 +9,13 @@ import { PagerBeautyError } from '../errors';
 
 export class PagerDutyClientError extends PagerBeautyError {}
 export class PagerDutyClientRequestError extends PagerDutyClientError {}
-export class PagerDutyClientParseError extends PagerDutyClientError {}
-export class PagerDutyClientResponseError extends PagerDutyClientError {
+export class PagerDutyClientResponseParseError extends PagerDutyClientError {}
+export class PagerDutyClientResponseHttpError extends PagerDutyClientError {
+  constructor(statusCode, statusText) {
+    super(`${statusCode} ${statusText}`);
+  }
+}
+export class PagerDutyClientResponseKnownError extends PagerDutyClientError {
   constructor(message, errorCode, errors = false) {
     super(message);
     this.errorCode = errorCode;
@@ -62,7 +67,7 @@ export class PagerDutyClient {
 
     const response = await this.get('oncalls', searchParams);
     if (response.oncalls === undefined) {
-      throw new PagerDutyClientResponseError('Unexpected parsing errors');
+      throw new PagerDutyClientResponseParseError('Unexpected parsing errors');
     }
 
     return response.oncalls;
@@ -86,21 +91,21 @@ export class PagerDutyClient {
 
     const response = await this.get('oncalls', searchParams);
     if (response.oncalls === undefined) {
-      throw new PagerDutyClientResponseError('Unexpected parsing errors');
+      throw new PagerDutyClientResponseParseError('Unexpected parsing errors');
     }
 
     const record = response.oncalls[0];
 
     // Ensure correct record.
     if (!record || !record.schedule || !record.schedule.id) {
-      throw new PagerDutyClientResponseError(
+      throw new PagerDutyClientResponseParseError(
         `On-Call unexpected response: ${JSON.stringify(record)}`,
       );
     }
 
     // Returned record for incorrect schedule. Shouldn't happen.
     if (record.schedule.id !== scheduleId) {
-      throw new PagerDutyClientResponseError(
+      throw new PagerDutyClientResponseParseError(
         `On-Call is returned for unexpected schedule: ${record.schedule.id}, `
         + `expected: ${scheduleId}`,
       );
@@ -126,7 +131,7 @@ export class PagerDutyClient {
 
     const response = await this.get('incidents', searchParams);
     if (response.incidents === undefined) {
-      throw new PagerDutyClientResponseError('Unexpected parsing errors');
+      throw new PagerDutyClientResponseParseError('Unexpected parsing errors');
     }
 
     // No incidents.
@@ -153,7 +158,7 @@ export class PagerDutyClient {
   async getSchedule(scheduleId) {
     const response = await this.get(`schedules/${scheduleId}`);
     if (response.schedule === undefined || !response.schedule.id) {
-      throw new PagerDutyClientResponseError('Unexpected parsing errors');
+      throw new PagerDutyClientResponseParseError('Unexpected parsing errors');
     }
     return response.schedule;
   }
@@ -178,22 +183,30 @@ export class PagerDutyClient {
   }
 
   static async request(fetchPromise) {
-    let result;
+    let response;
     try {
-      result = await fetchPromise;
+      response = await fetchPromise;
     } catch (e) {
       throw new PagerDutyClientRequestError(e.message || e);
     }
 
+
     let json;
     try {
-      json = await result.json();
+      json = await response.json();
     } catch (e) {
-      throw new PagerDutyClientParseError(e.message || e);
+      // Can't parse json, report HTTP error if present
+      if (!response.ok) {
+        throw new PagerDutyClientResponseHttpError(
+          response.status,
+          response.statusText,
+        );
+      }
+      throw new PagerDutyClientResponseParseError(e.message || e);
     }
 
     if (json.error && json.error.code) {
-      throw new PagerDutyClientResponseError(
+      throw new PagerDutyClientResponseKnownError(
         json.error.message,
         json.error.code,
         json.error.errors,
