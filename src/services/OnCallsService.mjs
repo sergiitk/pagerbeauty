@@ -26,7 +26,14 @@ export class OnCallsService {
     const missingSchedules = new Set();
     const includeFlags = new Set([INCLUDE_USERS]);
 
-    for (const schedule of schedules.values()) {
+    for (const [scheduleId, schedule] of schedules.entries()) {
+      if (!schedule || !schedule.id) {
+        logger.verbose(
+          `On-call for schedule ${scheduleId} skipped, schedule isn't loaded`,
+        );
+        this.onCallRepo.set(scheduleId, null);
+        continue;
+      }
       try {
         // Limit the number of requests by sending them in sync.
         // eslint-disable-next-line no-await-in-loop
@@ -60,7 +67,14 @@ export class OnCallsService {
   }
 
   serialize() {
-    return Array.from(this.onCallRepo.values(), r => r.serialize());
+    const result = [];
+    for (const onCall of this.onCallRepo.values()) {
+      if (!onCall) {
+        continue;
+      }
+      result.push(onCall.serialize());
+    }
+    return result;
   }
   // ------- Class end  --------------------------------------------------------
 }
