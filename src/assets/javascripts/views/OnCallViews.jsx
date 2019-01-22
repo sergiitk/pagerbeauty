@@ -11,11 +11,6 @@ import { Incident } from '../../../models/Incident.mjs';
 import { PagerBeautyFetchNotFoundUiError } from '../ui-errors';
 import { StatusIndicatorView } from './StatusIndicatorView';
 
-
-// ------- Init --------------------------------------------------------------
-
-// const { DateTime } = luxon;
-
 // ------- OnCallView ----------------------------------------------------------
 
 export class OnCallView extends React.Component {
