@@ -39,13 +39,13 @@ services:
       PAGERBEAUTY_PD_API_URL: ${PAGERBEAUTY_PD_API_URL:-http://mock-pagerduty-api:8090}
       # API key is required, but Mock PD API will ignore it
       PAGERBEAUTY_PD_API_KEY: ${PAGERBEAUTY_PD_API_KEY:-v2_api_key}
-      # Mock Mock PD APInow only responds with these two schedules
-      PAGERBEAUTY_PD_SCHEDULES: ${PAGERBEAUTY_PD_SCHEDULES:-P538IZH}
+      # Test on two schedules
+      PAGERBEAUTY_PD_SCHEDULES: ${PAGERBEAUTY_PD_SCHEDULES:-P538IZH,PJ1P5JQ}
       # Run on different port than no auth app
       PAGERBEAUTY_HTTP_PORT: ${PAGERBEAUTY_WITH_AUTH_HTTP_PORT:-8081}
       # Basic HTTP authentication
-      PAGERBEAUTY_HTTP_USER: basic_username
-      PAGERBEAUTY_HTTP_PASSWORD: basic_password
+      PAGERBEAUTY_HTTP_USER: ${PAGERBEAUTY_HTTP_USER:-basic_username}
+      PAGERBEAUTY_HTTP_PASSWORD: ${PAGERBEAUTY_HTTP_PASSWORD:-basic_password}
     ports:
       - "${PAGERBEAUTY_WITH_AUTH_HTTP_PORT:-8081}:${PAGERBEAUTY_WITH_AUTH_HTTP_PORT:-8081}"
     volumes:

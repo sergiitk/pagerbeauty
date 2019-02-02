@@ -5,13 +5,16 @@ services:
     image: sergiitk/pagerbeauty:ci-${CIRCLE_SHA1}
     environment:
       # Use PagerDuty API Mock server for development
-      PAGERBEAUTY_PD_API_URL: http://mock-pagerduty-api:8081
+      PAGERBEAUTY_PD_API_URL: http://mock-pagerduty-api:8090
       # API key is required, but Mock PD API will ignore it
       PAGERBEAUTY_PD_API_KEY: v2_api_key
-      # Mock Mock PD APInow only responds with these two schedules
+      # Mock PD API provides three predefined schedules
+      # UNKNOWN is to ensure incorrect schedules don't prevent valid from loading
       PAGERBEAUTY_PD_SCHEDULES: UNKNOWN,P538IZH,PJ1P5JQ,P2RFGIP
       # Faster refreshes for dev server
+      # Schedules and oncalls every 6 seconds
       PAGERBEAUTY_REFRESH_RATE_MINUTES: 0.1
+      # Schedules and oncalls every 3 seconds
       PAGERBEAUTY_INCIDENTS_REFRESH_RATE_MINUTES: 0.05
       # Verbose
       PAGERBEAUTY_LOG_LEVEL: silly
@@ -20,13 +23,39 @@ services:
     depends_on:
       - mock-pagerduty-api
 
+  pagerbeauty-ci-with-auth:
+    image: sergiitk/pagerbeauty:ci-${CIRCLE_SHA1}
+    environment:
+      # Use PagerDuty API Mock server for development
+      PAGERBEAUTY_PD_API_URL: http://mock-pagerduty-api:8090
+      # API key is required, but Mock PD API will ignore it
+      PAGERBEAUTY_PD_API_KEY: v2_api_key
+      # Test on two schedules
+      PAGERBEAUTY_PD_SCHEDULES: P538IZH,PJ1P5JQ
+      # Faster refreshes for dev server
+      # Schedules and oncalls every 6 seconds
+      PAGERBEAUTY_REFRESH_RATE_MINUTES: 0.1
+      # Schedules and oncalls every 3 seconds
+      PAGERBEAUTY_INCIDENTS_REFRESH_RATE_MINUTES: 0.05
+      # Verbose
+      PAGERBEAUTY_LOG_LEVEL: silly
+      # Run on different port than no auth app
+      PAGERBEAUTY_HTTP_PORT: 8081
+      # Basic HTTP authentication
+      PAGERBEAUTY_HTTP_USER: basic_username
+      PAGERBEAUTY_HTTP_PASSWORD: basic_password
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mock-pagerduty-api
+
   mock-pagerduty-api:
     build:
       context: .
       dockerfile: ./Dockerfile-dev
-    command: ["yarn", "run", "mock:pagerduty_api"]
+    command: ["yarn", "run", "mock:pagerduty_api". "-p", "8090"]
     ports:
-      - "8081:8081"
+      - "8090:8090"
     volumes:
       - node_modules:/usr/src/app/node_modules
 
@@ -45,6 +74,7 @@ services:
       - ./tmp:/usr/src/app/tmp
     depends_on:
       - pagerbeauty-ci
+      - pagerbeauty-ci-with-auth
 
 # Use shared node_modules
 volumes:
