@@ -23,8 +23,11 @@ RUN  npm config set scripts-prepend-node-path true \
 # Install the rest
 RUN yarn install --frozen-lockfile
 
-# Acceptance test mock server
+# Pagerbeauty with HTTP auth
 EXPOSE 8081
+
+# Acceptance test mock server
+EXPOSE 8090
 
 # Bundle app source
 COPY . .

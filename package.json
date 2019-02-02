@@ -25,7 +25,7 @@
     "coverage:report:codecov": "nyc report --reporter=lcovonly && codecov",
     "lint": "eslint --ext .js --ext .mjs --ext .jsx -f unix .",
     "eslint": "eslint --ext .js --ext .mjs --ext .jsx",
-    "mock:pagerduty_api": "mockserver -p 8081 -m test/mocks",
+    "mock:pagerduty_api": "mockserver -m test/mocks",
     "build": "webpack --config webpack.dev.js",
     "build:watch": "webpack --watch --config webpack.dev.js",
     "build:prod": "NODE_ENV=production webpack --config webpack.prod.js --display-modules",
