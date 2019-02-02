@@ -53,7 +53,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile-dev
-    command: ["yarn", "run", "mock:pagerduty_api". "-p", "8090"]
+    command: ["yarn", "run", "mock:pagerduty_api", "-p", "8090"]
     ports:
       - "8090:8090"
     volumes:
