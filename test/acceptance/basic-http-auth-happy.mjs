@@ -18,12 +18,12 @@ test.after.always(AcceptanceHelpers.closeBrowser);
 
 // ------- Tests ---------------------------------------------------------------
 
-test('Basic HTTP Auth: Can open schedules list', (t) => {
+test('HTTP Auth: Can open schedules list', (t) => {
   expect(t.context.pageResponse.ok()).to.be.true;
   expect(t.context.pageResponse.status()).to.equal(200);
 });
 
-test('Basic HTTP Auth: Schedules List Loaded', waitFor('#schedules_list > ul'), async (t) => {
+test('HTTP Auth: Schedules List Loaded', waitFor('#schedules_list > ul'), async (t) => {
   const { page } = t.context;
 
   const links = await page.$$eval(

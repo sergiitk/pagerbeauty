@@ -142,6 +142,25 @@ export class AcceptanceHelpers {
       await page.close();
     };
   }
+
+  static async ensureUnauthrozied(page, url) {
+    // No authentication
+    const response = await page.goto(`${BASE_URL_WITH_AUTH}${url}`);
+
+    // Ensure 401 status
+    expect(response.ok()).to.be.false;
+    expect(response.status()).to.equal(401);
+    expect(response.statusText()).to.be.equal('Unauthorized');
+
+    // Ensure authentiation header
+    const headers = response.headers();
+    expect(headers).to.include({ 'www-authenticate': 'Basic realm="Secure Area"' });
+
+    // Ensure Unauthorized body
+    const body = await response.text();
+    expect(body).to.equal('Unauthorized');
+    return response;
+  }
 }
 
 // ------- End -----------------------------------------------------------------
