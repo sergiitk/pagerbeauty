@@ -24,10 +24,10 @@ docker-compose up
 3. Open [localhost:8080](http://localhost:8080)
 
 PagerBeauty for local development is preconfigured, no `.env` file is necessary.  
-It's using [Mockserver](https://github.com/namshi/mockserver) in place of real PagerBeaty API v2. It is available on [localhost:8090](http://localhost:8090).
+It's using [Mockserver](https://github.com/namshi/mockserver) in place of real PagerBeaty API v2: [localhost:8090](http://localhost:8090).
 
 Application HTTP server and webpack are running in `watch` mode.
-All changes you make should be picked up automatically on the next page refresh. It is available on [localhost:8080](http://localhost:8080).
+All changes you make should be picked up automatically on the next page refresh: [localhost:8080](http://localhost:8080).
 
 Additional version of PagerBeauty with HTTP authentication enabled is available at [localhost:8081](http://localhost:8081). Default credentials:
 
@@ -59,7 +59,8 @@ will start PagerBeauty on custom port and bind it to the same port on the host.
 PAGERBEAUTY_HTTP_PORT=8181
 ```
 
-In the same manner, you can change port of PagerBeauty with Auth service: 
+In the same manner, you can choose custom port for `pagerbeauty-dev-with-auth` service:
+
 ```sh
 # Start PagerBeauty with enabled HTTP authentication on port 8182
 # in Docker and bind it to port 8181 on the host:
@@ -83,7 +84,7 @@ PAGERBEAUTY_PD_API_URL=https://api.pagerduty.com
 PAGERBEAUTY_PD_API_KEY=real_key
 ```
 
-Note, using real PagerDuty API will break local acceptance tests. It shouldn't be a problem for development.
+Note, using real PagerDuty API will break local acceptance tests. It shouldn't be a problem for a routine development.
 
 ### Other
 

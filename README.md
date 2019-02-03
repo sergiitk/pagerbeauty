@@ -65,12 +65,11 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 # authentication is not supported by most modern browsers. To bypass it, you
 # can set random access_token and append it to schedule URL.
 # For example, if you can't embed schedule
-# https://pb.example.com/v1/schedules/P538IZH.html, you can set
-# PAGERBEAUTY_HTTP_ACCESS_TOKEN=random_string and append it like so:
-# https://pb.example.com/v1/schedules/P538IZH.html?acccess_token=random_string
+# https://pb.example.com/v1/schedules/P538IZH.html, you can append your access token like so:
+# https://pb.example.com/v1/schedules/P538IZH.html?acccess_token=your_token
 # This link can is embeddable in an iframe now. Please use HTTPS.
 # Default: disabled
-# PAGERBEAUTY_HTTP_ACCESS_TOKEN=803651A9-E3B7-4153-9566-6E54F5F0CEAB
+# PAGERBEAUTY_HTTP_ACCESS_TOKEN=your_token
 ```
 
 ## Add to DataDog dashboard
