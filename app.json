@@ -22,6 +22,12 @@
     "oncalls-widget"
   ],
   "env": {
+    "PAGERBEAUTY_PD_API_KEY": {
+      "description": "PagerDuty REST API v2 Access Key, example: y_NbAkKc66ryYTWUXYEu"
+    },
+    "PAGERBEAUTY_PD_SCHEDULES": {
+      "description": "Comma-separated list of PagerDuty schedule ids, example: PJ1P5JQ,P538IZH"
+    },
     "PAGERBEAUTY_HTTP_USER": {
       "description": "Enable basic HTTP authentication: user name",
       "required": false
@@ -34,12 +40,6 @@
       "description": "Enable authentication access token. Allows embedding PagerBeauty when basic HTTP authentication is enabled by appending ?access_token=your_token to schedule URL",
       "generator": "secret",
       "required": false
-    },
-    "PAGERBEAUTY_PD_API_KEY": {
-      "description": "PagerDuty REST API v2 Access Key, example: y_NbAkKc66ryYTWUXYEu"
-    },
-    "PAGERBEAUTY_PD_SCHEDULES": {
-      "description": "Comma-separated list of PagerDuty schedule ids, example: PJ1P5JQ,P538IZH"
     }
   },
   "success_url": "/"
