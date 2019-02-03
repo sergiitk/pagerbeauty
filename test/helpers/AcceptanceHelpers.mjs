@@ -105,8 +105,8 @@ export class AcceptanceHelpers {
 
   static openPage(url) {
     return async (t) => {
-      t.context.page = await t.context.browser.newPage();
-      const page = t.context.page;
+      const page = await t.context.browser.newPage();
+      t.context.page = page;
       t.context.pageResponse = await page.goto(`${BASE_URL}${url}`);
       t.context.pageTest = new PageTest(page);
     };
@@ -114,8 +114,8 @@ export class AcceptanceHelpers {
 
   static openPageWithAuth(url) {
     return async (t) => {
-      t.context.page = await t.context.browser.newPage();
-      const page = t.context.page;
+      const page = await t.context.browser.newPage();
+      t.context.page = page;
       // Authenticate
       await page.authenticate({
         username: process.env.PAGERBEAUTY_HTTP_USER,
