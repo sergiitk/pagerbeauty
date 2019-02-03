@@ -5,13 +5,17 @@ import chai from 'chai';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { AcceptanceHelpers, BASE_URL_WITH_AUTH } from '../helpers/AcceptanceHelpers';
+import {
+  AcceptanceHelpers,
+  PageTest,
+  BASE_URL_WITH_AUTH,
+} from '../helpers/AcceptanceHelpers';
 
 // ------- Init ----------------------------------------------------------------
 
 const { expect } = chai;
-const { ensureUnauthrozied, withNewPage } = AcceptanceHelpers;
-const AUTH_TOKEN = process.env.PAGERBEAUTY_HTTP_AUTH_TOKEN;
+const { ensureUnauthrozied, withNewPage, waitFor } = AcceptanceHelpers;
+const ACCESS_TOKEN = process.env.PAGERBEAUTY_HTTP_ACCESS_TOKEN;
 
 test.beforeEach(AcceptanceHelpers.openBrowser);
 test.afterEach.always(AcceptanceHelpers.closeBrowser);
@@ -25,7 +29,7 @@ test.serial('HTTP Auth: Schedule P538IZH unauthorized without token', withNewPag
 });
 
 test.serial('HTTP Auth: Schedule P538IZH is allowed with auth token', withNewPage(), async (t, page) => {
-  const url = `${BASE_URL_WITH_AUTH}/v1/schedules/P538IZH.html?auth_token=${AUTH_TOKEN}`;
+  const url = `${BASE_URL_WITH_AUTH}/v1/schedules/P538IZH.html?access_token=${ACCESS_TOKEN}`;
   const response = await page.goto(url);
 
   expect(response.ok()).to.be.true;

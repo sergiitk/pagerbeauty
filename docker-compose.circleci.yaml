@@ -44,7 +44,7 @@ services:
       # Basic HTTP authentication
       PAGERBEAUTY_HTTP_USER: basic_username_ci
       PAGERBEAUTY_HTTP_PASSWORD: basic_password_ci
-      PAGERBEAUTY_HTTP_AUTH_TOKEN: 9A37F64B-931B-4767-94D3-E41B92991F7C
+      PAGERBEAUTY_HTTP_ACCESS_TOKEN: 9A37F64B-931B-4767-94D3-E41B92991F7C
     ports:
       - "8081:8081"
     depends_on:
@@ -72,7 +72,7 @@ services:
       # Basic HTTP authentication
       PAGERBEAUTY_HTTP_USER: basic_username_ci
       PAGERBEAUTY_HTTP_PASSWORD: basic_password_ci
-      PAGERBEAUTY_HTTP_AUTH_TOKEN: 9A37F64B-931B-4767-94D3-E41B92991F7C
+      PAGERBEAUTY_HTTP_ACCESS_TOKEN: 9A37F64B-931B-4767-94D3-E41B92991F7C
     volumes:
       # Uncomment for verifying service locally.
       # - .:/usr/src/app/

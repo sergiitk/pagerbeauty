@@ -30,7 +30,7 @@ export function authentication(name, pass, token, opts = {}) {
 
   return async (ctx, next) => {
     const credentials = auth(ctx);
-    const tokenCandidate = ctx.request.query.auth_token;
+    const tokenCandidate = ctx.request.query.access_token;
 
     let tokenAuthPass = false;
     if (token && token !== '') {
