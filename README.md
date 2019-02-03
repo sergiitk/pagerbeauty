@@ -27,6 +27,9 @@ Configure PagerBeauty with `.env` file or by exporting environment variables:
 PAGERBEAUTY_PD_API_KEY=yourkey
 
 # Comma-separated list of PagerDuty schedule ids
+# You can find schedule id in its PagerDuty address after symbol #
+# For example, schedule https://example.pagerduty.com/schedules#PJ1P5JQ
+# has id PJ1P5JQ
 PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 
 # (Optional) How often to refresh the schedules, in minutes.
