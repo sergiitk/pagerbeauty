@@ -3,7 +3,6 @@
 import http from 'http';
 import path from 'path';
 
-import auth from 'koa-basic-auth';
 import Koa from 'koa';
 import logger from 'winston';
 import mount from 'koa-mount';
@@ -16,6 +15,7 @@ import views from 'koa-views';
 
 import { SchedulesController } from '../controllers/SchedulesController';
 import { redirect } from '../middleware/redirect';
+import { authentication } from '../middleware/authentication';
 import {
   PagerBeautyConfigError,
   PagerBeautyHttpServerStartError,
@@ -103,8 +103,10 @@ export class PagerBeautyWeb {
 
     // @todo: Enforce https?
     // @todo: Generate unique request id?
-    if (this.auth && this.auth.name && this.auth.pass) {
-      app.use(auth(this.auth));
+
+    // Baseic Authentication
+    if (this.auth && this.auth.name) {
+      app.use(authentication(this.auth.name, this.auth.pass, this.auth.token));
     }
 
     // Static assets
