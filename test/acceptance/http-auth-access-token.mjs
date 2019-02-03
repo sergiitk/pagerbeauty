@@ -22,11 +22,11 @@ test.after.always(AcceptanceHelpers.closeBrowser);
 
 // ------- Tests ---------------------------------------------------------------
 
-test('HTTP Auth: Can not open schedule P538IZH without token', withNewPage(), async (t, page) => {
+test('HTTP Auth: Can\'t see schedule P538IZH without token', withNewPage(), async (t, page) => {
   await ensureUnauthroziedError(page, '/v1/schedules/P538IZH.html');
 });
 
-test('HTTP Auth: Can not open schedule P538IZH json without token', withNewPage(), async (t, page) => {
+test('HTTP Auth: Can\'t see schedule P538IZH json without token', withNewPage(), async (t, page) => {
   await ensureUnauthroziedError(page, '/v1/schedules/P538IZH.json');
 });
 
@@ -44,11 +44,11 @@ test('HTTP Auth: Can open schedule P538IZH with token', withNewPage(), async (t,
   await pageTest.expectText('.user_name', 'Rosanna Runolfsdottir');
 });
 
-test('HTTP Auth: Can not open schedules list without token', withNewPage(), async (t, page) => {
+test('HTTP Auth: Can\'t see schedules list without token', withNewPage(), async (t, page) => {
   await ensureUnauthroziedError(page, '/v1/schedules.html');
 });
 
-test('HTTP Auth: Can not open schedules list json ithout token', withNewPage(), async (t, page) => {
+test('HTTP Auth: Can\'t see schedules list json ithout token', withNewPage(), async (t, page) => {
   await ensureUnauthroziedError(page, '/v1/schedules.json');
 });
 

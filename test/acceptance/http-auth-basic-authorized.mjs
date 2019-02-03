@@ -21,7 +21,7 @@ test.after.always(AcceptanceHelpers.closeBrowser);
 
 // ------- Tests ---------------------------------------------------------------
 
-test('HTTP Auth: Can open schedules list', withNewPageBasicAuth(), async (t, page) => {
+test('HTTP Auth: Can see schedules list with credentials', withNewPageBasicAuth(), async (t, page) => {
   const response = await page.goto(`${BASE_URL_WITH_AUTH}/v1/schedules.html`);
   expect(response.ok()).to.be.true;
   expect(response.status()).to.equal(200);
@@ -30,7 +30,7 @@ test('HTTP Auth: Can open schedules list', withNewPageBasicAuth(), async (t, pag
   await page.waitForSelector('.schedules_list');
 });
 
-test('HTTP Auth: Can open Schedule P538IZH', withNewPageBasicAuth(), async (t, page) => {
+test('HTTP Auth: Can see Schedule P538IZH with credentials', withNewPageBasicAuth(), async (t, page) => {
   const response = await page.goto(`${BASE_URL_WITH_AUTH}/v1/schedules/P538IZH.html`);
   expect(response.ok()).to.be.true;
   expect(response.status()).to.equal(200);
