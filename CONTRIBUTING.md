@@ -1,4 +1,4 @@
-# Contributing
+# Contributing [![devDependencies Status](https://david-dm.org/sergiitk/pagerbeauty/dev-status.svg)](https://david-dm.org/sergiitk/pagerbeauty?type=dev)
 
 ## Rules
 

@@ -29,15 +29,15 @@
       "description": "Comma-separated list of PagerDuty schedule ids, example: PJ1P5JQ,P538IZH"
     },
     "PAGERBEAUTY_HTTP_USER": {
-      "description": "Enable basic HTTP authentication: user name",
+      "description": "(optional) Enable basic HTTP authentication: user name",
       "required": false
     },
     "PAGERBEAUTY_HTTP_PASSWORD": {
-      "description": "Enable basic HTTP authentication: password",
+      "description": "(optional) Basic HTTP authentication password",
       "required": false
     },
     "PAGERBEAUTY_HTTP_ACCESS_TOKEN": {
-      "description": "Enable authentication access token. Allows embedding PagerBeauty when basic HTTP authentication is enabled by appending ?access_token=your_token to schedule URL",
+      "description": "(optional) Enable access_token authentication. Makes possible embedding PagerBeauty in browsers that don't support iframes with basic HTTP authentication enabled. Append ?access_token=your_token to schedule URL to make it embeddable",
       "generator": "secret",
       "required": false
     }
