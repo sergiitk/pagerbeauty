@@ -6,6 +6,7 @@ import chai from 'chai';
 // ------- Init ----------------------------------------------------------------
 
 const BASE_URL = process.env.PAGERBEAUTY_URL || 'http://127.0.0.1:8080';
+const BASE_URL_WITH_AUTH = process.env.PAGERBEAUTY_URL_WITH_AUTH || 'http://127.0.0.1:8081';
 const { expect } = chai;
 
 // ------- Helpers -------------------------------------------------------------
@@ -105,6 +106,19 @@ export class AcceptanceHooks {
     return async (t) => {
       const { page } = t.context;
       t.context.pageResponse = await page.goto(`${BASE_URL}${url}`);
+      t.context.pageTest = new PageTest(page);
+    };
+  }
+
+  static openPageWithAuth(url) {
+    return async (t) => {
+      const { page } = t.context;
+      // Authenticate
+      await page.authenticate({
+        username: process.env.PAGERBEAUTY_HTTP_USER,
+        password: process.env.PAGERBEAUTY_HTTP_PASSWORD,
+      });
+      t.context.pageResponse = await page.goto(`${BASE_URL_WITH_AUTH}${url}`);
       t.context.pageTest = new PageTest(page);
     };
   }

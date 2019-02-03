@@ -67,6 +67,7 @@ services:
     command: ["./test/test-with-xunit.sh", "acceptance"]
     environment:
       PAGERBEAUTY_URL: http://pagerbeauty-ci:8080
+      PAGERBEAUTY_URL_WITH_AUTH: http://pagerbeauty-ci-with-auth:8081
     volumes:
       # Uncomment for verifying service locally.
       # - .:/usr/src/app/
