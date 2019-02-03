@@ -5,14 +5,15 @@ import chai from 'chai';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { AcceptanceHooks, BASE_URL } from '../helpers/AcceptanceHelpers';
+import { AcceptanceHelpers, BASE_URL } from '../helpers/AcceptanceHelpers';
 
 // ------- Init ----------------------------------------------------------------
 
 const { expect } = chai;
+const { withNewPage } = AcceptanceHelpers;
 
-test.beforeEach(AcceptanceHooks.openBrowser);
-test.afterEach.always(AcceptanceHooks.closeBrowser);
+test.before(AcceptanceHelpers.openBrowser);
+test.after.always(AcceptanceHelpers.closeBrowser);
 
 // ------- Helpers -------------------------------------------------------------
 
@@ -28,24 +29,24 @@ async function ensureSchedulesPage(page, url) {
 
 // ------- Tests ---------------------------------------------------------------
 
-test.serial('Redirect: / redirects to schedules html', async (t) => {
-  await ensureSchedulesPage(t.context.page, '/');
+test('Redirect: / redirects to schedules.html', withNewPage(), async (t, page) => {
+  await ensureSchedulesPage(page, '/');
 });
 
-test.serial('Redirect: /v1 redirects to schedules html', async (t) => {
-  await ensureSchedulesPage(t.context.page, '/v1');
+test('Redirect: /v1 redirects to schedules.html', withNewPage(), async (t, page) => {
+  await ensureSchedulesPage(page, '/v1');
 });
 
-test.serial('Redirect: /v1/ redirects to schedules html', async (t) => {
-  await ensureSchedulesPage(t.context.page, '/v1/');
+test('Redirect: /v1/ redirects to schedules.html', withNewPage(), async (t, page) => {
+  await ensureSchedulesPage(page, '/v1/');
 });
 
-test.serial('Redirect: /v1/schedules redirects to schedules html', async (t) => {
-  await ensureSchedulesPage(t.context.page, '/v1/schedules');
+test('Redirect: /v1/schedules redirects to schedules.html', withNewPage(), async (t, page) => {
+  await ensureSchedulesPage(page, '/v1/schedules');
 });
 
-test.serial('Redirect: /v1/schedules/ redirects to schedules html', async (t) => {
-  await ensureSchedulesPage(t.context.page, '/v1/schedules/');
+test('Redirect: /v1/schedules/ redirects to schedules.html', withNewPage(), async (t, page) => {
+  await ensureSchedulesPage(page, '/v1/schedules/');
 });
 
 // ------- End -----------------------------------------------------------------

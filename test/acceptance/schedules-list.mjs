@@ -5,16 +5,16 @@ import chai from 'chai';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { AcceptanceHooks } from '../helpers/AcceptanceHelpers';
+import { AcceptanceHelpers } from '../helpers/AcceptanceHelpers';
 
 // ------- Init ----------------------------------------------------------------
 
 const { expect } = chai;
-const { waitFor } = AcceptanceHooks;
+const { waitFor } = AcceptanceHelpers;
 
-test.before(AcceptanceHooks.openBrowser);
-test.serial.before(AcceptanceHooks.openPage('/v1/schedules.html'));
-test.after.always(AcceptanceHooks.closeBrowser);
+test.before(AcceptanceHelpers.openBrowser);
+test.serial.before(AcceptanceHelpers.openPage('/v1/schedules.html'));
+test.after.always(AcceptanceHelpers.closeBrowser);
 
 // ------- Tests ---------------------------------------------------------------
 

@@ -83,7 +83,7 @@ export class PageTest {
   }
 }
 
-export class AcceptanceHooks {
+export class AcceptanceHelpers {
   static async openBrowser(t) {
     t.context.browser = await puppeteer.launch({
       executablePath: process.env.CHROME_PATH,
@@ -93,18 +93,20 @@ export class AcceptanceHooks {
         '--disable-dev-shm-usage',
       ],
     });
-    t.context.page = await t.context.browser.newPage();
   }
 
   static async closeBrowser(t) {
     const { page, browser } = t.context;
-    await page.close();
+    if (page) {
+      await page.close();
+    }
     await browser.close();
   }
 
   static openPage(url) {
     return async (t) => {
-      const { page } = t.context;
+      t.context.page = await t.context.browser.newPage();
+      const page = t.context.page;
       t.context.pageResponse = await page.goto(`${BASE_URL}${url}`);
       t.context.pageTest = new PageTest(page);
     };
@@ -112,7 +114,8 @@ export class AcceptanceHooks {
 
   static openPageWithAuth(url) {
     return async (t) => {
-      const { page } = t.context;
+      t.context.page = await t.context.browser.newPage();
+      const page = t.context.page;
       // Authenticate
       await page.authenticate({
         username: process.env.PAGERBEAUTY_HTTP_USER,
@@ -128,6 +131,15 @@ export class AcceptanceHooks {
       const { page } = t.context;
       await page.waitForSelector(selector);
       await run(t);
+    };
+  }
+
+  static withNewPage() {
+    return async (t, run) => {
+      const { browser } = t.context;
+      const page = await browser.newPage();
+      await run(t, page);
+      await page.close();
     };
   }
 }

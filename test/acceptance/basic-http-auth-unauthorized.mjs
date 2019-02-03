@@ -5,14 +5,15 @@ import chai from 'chai';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { AcceptanceHooks, BASE_URL_WITH_AUTH } from '../helpers/AcceptanceHelpers';
+import { AcceptanceHelpers, BASE_URL_WITH_AUTH } from '../helpers/AcceptanceHelpers';
 
 // ------- Init ----------------------------------------------------------------
 
 const { expect } = chai;
+const { withNewPage } = AcceptanceHelpers;
 
-test.beforeEach(AcceptanceHooks.openBrowser);
-test.afterEach.always(AcceptanceHooks.closeBrowser);
+test.before(AcceptanceHelpers.openBrowser);
+test.after.always(AcceptanceHelpers.closeBrowser);
 
 // ------- Helpers -------------------------------------------------------------
 
@@ -37,17 +38,14 @@ async function ensureUnauthrozied(page, url) {
 
 // ------- Tests ---------------------------------------------------------------
 
-test.serial('Basic HTTP Unauthorized: Check /', async (t) => {
-  const { page } = t.context;
+test('Basic HTTP Unauthorized: Check /', withNewPage(), async (t, page) => {
   const response = await ensureUnauthrozied(page, '/');
   // Make sure we don't redirect on 401
   expect(response.url()).to.equal(`${BASE_URL_WITH_AUTH}/`);
 });
 
-test.serial('Basic HTTP Unauthorized: Check Schedules List', async (t) => {
-  const { page } = t.context;
+test('Basic HTTP Unauthorized: Check Schedules List', withNewPage(), async (t, page) => {
   await ensureUnauthrozied(page, '/v1/schedules.html');
-  return true;
 });
 
 // ------- End -----------------------------------------------------------------
