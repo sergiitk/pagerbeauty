@@ -11,11 +11,12 @@ It fetches and refreshes PagerDuty schedules in the background using your secret
 
 The easiest way to run PagerBeauty is Heroku one-click deploy.
 
-### Running on Heroku
+### Deploy to Heroku
 One-click deploy:  
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/sergiitk/pagerbeauty)
 
-Advanced instructions are 
+Refer to advanced [PagerBeauty on Heroku documentation](https://github.com/sergiitk/pagerbeauty/tree/master/docs/heroku)
+for manual deployments using Heroku CLI and keeping PagerBeauty up-to-date.
 
 ### Using Docker
 Docker repo: [`sergiitk/pagerbeauty`](https://hub.docker.com/r/sergiitk/pagerbeauty).

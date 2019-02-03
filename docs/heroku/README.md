@@ -1,12 +1,11 @@
-# Deploying PagerBeauty to Heroku
+# PagerBeauty on Heroku
 
 ## Requisites
 
-1. [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install).
+1. [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
 2. [Git](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup)
 
-## Create Heroku App
-### Using Heroku CLI
+## Manual deployment using Heroku CLI
 
 ```sh
 # Log into heroku
@@ -43,7 +42,6 @@ heroku open
 ```
 
 #### Updating
-
 ```sh
 # Clone pagerbeauty repository if you don't have it.
 git clone https://github.com/sergiitk/pagerbeauty.git
@@ -61,7 +59,7 @@ git push heroku production:master
 
 [Deploying with Git](https://devcenter.heroku.com/articles/git) on Heroku Devcenter
 
-### One click deploy
+## One-click Heroku Button deploy
 One-click deploy:  
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/sergiitk/pagerbeauty)
 
