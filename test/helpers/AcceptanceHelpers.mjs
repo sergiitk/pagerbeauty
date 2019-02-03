@@ -5,7 +5,8 @@ import chai from 'chai';
 
 // ------- Init ----------------------------------------------------------------
 
-const BASE_URL = process.env.PAGERBEAUTY_URL || 'http://127.0.0.1:8080';
+export const BASE_URL = process.env.PAGERBEAUTY_URL || 'http://127.0.0.1:8080';
+export const BASE_URL_WITH_AUTH = process.env.PAGERBEAUTY_URL_WITH_AUTH || 'http://127.0.0.1:8081';
 const { expect } = chai;
 
 // ------- Helpers -------------------------------------------------------------
@@ -82,7 +83,7 @@ export class PageTest {
   }
 }
 
-export class AcceptanceHooks {
+export class AcceptanceHelpers {
   static async openBrowser(t) {
     t.context.browser = await puppeteer.launch({
       executablePath: process.env.CHROME_PATH,
@@ -92,18 +93,20 @@ export class AcceptanceHooks {
         '--disable-dev-shm-usage',
       ],
     });
-    t.context.page = await t.context.browser.newPage();
   }
 
   static async closeBrowser(t) {
     const { page, browser } = t.context;
-    await page.close();
+    if (page) {
+      await page.close();
+    }
     await browser.close();
   }
 
   static openPage(url) {
     return async (t) => {
-      const { page } = t.context;
+      const page = await t.context.browser.newPage();
+      t.context.page = page;
       t.context.pageResponse = await page.goto(`${BASE_URL}${url}`);
       t.context.pageTest = new PageTest(page);
     };
@@ -115,6 +118,48 @@ export class AcceptanceHooks {
       await page.waitForSelector(selector);
       await run(t);
     };
+  }
+
+  static withNewPage() {
+    return async (t, run) => {
+      const page = await t.context.browser.newPage();
+      await run(t, page);
+      await page.close();
+    };
+  }
+
+  static withNewPageBasicAuth() {
+    return async (t, run) => {
+      const page = await t.context.browser.newPage();
+      await page.authenticate({
+        username: process.env.PAGERBEAUTY_HTTP_USER,
+        password: process.env.PAGERBEAUTY_HTTP_PASSWORD,
+      });
+      await run(t, page);
+      await page.close();
+    };
+  }
+
+  static async ensureUnauthroziedError(page, url) {
+    // No authentication
+    const response = await page.goto(`${BASE_URL_WITH_AUTH}${url}`);
+
+    // Ensure 401 status
+    expect(response.ok()).to.be.false;
+    expect(response.status()).to.equal(401);
+    expect(response.statusText()).to.be.equal('Unauthorized');
+
+    // Ensure authentiation header
+    const headers = response.headers();
+    expect(headers).to.include({ 'www-authenticate': 'Basic realm="Secure Area"' });
+
+    // Ensure Unauthorized body
+    const body = await response.text();
+    expect(body).to.equal('Unauthorized');
+
+    // Ensure we're on expected page
+    expect(response.url()).to.equal(`${BASE_URL_WITH_AUTH}${url}`);
+    return response;
   }
 }
 

@@ -59,6 +59,7 @@ const config = {
     auth: {
       name: process.env.PAGERBEAUTY_HTTP_USER,
       pass: process.env.PAGERBEAUTY_HTTP_PASSWORD,
+      token: process.env.PAGERBEAUTY_HTTP_ACCESS_TOKEN,
     },
   },
 };
