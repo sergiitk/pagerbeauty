@@ -24,10 +24,18 @@ docker-compose up
 3. Open [localhost:8080](http://localhost:8080)
 
 PagerBeauty for local development is preconfigured, no `.env` file is necessary.  
-It's using [Mockserver](https://github.com/namshi/mockserver) in place of real PagerBeaty API v2.
+It's using [Mockserver](https://github.com/namshi/mockserver) in place of real PagerBeaty API v2. It is available on [localhost:8090](http://localhost:8090).
 
 Application HTTP server and webpack are running in `watch` mode.
-All changes you make should be picked up automatically on the next page refresh. It is available on [localhost:8081](http://localhost:8081).
+All changes you make should be picked up automatically on the next page refresh. It is available on [localhost:8080](http://localhost:8080).
+
+Additional version of PagerBeauty with HTTP authentication enabled is available at [localhost:8081](http://localhost:8081). Default credentials:
+
+```sh
+PAGERBEAUTY_HTTP_USER=basic_username
+PAGERBEAUTY_HTTP_PASSWORD=basic_password
+PAGERBEAUTY_HTTP_ACCESS_TOKEN=803651A9-E3B7-4153-9566-6E54F5F0CEAB
+```
 
 ### Additional configuration
 
@@ -40,7 +48,7 @@ for example:
 PAGERBEAUTY_LOG_LEVEL=verbose
 ```
 
-**Custom HTTP port**
+**Custom HTTP ports**
 
 In case you have another service running on port 8080, the following option
 will start PagerBeauty on custom port and bind it to the same port on the host.
@@ -49,6 +57,22 @@ will start PagerBeauty on custom port and bind it to the same port on the host.
 # Start PagerBeauty on port 8181 in Docker and bind it to port 8181 on the host:
 # http://localhost:8181/
 PAGERBEAUTY_HTTP_PORT=8181
+```
+
+In the same manner, you can change port of PagerBeauty with Auth service: 
+```sh
+# Start PagerBeauty with enabled HTTP authentication on port 8182
+# in Docker and bind it to port 8181 on the host:
+# http://localhost:8182/
+PAGERBEAUTY_WITH_AUTH_HTTP_PORT=8182
+```
+
+To change PagerDuty Mock API port, you need to update the following
+```sh
+# Use custom port for PagerDuty Mock API:
+PAGERBEAUTY_PD_API_MOCK_PORT=9090
+# Instruct PagerBeauty use different PagerDuty API:
+PAGERBEAUTY_PD_API_URL=http://mock-pagerduty-api:9090
 ```
 
 **Using real PagerDuty API**

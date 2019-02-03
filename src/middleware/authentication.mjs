@@ -59,7 +59,8 @@ function authorizeAccessToken(ctx, tokenExpected) {
     return false;
   }
 
-  ctx.assert(count === 1, 400, 'Only one access token must be given');
+  // See https://tools.ietf.org/html/rfc6750#page-15
+  ctx.assert(count === 1, 400, 'invalid_request Only one access token must be given');
   return timingSafeCompare(tokenCandidate, tokenExpected);
 }
 

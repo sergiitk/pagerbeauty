@@ -19,7 +19,7 @@ services:
       # Verbose
       PAGERBEAUTY_LOG_LEVEL: silly
     ports:
-      - "8080:8080"
+      - '8080:8080'
     depends_on:
       - mock-pagerduty-api
 
@@ -46,7 +46,7 @@ services:
       PAGERBEAUTY_HTTP_PASSWORD: basic_password_ci
       PAGERBEAUTY_HTTP_ACCESS_TOKEN: 9A37F64B-931B-4767-94D3-E41B92991F7C
     ports:
-      - "8081:8081"
+      - '8081:8081'
     depends_on:
       - mock-pagerduty-api
 
@@ -54,7 +54,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile-dev
-    command: ["yarn", "run", "mock:pagerduty_api", "-p", "8090"]
+    command: ['yarn', 'run', 'mock:pagerduty_api', '-p', '8090']
     ports:
       - "8090:8090"
     volumes:
@@ -64,8 +64,8 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile-test-acceptance
-    entrypoint: ""
-    command: ["./test/test-with-xunit.sh", "acceptance"]
+    entrypoint: ''
+    command: ['./test/test-with-xunit.sh', 'acceptance']
     environment:
       PAGERBEAUTY_URL: http://pagerbeauty-ci:8080
       PAGERBEAUTY_URL_WITH_AUTH: http://pagerbeauty-ci-with-auth:8081

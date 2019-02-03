@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile-dev
-    command: ["yarn", "run", "app:watch"]
+    command: ['yarn', 'run', 'app:watch']
     environment:
       # Use PagerDuty API Mock server for development
       PAGERBEAUTY_PD_API_URL: ${PAGERBEAUTY_PD_API_URL:-http://mock-pagerduty-api:8090}
@@ -13,15 +13,16 @@ services:
       PAGERBEAUTY_PD_API_KEY: ${PAGERBEAUTY_PD_API_KEY:-v2_api_key}
       # Mock PD API provides three predefined schedules
       # UNKNOWN is to ensure incorrect schedules don't prevent valid from loading
-      PAGERBEAUTY_PD_SCHEDULES: ${PAGERBEAUTY_PD_SCHEDULES:-UNKNOWN,P538IZH,PJ1P5JQ,P2RFGIP}
+      PAGERBEAUTY_PD_SCHEDULES: >-
+        ${PAGERBEAUTY_PD_SCHEDULES:-UNKNOWN,P538IZH,PJ1P5JQ,P2RFGIP}
       # Faster refresh for dev server
       # Schedules and oncalls every 15 seconds
       PAGERBEAUTY_REFRESH_RATE_MINUTES: ${PAGERBEAUTY_REFRESH_RATE_MINUTES:-0.25}
       # Incidents every 12 seconds
-      PAGERBEAUTY_INCIDENTS_REFRESH_RATE_MINUTES: >
+      PAGERBEAUTY_INCIDENTS_REFRESH_RATE_MINUTES: >-
         ${PAGERBEAUTY_INCIDENTS_REFRESH_RATE_MINUTES:-0.20}
     ports:
-      - "${PAGERBEAUTY_HTTP_PORT:-8080}:${PAGERBEAUTY_HTTP_PORT:-8080}"
+      - ${PAGERBEAUTY_HTTP_PORT:-8080}:${PAGERBEAUTY_HTTP_PORT:-8080}
     volumes:
       - .:/usr/src/app/
       - node_modules:/usr/src/app/node_modules
@@ -33,7 +34,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile-dev
-    command: ["yarn", "run", "app:watch"]
+    command: ['yarn', 'run', 'app:watch']
     environment:
       # Use PagerDuty API Mock server for development
       PAGERBEAUTY_PD_API_URL: ${PAGERBEAUTY_PD_API_URL:-http://mock-pagerduty-api:8090}
@@ -46,9 +47,10 @@ services:
       # Basic HTTP authentication
       PAGERBEAUTY_HTTP_USER: ${PAGERBEAUTY_HTTP_USER:-basic_username}
       PAGERBEAUTY_HTTP_PASSWORD: ${PAGERBEAUTY_HTTP_PASSWORD:-basic_password}
-      PAGERBEAUTY_HTTP_ACCESS_TOKEN: ${PAGERBEAUTY_HTTP_ACCESS_TOKEN:-803651A9-E3B7-4153-9566-6E54F5F0CEAB}
+      PAGERBEAUTY_HTTP_ACCESS_TOKEN: >-
+        ${PAGERBEAUTY_HTTP_ACCESS_TOKEN:-803651A9-E3B7-4153-9566-6E54F5F0CEAB}
     ports:
-      - "${PAGERBEAUTY_WITH_AUTH_HTTP_PORT:-8081}:${PAGERBEAUTY_WITH_AUTH_HTTP_PORT:-8081}"
+      - ${PAGERBEAUTY_WITH_AUTH_HTTP_PORT:-8081}:${PAGERBEAUTY_WITH_AUTH_HTTP_PORT:-8081}
     volumes:
       - .:/usr/src/app/
       - node_modules:/usr/src/app/node_modules
@@ -60,7 +62,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile-dev
-    command: ["yarn", "run", "build:watch"]
+    command: ['yarn', 'run', 'build:watch']
     volumes:
       - .:/usr/src/app/
       - node_modules:/usr/src/app/node_modules
@@ -69,9 +71,14 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile-dev
-    command: ["yarn", "run", "mock:pagerduty_api", "-p", "${PAGERBEAUTY_PD_API_MOCK_PORT:-8090}"]
+    command:
+      - yarn
+      - run
+      - mock:pagerduty_api
+      - '-p'
+      - ${PAGERBEAUTY_PD_API_MOCK_PORT:-8090}
     ports:
-      - "${PAGERBEAUTY_PD_API_MOCK_PORT:-8090}:${PAGERBEAUTY_PD_API_MOCK_PORT:-8090}"
+      - ${PAGERBEAUTY_PD_API_MOCK_PORT:-8090}:${PAGERBEAUTY_PD_API_MOCK_PORT:-8090}
     volumes:
       - .:/usr/src/app/
       - node_modules:/usr/src/app/node_modules
@@ -82,11 +89,13 @@ services:
       dockerfile: ./Dockerfile-test-acceptance
     environment:
       PAGERBEAUTY_URL: http://pagerbeauty-dev:${PAGERBEAUTY_HTTP_PORT:-8080}
-      PAGERBEAUTY_URL_WITH_AUTH: http://pagerbeauty-dev-with-auth:${PAGERBEAUTY_WITH_AUTH_HTTP_PORT:-8081}
+      PAGERBEAUTY_URL_WITH_AUTH:  >-
+        http://pagerbeauty-dev-with-auth:${PAGERBEAUTY_WITH_AUTH_HTTP_PORT:-8081}
       # Basic HTTP authentication
       PAGERBEAUTY_HTTP_USER: ${PAGERBEAUTY_HTTP_USER:-basic_username}
       PAGERBEAUTY_HTTP_PASSWORD: ${PAGERBEAUTY_HTTP_PASSWORD:-basic_password}
-      PAGERBEAUTY_HTTP_ACCESS_TOKEN: ${PAGERBEAUTY_HTTP_ACCESS_TOKEN:-803651A9-E3B7-4153-9566-6E54F5F0CEAB}
+      PAGERBEAUTY_HTTP_ACCESS_TOKEN: >-
+        ${PAGERBEAUTY_HTTP_ACCESS_TOKEN:-803651A9-E3B7-4153-9566-6E54F5F0CEAB}
     volumes:
       - .:/usr/src/app/
       - node_modules:/usr/src/app/node_modules
@@ -98,7 +107,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile-dev
-    entrypoint: ["yarn"]
+    entrypoint: ['yarn']
     command: []
     volumes:
       - .:/usr/src/app/
