@@ -42,8 +42,9 @@ services:
       # Run on different port than no auth app
       PAGERBEAUTY_HTTP_PORT: 8081
       # Basic HTTP authentication
-      PAGERBEAUTY_HTTP_USER: basic_username
-      PAGERBEAUTY_HTTP_PASSWORD: basic_password
+      PAGERBEAUTY_HTTP_USER: basic_username_ci
+      PAGERBEAUTY_HTTP_PASSWORD: basic_password_ci
+      PAGERBEAUTY_HTTP_AUTH_TOKEN: 9A37F64B-931B-4767-94D3-E41B92991F7C
     ports:
       - "8081:8081"
     depends_on:
@@ -69,8 +70,9 @@ services:
       PAGERBEAUTY_URL: http://pagerbeauty-ci:8080
       PAGERBEAUTY_URL_WITH_AUTH: http://pagerbeauty-ci-with-auth:8081
       # Basic HTTP authentication
-      PAGERBEAUTY_HTTP_USER: basic_username
-      PAGERBEAUTY_HTTP_PASSWORD: basic_password
+      PAGERBEAUTY_HTTP_USER: basic_username_ci
+      PAGERBEAUTY_HTTP_PASSWORD: basic_password_ci
+      PAGERBEAUTY_HTTP_AUTH_TOKEN: 9A37F64B-931B-4767-94D3-E41B92991F7C
     volumes:
       # Uncomment for verifying service locally.
       # - .:/usr/src/app/
