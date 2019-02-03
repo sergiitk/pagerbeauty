@@ -68,6 +68,9 @@ services:
     environment:
       PAGERBEAUTY_URL: http://pagerbeauty-ci:8080
       PAGERBEAUTY_URL_WITH_AUTH: http://pagerbeauty-ci-with-auth:8081
+      # Basic HTTP authentication
+      PAGERBEAUTY_HTTP_USER: basic_username
+      PAGERBEAUTY_HTTP_PASSWORD: basic_password
     volumes:
       # Uncomment for verifying service locally.
       # - .:/usr/src/app/

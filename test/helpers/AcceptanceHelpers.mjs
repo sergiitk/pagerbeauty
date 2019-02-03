@@ -5,8 +5,8 @@ import chai from 'chai';
 
 // ------- Init ----------------------------------------------------------------
 
-const BASE_URL = process.env.PAGERBEAUTY_URL || 'http://127.0.0.1:8080';
-const BASE_URL_WITH_AUTH = process.env.PAGERBEAUTY_URL_WITH_AUTH || 'http://127.0.0.1:8081';
+export const BASE_URL = process.env.PAGERBEAUTY_URL || 'http://127.0.0.1:8080';
+export const BASE_URL_WITH_AUTH = process.env.PAGERBEAUTY_URL_WITH_AUTH || 'http://127.0.0.1:8081';
 const { expect } = chai;
 
 // ------- Helpers -------------------------------------------------------------
