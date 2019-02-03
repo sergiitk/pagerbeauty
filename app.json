@@ -23,10 +23,12 @@
   ],
   "env": {
     "PAGERBEAUTY_PD_API_KEY": {
-      "description": "PagerDuty REST API v2 Access Key, example: y_NbAkKc66ryYTWUXYEu"
+      "description": "PagerDuty REST API v2 Access Key, test example: y_NbAkKc66ryYTWUXYEu. Generate your key: https://support.pagerduty.com/docs/using-the-api",
+      "value": "y_NbAkKc66ryYTWUXYEu"
     },
     "PAGERBEAUTY_PD_SCHEDULES": {
-      "description": "Comma-separated list of PagerDuty schedule ids, example: PJ1P5JQ,P538IZH"
+      "description": "Comma-separated list of PagerDuty schedule ids, test example: PJ1P5JQ,P538IZH",
+      "value": "PJ1P5JQ,P538IZH"
     },
     "PAGERBEAUTY_HTTP_USER": {
       "description": "(optional) Enable basic HTTP authentication: user name",
