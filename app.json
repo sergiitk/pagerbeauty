@@ -27,6 +27,19 @@
     },
     "PAGERBEAUTY_PD_SCHEDULES": {
       "description": "Comma-separated list of PagerDuty schedule ids, example: PJ1P5JQ,P538IZH"
+    },
+    "PAGERBEAUTY_HTTP_USER": {
+      "description": "Enable basic HTTP authentication: user name",
+      "required": false
+    },
+    "PAGERBEAUTY_HTTP_PASSWORD": {
+      "description": "Enable basic HTTP authentication: password",
+      "required": false
+    },
+    "PAGERBEAUTY_HTTP_ACCESS_TOKEN": {
+      "description": "Enable authentication access token. Allows embedding PagerBeauty when basic HTTP authentication is enabled by appending ?access_token=your_token to schedule URL",
+      "generator": "secret",
+      "required": false
     }
   },
   "success_url": "/"
