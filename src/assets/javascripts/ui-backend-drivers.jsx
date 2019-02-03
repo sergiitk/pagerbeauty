@@ -24,11 +24,27 @@ export function withAjaxBackend({
   WrappedComponent,
   endpoint,
   pollIntervalSeconds = 30,
+  authenticationStrategy = false,
 }) {
   // AJAX backend driver
   class WithAjaxBackend extends React.Component {
     static async fetchData(url) {
-      const response = await fetch(url);
+      const headers = new Headers();
+      // See https://developer.mozilla.org/en-US/docs/Web/API/Request/Request
+      const requestInit = {
+        method: 'GET',
+        headers,
+        cache: 'no-cache',
+      };
+
+      // Delegate authentication to the caller.
+      if (authenticationStrategy) {
+        authenticationStrategy(requestInit);
+      }
+
+      const fetchRequest = new Request(url, requestInit);
+
+      const response = await fetch(fetchRequest);
       if (!response.ok) {
         if (response.status === 404) {
           throw new PagerBeautyFetchNotFoundUiError(

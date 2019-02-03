@@ -25,7 +25,7 @@ export class SchedulesListView extends React.Component {
       return item;
     });
 
-    return <ul>{schedulesListItems}</ul>;
+    return <ul className="schedules_list">{schedulesListItems}</ul>;
   }
 }
 

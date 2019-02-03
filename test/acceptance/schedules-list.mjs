@@ -27,11 +27,11 @@ test('Schedules List: "Schedules" on page title', async (t) => {
   await pageTest.expectTitleContains('Schedules');
 });
 
-test('Schedules List: Loaded', waitFor('#schedules_list > ul'), async (t) => {
+test('Schedules List: Loaded', waitFor('.schedules_list'), async (t) => {
   const { page } = t.context;
 
   const links = await page.$$eval(
-    '#schedules_list li',
+    '.schedules_list li',
     nodes => nodes.map(n => n.textContent),
   );
   expect(links).to.contain('Schedule a quasi illum');

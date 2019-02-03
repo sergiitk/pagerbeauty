@@ -43,7 +43,7 @@ function authorizeAccessToken(ctx, tokenExpected) {
     // Split the value of the header.
     const [authType, authCredentials, ...rest] = authHeader.split(' ');
     // Must be exactly two.
-    if (authType === 'bearer' && authCredentials && !rest.length) {
+    if (authType.toLowerCase() === 'bearer' && authCredentials && !rest.length) {
       tokenCandidate = authCredentials;
       count += 1;
     }

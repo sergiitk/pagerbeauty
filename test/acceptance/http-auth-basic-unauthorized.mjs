@@ -10,7 +10,7 @@ import { AcceptanceHelpers, BASE_URL_WITH_AUTH } from '../helpers/AcceptanceHelp
 // ------- Init ----------------------------------------------------------------
 
 const { expect } = chai;
-const { withNewPage, ensureUnauthrozied } = AcceptanceHelpers;
+const { withNewPage, ensureUnauthroziedError } = AcceptanceHelpers;
 
 test.before(AcceptanceHelpers.openBrowser);
 test.after.always(AcceptanceHelpers.closeBrowser);
@@ -18,13 +18,13 @@ test.after.always(AcceptanceHelpers.closeBrowser);
 // ------- Tests ---------------------------------------------------------------
 
 test('HTTP Unauthorized: Check /', withNewPage(), async (t, page) => {
-  const response = await ensureUnauthrozied(page, '/');
-  // Make sure we don't redirect on 401
-  expect(response.url()).to.equal(`${BASE_URL_WITH_AUTH}/`);
+  const response = await page.goto(`${BASE_URL_WITH_AUTH}/`);
+  // Unauthorized / should recirect to /v1
+  expect(response.url()).to.equal(`${BASE_URL_WITH_AUTH}/v1`);
 });
 
 test('HTTP Unauthorized: Check Schedules List', withNewPage(), async (t, page) => {
-  await ensureUnauthrozied(page, '/v1/schedules.html');
+  await ensureUnauthroziedError(page, '/v1/schedules.html');
 });
 
 // ------- End -----------------------------------------------------------------

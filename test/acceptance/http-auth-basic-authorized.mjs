@@ -14,24 +14,24 @@ import {
 // ------- Init ----------------------------------------------------------------
 
 const { expect } = chai;
-const { ensureUnauthrozied, withNewPage } = AcceptanceHelpers;
-const ACCESS_TOKEN = process.env.PAGERBEAUTY_HTTP_ACCESS_TOKEN;
+const { withNewPageBasicAuth } = AcceptanceHelpers;
 
-test.beforeEach(AcceptanceHelpers.openBrowser);
-test.afterEach.always(AcceptanceHelpers.closeBrowser);
+test.before(AcceptanceHelpers.openBrowser);
+test.after.always(AcceptanceHelpers.closeBrowser);
 
 // ------- Tests ---------------------------------------------------------------
 
-test.serial('HTTP Auth: Schedule P538IZH unauthorized without token', withNewPage(), async (t, page) => {
-  const response = await ensureUnauthrozied(page, '/v1/schedules/P538IZH.html');
-  // Ensure we're on expected page
-  expect(response.url()).to.equal(`${BASE_URL_WITH_AUTH}/v1/schedules/P538IZH.html`);
+test('HTTP Auth: Can open schedules list', withNewPageBasicAuth(), async (t, page) => {
+  const response = await page.goto(`${BASE_URL_WITH_AUTH}/v1/schedules.html`);
+  expect(response.ok()).to.be.true;
+  expect(response.status()).to.equal(200);
+
+  // Ensure React rendered page.
+  await page.waitForSelector('.schedules_list');
 });
 
-test.serial.failing('HTTP Auth: Schedule P538IZH is allowed with auth token', withNewPage(), async (t, page) => {
-  const url = `${BASE_URL_WITH_AUTH}/v1/schedules/P538IZH.html?access_token=${ACCESS_TOKEN}`;
-  const response = await page.goto(url);
-
+test('HTTP Auth: Can open Schedule P538IZH', withNewPageBasicAuth(), async (t, page) => {
+  const response = await page.goto(`${BASE_URL_WITH_AUTH}/v1/schedules/P538IZH.html`);
   expect(response.ok()).to.be.true;
   expect(response.status()).to.equal(200);
 
@@ -41,5 +41,6 @@ test.serial.failing('HTTP Auth: Schedule P538IZH is allowed with auth token', wi
   await pageTest.expectClass('.schedule', 'state_normal');
   await pageTest.expectText('.user_name', 'Rosanna Runolfsdottir');
 });
+
 
 // ------- End -----------------------------------------------------------------

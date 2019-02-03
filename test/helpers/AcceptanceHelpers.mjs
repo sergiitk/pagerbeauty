@@ -112,20 +112,6 @@ export class AcceptanceHelpers {
     };
   }
 
-  static openPageWithAuth(url) {
-    return async (t) => {
-      const page = await t.context.browser.newPage();
-      t.context.page = page;
-      // Authenticate
-      await page.authenticate({
-        username: process.env.PAGERBEAUTY_HTTP_USER,
-        password: process.env.PAGERBEAUTY_HTTP_PASSWORD,
-      });
-      t.context.pageResponse = await page.goto(`${BASE_URL_WITH_AUTH}${url}`);
-      t.context.pageTest = new PageTest(page);
-    };
-  }
-
   static waitFor(selector) {
     return async (t, run) => {
       const { page } = t.context;
@@ -136,14 +122,25 @@ export class AcceptanceHelpers {
 
   static withNewPage() {
     return async (t, run) => {
-      const { browser } = t.context;
-      const page = await browser.newPage();
+      const page = await t.context.browser.newPage();
       await run(t, page);
       await page.close();
     };
   }
 
-  static async ensureUnauthrozied(page, url) {
+  static withNewPageBasicAuth() {
+    return async (t, run) => {
+      const page = await t.context.browser.newPage();
+      await page.authenticate({
+        username: process.env.PAGERBEAUTY_HTTP_USER,
+        password: process.env.PAGERBEAUTY_HTTP_PASSWORD,
+      });
+      await run(t, page);
+      await page.close();
+    };
+  }
+
+  static async ensureUnauthroziedError(page, url) {
     // No authentication
     const response = await page.goto(`${BASE_URL_WITH_AUTH}${url}`);
 
@@ -159,6 +156,9 @@ export class AcceptanceHelpers {
     // Ensure Unauthorized body
     const body = await response.text();
     expect(body).to.equal('Unauthorized');
+
+    // Ensure we're on expected page
+    expect(response.url()).to.equal(`${BASE_URL_WITH_AUTH}${url}`);
     return response;
   }
 }

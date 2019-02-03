@@ -106,7 +106,10 @@ export class PagerBeautyWeb {
 
     // Baseic Authentication
     if (this.auth && this.auth.name) {
-      app.use(authentication(this.auth.name, this.auth.pass, this.auth.token));
+      app.use(mount(
+        '/v1',
+        authentication(this.auth.name, this.auth.pass, this.auth.token),
+      ));
     }
 
     // Static assets
