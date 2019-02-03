@@ -31,7 +31,8 @@
     "build:prod": "NODE_ENV=production webpack --config webpack.prod.js --display-modules",
     "app": "node --experimental-modules src/pagerbeauty.mjs",
     "app:watch": "nodemon --experimental-modules src/pagerbeauty.mjs",
-    "app:prod": "NODE_ENV=production node --experimental-modules src/pagerbeauty.mjs"
+    "app:prod": "NODE_ENV=production node --experimental-modules src/pagerbeauty.mjs",
+    "heroku-postbuild": "NODE_ENV=production webpack --config webpack.prod.js --display-modules"
   },
   "dependencies": {
     "basic-auth": "^2.0.1",
