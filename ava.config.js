@@ -4,6 +4,7 @@ const avaConfig = {
     'test/**/*.js',
     'test/**/*.mjs',
     '!test/helpers',
+    '!test/mocks',
   ],
   require: ['esm'],
   babel: false,

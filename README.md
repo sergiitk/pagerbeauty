@@ -3,7 +3,18 @@
 Add concise PagerDuty on-call widget to your monitoring dashboard.
 [Live Demo!](https://demo.pagerbeauty.sergii.org/)
 
-![PagerDuty On Call](https://user-images.githubusercontent.com/672669/46779296-1e233100-cce5-11e8-897c-b60f935e3ca8.png)
+### Who's on-call?
+![PagerDuty On Call](https://user-images.githubusercontent.com/672669/52192981-d63b9300-281a-11e9-8d51-d0982c205b78.png)
+
+<details>
+  <summary><strong>Active PagerDuty Incident</strong></summary>
+  <img width="939" alt="Active PagerDuty Incident" src="https://user-images.githubusercontent.com/672669/52192943-95dc1500-281a-11e9-976f-094eed7e2126.png">
+</details>
+
+<details>
+  <summary><strong>PagerBauty on Real DataDog Dashboard</strong></summary>
+  <img alt="PagerBauty on Real DataDog Dashboard" src="https://user-images.githubusercontent.com/672669/52193081-5104ae00-281b-11e9-9b4b-3bd16d1b7029.jpg">
+</details>
 
 ## Running on Heroku
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/sergiitk/pagerbeauty)
@@ -29,6 +40,15 @@ docker run --rm -p 8080:8080 -e PAGERBEAUTY_PD_API_KEY=yourkey -e PAGERBEAUTY_PD
 Example running PagerBeauty using test key:
 ```sh
 docker run --rm -p 8080:8080 -e PAGERBEAUTY_PD_API_KEY=y_NbAkKc66ryYTWUXYEu -e PAGERBEAUTY_PD_SCHEDULES=PJ1P5JQ,P538IZH -it sergiitk/pagerbeauty:latest
+```
+
+## Running with Node
+NPM repo: [`pagerbeauty`](https://www.npmjs.com/package/pagerbeauty)
+
+Setup PagerBeauty by following [configuration](#configuration) section and run:
+```sh
+yarn add pagerbeauty
+node --experimental-modules node_modules/pagerbeauty/src/pagerbeauty.mjs
 ```
 
 ## Configuration
@@ -106,6 +126,10 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 PagerBeauty acts as a local cache server for PagerDuty schedules.
 It fetches and refreshes PagerDuty schedules in the background using secret PagerDuty API key and makes them available through web interface. This is done to protect your secret API key from public exposure. This means you'll need to run PagerBeauty as a service.
 
+### How to add my userpic?
+PagerDuty uses [Gravatar](https://en.gravatar.com/) to manage profile photos. 
+If you already have a Gravatar account, you can attach your PagerDuty login email to this account.
+
 ## Contributing
 [Contribution guide](https://github.com/sergiitk/pagerbeauty/tree/master/CONTRIBUTING.md) and step-by-step local development instructions.  
 The source code of [Pager Beauty](https://github.com/sergiitk/pagerbeauty) is maintained by [@sergiitk](https://github.com/sergiitk).
@@ -132,11 +156,12 @@ This project is under active development.
 - [x] Automated Builds
 - [x] No limit on the total number of schedules supported
 - [x] Make on-call view red during an active incident
+- [x] HTTP authentication bypass support for embeds
 
 #### Version 2.0
 
+- [ ] Built-in SSL Support
 - [ ] Next on duty
-- [ ] HTTP authentication bypass support for embeds
 - [ ] Websocket refresh
 
 #### Documentation and examples

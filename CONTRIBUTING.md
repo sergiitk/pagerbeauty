@@ -1,4 +1,11 @@
-# Contributing [![CircleCI](https://circleci.com/gh/sergiitk/pagerbeauty/tree/master.svg?style=shield)](https://circleci.com/gh/sergiitk/pagerbeauty/tree/master) [![dependencies Status](https://david-dm.org/sergiitk/pagerbeauty/status.svg)](https://david-dm.org/sergiitk/pagerbeauty) [![devDependencies Status](https://david-dm.org/sergiitk/pagerbeauty/dev-status.svg)](https://david-dm.org/sergiitk/pagerbeauty?type=dev)
+# Contributing
+
+## Dev Statuses
+[![CircleCI](https://circleci.com/gh/sergiitk/pagerbeauty/tree/master.svg?style=shield)](https://circleci.com/gh/sergiitk/pagerbeauty/tree/master) [![dependencies Status](https://david-dm.org/sergiitk/pagerbeauty/status.svg)](https://david-dm.org/sergiitk/pagerbeauty) [![devDependencies Status](https://david-dm.org/sergiitk/pagerbeauty/dev-status.svg)](https://david-dm.org/sergiitk/pagerbeauty?type=dev)
+
+### Docker images
+[![](https://images.microbadger.com/badges/version/sergiitk/pagerbeauty:dev.svg)](https://microbadger.com/images/sergiitk/pagerbeauty:dev) [![](https://images.microbadger.com/badges/image/sergiitk/pagerbeauty:dev.svg)](https://microbadger.com/images/sergiitk/pagerbeauty:dev)  
+[![](https://images.microbadger.com/badges/version/sergiitk/pagerbeauty.svg)](https://microbadger.com/images/sergiitk/pagerbeauty) [![](https://images.microbadger.com/badges/image/sergiitk/pagerbeauty.svg)](https://microbadger.com/images/sergiitk/pagerbeauty)
 
 ## Rules
 

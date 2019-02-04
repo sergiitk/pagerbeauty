@@ -45,7 +45,10 @@ jobs:
       # Build the application image.
       - run:
           name: Build docker image
-          command: docker build -t sergiitk/pagerbeauty:ci-$CIRCLE_SHA1 .
+          command: >
+            docker build
+            --build-arg VCS_REF=$CIRCLE_SHA1
+            -t sergiitk/pagerbeauty:ci-$CIRCLE_SHA1 .
       # Start the app in Docker.
       - run:
           name: "Start PagerBeauty"

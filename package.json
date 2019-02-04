@@ -1,7 +1,7 @@
 {
   "name": "pagerbeauty",
   "version": "0.3.0",
-  "description": "Add concise PagerDuty on-calls widget to your wallboard",
+  "description": "PagerDuty on-call dashboard widget",
   "repository": "git@github.com:sergiitk/pagerbeauty.git",
   "author": "Sergii Tkachenko <hi@sergii.org>",
   "license": "MIT",
@@ -111,5 +111,23 @@
       ],
       "@babel/preset-react"
     ]
-  }
+  },
+  "keywords": [
+    "pagerduty",
+    "datadog",
+    "dashboard",
+    "wallboard",
+    "on-call",
+    "widget",
+    "monitor",
+    "oncall",
+    "incidents",
+    "incident-management",
+    "schedules",
+    "schedule",
+    "datadog-dashboard",
+    "embeds",
+    "pager",
+    "oncalls-widget"
+  ]
 }
