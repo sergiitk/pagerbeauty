@@ -1,0 +1,48 @@
+{
+  "name": "PagerBeauty",
+  "description": "PagerDuty on-call dashboard widget",
+  "repository": "https://github.com/sergiitk/pagerbeauty",
+  "website": "http://work.sergii.org/pagerbeauty",
+  "keywords": [
+    "pagerduty",
+    "datadog",
+    "dashboard",
+    "wallboard",
+    "on-call",
+    "widget",
+    "monitor",
+    "oncall",
+    "incidents",
+    "incident-management",
+    "schedules",
+    "schedule",
+    "datadog-dashboard",
+    "embeds",
+    "pager",
+    "oncalls-widget"
+  ],
+  "env": {
+    "PAGERBEAUTY_PD_API_KEY": {
+      "description": "PagerDuty REST API v2 Access Key (Read-only). Generate your key https://support.pagerduty.com/docs/using-the-api or try test key y_NbAkKc66ryYTWUXYEu",
+      "value": "y_NbAkKc66ryYTWUXYEu"
+    },
+    "PAGERBEAUTY_PD_SCHEDULES": {
+      "description": "Comma-separated list of PagerDuty schedule ids. You can find schedule id in the URL of the schedule on PagerDuty website after symbol #. Or try test schedules: PJ1P5JQ,P538IZH",
+      "value": "PJ1P5JQ,P538IZH"
+    },
+    "PAGERBEAUTY_HTTP_USER": {
+      "description": "(optional) Enable basic HTTP authentication: user name",
+      "required": false
+    },
+    "PAGERBEAUTY_HTTP_PASSWORD": {
+      "description": "(optional) Basic HTTP authentication password",
+      "required": false
+    },
+    "PAGERBEAUTY_HTTP_ACCESS_TOKEN": {
+      "description": "(optional) Enable access_token authentication. Makes possible embedding PagerBeauty in browsers that don't support iframes with basic HTTP authentication enabled. Append ?access_token=your_token to schedule URL to make it embeddable",
+      "generator": "secret",
+      "required": false
+    }
+  },
+  "success_url": "/"
+}

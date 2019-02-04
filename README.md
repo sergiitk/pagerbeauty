@@ -1,18 +1,37 @@
-# Pager Beauty [![CircleCI](https://circleci.com/gh/sergiitk/pagerbeauty/tree/master.svg?style=shield)](https://circleci.com/gh/sergiitk/pagerbeauty/tree/master) [![dependencies Status](https://david-dm.org/sergiitk/pagerbeauty/status.svg)](https://david-dm.org/sergiitk/pagerbeauty) [![devDependencies Status](https://david-dm.org/sergiitk/pagerbeauty/dev-status.svg)](https://david-dm.org/sergiitk/pagerbeauty?type=dev)
+# Pager Beauty [![CircleCI](https://circleci.com/gh/sergiitk/pagerbeauty/tree/master.svg?style=shield)](https://circleci.com/gh/sergiitk/pagerbeauty/tree/master) [![dependencies Status](https://david-dm.org/sergiitk/pagerbeauty/status.svg)](https://david-dm.org/sergiitk/pagerbeauty)
 
-Add concise PagerDuty on-calls widget to your dashboard
+Add concise PagerDuty on-call widget to your monitoring dashboard.
+[Live Demo!](https://demo.pagerbeauty.sergii.org/)
 
 ![PagerDuty On Call](https://user-images.githubusercontent.com/672669/46779296-1e233100-cce5-11e8-897c-b60f935e3ca8.png)
 
-## Running
-### Using Docker
+## Running on Heroku
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/sergiitk/pagerbeauty)
+
+The easiest way give PagerBeauty a run is one-click deployment using Heroku Button.  
+Refer to advanced [PagerBeauty on Heroku documentation](https://github.com/sergiitk/pagerbeauty/tree/master/docs/heroku.md)
+for manual deployments using Heroku CLI and keeping PagerBeauty up-to-date.
+
+## Running with Docker
 Docker repo: [`sergiitk/pagerbeauty`](https://hub.docker.com/r/sergiitk/pagerbeauty)
 
+You can run PagerBeauty [locally](http://localhost:8080) on your infrastructure using [Docker](https://www.docker.com/get-started).  
+Create `.env` file as instructed in [configuration](#configuration) and run:
 ```sh
 docker run --rm -p 8080:8080 --env-file=.env -it sergiitk/pagerbeauty:latest
 ```
 
-### Configuration
+Or set individual environment variables as needed:
+```sh
+docker run --rm -p 8080:8080 -e PAGERBEAUTY_PD_API_KEY=yourkey -e PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2 -it sergiitk/pagerbeauty:latest
+```
+
+Example running PagerBeauty using test key:
+```sh
+docker run --rm -p 8080:8080 -e PAGERBEAUTY_PD_API_KEY=y_NbAkKc66ryYTWUXYEu -e PAGERBEAUTY_PD_SCHEDULES=PJ1P5JQ,P538IZH -it sergiitk/pagerbeauty:latest
+```
+
+## Configuration
 
 Configure PagerBeauty with `.env` file or by exporting environment variables:
 
@@ -20,12 +39,13 @@ Configure PagerBeauty with `.env` file or by exporting environment variables:
 # For Docker compatibility, do not placed quotation marks around the values.
 # https://docs.docker.com/compose/env-file/
 
-# PagerDuty REST API v2 Access Key
-# Read-only access is sufficient
+# PagerDuty REST API v2 Access Key (Read-only)
 # Docs: https://support.pagerduty.com/docs/using-the-api
 PAGERBEAUTY_PD_API_KEY=yourkey
 
-# The list of schedule ids to load
+# Comma-separated list of PagerDuty schedule ids
+# You can find schedule id in the URL of the schedule on PagerDuty website after symbol #
+# For example, schedule https://example.pagerduty.com/schedules#PJ1P5JQ has id PJ1P5JQ
 PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 
 # (Optional) How often to refresh the schedules, in minutes.
@@ -71,7 +91,7 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 # PAGERBEAUTY_HTTP_ACCESS_TOKEN=your_token
 ```
 
-## Add to DataDog dashboard
+## Adding to DataDog dashboard
 
 ![Add PagerDuty to DataDog dashboard](https://user-images.githubusercontent.com/672669/46853316-ad0a7900-cdcb-11e8-80b3-ddedb7c8f2eb.gif)
 
@@ -81,8 +101,17 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 4. Drag "IFrame" widget to the board
 5. Copy PagerBeauty URL of your schedule and paste to IFrame URL on DataDog board
 
-## Roadmap
+## FAQ
+### How it works?
+PagerBeauty acts as a local cache server for PagerDuty schedules.
+It fetches and refreshes PagerDuty schedules in the background using secret PagerDuty API key and makes them available through web interface. This is done to protect your secret API key from public exposure. This means you'll need to run PagerBeauty as a service.
 
+## Contributing
+[Contribution guide](https://github.com/sergiitk/pagerbeauty/tree/master/CONTRIBUTING.md) and step-by-step local development instructions.  
+The source code of [Pager Beauty](https://github.com/sergiitk/pagerbeauty) is maintained by [@sergiitk](https://github.com/sergiitk).
+It's an Open Source project under MIT License. Contributions are welcomed. Follow the usual GitHub Pull Request process. [Be nice.](https://github.com/sergiitk/pagerbeauty/tree/master/CODE_OF_CONDUCT.md)
+
+## Roadmap
 This project is under active development.
 
 #### Version 1.0
@@ -112,8 +141,8 @@ This project is under active development.
 
 #### Documentation and examples
 
-- [ ] Live demo on Heroku
-- [ ] Example: Heroku
+- [x] Live demo on Heroku
+- [x] Example: Heroku
 - [ ] Example: Custom SSL certificate using Docker
 - [ ] Example: Digital Ocean
 
@@ -123,18 +152,8 @@ This project is under active development.
 |:---:|
 | [<sub><b>JW Player</b></sub>](https://www.jwplayer.com/) |
 
-## Contributing
-
-[Contribution guide](CONTRIBUTING.md) and step-by-step local development instructions.
-
-The source code of [Pager Beauty](https://github.com/sergiitk/pagerbeauty) is maintained by [@sergiitk](https://github.com/sergiitk).
-It's an Open Source project under MIT License. Contributions are welcomed. Follow the usual GitHub Pull Request process.
-
-[Be nice.](CODE_OF_CONDUCT.md)
-
-#### Questions?
+## Questions?
 Ask me on Twitter: [@sergiitk](https://twitter.com/sergiitk)
-
 
 ## License
 

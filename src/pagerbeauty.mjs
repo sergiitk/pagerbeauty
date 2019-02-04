@@ -58,7 +58,7 @@ const config = {
     httpPort: process.env.PAGERBEAUTY_HTTP_PORT,
     auth: {
       name: process.env.PAGERBEAUTY_HTTP_USER,
-      pass: process.env.PAGERBEAUTY_HTTP_PASSWORD,
+      pass: process.env.PAGERBEAUTY_HTTP_PASSWORD || '',
       token: process.env.PAGERBEAUTY_HTTP_ACCESS_TOKEN,
     },
   },
