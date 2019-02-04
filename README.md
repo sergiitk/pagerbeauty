@@ -115,6 +115,10 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 PagerBeauty acts as a local cache server for PagerDuty schedules.
 It fetches and refreshes PagerDuty schedules in the background using secret PagerDuty API key and makes them available through web interface. This is done to protect your secret API key from public exposure. This means you'll need to run PagerBeauty as a service.
 
+### How to add my userpic?
+PagerDuty uses [Gravatar](https://en.gravatar.com/) to manage profile photos. 
+If you already have a Gravatar account, you can attach your PagerDuty login email to this account.
+
 ## Contributing
 [Contribution guide](https://github.com/sergiitk/pagerbeauty/tree/master/CONTRIBUTING.md) and step-by-step local development instructions.  
 The source code of [Pager Beauty](https://github.com/sergiitk/pagerbeauty) is maintained by [@sergiitk](https://github.com/sergiitk).
