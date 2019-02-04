@@ -31,6 +31,15 @@ Example running PagerBeauty using test key:
 docker run --rm -p 8080:8080 -e PAGERBEAUTY_PD_API_KEY=y_NbAkKc66ryYTWUXYEu -e PAGERBEAUTY_PD_SCHEDULES=PJ1P5JQ,P538IZH -it sergiitk/pagerbeauty:latest
 ```
 
+## Running with Node
+NPM repo: [`pagerbeauty`](https://www.npmjs.com/package/pagerbeauty)
+
+Configure PagerBeauty according to [configuration](#configuration) and run:
+```sh
+yarn add pagerbeauty
+node --experimental-modules node_modules/pagerbeauty/src/pagerbeauty.mjs
+```
+
 ## Configuration
 
 Configure PagerBeauty with `.env` file or by exporting environment variables:
