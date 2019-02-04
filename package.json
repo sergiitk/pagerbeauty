@@ -91,6 +91,9 @@
     "webpack-cli": "^3.2.1",
     "webpack-merge": "^4.2.1"
   },
+  "resolutions": {
+    "terser": "3.14.1"
+  },
   "nodemonConfig": {
     "verbose": true,
     "watch": [
