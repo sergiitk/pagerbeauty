@@ -6,16 +6,14 @@ Add concise PagerDuty on-call widget to your monitoring dashboard.
 ![PagerDuty On Call](https://user-images.githubusercontent.com/672669/46779296-1e233100-cce5-11e8-897c-b60f935e3ca8.png)
 
 ## Running on Heroku
-The easiest way give PagerBeauty a run is one-click deploy using Heroku Button.
-
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/sergiitk/pagerbeauty)
 
+The easiest way give PagerBeauty a run is one-click deploy using Heroku Button.  
 Refer to advanced [PagerBeauty on Heroku documentation](https://github.com/sergiitk/pagerbeauty/tree/master/docs/heroku)
 for manual deployments using Heroku CLI and keeping PagerBeauty up-to-date.
 
 ## Running with Docker
-Docker repo: [`sergiitk/pagerbeauty`](https://hub.docker.com/r/sergiitk/pagerbeauty).
-
+Docker repo: [`sergiitk/pagerbeauty`](https://hub.docker.com/r/sergiitk/pagerbeauty)  
 You can run PagerBeauty [locally](http://localhost:8080) on your infrastructure using Docker.
 
 Create `.env` file as instructed in [configuration](#configuration) and run:
