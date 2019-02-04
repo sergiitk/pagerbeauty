@@ -1,7 +1,7 @@
 # Pager Beauty [![CircleCI](https://circleci.com/gh/sergiitk/pagerbeauty/tree/master.svg?style=shield)](https://circleci.com/gh/sergiitk/pagerbeauty/tree/master) [![dependencies Status](https://david-dm.org/sergiitk/pagerbeauty/status.svg)](https://david-dm.org/sergiitk/pagerbeauty)
 
 Add concise PagerDuty on-call widget to your monitoring dashboard.
-[Live Demo](https://demo.pagerbeauty.sergii.org/)
+[Live Demo!](https://demo.pagerbeauty.sergii.org/)
 
 ![PagerDuty On Call](https://user-images.githubusercontent.com/672669/46779296-1e233100-cce5-11e8-897c-b60f935e3ca8.png)
 
@@ -9,12 +9,13 @@ Add concise PagerDuty on-call widget to your monitoring dashboard.
 PagerBeauty works as a local cache server for PagerDuty schedules.
 It fetches and refreshes PagerDuty schedules in the background using your secret PagerDuty API key and makes them available through web interface. This is done to protect your secret API key from public exposure. This means you'll need to run PagerBeauty as a service.
 
-The easiest way to run PagerBeauty is Heroku one-click deploy.
-
-### Deploy to Heroku
-One-click deploy:  
+### Deploying to Heroku
+#### Deploying with Heroku Button
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/sergiitk/pagerbeauty)
 
+The easiest way give PagerBeauty a run is one-click deploy using Heroku Button.
+
+#### Deploying with Git and Updating
 Refer to advanced [PagerBeauty on Heroku documentation](https://github.com/sergiitk/pagerbeauty/tree/master/docs/heroku)
 for manual deployments using Heroku CLI and keeping PagerBeauty up-to-date.
 
@@ -98,7 +99,7 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 # PAGERBEAUTY_HTTP_ACCESS_TOKEN=your_token
 ```
 
-## Add to dashboard
+## Adding to dashboard
 ### DataDog dashboard
 
 ![Add PagerDuty to DataDog dashboard](https://user-images.githubusercontent.com/672669/46853316-ad0a7900-cdcb-11e8-80b3-ddedb7c8f2eb.gif)
@@ -149,8 +150,8 @@ This project is under active development.
 
 #### Documentation and examples
 
-- [ ] Live demo on Heroku
-- [ ] Example: Heroku
+- [x] Live demo on Heroku
+- [x] Example: Heroku
 - [ ] Example: Custom SSL certificate using Docker
 - [ ] Example: Digital Ocean
 

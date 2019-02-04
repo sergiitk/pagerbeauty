@@ -46,7 +46,7 @@ git push heroku production:master
 heroku open
 ```
 
-#### Updating App Deployed with Git
+#### Updating PagerBeauty Deployed with Git
 ```sh
 # Clone pagerbeauty repository if you don't have it
 git clone https://github.com/sergiitk/pagerbeauty.git
@@ -65,7 +65,7 @@ git push heroku production:master
 ## Deploying with Heroku Button
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/sergiitk/pagerbeauty)
 
-#### Updating App Deployed with Heroku Button
+#### Updating PagerBeauty Deployed with Heroku Button
 Currently the only way to update Heroku app deployed with Heroku Button is
 through Heroku CLI and Git.
 
