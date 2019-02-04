@@ -13,9 +13,9 @@ Refer to advanced [PagerBeauty on Heroku documentation](https://github.com/sergi
 for manual deployments using Heroku CLI and keeping PagerBeauty up-to-date.
 
 ## Running with Docker
-Docker repo: [`sergiitk/pagerbeauty`](https://hub.docker.com/r/sergiitk/pagerbeauty)  
-You can run PagerBeauty [locally](http://localhost:8080) on your infrastructure using Docker.
+Docker repo: [`sergiitk/pagerbeauty`](https://hub.docker.com/r/sergiitk/pagerbeauty)
 
+You can run PagerBeauty [locally](http://localhost:8080) on your infrastructure using [Docker](https://www.docker.com/get-started).  
 Create `.env` file as instructed in [configuration](#configuration) and run:
 ```sh
 docker run --rm -p 8080:8080 --env-file=.env -it sergiitk/pagerbeauty:latest
@@ -107,10 +107,9 @@ PagerBeauty acts as a local cache server for PagerDuty schedules.
 It fetches and refreshes PagerDuty schedules in the background using secret PagerDuty API key and makes them available through web interface. This is done to protect your secret API key from public exposure. This means you'll need to run PagerBeauty as a service.
 
 ## Contributing
-[Contribution guide](CONTRIBUTING.md) and step-by-step local development instructions.  
+[Contribution guide](https://github.com/sergiitk/pagerbeauty/tree/master/CONTRIBUTING.md) and step-by-step local development instructions.  
 The source code of [Pager Beauty](https://github.com/sergiitk/pagerbeauty) is maintained by [@sergiitk](https://github.com/sergiitk).
-It's an Open Source project under MIT License. Contributions are welcomed. Follow the usual GitHub Pull Request process.  
-[Be nice.](CODE_OF_CONDUCT.md)
+It's an Open Source project under MIT License. Contributions are welcomed. Follow the usual GitHub Pull Request process. [Be nice.](https://github.com/sergiitk/pagerbeauty/tree/master/CODE_OF_CONDUCT.md)
 
 ## Roadmap
 This project is under active development.
