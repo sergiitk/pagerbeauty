@@ -5,7 +5,7 @@
 
 ### Docker images
 [![](https://images.microbadger.com/badges/version/sergiitk/pagerbeauty:dev.svg)](https://microbadger.com/images/sergiitk/pagerbeauty:dev) [![](https://images.microbadger.com/badges/image/sergiitk/pagerbeauty:dev.svg)](https://microbadger.com/images/sergiitk/pagerbeauty:dev)  
-[![](https://images.microbadger.com/badges/version/sergiitk/pagerbeauty.svg)](https://microbadger.com/images/sergiitk/pagerbeauty)[![](https://images.microbadger.com/badges/image/sergiitk/pagerbeauty.svg)](https://microbadger.com/images/sergiitk/pagerbeauty)
+[![](https://images.microbadger.com/badges/version/sergiitk/pagerbeauty.svg)](https://microbadger.com/images/sergiitk/pagerbeauty) [![](https://images.microbadger.com/badges/image/sergiitk/pagerbeauty.svg)](https://microbadger.com/images/sergiitk/pagerbeauty)
 
 ## Rules
 

@@ -3,7 +3,11 @@
 Add concise PagerDuty on-call widget to your monitoring dashboard.
 [Live Demo!](https://demo.pagerbeauty.sergii.org/)
 
-![PagerDuty On Call](https://user-images.githubusercontent.com/672669/46779296-1e233100-cce5-11e8-897c-b60f935e3ca8.png)
+### Who's on-call?
+![PagerDuty On Call](https://user-images.githubusercontent.com/672669/52192981-d63b9300-281a-11e9-8d51-d0982c205b78.png)
+
+### Ongoing incident
+![PagerDuty Incident](https://user-images.githubusercontent.com/672669/52192943-95dc1500-281a-11e9-976f-094eed7e2126.png)
 
 ## Running on Heroku
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/sergiitk/pagerbeauty)
