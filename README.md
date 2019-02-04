@@ -7,12 +7,12 @@ Add concise PagerDuty on-call widget to your monitoring dashboard.
 ![PagerDuty On Call](https://user-images.githubusercontent.com/672669/52192981-d63b9300-281a-11e9-8d51-d0982c205b78.png)
 
 <details>
-  <summary>Active PagerDuty Incident</summary>
-  <img width="1024" alt="Active PagerDuty Incident" src="https://user-images.githubusercontent.com/672669/52192981-d63b9300-281a-11e9-8d51-d0982c205b78.png">
+  <summary><h3>Active PagerDuty Incident</h3></summary>
+  <img width="939" alt="Active PagerDuty Incident" src="https://user-images.githubusercontent.com/672669/52192943-95dc1500-281a-11e9-976f-094eed7e2126.png">
 </details>
 
 <details>
-  <summary>On Real Datadog Dashboard</summary>
+  <summary><h4>On Real Datadog Dashboard</h3></summary>
   <img alt="On Real Datadog Dashboard" src="https://user-images.githubusercontent.com/672669/52193081-5104ae00-281b-11e9-9b4b-3bd16d1b7029.jpg">
 </details>
 
