@@ -1,5 +1,5 @@
 # https://hub.docker.com/_/node/
-FROM node:10.15.0-alpine
+FROM node:10.15.1-alpine
 
 # Environment
 ENV APP_DIR=/usr/src/app
