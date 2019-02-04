@@ -141,11 +141,12 @@ This project is under active development.
 - [x] Automated Builds
 - [x] No limit on the total number of schedules supported
 - [x] Make on-call view red during an active incident
+- [x] HTTP authentication bypass support for embeds
 
 #### Version 2.0
 
+- [ ] Built-in SSL Support
 - [ ] Next on duty
-- [ ] HTTP authentication bypass support for embeds
 - [ ] Websocket refresh
 
 #### Documentation and examples
