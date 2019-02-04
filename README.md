@@ -12,7 +12,7 @@ The easiest way give PagerBeauty a run is one-click deployment using Heroku Butt
 Refer to advanced [PagerBeauty on Heroku documentation](https://github.com/sergiitk/pagerbeauty/tree/master/docs/heroku.md)
 for manual deployments using Heroku CLI and keeping PagerBeauty up-to-date.
 
-## Running with Docker
+## Running with Docker [![](https://images.microbadger.com/badges/image/sergiitk/pagerbeauty.svg)](https://microbadger.com/images/sergiitk/pagerbeauty)
 Docker repo: [`sergiitk/pagerbeauty`](https://hub.docker.com/r/sergiitk/pagerbeauty)
 
 You can run PagerBeauty [locally](http://localhost:8080) on your infrastructure using [Docker](https://www.docker.com/get-started).  
@@ -34,7 +34,7 @@ docker run --rm -p 8080:8080 -e PAGERBEAUTY_PD_API_KEY=y_NbAkKc66ryYTWUXYEu -e P
 ## Running with Node
 NPM repo: [`pagerbeauty`](https://www.npmjs.com/package/pagerbeauty)
 
-Configure PagerBeauty according to [configuration](#configuration) and run:
+Setup PagerBeauty by following [configuration](#configuration) section and run:
 ```sh
 yarn add pagerbeauty
 node --experimental-modules node_modules/pagerbeauty/src/pagerbeauty.mjs
