@@ -13,7 +13,8 @@ Refer to advanced [PagerBeauty on Heroku documentation](https://github.com/sergi
 for manual deployments using Heroku CLI and keeping PagerBeauty up-to-date.
 
 ## Running with Docker
-Docker repo: [`sergiitk/pagerbeauty`](https://hub.docker.com/r/sergiitk/pagerbeauty) [![](https://images.microbadger.com/badges/image/sergiitk/pagerbeauty.svg)](https://hub.docker.com/r/sergiitk/pagerbeauty)
+[![](https://images.microbadger.com/badges/image/sergiitk/pagerbeauty.svg)](https://hub.docker.com/r/sergiitk/pagerbeauty)  
+Docker repo: [`sergiitk/pagerbeauty`](https://hub.docker.com/r/sergiitk/pagerbeauty)
 
 You can run PagerBeauty [locally](http://localhost:8080) on your infrastructure using [Docker](https://www.docker.com/get-started).  
 Create `.env` file as instructed in [configuration](#configuration) and run:
