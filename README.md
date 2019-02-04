@@ -5,21 +5,15 @@ Add concise PagerDuty on-call widget to your monitoring dashboard.
 
 ![PagerDuty On Call](https://user-images.githubusercontent.com/672669/46779296-1e233100-cce5-11e8-897c-b60f935e3ca8.png)
 
-## Running
-PagerBeauty works as a local cache server for PagerDuty schedules.
-It fetches and refreshes PagerDuty schedules in the background using your secret PagerDuty API key and makes them available through web interface. This is done to protect your secret API key from public exposure. This means you'll need to run PagerBeauty as a service.
-
-### Deploying to Heroku
-#### Deploying with Heroku Button
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/sergiitk/pagerbeauty)
-
+## Running on Heroku
 The easiest way give PagerBeauty a run is one-click deploy using Heroku Button.
 
-#### Deploying with Git and Updating
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/sergiitk/pagerbeauty)
+
 Refer to advanced [PagerBeauty on Heroku documentation](https://github.com/sergiitk/pagerbeauty/tree/master/docs/heroku)
 for manual deployments using Heroku CLI and keeping PagerBeauty up-to-date.
 
-### Using Docker
+## Running with Docker
 Docker repo: [`sergiitk/pagerbeauty`](https://hub.docker.com/r/sergiitk/pagerbeauty).
 
 You can run PagerBeauty [locally](http://localhost:8080) on your infrastructure using Docker.
@@ -110,9 +104,13 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 4. Drag "IFrame" widget to the board
 5. Copy PagerBeauty URL of your schedule and paste to IFrame URL on DataDog board
 
+## FAQ
+### How it works?
+PagerBeauty works as a local cache server for PagerDuty schedules.
+It fetches and refreshes PagerDuty schedules in the background using secret PagerDuty API key and makes them available through web interface. This is done to protect your secret API key from public exposure. This means you'll need to run PagerBeauty as a service.
+
 
 ## Contributing
-
 [Contribution guide](CONTRIBUTING.md) and step-by-step local development instructions.
 
 The source code of [Pager Beauty](https://github.com/sergiitk/pagerbeauty) is maintained by [@sergiitk](https://github.com/sergiitk).
