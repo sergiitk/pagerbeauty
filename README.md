@@ -8,7 +8,7 @@ Add concise PagerDuty on-call widget to your monitoring dashboard.
 ## Running on Heroku
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/sergiitk/pagerbeauty)
 
-The easiest way give PagerBeauty a run is one-click deploy using Heroku Button.  
+The easiest way give PagerBeauty a run is one-click deployment using Heroku Button.  
 Refer to advanced [PagerBeauty on Heroku documentation](https://github.com/sergiitk/pagerbeauty/tree/master/docs/heroku)
 for manual deployments using Heroku CLI and keeping PagerBeauty up-to-date.
 
@@ -91,8 +91,7 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 # PAGERBEAUTY_HTTP_ACCESS_TOKEN=your_token
 ```
 
-## Adding to dashboard
-### DataDog dashboard
+## Adding to DataDog dashboard
 
 ![Add PagerDuty to DataDog dashboard](https://user-images.githubusercontent.com/672669/46853316-ad0a7900-cdcb-11e8-80b3-ddedb7c8f2eb.gif)
 
@@ -104,19 +103,16 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 
 ## FAQ
 ### How it works?
-PagerBeauty works as a local cache server for PagerDuty schedules.
+PagerBeauty acts as a local cache server for PagerDuty schedules.
 It fetches and refreshes PagerDuty schedules in the background using secret PagerDuty API key and makes them available through web interface. This is done to protect your secret API key from public exposure. This means you'll need to run PagerBeauty as a service.
 
-
 ## Contributing
-[Contribution guide](CONTRIBUTING.md) and step-by-step local development instructions.
-
+[Contribution guide](CONTRIBUTING.md) and step-by-step local development instructions.  
 The source code of [Pager Beauty](https://github.com/sergiitk/pagerbeauty) is maintained by [@sergiitk](https://github.com/sergiitk).
-It's an Open Source project under MIT License. Contributions are welcomed. Follow the usual GitHub Pull Request process.
-
+It's an Open Source project under MIT License. Contributions are welcomed. Follow the usual GitHub Pull Request process.  
 [Be nice.](CODE_OF_CONDUCT.md)
 
-### Roadmap
+## Roadmap
 This project is under active development.
 
 #### Version 1.0
@@ -157,7 +153,7 @@ This project is under active development.
 |:---:|
 | [<sub><b>JW Player</b></sub>](https://www.jwplayer.com/) |
 
-#### Questions?
+## Questions?
 Ask me on Twitter: [@sergiitk](https://twitter.com/sergiitk)
 
 ## License
