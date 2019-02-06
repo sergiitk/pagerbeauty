@@ -124,6 +124,8 @@ services:
     volumes:
       - ./test/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
       - ./test/grafana/dashboards:/var/lib/grafana/dashboards
+    depends_on:
+      - pagerbeauty-dev
 
 # Use shared node_modules
 volumes:
