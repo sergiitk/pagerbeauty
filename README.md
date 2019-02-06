@@ -119,7 +119,7 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 2. Find the schedule you want to embed, copy its URL
 3. Open your Datadog dashboard, click "Edit Board".
 4. Drag "IFrame" widget to the board
-5. Paste PagerBeauty schedule URL to IFrame URL on Datadog board
+5. Paste copied PagerBeauty schedule URL to IFrame URL on Datadog board
 6. Resize and save!
 
 ## Add to Grafana dashboard
@@ -136,9 +136,9 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 6. Select `AJAX` panel
 7. Click `Panel title` -> `Edit`
 8. On `Request` tab, fill out:  
-   Url: paste schedule url  
-   Method: `iframe`  
-   Parameters: `{ theme: "grafana" }`
+   `URL`: paste copied PagerBeauty schedule URL  
+   `Method`: `iframe`  
+   `Parameters`: `{ theme: "grafana" }`
 9. On `General` tab, set your panel title and check `Transparent`
 10. Close panel edit, resize and save!
 
