@@ -113,13 +113,13 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 
 ## Adding to Datadog dashboard
 
-![Add PagerDuty to Datadog dashboard](https://user-images.githubusercontent.com/672669/46853316-ad0a7900-cdcb-11e8-80b3-ddedb7c8f2eb.gif)
+![Add PagerDuty to Datadog dashboard](https://user-images.githubusercontent.com/672669/52323171-10876a80-29aa-11e9-8dcc-b0b7f421605e.gif)
 
 1. Open the schedules list in PagerBeauty. Make sure the app is running behind HTTPS
 2. Find the schedule you want to embed, copy its URL
-3. Open your Datadog dashboard, click "Edit Board".
-4. Drag "IFrame" widget to the board
-5. Paste copied PagerBeauty schedule URL to IFrame URL on Datadog board
+3. Open your Datadog dashboard, click `Edit Board`.
+4. Drag `IFrame` widget to the board
+5. Paste copied PagerBeauty schedule URL to `IFrame URL` on Datadog board
 6. Resize and save!
 
 ## Add to Grafana dashboard
