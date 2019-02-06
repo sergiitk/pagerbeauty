@@ -12,8 +12,8 @@ Add concise PagerDuty on-call widget to your monitoring dashboard.
 </details>
 
 <details>
-  <summary><strong>PagerBauty on Real Datadog Dashboard</strong></summary>
-  <img alt="PagerBauty on Real Datadog Dashboard" src="https://user-images.githubusercontent.com/672669/52193081-5104ae00-281b-11e9-9b4b-3bd16d1b7029.jpg">
+  <summary><strong>PagerBeauty on Real Datadog Dashboard</strong></summary>
+  <img alt="PagerBeauty on Real Datadog Dashboard" src="https://user-images.githubusercontent.com/672669/52193081-5104ae00-281b-11e9-9b4b-3bd16d1b7029.jpg">
 </details>
 
 ## Running on Heroku
