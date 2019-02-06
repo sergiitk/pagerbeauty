@@ -126,6 +126,7 @@
     "schedules",
     "schedule",
     "datadog-dashboard",
+    "datadog-pagerduty",
     "embeds",
     "pager",
     "oncalls-widget",
