@@ -1,7 +1,6 @@
 // ------- Imports -------------------------------------------------------------
 
 import test from 'ava';
-import chai from 'chai';
 
 // ------- Internal imports ----------------------------------------------------
 
@@ -13,7 +12,6 @@ import {
 
 // ------- Init ----------------------------------------------------------------
 
-const { expect } = chai;
 const { withNewPage } = AcceptanceHelpers;
 
 test.before(AcceptanceHelpers.openBrowser);
@@ -22,7 +20,7 @@ test.after.always(AcceptanceHelpers.closeBrowser);
 // ------- Tests ---------------------------------------------------------------
 
 test('Misc: Grafana theme is applied', withNewPage(), async (t, page) => {
-  const response = await page.goto(`${BASE_URL}/v1/schedules/PJ1P5JQ.html?theme=grafana`);
+  await page.goto(`${BASE_URL}/v1/schedules/PJ1P5JQ.html?theme=grafana`);
 
   await page.waitForSelector('.on_call_root');
   const pageTest = new PageTest(page);
@@ -30,7 +28,7 @@ test('Misc: Grafana theme is applied', withNewPage(), async (t, page) => {
 });
 
 test('Misc: Other themes is not', withNewPage(), async (t, page) => {
-  const response = await page.goto(`${BASE_URL}/v1/schedules/PJ1P5JQ.html?theme=foo`);
+  await page.goto(`${BASE_URL}/v1/schedules/PJ1P5JQ.html?theme=foo`);
 
   await page.waitForSelector('.on_call_root');
   const pageTest = new PageTest(page);
