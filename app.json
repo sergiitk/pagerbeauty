@@ -19,7 +19,10 @@
     "datadog-dashboard",
     "embeds",
     "pager",
-    "oncalls-widget"
+    "oncalls-widget",
+    "grafana",
+    "grafana-dashboard",
+    "grafana-pagerduty"
   ],
   "env": {
     "PAGERBEAUTY_PD_API_KEY": {
