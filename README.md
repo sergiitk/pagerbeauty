@@ -116,10 +116,30 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 ![Add PagerDuty to Datadog dashboard](https://user-images.githubusercontent.com/672669/46853316-ad0a7900-cdcb-11e8-80b3-ddedb7c8f2eb.gif)
 
 1. Open the schedules list in deployed app. Make sure the app is running behind HTTPS
-2. Find the schedule you want to embed
+2. Find the schedule you want to embed, copy its URL
 3. Open your Datadog dashboard, click "Edit Board".
 4. Drag "IFrame" widget to the board
-5. Copy PagerBeauty URL of your schedule and paste to IFrame URL on Datadog board
+5. Paste PagerBeauty schedule URL to IFrame URL on Datadog board
+6. Resize and save!
+
+## Add to Grafana dashboard
+
+![Add PagerDuty to Grafana dashboard](https://user-images.githubusercontent.com/672669/52322269-75d95c80-29a6-11e9-9432-e3b420c13de1.gif)
+
+
+1. Install [AJAX](https://grafana.com/plugins/ryantxu-ajax-panel) plugin
+   `grafana-cli plugins install ryantxu-ajax-panel`
+2. Open the schedules list in deployed app
+3. Find the schedule you want to embed, open it, copy its URL
+4. Open your Grafana dashboard, click "Add Panel"
+5. Select "Ajax" panel
+6. Click "Panel title" -> Edit
+7. On `Request` tab, fill out:
+   Url: paste schedule url
+   Method: `iframe`
+   Parameters: `{ theme: "grafana" }`
+8. On `General` tab, set your panel title and check `Transparent`
+9. Close panel edit, resize and save!
 
 ## FAQ
 ### How it works?

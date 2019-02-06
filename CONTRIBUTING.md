@@ -46,7 +46,8 @@ PAGERBEAUTY_HTTP_ACCESS_TOKEN=803651A9-E3B7-4153-9566-6E54F5F0CEAB
 
 #### Grafana
 There's a test Grafana with pre-provisioned PagerBeauty board available
-at <http://localhost:3000/d/RUn-WZumz/pagerbeauty>. Feel free to use for testing.
+at <http://localhost:3000/d/RUn-WZumz/pagerbeauty>. Feel free to use for testing.  
+Login and pasword are `admin`.
 
 ### Additional configuration
 
