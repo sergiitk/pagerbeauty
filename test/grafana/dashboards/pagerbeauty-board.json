@@ -15,16 +15,41 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 1,
   "links": [],
   "panels": [
     {
-      "description": "",
       "gridPos": {
-        "h": 9,
-        "w": 9,
+        "h": 10,
+        "w": 10,
         "x": 0,
         "y": 0
+      },
+      "header_js": "{}",
+      "id": 6,
+      "links": [],
+      "method": "iframe",
+      "mode": "html",
+      "params_js": "",
+      "responseType": "text",
+      "showTime": false,
+      "showTimeFormat": "LTS",
+      "showTimePrefix": null,
+      "showTimeValue": "request",
+      "skipSameURL": true,
+      "templateResponse": true,
+      "title": "PagerBeauty Schedule",
+      "transparent": true,
+      "type": "ryantxu-ajax-panel",
+      "url": "http://localhost:8080/v1/schedules/P2RFGIP.html?theme=grafana",
+      "withCredentials": false
+    },
+    {
+      "description": "",
+      "gridPos": {
+        "h": 10,
+        "w": 10,
+        "x": 0,
+        "y": 10
       },
       "header_js": "{}",
       "id": 4,
@@ -39,10 +64,10 @@
       "showTimeValue": "request",
       "skipSameURL": true,
       "templateResponse": true,
-      "title": "PagerBeauty",
+      "title": "Test Schedule",
       "transparent": true,
       "type": "ryantxu-ajax-panel",
-      "url": "http://localhost:8080/v1/schedules/PJ1P5JQ.html",
+      "url": "http://localhost:8080/v1/schedules/PJ1P5JQ.html?theme=grafana",
       "withCredentials": false
     }
   ],
@@ -84,5 +109,5 @@
   "timezone": "",
   "title": "PagerBeauty",
   "uid": "RUn-WZumz",
-  "version": 12
+  "version": 7
 }
