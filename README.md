@@ -12,8 +12,8 @@ Add concise PagerDuty on-call widget to your monitoring dashboard.
 </details>
 
 <details>
-  <summary><strong>PagerBauty on Real DataDog Dashboard</strong></summary>
-  <img alt="PagerBauty on Real DataDog Dashboard" src="https://user-images.githubusercontent.com/672669/52193081-5104ae00-281b-11e9-9b4b-3bd16d1b7029.jpg">
+  <summary><strong>PagerBauty on Real Datadog Dashboard</strong></summary>
+  <img alt="PagerBauty on Real Datadog Dashboard" src="https://user-images.githubusercontent.com/672669/52193081-5104ae00-281b-11e9-9b4b-3bd16d1b7029.jpg">
 </details>
 
 ## Running on Heroku
@@ -111,15 +111,15 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 # PAGERBEAUTY_HTTP_ACCESS_TOKEN=your_token
 ```
 
-## Adding to DataDog dashboard
+## Adding to Datadog dashboard
 
-![Add PagerDuty to DataDog dashboard](https://user-images.githubusercontent.com/672669/46853316-ad0a7900-cdcb-11e8-80b3-ddedb7c8f2eb.gif)
+![Add PagerDuty to Datadog dashboard](https://user-images.githubusercontent.com/672669/46853316-ad0a7900-cdcb-11e8-80b3-ddedb7c8f2eb.gif)
 
 1. Open the schedules list in deployed app. Make sure the app is running behind HTTPS
 2. Find the schedule you want to embed
-3. Open your DataDog dashboard, click "Edit Board".
+3. Open your Datadog dashboard, click "Edit Board".
 4. Drag "IFrame" widget to the board
-5. Copy PagerBeauty URL of your schedule and paste to IFrame URL on DataDog board
+5. Copy PagerBeauty URL of your schedule and paste to IFrame URL on Datadog board
 
 ## FAQ
 ### How it works?
@@ -145,7 +145,7 @@ This project is under active development.
 - [x] HTML response
 - [x] HTML responsive layout
 - [x] Basic autorefresh
-- [x] MVP: Embed in DataDog dashboard as an iframe
+- [x] MVP: Embed in Datadog dashboard as an iframe
 - [x] Show dates in local time
 - [x] Configurable refresh period
 - [x] HTTP Basic Authentication
