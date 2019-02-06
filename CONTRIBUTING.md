@@ -44,6 +44,11 @@ PAGERBEAUTY_HTTP_PASSWORD=basic_password
 PAGERBEAUTY_HTTP_ACCESS_TOKEN=803651A9-E3B7-4153-9566-6E54F5F0CEAB
 ```
 
+#### Grafana
+There's a test Grafana with pre-provisioned PagerBeauty board available
+at <http://localhost:3000/d/RUn-WZumz/pagerbeauty>. Feel free to use for testing.  
+Login and pasword are `admin`.
+
 ### Additional configuration
 
 Use `.env` to override the [default settings](https://github.com/sergiitk/pagerbeauty#configuration),
@@ -81,6 +86,11 @@ To change PagerDuty Mock API port, you need to update the following
 PAGERBEAUTY_PD_API_MOCK_PORT=9090
 # Instruct PagerBeauty use different PagerDuty API:
 PAGERBEAUTY_PD_API_URL=http://mock-pagerduty-api:9090
+```
+
+You can configure grafana local port with:
+```sh
+PAGERBEAUTY_GRAFANA_PORT=3001
 ```
 
 **Using real PagerDuty API**

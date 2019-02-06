@@ -5,6 +5,7 @@ const avaConfig = {
     'test/**/*.mjs',
     '!test/helpers',
     '!test/mocks',
+    '!test/grafana',
   ],
   require: ['esm'],
   babel: false,

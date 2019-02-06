@@ -24,6 +24,10 @@ export class SchedulesController {
 
   async show(ctx, scheduleId, format = 'html') {
     const oncall = this.db.get('oncalls').onCallRepo.get(scheduleId);
+    let theme = false;
+    if (ctx.request.query.theme === 'grafana') {
+      theme = 'grafana';
+    }
 
     switch (format) {
       case 'json':
@@ -36,7 +40,7 @@ export class SchedulesController {
         break;
       case 'html':
         // HTML will handle it for now
-        await ctx.render('oncalls/show.html', { oncall });
+        await ctx.render('oncalls/show.html', { oncall, theme });
         break;
       default:
         break;

@@ -4,6 +4,7 @@ $red: #eb364b;
 $green: #25c151;
 $textBlack: #454545;
 $textWhite: white;
+$textGrey: #d8d9da;
 $borderDark: #343434;
 $scheduleRowDefaultPadding: 1vw;
 
@@ -20,6 +21,7 @@ $statusSuccess: #94E185;
 // Styles
 body {
   font-family: 'Roboto Mono', monospace;
+  margin: 8px;
 }
 
 .status_indicator {
@@ -173,3 +175,9 @@ a {
 }
 .schedule.state_not_found { @include schedule_state($yellow); }
 .schedule.state_active_incident { @include schedule_state($red); }
+
+.theme-grafana {
+  a { color: $textGrey; }
+  &.filled_row { color: $textGrey; }
+  .schedule { margin: 0; width: 98%; }
+}

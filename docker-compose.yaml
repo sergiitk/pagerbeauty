@@ -113,6 +113,20 @@ services:
       - .:/usr/src/app/
       - node_modules:/usr/src/app/node_modules
 
+  # Grafana
+  # admin/admin
+  grafana:
+    image: grafana/grafana
+    ports:
+      - ${PAGERBEAUTY_GRAFANA_PORT:-3000}:${PAGERBEAUTY_PD_API_MOCK_PORT:-3000}
+    environment:
+      GF_INSTALL_PLUGINS: ryantxu-ajax-panel
+    volumes:
+      - ./test/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./test/grafana/dashboards:/var/lib/grafana/dashboards
+    depends_on:
+      - pagerbeauty-dev
+
 # Use shared node_modules
 volumes:
   node_modules:
