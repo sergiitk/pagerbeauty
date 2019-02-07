@@ -1,5 +1,45 @@
 # PagerBeauty Changelog
 
+# [1.0.0](https://github.com/sergiitk/pagerbeauty/compare/v0.3.0...v1.0.0) (2019-02-07)
+
+
+### Bug Fixes
+
+- [79](https://github.com/sergiitk/pagerbeauty/pull/79) **core** Fix error handling on unknown schedules
+- [80](https://github.com/sergiitk/pagerbeauty/pull/80) **ui-oncalls** Handle one user in the rotation (no end date)
+
+### Cleanup
+
+- [75](https://github.com/sergiitk/pagerbeauty/pull/75) **chore-dependencies** Dependencies upgrade
+- [64](https://github.com/sergiitk/pagerbeauty/pull/64) **chore-dependencies** Dependencies upgrade
+- [83](https://github.com/sergiitk/pagerbeauty/pull/83) **chore-dependencies** Dependencies upgrade
+- [87](https://github.com/sergiitk/pagerbeauty/pull/87) **circleci** Move test key from secrets to allow exogenous PRs
+- [70](https://github.com/sergiitk/pagerbeauty/pull/70) **core** Load Schedules separately from OnCalls
+- [69](https://github.com/sergiitk/pagerbeauty/pull/69) **core** Move schedule loading out of web controller
+- [65](https://github.com/sergiitk/pagerbeauty/pull/65) **misc-local-dev** Acceptance tests in Docker
+- [62](https://github.com/sergiitk/pagerbeauty/pull/62) **misc-release** Automated Docker image builds with basic sanity checks
+- [71](https://github.com/sergiitk/pagerbeauty/pull/71) **misc-release** Improve Semantic Release
+- [66](https://github.com/sergiitk/pagerbeauty/pull/66) **misc-release** Run acceptance tests in CircleCI
+- [68](https://github.com/sergiitk/pagerbeauty/pull/68) **tests** Better test reports
+- [67](https://github.com/sergiitk/pagerbeauty/pull/67) **tests** Setup unit test tools and refactor acceptance tests
+
+### Documentation
+
+- [78](https://github.com/sergiitk/pagerbeauty/pull/78) **deploy** Document deploying PagerBeauty to Heroku
+- [90](https://github.com/sergiitk/pagerbeauty/pull/90) **readme** Add PagerBeauty on Grafana Dashboard screenshot
+- [86](https://github.com/sergiitk/pagerbeauty/pull/86) **readme** Fix minor typo
+- [89](https://github.com/sergiitk/pagerbeauty/pull/89) **readme** Update Adding to Datadog dashboard gif
+- [85](https://github.com/sergiitk/pagerbeauty/pull/85) **readme** Update caps on Datadog
+
+### Features
+
+- [73](https://github.com/sergiitk/pagerbeauty/pull/73) **core-incidents** Poll for active incidents
+- [72](https://github.com/sergiitk/pagerbeauty/pull/72) **core-oncalls** Removes implicit limit on how many on-calls can be loaded
+- [77](https://github.com/sergiitk/pagerbeauty/pull/77) **core-web** HTTP server can be started on custom port
+- [82](https://github.com/sergiitk/pagerbeauty/pull/82) **core-web** Support for Authentication Bearer access_token
+- [88](https://github.com/sergiitk/pagerbeauty/pull/88) **grafana** Support Grafana
+- [74](https://github.com/sergiitk/pagerbeauty/pull/74) **ui-oncalls** On-call active incident view: show incident info and make red
+
 # [0.3.0](https://github.com/sergiitk/pagerbeauty/compare/v0.2.0...v0.3.0) (2018-12-22)
 
 
