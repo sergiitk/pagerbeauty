@@ -45,7 +45,6 @@
     "luxon": "^1.11.4",
     "node-fetch": "^2.2.0",
     "nunjucks": "^3.2.0",
-    "terser": "3.16.1",
     "tsscmp": "^1.0.6",
     "winston": "^3.2.1"
   },
@@ -91,9 +90,6 @@
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
     "webpack-merge": "^4.2.1"
-  },
-  "resolutions": {
-    "terser": "3.14.1"
   },
   "nodemonConfig": {
     "verbose": true,
