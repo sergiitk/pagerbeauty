@@ -34,15 +34,12 @@ RUN yarn install --frozen-lockfile
 # ---------- Acceptance test image from here
 # https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md
 
-# Installs latest Chromium (71) package:
-# https://pkgs.alpinelinux.org/package/edge/community/x86_64/chromium
+# Installs latest Chromium 72.0.3626.121-r0 available in Apline 3.9:
+# Alpine: https://github.com/nodejs/docker-node/blob/170ed2/10/alpine/Dockerfile
+# Chromium: https://pkgs.alpinelinux.org/package/v3.9/community/x86_64/chromium
 RUN apk update && apk upgrade && \
-    echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
-    echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
     apk add --no-cache \
-      chromium@edge \
-      harfbuzz@edge \
-      nss@edge
+      chromium
 
 # TODO: create a user and omit no-sandbox
 
