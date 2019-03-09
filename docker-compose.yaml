@@ -28,8 +28,9 @@ services:
       - ./assets/:/usr/src/app/assets/:ro
       - ./package.json:/usr/src/app/package.json:ro
       - ./yarn.lock:/usr/src/app/yarn.lock:ro
-      - node-modules-shared:/usr/src/app/node_modules
+      - node-modules-shared:/usr/src/app/node_modules:nocopy
     depends_on:
+      - yarn
       - mock-pagerduty-api
       - pagerbeauty-dev-assets
 
@@ -59,8 +60,9 @@ services:
       - ./assets/:/usr/src/app/assets/:ro
       - ./package.json:/usr/src/app/package.json:ro
       - ./yarn.lock:/usr/src/app/yarn.lock:ro
-      - node-modules-shared:/usr/src/app/node_modules
+      - node-modules-shared:/usr/src/app/node_modules:nocopy
     depends_on:
+      - yarn
       - mock-pagerduty-api
       - pagerbeauty-dev-assets
 
@@ -76,7 +78,9 @@ services:
       - ./yarn.lock:/usr/src/app/yarn.lock:ro
       - ./webpack.common.js:/usr/src/app/webpack.common.js:ro
       - ./webpack.dev.js:/usr/src/app/webpack.dev.js:ro
-      - node-modules-shared:/usr/src/app/node_modules
+      - node-modules-shared:/usr/src/app/node_modules:nocopy
+    depends_on:
+      - yarn
 
   mock-pagerduty-api:
     build:
@@ -94,7 +98,9 @@ services:
       - ./test/mocks/:/usr/src/app/test/mocks/
       - ./package.json:/usr/src/app/package.json:ro
       - ./yarn.lock:/usr/src/app/yarn.lock:ro
-      - node-modules-shared:/usr/src/app/node_modules
+      - node-modules-shared:/usr/src/app/node_modules:nocopy
+    depends_on:
+      - yarn
 
   test-acceptance:
     build:
@@ -114,8 +120,9 @@ services:
       - ./test/:/usr/src/app/test/:ro
       - ./package.json:/usr/src/app/package.json:ro
       - ./yarn.lock:/usr/src/app/yarn.lock:ro
-      - node-modules-shared:/usr/src/app/node_modules
+      - node-modules-shared:/usr/src/app/node_modules:nocopy
     depends_on:
+      - yarn
       - pagerbeauty-dev
       - pagerbeauty-dev-with-auth
 
