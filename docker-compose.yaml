@@ -25,7 +25,7 @@ services:
       - ${PAGERBEAUTY_HTTP_PORT:-8080}:${PAGERBEAUTY_HTTP_PORT:-8080}
     volumes:
       - .:/usr/src/app/
-      - node_modules:/usr/src/app/node_modules
+      - node-modules-shared:/usr/src/app/node_modules
     depends_on:
       - mock-pagerduty-api
       - pagerbeauty-dev-assets
@@ -53,7 +53,7 @@ services:
       - ${PAGERBEAUTY_WITH_AUTH_HTTP_PORT:-8081}:${PAGERBEAUTY_WITH_AUTH_HTTP_PORT:-8081}
     volumes:
       - .:/usr/src/app/
-      - node_modules:/usr/src/app/node_modules
+      - node-modules-shared:/usr/src/app/node_modules
     depends_on:
       - mock-pagerduty-api
       - pagerbeauty-dev-assets
@@ -65,7 +65,7 @@ services:
     command: ['yarn', 'run', 'build:watch']
     volumes:
       - .:/usr/src/app/
-      - node_modules:/usr/src/app/node_modules
+      - node-modules-shared:/usr/src/app/node_modules
 
   mock-pagerduty-api:
     build:
@@ -81,7 +81,7 @@ services:
       - ${PAGERBEAUTY_PD_API_MOCK_PORT:-8090}:${PAGERBEAUTY_PD_API_MOCK_PORT:-8090}
     volumes:
       - .:/usr/src/app/
-      - node_modules:/usr/src/app/node_modules
+      - node-modules-shared:/usr/src/app/node_modules
 
   test-acceptance:
     build:
@@ -98,7 +98,7 @@ services:
         ${PAGERBEAUTY_HTTP_ACCESS_TOKEN:-803651A9-E3B7-4153-9566-6E54F5F0CEAB}
     volumes:
       - .:/usr/src/app/
-      - node_modules:/usr/src/app/node_modules
+      - node-modules-shared:/usr/src/app/node_modules
     depends_on:
       - pagerbeauty-dev
       - pagerbeauty-dev-with-auth
@@ -111,7 +111,7 @@ services:
     command: []
     volumes:
       - .:/usr/src/app/
-      - node_modules:/usr/src/app/node_modules
+      - node-modules-shared:/usr/src/app/node_modules
 
   # Grafana
   # admin/admin
@@ -129,4 +129,4 @@ services:
 
 # Use shared node_modules
 volumes:
-  node_modules:
+  node-modules-shared:

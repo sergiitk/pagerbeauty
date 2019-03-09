@@ -58,7 +58,7 @@ services:
     ports:
       - "8090:8090"
     volumes:
-      - node_modules:/usr/src/app/node_modules
+      - node-modules-shared:/usr/src/app/node_modules
 
   test-acceptance:
     build:
@@ -76,7 +76,7 @@ services:
     volumes:
       # Uncomment for verifying service locally.
       # - .:/usr/src/app/
-      - node_modules:/usr/src/app/node_modules
+      - node-modules-shared:/usr/src/app/node_modules
       - ./tmp:/usr/src/app/tmp
     depends_on:
       - pagerbeauty-ci
@@ -84,4 +84,4 @@ services:
 
 # Use shared node_modules
 volumes:
-  node_modules:
+  node-modules-shared:
