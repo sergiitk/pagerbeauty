@@ -17,7 +17,8 @@ WORKDIR $APP_DIR
 
 # Install
 COPY package.json yarn.lock $APP_DIR/
-RUN yarn install --prod --frozen-lockfile
+RUN yarn install --prod --frozen-lockfile \
+  && yarn cache clean
 
 # Pagerbeauty default port
 EXPOSE 8080
