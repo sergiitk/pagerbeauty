@@ -6,6 +6,7 @@
   "author": "Sergii Tkachenko <hi@sergii.org>",
   "license": "MIT",
   "main": "./src/pagerbeauty",
+  "module": "./src/pagerbeauty",
   "engines": {
     "node": "^10.14.0",
     "npm": "^6.4.1",
@@ -29,14 +30,15 @@
     "build": "webpack --config webpack.dev.js",
     "build:watch": "webpack --watch --config webpack.dev.js",
     "build:prod": "NODE_ENV=production webpack --config webpack.prod.js --display-modules",
-    "app": "node --experimental-modules src/pagerbeauty.mjs",
-    "app:watch": "nodemon --experimental-modules src/pagerbeauty.mjs",
-    "app:prod": "NODE_ENV=production node --experimental-modules src/pagerbeauty.mjs",
+    "app": "node -r esm src/pagerbeauty.mjs",
+    "app:watch": "nodemon -r esm src/pagerbeauty.mjs",
+    "app:prod": "NODE_ENV=production node -r esm src/pagerbeauty.mjs",
     "heroku-postbuild": "NODE_ENV=production webpack --config webpack.prod.js"
   },
   "dependencies": {
     "basic-auth": "^2.0.1",
     "dotenv": "^6.1.0",
+    "esm": "^3.2.14",
     "koa": "^2.7.0",
     "koa-mount": "^4.0.0",
     "koa-route": "^3.2.0",
@@ -89,9 +91,6 @@
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
     "webpack-merge": "^4.2.1"
-  },
-  "resolutions": {
-    "esm": "3.2.9"
   },
   "nodemonConfig": {
     "verbose": true,
