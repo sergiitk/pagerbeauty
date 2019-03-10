@@ -2,16 +2,12 @@
 
 // This model to be compatible both with backend and frontend.
 
-import luxon from 'luxon';
+import { DateTime } from 'luxon';
 
 // ------- Internal imports ----------------------------------------------------
 
 import { Incident } from './Incident';
 import { Schedule } from './Schedule';
-
-// ------- Init --------------------------------------------------------------
-
-const { DateTime } = luxon;
 
 // ------- OnCall --------------------------------------------------------------
 

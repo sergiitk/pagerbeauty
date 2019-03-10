@@ -2,7 +2,6 @@
 const avaConfig = {
   files: [
     'test/**/*.js',
-    'test/**/*.mjs',
     '!test/helpers',
     '!test/mocks',
     '!test/grafana',
@@ -12,7 +11,6 @@ const avaConfig = {
   compileEnhancements: false,
   extensions: [
     'js',
-    'mjs',
   ],
   // https://github.com/avajs/ava/blob/master/docs/03-assertions.md#custom-assertions
   // Chai is used for assertions.

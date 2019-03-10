@@ -6,8 +6,8 @@ import React from 'react';
 
 // ------- Internal imports ----------------------------------------------------
 
-import { OnCall } from '../../../models/OnCall.mjs';
-import { Incident } from '../../../models/Incident.mjs';
+import { OnCall } from '../../../models/OnCall';
+import { Incident } from '../../../models/Incident';
 import { PagerBeautyFetchNotFoundUiError } from '../ui-errors';
 import { StatusIndicatorView } from './StatusIndicatorView';
 
