@@ -24,9 +24,13 @@ services:
     ports:
       - ${PAGERBEAUTY_HTTP_PORT:-8080}:${PAGERBEAUTY_HTTP_PORT:-8080}
     volumes:
-      - .:/usr/src/app/
-      - node_modules:/usr/src/app/node_modules
+      - ./src/:/usr/src/app/src/:ro
+      - ./assets/:/usr/src/app/assets/:ro
+      - ./package.json:/usr/src/app/package.json:ro
+      - ./yarn.lock:/usr/src/app/yarn.lock:ro
+      - node-modules-shared:/usr/src/app/node_modules:nocopy
     depends_on:
+      - yarn
       - mock-pagerduty-api
       - pagerbeauty-dev-assets
 
@@ -52,9 +56,13 @@ services:
     ports:
       - ${PAGERBEAUTY_WITH_AUTH_HTTP_PORT:-8081}:${PAGERBEAUTY_WITH_AUTH_HTTP_PORT:-8081}
     volumes:
-      - .:/usr/src/app/
-      - node_modules:/usr/src/app/node_modules
+      - ./src/:/usr/src/app/src/:ro
+      - ./assets/:/usr/src/app/assets/:ro
+      - ./package.json:/usr/src/app/package.json:ro
+      - ./yarn.lock:/usr/src/app/yarn.lock:ro
+      - node-modules-shared:/usr/src/app/node_modules:nocopy
     depends_on:
+      - yarn
       - mock-pagerduty-api
       - pagerbeauty-dev-assets
 
@@ -64,8 +72,15 @@ services:
       dockerfile: ./Dockerfile-dev
     command: ['yarn', 'run', 'build:watch']
     volumes:
-      - .:/usr/src/app/
-      - node_modules:/usr/src/app/node_modules
+      - ./src/:/usr/src/app/src/:ro
+      - ./assets/:/usr/src/app/assets/:rw
+      - ./package.json:/usr/src/app/package.json:ro
+      - ./yarn.lock:/usr/src/app/yarn.lock:ro
+      - ./webpack.common.js:/usr/src/app/webpack.common.js:ro
+      - ./webpack.dev.js:/usr/src/app/webpack.dev.js:ro
+      - node-modules-shared:/usr/src/app/node_modules:nocopy
+    depends_on:
+      - yarn
 
   mock-pagerduty-api:
     build:
@@ -80,8 +95,12 @@ services:
     ports:
       - ${PAGERBEAUTY_PD_API_MOCK_PORT:-8090}:${PAGERBEAUTY_PD_API_MOCK_PORT:-8090}
     volumes:
-      - .:/usr/src/app/
-      - node_modules:/usr/src/app/node_modules
+      - ./test/mocks/:/usr/src/app/test/mocks/
+      - ./package.json:/usr/src/app/package.json:ro
+      - ./yarn.lock:/usr/src/app/yarn.lock:ro
+      - node-modules-shared:/usr/src/app/node_modules:nocopy
+    depends_on:
+      - yarn
 
   test-acceptance:
     build:
@@ -97,9 +116,13 @@ services:
       PAGERBEAUTY_HTTP_ACCESS_TOKEN: >-
         ${PAGERBEAUTY_HTTP_ACCESS_TOKEN:-803651A9-E3B7-4153-9566-6E54F5F0CEAB}
     volumes:
-      - .:/usr/src/app/
-      - node_modules:/usr/src/app/node_modules
+      - ./src/:/usr/src/app/src/:ro
+      - ./test/:/usr/src/app/test/:ro
+      - ./package.json:/usr/src/app/package.json:ro
+      - ./yarn.lock:/usr/src/app/yarn.lock:ro
+      - node-modules-shared:/usr/src/app/node_modules:nocopy
     depends_on:
+      - yarn
       - pagerbeauty-dev
       - pagerbeauty-dev-with-auth
 
@@ -108,10 +131,11 @@ services:
       context: .
       dockerfile: ./Dockerfile-dev
     entrypoint: ['yarn']
-    command: []
+    command: ['help']
     volumes:
-      - .:/usr/src/app/
-      - node_modules:/usr/src/app/node_modules
+      - ./package.json:/usr/src/app/package.json:rw
+      - ./yarn.lock:/usr/src/app/yarn.lock:rw
+      - node-modules-shared:/usr/src/app/node_modules
 
   # Grafana
   # admin/admin
@@ -129,4 +153,4 @@ services:
 
 # Use shared node_modules
 volumes:
-  node_modules:
+  node-modules-shared:
