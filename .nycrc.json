@@ -8,7 +8,6 @@
     "ava.config.js"
   ],
   "extension": [
-    ".jsx",
-    ".mjs"
+    ".jsx"
   ]
 }

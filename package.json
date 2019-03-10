@@ -6,6 +6,7 @@
   "author": "Sergii Tkachenko <hi@sergii.org>",
   "license": "MIT",
   "main": "./src/pagerbeauty",
+  "module": "./src/pagerbeauty",
   "engines": {
     "node": "^10.14.0",
     "npm": "^6.4.1",
@@ -23,20 +24,21 @@
     "coverage:report:text": "nyc report --reporter=text",
     "coverage:report:html": "nyc report --reporter=html",
     "coverage:report:codecov": "nyc report --reporter=lcovonly && codecov",
-    "lint": "eslint --ext .js --ext .mjs --ext .jsx -f unix .",
-    "eslint": "eslint --ext .js --ext .mjs --ext .jsx",
+    "lint": "eslint --ext .js --ext .jsx -f unix .",
+    "eslint": "eslint --ext .js --ext .jsx",
     "mock:pagerduty_api": "mockserver -m test/mocks",
     "build": "webpack --config webpack.dev.js",
     "build:watch": "webpack --watch --config webpack.dev.js",
     "build:prod": "NODE_ENV=production webpack --config webpack.prod.js --display-modules",
-    "app": "node --experimental-modules src/pagerbeauty.mjs",
-    "app:watch": "nodemon --experimental-modules src/pagerbeauty.mjs",
-    "app:prod": "NODE_ENV=production node --experimental-modules src/pagerbeauty.mjs",
+    "app": "node -r esm src/pagerbeauty.js",
+    "app:watch": "nodemon -r esm src/pagerbeauty.js",
+    "app:prod": "NODE_ENV=production node -r esm src/pagerbeauty.js",
     "heroku-postbuild": "NODE_ENV=production webpack --config webpack.prod.js"
   },
   "dependencies": {
     "basic-auth": "^2.0.1",
     "dotenv": "^6.1.0",
+    "esm": "^3.2.14",
     "koa": "^2.7.0",
     "koa-mount": "^4.0.0",
     "koa-route": "^3.2.0",
@@ -90,15 +92,12 @@
     "webpack-cli": "^3.2.3",
     "webpack-merge": "^4.2.1"
   },
-  "resolutions": {
-    "esm": "3.2.9"
-  },
   "nodemonConfig": {
     "verbose": true,
     "watch": [
       "src"
     ],
-    "ext": "js,mjs,html.j2"
+    "ext": "js,html.j2"
   },
   "babel": {
     "presets": [

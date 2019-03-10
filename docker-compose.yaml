@@ -133,6 +133,8 @@ services:
     entrypoint: ['yarn']
     command: ['help']
     volumes:
+      - ./src/:/usr/src/app/src/:ro
+      - ./test/:/usr/src/app/test/:ro
       - ./package.json:/usr/src/app/package.json:rw
       - ./yarn.lock:/usr/src/app/yarn.lock:rw
       - node-modules-shared:/usr/src/app/node_modules
