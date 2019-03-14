@@ -75,14 +75,14 @@ export class OnCallView extends React.Component {
       <div className={`schedule state_${state}`}>
         { /* Header */ }
         <OnCallScheduleRowView filled>
-          <span>ON CALL</span>
+          <span class="wanted">WANTED</span>
           <OnCallStatusIndicatorView error={error} isFetching={isFetching} />
         </OnCallScheduleRowView>
 
         { /* Schedule name */ }
         {state !== 'not_found' && (
           <OnCallScheduleRowView>
-            <a href={onCall.schedule.url} className="schedule_name">{onCall.schedule.name}</a>
+            <a href={onCall.schedule.url} className="schedule_name">FOR {onCall.schedule.name}</a>
           </OnCallScheduleRowView>
         )}
 
@@ -268,6 +268,7 @@ export class OnCallUserInfoView extends React.Component {
             'No one is on call'
           )}
         </div>
+        <div className="huge_reward">HUGE REWARD!</div>
       </React.Fragment>
     );
   }

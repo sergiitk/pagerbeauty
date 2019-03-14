@@ -1,7 +1,7 @@
 // Variables
 $yellow: #fecb2e;
 $red: #eb364b;
-$green: #25c151;
+$green: #134826;
 $textBlack: #454545;
 $textWhite: white;
 $textGrey: #d8d9da;
@@ -22,6 +22,34 @@ $statusSuccess: #94E185;
 body {
   font-family: 'Roboto Mono', monospace;
   margin: 8px;
+}
+
+.status_row {
+  font-family: 'Rye', cursive;
+}
+
+.huge_reward {
+  font-family: 'Rye', cursive;
+  font-size: 3vw;
+  color: #C9404D;
+  position: absolute;
+  margin-top: 4%;
+  margin-left: -30%;
+  transform: rotate(20deg);
+}
+
+.state_normal {
+  background-image: url("http://www.wildbillssodafranchise.com/wp-content/uploads/2014/05/cool-simple-backgrounds.jpg");
+  // background-image: url('https://cdn.hipwallpaper.com/i/3/12/TA26kr.jpg')
+  background-size: 100%;
+}
+
+.wanted {
+  font-family: 'Rye', cursive;
+  color: #C9404D;
+  // color: #000;
+  font-size: 46px;
+  text-shadow: 0 0 3px #f0bc87;
 }
 
 .status_indicator {
@@ -73,7 +101,9 @@ a {
     text-align: center;
 
     &.filled_row {
-      background-color: $green;
+      // background-image: url('https://www.crystalgraphicsimages.com/photo/green-vintage-wood-texture-background-close-up-view_cg2p03270089c_th.jpg');
+      background-image: url('https://www.wildtextures.com/wp-content/uploads/wildtextures_seamless-green-wooden-facade-480x367.jpg');
+      background-size: 32% 400%;
       color: $textWhite;
 
       font-size: $row_size;
@@ -125,6 +155,7 @@ a {
   // Header
   .schedule_name {
     font-size: 4vw;
+    font-family: 'Fredericka the Great', cursive;
   }
 
   // User data
@@ -140,6 +171,7 @@ a {
   .user_name {
     font-size: 10vw;
     width: 90%;
+    font-family: 'Fredericka the Great', cursive;
   }
 
   // Date block
@@ -147,6 +179,7 @@ a {
     // Don't break date and time
     .date_date, .date_time {
       white-space: nowrap;
+      font-family: 'Rye', cursive;
     }
 
     $dateMargin: 6vw;
