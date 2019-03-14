@@ -1,6 +1,6 @@
 {
   "name": "pagerbeauty",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "PagerDuty on-call dashboard widget",
   "repository": "git@github.com:sergiitk/pagerbeauty.git",
   "author": "Sergii Tkachenko <hi@sergii.org>",

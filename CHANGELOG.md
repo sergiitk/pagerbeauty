@@ -1,5 +1,17 @@
 # PagerBeauty Changelog
 
+## [1.0.1](https://github.com/sergiitk/pagerbeauty/compare/v1.0.0...v1.0.1) (2019-03-14)
+
+
+### Cleanup
+
+- [98](https://github.com/sergiitk/pagerbeauty/pull/98) **chore-dependencies** More dependency upgrades
+- [95](https://github.com/sergiitk/pagerbeauty/pull/95) **docker** Reduce docker image size by cleaning yarn cache
+
+### Security
+
+- [94](https://github.com/sergiitk/pagerbeauty/pull/94) **CVE-2019-5737** Upgrade node in Docker to 10.15.3 and refresh npm dependencies
+
 # [1.0.0](https://github.com/sergiitk/pagerbeauty/compare/v0.3.0...v1.0.0) (2019-02-07)
 
 
