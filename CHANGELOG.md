@@ -6,6 +6,7 @@
 ### Cleanup
 
 - [98](https://github.com/sergiitk/pagerbeauty/pull/98) **chore-dependencies** More dependency upgrades
+- [96](https://github.com/sergiitk/pagerbeauty/pull/96) **chore-dependencies** Use esm instead of experimental modules
 - [95](https://github.com/sergiitk/pagerbeauty/pull/95) **docker** Reduce docker image size by cleaning yarn cache
 
 ### Security
