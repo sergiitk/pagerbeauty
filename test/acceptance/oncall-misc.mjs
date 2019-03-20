@@ -24,7 +24,7 @@ test('Misc: Grafana theme is applied', withNewPage(), async (t, page) => {
 
   await page.waitForSelector('.on_call_root');
   const pageTest = new PageTest(page);
-  await pageTest.expectClass('.on_call_root', 'theme-grafana');
+  await pageTest.expectClass('.on_call_root', 'theme-grafana', 'aprilfools');
 });
 
 test('Misc: Other themes is not', withNewPage(), async (t, page) => {

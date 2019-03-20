@@ -75,7 +75,7 @@ export class OnCallView extends React.Component {
       <div className={`schedule state_${state}`}>
         { /* Header */ }
         <OnCallScheduleRowView filled>
-          <span class="wanted">WANTED</span>
+          <span className="wanted">WANTED</span>
           <OnCallStatusIndicatorView error={error} isFetching={isFetching} />
         </OnCallScheduleRowView>
 
