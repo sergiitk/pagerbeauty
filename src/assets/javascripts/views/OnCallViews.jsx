@@ -72,10 +72,12 @@ export class OnCallView extends React.Component {
     }
 
     return (
-      <div className={`schedule state_${state}`}>
+      <div>
+      { state === 'normal' ? (
+        <div className={`schedule state_${state} theme-aprilfools`} >
         { /* Header */ }
         <OnCallScheduleRowView filled>
-          <span className="wanted">WANTED</span>
+            <span className="wanted">WANTED</span> 
           <OnCallStatusIndicatorView error={error} isFetching={isFetching} />
         </OnCallScheduleRowView>
 
@@ -89,13 +91,45 @@ export class OnCallView extends React.Component {
         { /* User info */ }
         <OnCallScheduleRowView equalSpacing>
           <OnCallUserInfoView userInfo={userInfo} />
+          <div className="huge_reward">HUGE REWARD!</div>
+        </OnCallScheduleRowView>
+        { /* Status row */ }
+        {statusRow}
+        { /* End */ }
+
+      </div>
+      ) : (
+        <div className={`schedule state_${state}`} >
+        { /* Header */ }
+        <OnCallScheduleRowView filled>
+
+            <span>ON CALL</span>
+          
+          <OnCallStatusIndicatorView error={error} isFetching={isFetching} />
+        </OnCallScheduleRowView>
+
+        { /* Schedule name */ }
+        {state !== 'not_found' && (
+          <OnCallScheduleRowView>
+            <a href={onCall.schedule.url} className="schedule_name"> {onCall.schedule.name}</a>
+          </OnCallScheduleRowView>
+        )}
+
+        { /* User info */ }
+        <OnCallScheduleRowView equalSpacing>
+          <OnCallUserInfoView userInfo={userInfo} />
         </OnCallScheduleRowView>
 
         { /* Status row */ }
         {statusRow}
 
         { /* End */ }
+
       </div>
+      )}
+    </div>
+
+      
     );
   }
 }
@@ -268,7 +302,6 @@ export class OnCallUserInfoView extends React.Component {
             'No one is on call'
           )}
         </div>
-        <div className="huge_reward">HUGE REWARD!</div>
       </React.Fragment>
     );
   }

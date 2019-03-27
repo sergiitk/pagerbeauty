@@ -183,6 +183,9 @@ a {
 }
 
 .theme-aprilfools {
+  background-image: url("http://www.wildbillssodafranchise.com/wp-content/uploads/2014/05/cool-simple-backgrounds.jpg");
+  background-size: 100%;
+  
   .schedule_name, .user_name { font-family: 'Fredericka the Great', cursive;}
   .status_row {font-family: 'Rye', cursive;}
   .huge_reward {
@@ -194,10 +197,10 @@ a {
     margin-left: -30%;
     transform: rotate(20deg);
   }
-  .state_normal {
-  background-image: url("http://www.wildbillssodafranchise.com/wp-content/uploads/2014/05/cool-simple-backgrounds.jpg");
-  background-size: 100%;
-  }
+  // .state_normal {
+  // background-image: url("http://www.wildbillssodafranchise.com/wp-content/uploads/2014/05/cool-simple-backgrounds.jpg");
+  // background-size: 100%;
+  // }
 
   .wanted {
     font-family: 'Rye', cursive;
