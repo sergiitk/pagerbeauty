@@ -57,8 +57,6 @@ services:
     command: ['yarn', 'run', 'mock:pagerduty_api', '-p', '8090']
     ports:
       - "8090:8090"
-    volumes:
-      - node_modules:/usr/src/app/node_modules
 
   test-acceptance:
     build:
@@ -74,14 +72,8 @@ services:
       PAGERBEAUTY_HTTP_PASSWORD: basic_password_ci
       PAGERBEAUTY_HTTP_ACCESS_TOKEN: 9A37F64B-931B-4767-94D3-E41B92991F7C
     volumes:
-      # Uncomment for verifying service locally.
-      # - .:/usr/src/app/
-      - node_modules:/usr/src/app/node_modules
+      # Test reports
       - ./tmp:/usr/src/app/tmp
     depends_on:
       - pagerbeauty-ci
       - pagerbeauty-ci-with-auth
-
-# Use shared node_modules
-volumes:
-  node_modules:

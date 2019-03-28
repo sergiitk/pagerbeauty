@@ -53,7 +53,7 @@ NPM repo: [`pagerbeauty`](https://www.npmjs.com/package/pagerbeauty)
 Setup PagerBeauty by following [configuration](#configuration) section and run:
 ```sh
 yarn add pagerbeauty
-node --experimental-modules node_modules/pagerbeauty/src/pagerbeauty.mjs
+node -r esm node_modules/pagerbeauty/src/pagerbeauty.js
 ```
 
 ## Configuration

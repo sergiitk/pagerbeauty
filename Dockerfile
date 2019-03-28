@@ -1,5 +1,5 @@
 # https://hub.docker.com/_/node/
-FROM node:10.15.1-alpine
+FROM node:10.15.3-alpine
 ARG VCS_REF=not_ci
 LABEL org.label-schema.description="PagerDuty on-call dashboard widget" \
       org.label-schema.name="PagerBeauty" \
@@ -17,7 +17,8 @@ WORKDIR $APP_DIR
 
 # Install
 COPY package.json yarn.lock $APP_DIR/
-RUN yarn install --prod --frozen-lockfile
+RUN yarn install --prod --frozen-lockfile \
+  && yarn cache clean
 
 # Pagerbeauty default port
 EXPOSE 8080
