@@ -25,13 +25,9 @@ export class SchedulesController {
   async show(ctx, scheduleId, format = 'html') {
     const oncall = this.db.get('oncalls').onCallRepo.get(scheduleId);
     let theme = false;
-    // if (ctx.request.query.theme === 'grafana') {
-    //   theme = 'grafana';
-    // }
-    if (ctx.request.query.theme === 'aprilfools') {
-      theme = 'aprilfools';
+    if (ctx.request.query.theme === 'grafana') {
+      theme = 'grafana';
     }
-
 
     switch (format) {
       case 'json':
