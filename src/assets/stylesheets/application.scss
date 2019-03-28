@@ -183,7 +183,9 @@ a {
 }
 
 .schedule.aprilfools {
-  background-image: url("http://www.wildbillssodafranchise.com/wp-content/uploads/2014/05/cool-simple-backgrounds.jpg");
+  // Img source: undetermined
+  // Appears to be a generic wallpaper.
+  background-image: url("/assets/img/cool-simple-backgrounds.jpg");
   background-size: 100%;
 
   .schedule_name, .user_name { font-family: 'Fredericka the Great', cursive;}
@@ -213,7 +215,10 @@ a {
   }
 
   .filled_row {
-    background-image: url('https://www.wildtextures.com/wp-content/uploads/wildtextures_seamless-green-wooden-facade-480x367.jpg');
+    // Img source: https://www.wildtextures.com/wp-content/uploads/wildtextures_seamless-green-wooden-facade-480x367.jpg
+    // ToU: https://www.wildtextures.com/terms-of-use/
+    // All textures at wildtextures.com are completely free for both, personal and commercial use.
+    background-image: url('/assets/img/wildtextures_seamless-green-wooden-facade-480x367.jpg');
     background-size: 32% 400%;
   }
 }
