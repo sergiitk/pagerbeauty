@@ -187,9 +187,17 @@ a {
   // Appears to be a generic wallpaper.
   background-image: url("/assets/img/cool-simple-backgrounds.jpg");
   background-size: 100%;
+  border: 2px solid #000;
 
-  .schedule_name, .user_name { font-family: 'Fredericka the Great', cursive;}
-  .status_row { font-family: 'Rye', cursive;}
+  .schedule_name, .user_name { font-family: 'Fredericka the Great', cursive; }
+  .status_row, .huge_reward, .title { font-family: 'Rye', cursive; }
+
+  .schedule_row {
+    border-bottom: none;
+    &:nth-child(2) {
+      border-bottom: 1px solid #00887b;
+    }
+  }
 
   .schedule_name {
     &::before {
@@ -198,7 +206,6 @@ a {
   }
 
   .huge_reward {
-    font-family: 'Rye', cursive;
     font-size: 3vw;
     color: #C9404D;
     position: absolute;
@@ -208,7 +215,6 @@ a {
   }
 
   .title {
-    font-family: 'Rye', cursive;
     color: #C9404D;
     font-size: 46px;
     text-shadow: 0 0 3px #f0bc87;
