@@ -71,69 +71,37 @@ export class OnCallView extends React.Component {
         );
     }
 
+    // Only show aprilfools when in normal state: no accident and schedule found
+    const aprilfools = state === 'normal';
+
     return (
-      <div>
-        { state === 'normal' ? (
-          <div className={`schedule state_${state} theme-aprilfools`}>
-            { /* Header */ }
-            <OnCallScheduleRowView filled>
-              <span className="wanted">WANTED</span>
-              <OnCallStatusIndicatorView error={error} isFetching={isFetching} />
-            </OnCallScheduleRowView>
+      <div className={`schedule state_${state} ${aprilfools ? 'aprilfools' : ''}`}>
+        { /* Header */ }
+        <OnCallScheduleRowView filled>
+          <span className="title">{`${!aprilfools ? 'ON CALL' : 'WANTED'}`}</span>
+          <OnCallStatusIndicatorView error={error} isFetching={isFetching} />
+        </OnCallScheduleRowView>
 
-            { /* Schedule name */ }
-            {state !== 'not_found' && (
-            <OnCallScheduleRowView>
-              <a href={onCall.schedule.url} className="schedule_name">
-                {onCall.schedule.name}
-              </a>
-            </OnCallScheduleRowView>
-            )}
-
-            { /* User info */ }
-            <OnCallScheduleRowView equalSpacing>
-              <OnCallUserInfoView userInfo={userInfo} />
-              <div className="huge_reward">HUGE REWARD!</div>
-            </OnCallScheduleRowView>
-            { /* Status row */ }
-            {statusRow}
-            { /* End */ }
-
-          </div>
-        ) : (
-          <div className={`schedule state_${state}`}>
-            { /* Header */ }
-            <OnCallScheduleRowView filled>
-
-              <span>ON CALL</span>
-
-              <OnCallStatusIndicatorView error={error} isFetching={isFetching} />
-            </OnCallScheduleRowView>
-
-            { /* Schedule name */ }
-            {state !== 'not_found' && (
-            <OnCallScheduleRowView>
-              <a href={onCall.schedule.url} className="schedule_name">
-                {onCall.schedule.name}
-              </a>
-            </OnCallScheduleRowView>
-            )}
-
-            { /* User info */ }
-            <OnCallScheduleRowView equalSpacing>
-              <OnCallUserInfoView userInfo={userInfo} />
-            </OnCallScheduleRowView>
-
-            { /* Status row */ }
-            {statusRow}
-
-            { /* End */ }
-
-          </div>
+        { /* Schedule name */ }
+        {state !== 'not_found' && (
+          <OnCallScheduleRowView>
+            <a href={onCall.schedule.url} className="schedule_name">
+              {onCall.schedule.name}
+            </a>
+          </OnCallScheduleRowView>
         )}
+
+        { /* User info */ }
+        <OnCallScheduleRowView equalSpacing>
+          <OnCallUserInfoView userInfo={userInfo} />
+          {aprilfools && <div className="huge_reward">HUGE REWARD!</div>}
+        </OnCallScheduleRowView>
+
+        { /* Status row */ }
+        {statusRow}
+
+        { /* End */ }
       </div>
-
-
     );
   }
 }
