@@ -227,4 +227,9 @@ a {
     background-image: url('/assets/img/wildtextures_seamless-green-wooden-facade-480x367.jpg');
     background-size: 32% 400%;
   }
+
+  .theme-grafana & {
+    a { color: $textBlack; }
+    &.filled_row { color: $textBlack; }
+  }
 }
