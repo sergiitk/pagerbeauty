@@ -186,7 +186,7 @@ It's an Open Source project under MIT License. Contributions are welcomed. Follo
 - [x] HTTP authentication bypass support for embeds
 
 #### Version 1.1
-- [ ] #102 Ability to use browser local time
+- [ ] [#102](https://github.com/sergiitk/pagerbeauty/issues/102) Ability to use browser local time
 
 #### Version 2.0
 - [ ] Built-in SSL Support
