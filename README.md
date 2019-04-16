@@ -162,8 +162,8 @@ The source code of [Pager Beauty](https://github.com/sergiitk/pagerbeauty) is ma
 It's an Open Source project under MIT License. Contributions are welcomed. Follow the usual GitHub Pull Request process. [Be nice.](https://github.com/sergiitk/pagerbeauty/tree/master/CODE_OF_CONDUCT.md)
 
 ## Roadmap
-2019-04-01 – 2019-10-01: Maintentnce mode: security and depdendency update. Minor features, Version v1.1
-2019-10-01 — 2020-03-01: Major features, see Version 2.0
+- 2019-04-01 – 2019-10-01: Maintentnce mode: security and depdendency update. Minor features, Version v1.1
+- 2019-10-01 — 2020-03-01: Major features, see Version 2.0
 
 #### Version 1.0
 
