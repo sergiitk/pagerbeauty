@@ -162,7 +162,8 @@ The source code of [Pager Beauty](https://github.com/sergiitk/pagerbeauty) is ma
 It's an Open Source project under MIT License. Contributions are welcomed. Follow the usual GitHub Pull Request process. [Be nice.](https://github.com/sergiitk/pagerbeauty/tree/master/CODE_OF_CONDUCT.md)
 
 ## Roadmap
-This project is under active development.
+- `2019-04-01 – 2019-10-01`: Maintentnce mode: security and depdendency updates. Minor features, see Version 1.1.
+- `2019-10-01 — 2020-03-01`: Major features, see Version 2.0.
 
 #### Version 1.0
 
@@ -184,10 +185,14 @@ This project is under active development.
 - [x] Make on-call view red during an active incident
 - [x] HTTP authentication bypass support for embeds
 
-#### Version 2.0
+#### Version 1.1
+- [ ] [#102](https://github.com/sergiitk/pagerbeauty/issues/102) Ability to use browser local time
 
+#### Version 2.0
 - [ ] Built-in SSL Support
 - [ ] Next on duty
+
+#### Version 3.0
 - [ ] Websocket refresh
 
 #### Documentation and examples
