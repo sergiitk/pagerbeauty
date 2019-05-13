@@ -31,7 +31,7 @@ docker-compose up
 3. Open [localhost:8080](http://localhost:8080)
 
 PagerBeauty for local development is preconfigured, no `.env` file is necessary.  
-It's using [Mockserver](https://github.com/namshi/mockserver) in place of real PagerBeaty API v2: [localhost:8090](http://localhost:8090).
+It's using [Mockserver](https://github.com/namshi/mockserver) in place of real PagerDuty API v2: [localhost:8090](http://localhost:8090).
 
 Application HTTP server and webpack are running in `watch` mode.
 All changes you make should be picked up automatically on the next page refresh: [localhost:8080](http://localhost:8080).
