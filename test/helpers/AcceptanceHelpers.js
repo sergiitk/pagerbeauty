@@ -1,6 +1,6 @@
 // ------- Imports -------------------------------------------------------------
 
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
 import chai from 'chai';
 
 // ------- Init ----------------------------------------------------------------

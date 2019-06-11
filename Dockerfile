@@ -1,5 +1,5 @@
 # https://hub.docker.com/_/node/
-FROM node:10.15.3-alpine
+FROM node:10.16.0-alpine
 ARG VCS_REF=not_ci
 LABEL org.label-schema.description="PagerDuty on-call dashboard widget" \
       org.label-schema.name="PagerBeauty" \

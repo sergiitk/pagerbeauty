@@ -5,7 +5,7 @@ jobs:
   build:
     <<: &docker_node
       docker:
-        - image: circleci/node:10.15.3-stretch
+        - image: circleci/node:10.16.0-stretch
     working_directory: ~/repo
     steps:
       - checkout
