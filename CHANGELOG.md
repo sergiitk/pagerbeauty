@@ -14,8 +14,8 @@
 
 ### Security
 
-- [108](https://github.com/sergiitk/pagerbeauty/pull/108) **npmjs.com/advisories/813** Bump js-yaml from 3.12.2 to 3.13.1
-- [106](https://github.com/sergiitk/pagerbeauty/pull/106) **npmjs.com/advisories/886** Bump fstream from 1.0.11 to 1.0.12
+- [108](https://github.com/sergiitk/pagerbeauty/pull/108) **www.npmjs.com/advisories/813** Bump js-yaml from 3.12.2 to 3.13.1
+- [106](https://github.com/sergiitk/pagerbeauty/pull/106) **www.npmjs.com/advisories/886** Bump fstream from 1.0.11 to 1.0.12
 - [107](https://github.com/sergiitk/pagerbeauty/pull/107) **www.npmjs.com/advisories/755** Bump handlebars from 4.1.0 to 4.1.2
 
 ## [1.0.1](https://github.com/sergiitk/pagerbeauty/compare/v1.0.0...v1.0.1) (2019-03-14)
