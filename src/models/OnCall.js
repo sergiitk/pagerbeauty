@@ -21,6 +21,7 @@ export class OnCall {
     dateEnd,
     schedule,
     incident = null,
+    contactMethods = [],
   }) {
     this.userId = userId;
     this.userName = userName;
@@ -28,6 +29,7 @@ export class OnCall {
     this.userURL = userURL;
     this.dateStart = DateTime.fromISO(dateStart);
     this.dateEnd = DateTime.fromISO(dateEnd);
+    this.contactMethods = contactMethods;
     if (schedule instanceof Schedule) {
       this.schedule = schedule;
     } else {
@@ -51,6 +53,7 @@ export class OnCall {
       dateStart: this.dateStart.toUTC(),
       dateEnd: this.dateEnd.toUTC(),
       schedule: this.schedule.serialize(),
+      contactMethods: this.contactMethods,
       incident: this.incident ? this.incident.serialize() : null,
     };
   }
@@ -75,7 +78,7 @@ export class OnCall {
     return url.href;
   }
 
-  static fromApiRecord(record, schedule) {
+  static fromApiRecord(record, schedule, contactMethods) {
     const attributes = {
       userId: record.user.id,
       userName: record.user.name,
@@ -83,6 +86,7 @@ export class OnCall {
       userURL: record.user.html_url,
       dateStart: record.start,
       dateEnd: record.end,
+      contactMethods,
       schedule,
     };
     return new OnCall(attributes);

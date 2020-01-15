@@ -90,6 +90,7 @@ export class OnCallView extends React.Component {
         <OnCallScheduleRowView equalSpacing>
           <OnCallUserInfoView userInfo={userInfo} />
         </OnCallScheduleRowView>
+        <OnCallUserExtraContactsView contactMethods={onCall.contactMethods} />
 
         { /* Status row */ }
         {statusRow}
@@ -245,6 +246,42 @@ OnCallStatusIndicatorView.propTypes = {
 OnCallStatusIndicatorView.defaultProps = {
   isFetching: false,
   error: null,
+};
+
+// ------- OnCallUserExtraInfoView --------------------------------------------------
+
+export class OnCallUserExtraContactsView extends React.Component {
+  render() {
+    const { contactMethods } = this.props;
+    const phoneMethod = contactMethods.find(cm => cm.type === 'phone_contact_method');
+    if (phoneMethod) {
+      return (
+        <React.Fragment>
+          <div className="user_phone">
+            Phone(
+            {phoneMethod.summary}
+            ):
+            {' '}
+            {phoneMethod.address}
+          </div>
+        </React.Fragment>
+      );
+    }
+    return false;
+  }
+}
+
+OnCallUserExtraContactsView.propTypes = {
+  contactMethods: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    type: PropTypes.string,
+    summary: PropTypes.string,
+    address: PropTypes.string,
+  })),
+};
+
+OnCallUserExtraContactsView.defaultProps = {
+  contactMethods: [],
 };
 
 // ------- OnCallUserInfoView --------------------------------------------------

@@ -163,6 +163,15 @@ export class PagerDutyClient {
     return response.schedule;
   }
 
+  async getUserContactMethods(userId) {
+    const response = await this.get(`users/${userId}/contact_methods`);
+    if (response.contact_methods === undefined
+        || !response.contact_methods || !response.contact_methods.length) {
+      throw new PagerDutyClientResponseParseError('Unexpected parsing errors');
+    }
+    return response.contact_methods;
+  }
+
   async get(endpoint, searchParams) {
     const url = new URL(endpoint, this.apiUrl);
     if (searchParams) {

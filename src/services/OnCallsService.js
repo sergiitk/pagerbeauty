@@ -42,7 +42,17 @@ export class OnCallsService {
           includeFlags,
         );
 
-        const onCall = OnCall.fromApiRecord(record, schedule);
+        let contactMethods = [];
+        const { user } = record;
+        try {
+          // eslint-disable-next-line no-await-in-loop
+          contactMethods = await this.client.getUserContactMethods(user.id);
+          logger.verbose(`Contact methods for user ${user.id} is loaded`);
+        } catch (e) {
+          logger.warn(`Error loading user contact methods for user ${user.id}: ${e}`);
+        }
+
+        const onCall = OnCall.fromApiRecord(record, schedule, contactMethods);
 
         // Needed because of full override.
         if (incidents.has(schedule.id)) {
