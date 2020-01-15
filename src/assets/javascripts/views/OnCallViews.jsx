@@ -90,7 +90,9 @@ export class OnCallView extends React.Component {
         <OnCallScheduleRowView equalSpacing>
           <OnCallUserInfoView userInfo={userInfo} />
         </OnCallScheduleRowView>
-        <OnCallUserExtraContactsView contactMethods={onCall.contactMethods} />
+        {state !== 'not_found' && (
+          <OnCallUserExtraContactsView contactMethods={onCall.contactMethods} />
+        )}
 
         { /* Status row */ }
         {statusRow}
