@@ -37,7 +37,7 @@ test('OnCall', () => {
       serviceName: 'PagerBeauty',
       url: 'https://apidocs.pagerduty.com/incidents/PTM70NY',
     },
-    paymentMethods: [
+    contactMethods: [
       {
         id: 'pmID',
         address: '2432423',
