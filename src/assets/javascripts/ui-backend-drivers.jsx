@@ -132,7 +132,7 @@ export function withAjaxBackend({
           isFetching={isFetching}
           data={data}
           error={error}
-          {...this.props}
+          {...this.props} // eslint-disable-line react/jsx-props-no-spreading
         />
       );
     }
