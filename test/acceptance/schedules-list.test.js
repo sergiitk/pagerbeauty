@@ -32,7 +32,7 @@ test('Schedules List: Loaded', waitFor('.schedules_list'), async (t) => {
 
   const links = await page.$$eval(
     '.schedules_list li',
-    nodes => nodes.map(n => n.textContent),
+    (nodes) => nodes.map((n) => n.textContent),
   );
   expect(links).to.contain('Schedule a quasi illum');
   expect(links).to.contain('Schedule aliquid eum qui');
