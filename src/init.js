@@ -20,7 +20,7 @@ export function setupDefaultLogger({ level = 'info', logFormat = 'human' }) {
     format.colorize({ all: true }),
     format.timestamp({ format: 'HH:mm:ss.SSS' }),
     format.align(),
-    format.printf(data => `${data.timestamp} ${data.level}: ${data.message}`),
+    format.printf((data) => `${data.timestamp} ${data.level}: ${data.message}`),
   );
 
   const machineReadable = format.combine(

@@ -253,7 +253,7 @@ export class OnCallUserInfoView extends React.Component {
   render() {
     const { userInfo } = this.props;
     return (
-      <React.Fragment>
+      <>
         <div className="user_avatar">
           {userInfo ? (
             <a href={userInfo.url}><img src={userInfo.avatar} alt={userInfo.name} /></a>
@@ -268,7 +268,7 @@ export class OnCallUserInfoView extends React.Component {
             'No one is on call'
           )}
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }
@@ -314,10 +314,10 @@ export class OnCallDatesRowView extends React.Component {
     }
 
     return (
-      <React.Fragment>
+      <>
         {fromDate}
         {toDate}
-      </React.Fragment>
+      </>
     );
   }
 }
@@ -394,11 +394,11 @@ export class OnCallDateTimeView extends React.Component {
       dateInTz = date.setZone(timezone);
     }
     return (
-      <React.Fragment>
+      <>
         <span className="date_weekday">{`${dateInTz.toFormat('EEEE')}, `}</span>
         <span className="date_date">{`${dateInTz.toFormat('MMM dd')} `}</span>
         <span className="date_time">{dateInTz.toFormat('t')}</span>
-      </React.Fragment>
+      </>
     );
   }
 }
