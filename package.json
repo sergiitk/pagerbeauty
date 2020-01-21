@@ -79,7 +79,7 @@
     "nyc": "^14.1.1",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "prop-types": "^15.7.2",
-    "puppeteer-core": "1.11.0",
+    "puppeteer-core": "2.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "sass-loader": "^8.0.2",
