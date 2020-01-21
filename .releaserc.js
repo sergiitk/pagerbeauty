@@ -19,7 +19,7 @@ const assets = [
 ];
 
 const config = {
-  branch: 'production',
+  branches: ['production'],
   plugins: [
     [
       '@semantic-release/commit-analyzer',
