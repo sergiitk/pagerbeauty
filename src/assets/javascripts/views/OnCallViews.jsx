@@ -255,10 +255,10 @@ OnCallStatusIndicatorView.defaultProps = {
 export class OnCallUserExtraContactsView extends React.Component {
   render() {
     const { contactMethods } = this.props;
-    const phoneMethod = contactMethods.find(cm => cm.type === 'phone_contact_method');
+    const phoneMethod = contactMethods.find((cm) => cm.type === 'phone_contact_method');
     if (phoneMethod) {
       return (
-        <React.Fragment>
+        <>
           <div className="user_phone">
             Phone(
             {phoneMethod.summary}
@@ -266,7 +266,7 @@ export class OnCallUserExtraContactsView extends React.Component {
             {' '}
             {phoneMethod.address}
           </div>
-        </React.Fragment>
+        </>
       );
     }
     return false;
