@@ -50,7 +50,7 @@ export class Timer {
 
     // Red the semaphore.
     this.semaphore = false;
-    this.runNumber = this.runNumber + 1;
+    this.runNumber += 1;
     let result = false;
     try {
       await task.run(this.runNumber, intervalMs);

@@ -1,5 +1,5 @@
 # https://hub.docker.com/_/node/
-FROM node:10.16.0-alpine
+FROM node:12.14.1-alpine
 ARG VCS_REF=not_ci
 LABEL org.label-schema.description="PagerDuty on-call dashboard widget" \
       org.label-schema.name="PagerBeauty" \
@@ -34,9 +34,9 @@ RUN yarn install --frozen-lockfile
 # ---------- Acceptance test image from here
 # https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md
 
-# Installs latest Chromium 72.0.3626.121-r0 available in Apline 3.9:
-# Alpine: https://github.com/nodejs/docker-node/blob/170ed2/10/alpine/Dockerfile
-# Chromium: https://pkgs.alpinelinux.org/package/v3.9/community/x86_64/chromium
+# Installs latest Chromium 79.0.3945.88-r0 available in Apline 3.11:
+# Alpine: https://github.com/nodejs/docker-node/blob/8b8ee/12/alpine3.11/Dockerfile
+# Chromium: https://pkgs.alpinelinux.org/package/v3.11/community/x86_64/chromium
 RUN apk update && apk upgrade && \
     apk add --no-cache \
       chromium

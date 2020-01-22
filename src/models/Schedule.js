@@ -50,7 +50,7 @@ export class Schedule {
     };
     const escalationPolicies = record.escalation_policies;
     if (escalationPolicies) {
-      attributes.escalationPolicies = escalationPolicies.map(policy => policy.id);
+      attributes.escalationPolicies = escalationPolicies.map((policy) => policy.id);
     }
     return new Schedule(attributes);
   }

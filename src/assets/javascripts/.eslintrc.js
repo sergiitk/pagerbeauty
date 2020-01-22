@@ -9,6 +9,8 @@ module.exports = {
     'react/no-multi-comp': 'off',
     // Classes FTW
     'react/prefer-stateless-function': 'off',
+    // Maybe use separate classes later
+    'max-classes-per-file': 'off',
     // Source: https://github.com/airbnb/javascript/blob/80920a07c5144148d2987f39fb9558246552648e/packages/eslint-config-airbnb-base/rules/style.js#L396
     'object-curly-newline': [
       'error',

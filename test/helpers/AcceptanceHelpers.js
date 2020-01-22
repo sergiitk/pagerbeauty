@@ -58,7 +58,7 @@ export class PageTest {
 
   async expectNoElements(selector) {
     expect(
-      await this.page.$$eval(selector, nodes => nodes.length),
+      await this.page.$$eval(selector, (nodes) => nodes.length),
     ).to.equal(0);
   }
 
@@ -71,7 +71,7 @@ export class PageTest {
   }
 
   async getTextContent(selector) {
-    return this.page.$eval(selector, node => node.textContent);
+    return this.page.$eval(selector, (node) => node.textContent);
   }
 
   async getAttr(selector, attr) {

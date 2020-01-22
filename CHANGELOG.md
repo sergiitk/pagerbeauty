@@ -1,5 +1,22 @@
 # PagerBeauty Changelog
 
+## [1.0.3](https://github.com/sergiitk/pagerbeauty/compare/v1.0.2...v1.0.3) (2020-01-21)
+
+
+### Cleanup
+
+- [130](https://github.com/sergiitk/pagerbeauty/pull/130) **chore-dependencies** Major dependencies upgrade
+- [128](https://github.com/sergiitk/pagerbeauty/pull/128) **chore-dependencies** Major node upgrade node to the last LTE: 12.14.1
+- [129](https://github.com/sergiitk/pagerbeauty/pull/129) **chore-dependencies** Non-major dependencies upgrade
+
+### Security
+
+- [115](https://github.com/sergiitk/pagerbeauty/pull/115) **CVE-2019-10744** Bump lodash from 4.17.11 to 4.17.14
+- [114](https://github.com/sergiitk/pagerbeauty/pull/114) **CVE-2019-10744** Bump lodash.merge from 4.6.1 to 4.6.2
+- [118](https://github.com/sergiitk/pagerbeauty/pull/118) **CVE-2019-10746** Bump mixin-deep from 1.3.1 to 1.3.2
+- [117](https://github.com/sergiitk/pagerbeauty/pull/117) **CVE-2019-15657** Bump eslint-utils from 1.3.1 to 1.4.2
+- [127](https://github.com/sergiitk/pagerbeauty/pull/127) **CVE-2019-19919** Bump handlebars from 4.1.2 to 4.7.2
+
 ## [1.0.2](https://github.com/sergiitk/pagerbeauty/compare/v1.0.1...v1.0.2) (2019-06-12)
 
 

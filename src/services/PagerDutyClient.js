@@ -49,7 +49,7 @@ export class PagerDutyClient {
 
   async oncalls(scheduleIds, include = false) {
     const searchParams = new URLSearchParams(
-      scheduleIds.map(id => ['schedule_ids[]', id]),
+      scheduleIds.map((id) => ['schedule_ids[]', id]),
     );
     // Set limit to maximum possible value. Note that the number of results is
     // the aggregate of all escalation policies of all schedule has.
