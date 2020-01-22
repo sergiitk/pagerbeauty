@@ -10,9 +10,11 @@ import { INCLUDE_USERS } from './PagerDutyClient';
 // ------- OnCallsService ------------------------------------------------------
 
 export class OnCallsService {
-  constructor(pagerDutyClient) {
+  constructor(pagerDutyClient, params = {}) {
     this.client = pagerDutyClient;
     this.onCallRepo = new Map();
+
+    this.userContactsFetchEnabled = params.userContactsFetchEnabled;
   }
 
   async load(schedulesService, incidentsService) {
@@ -43,13 +45,15 @@ export class OnCallsService {
         );
 
         let contactMethods = [];
-        const { user } = record;
-        try {
-          // eslint-disable-next-line no-await-in-loop
-          contactMethods = await this.client.getUserContactMethods(user.id);
-          logger.verbose(`Contact methods for user ${user.id} is loaded`);
-        } catch (e) {
-          logger.warn(`Error loading user contact methods for user ${user.id}: ${e}`);
+        if (this.userContactsFetchEnabled) {
+          const { user } = record;
+          try {
+            // eslint-disable-next-line no-await-in-loop
+            contactMethods = await this.client.getUserContactMethods(user.id);
+            logger.verbose(`Contact methods for user ${user.id} is loaded`);
+          } catch (e) {
+            logger.warn(`Error loading user contact methods for user ${user.id}: ${e}`);
+          }
         }
 
         const onCall = OnCall.fromApiRecord(record, schedule, contactMethods);
