@@ -28,6 +28,11 @@ The easiest way give PagerBeauty a run is one-click deployment using Heroku Butt
 Refer to advanced [PagerBeauty on Heroku documentation](https://github.com/sergiitk/pagerbeauty/tree/master/docs/heroku.md)
 for manual deployments using Heroku CLI and keeping PagerBeauty up-to-date.
 
+
+## Running on AWS
+PagerBeauty is available as a [CloudFourmation](https://raw.githubusercontent.com/sergiitk/pagerbeauty/master/.aws/pagerbeauty.cloudformation) template.
+Refer to advanced [PagerBeauty on AWS documentation](https://github.com/sergiitk/pagerbeauty/tree/master/docs/aws.md) manual.
+
 ## Running with Docker
 Docker repo: [`sergiitk/pagerbeauty`](https://hub.docker.com/r/sergiitk/pagerbeauty)
 
