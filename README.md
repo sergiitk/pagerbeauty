@@ -110,6 +110,11 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 # PAGERBEAUTY_HTTP_USER=basic_username
 # PAGERBEAUTY_HTTP_PASSWORD=basic_password
 
+# (Optional) Enable user phone fetching on schedule loading
+# Default: false
+# PAGERBEAUTY_LOAD_USER_CONTACT_METHODS=true
+# PAGERBEAUTY_LOAD_USER_CONTACT_METHODS=false
+
 # (Optional) Enable authentication access token (RFC6750)
 # Note: embedding iframes that link to a page with basic HTTP name/password
 # authentication is not supported by most modern browsers. To bypass it, you

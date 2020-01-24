@@ -142,6 +142,21 @@ a {
     width: 90%;
   }
 
+  .user_phone {
+    text-align: center;
+    font-size: $row_size;
+    min-height: $row_size;
+    padding: $scheduleRowDefaultPadding;
+    @media (max-width: 1000px) {
+      font-size: $row_size + 1;
+      min-height: $row_size + 1;
+    }
+    @media (max-width: 500px) {
+      font-size: $row_size + 2;
+      min-height: $row_size + 2;
+    }
+  }
+
   // Date block
   .date {
     // Don't break date and time

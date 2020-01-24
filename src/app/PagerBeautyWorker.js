@@ -33,11 +33,12 @@ export class PagerBeautyWorker {
 
     // PD Client and services.
     const pagerDutyConfig = this.config.pagerDuty;
+    const { userContactsFetchEnabled } = pagerDutyConfig;
     this.pagerDutyClient = new PagerDutyClient(
       pagerDutyConfig.apiKey,
       pagerDutyConfig.apiURL,
     );
-    this.onCallsService = new OnCallsService(this.pagerDutyClient);
+    this.onCallsService = new OnCallsService(this.pagerDutyClient, { userContactsFetchEnabled });
     this.schedulesService = new SchedulesService(this.pagerDutyClient);
     this.incidentsService = new IncidentsService(this.pagerDutyClient);
 
