@@ -40,6 +40,7 @@ test('OnCall', () => {
     contactMethods: [
       {
         id: 'pmID',
+        summary: 'Default',
         address: '2432423',
       },
     ],

@@ -1,0 +1,20 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Cache-Control: max-age=0, private, must-revalidate
+
+{
+  "contact_methods": [
+    {
+      "id": "P6MDP9N",
+      "type": "email_contact_method",
+      "summary": "Default",
+      "self": "https://api.pagerduty.com/users/P6MDP9N/contact_methods/P6MDP9N",
+      "html_url": null,
+      "label": "Default",
+      "address": "sergii@example.com",
+      "send_short_email": false,
+      "send_html_email": true
+    }
+  ],
+  "total": 3
+}

@@ -113,7 +113,6 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 # (Optional) Enable user phone fetching on schedule loading
 # Default: false
 # PAGERBEAUTY_LOAD_USER_CONTACT_METHODS=true
-# PAGERBEAUTY_LOAD_USER_CONTACT_METHODS=false
 
 # (Optional) Enable authentication access token (RFC6750)
 # Note: embedding iframes that link to a page with basic HTTP name/password

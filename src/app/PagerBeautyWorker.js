@@ -38,7 +38,9 @@ export class PagerBeautyWorker {
       pagerDutyConfig.apiKey,
       pagerDutyConfig.apiURL,
     );
-    this.onCallsService = new OnCallsService(this.pagerDutyClient, { userContactsFetchEnabled });
+    this.onCallsService = new OnCallsService(this.pagerDutyClient, {
+      userContactsFetchEnabled,
+    });
     this.schedulesService = new SchedulesService(this.pagerDutyClient);
     this.incidentsService = new IncidentsService(this.pagerDutyClient);
 
