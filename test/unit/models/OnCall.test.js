@@ -6,6 +6,7 @@ import chai from 'chai';
 // ------- Internal imports ----------------------------------------------------
 
 import { OnCall } from '../../../src/models/OnCall';
+import { ContactMethod } from '../../../src/models/ContactMethod';
 
 // ------- Init ----------------------------------------------------------------
 
@@ -38,11 +39,8 @@ test('OnCall', () => {
       url: 'https://apidocs.pagerduty.com/incidents/PTM70NY',
     },
     contactMethods: [
-      {
-        id: 'pmID',
-        summary: 'Default',
-        address: '2432423',
-      },
+      new ContactMethod('phone_contact_method', 'Default', '2432423'),
+      new ContactMethod('email_contact_method', 'Default', 'test@example.com'),
     ],
   });
 
