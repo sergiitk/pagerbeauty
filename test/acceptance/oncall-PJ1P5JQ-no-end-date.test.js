@@ -55,7 +55,7 @@ test('On-Call PJ1P5JQ: show user avatar', waitFor('.schedule'), async (t) => {
 
 test('On-Call PJ1P5JQ: no end date in status row', waitFor('.schedule'), async (t) => {
   const { pageTest } = t.context;
-  await pageTest.expectText('.date_start', 'From: Tuesday, Dec 25 12:00 AM');
+  await pageTest.expectText('.date_start', 'From: Tuesday, Dec 25 9:00 PM');
   await pageTest.expectNoElements('.date_end');
 });
 
