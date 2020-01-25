@@ -53,7 +53,7 @@ export class OnCall {
       dateStart: this.dateStart.toUTC(),
       dateEnd: this.dateEnd.toUTC(),
       schedule: this.schedule.serialize(),
-      contactMethods: this.contactMethods,
+      contactMethods: this.contactMethods.map((contactMethod) => contactMethod.serialize()),
       incident: this.incident ? this.incident.serialize() : null,
     };
   }

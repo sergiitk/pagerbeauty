@@ -51,7 +51,7 @@ const config = {
       enabled: !process.env.PAGERBEAUTY_INCIDENTS_DISABLE,
       refreshRate: process.env.PAGERBEAUTY_INCIDENTS_REFRESH_RATE_MINUTES || 1,
     },
-    userContactsFetchEnabled: process.env.PAGERBEAUTY_LOAD_USER_CONTACT_METHODS,
+    userContactsFetchEnabled: process.env.PAGERBEAUTY_LOAD_USER_CONTACT_METHODS || false,
   },
   env: process.env.NODE_ENV || 'development',
   version: process.env.npm_package_version || '0.0.0-dev',

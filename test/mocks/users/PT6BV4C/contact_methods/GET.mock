@@ -1,0 +1,43 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Cache-Control: max-age=0, private, must-revalidate
+
+{
+  "contact_methods": [
+    {
+      "id": "PRVNP0O",
+      "type": "email_contact_method",
+      "summary": "Default",
+      "self": "https://api.pagerduty.com/users/PT6BV4C/contact_methods/PRVNP0O",
+      "html_url": null,
+      "label": "Default",
+      "address": "chesley.williamson@example.com",
+      "send_short_email": false,
+      "send_html_email": true
+    },
+    {
+      "id": "P5YP9KQ",
+      "type": "phone_contact_method",
+      "summary": "work",
+      "self": "https://api.pagerduty.com/users/PT6BV4C/contact_methods/P5YP9KQ",
+      "html_url": null,
+      "label": "work",
+      "address": "4154156441",
+      "blacklisted": false,
+      "country_code": 1
+    },
+    {
+      "id": "PH8M8FH",
+      "type": "sms_contact_method",
+      "summary": "cell",
+      "self": "https://api.pagerduty.com/users/PT6BV4C/contact_methods/PH8M8FH",
+      "html_url": null,
+      "label": "cell",
+      "address": "4154151758",
+      "blacklisted": false,
+      "country_code": 1,
+      "enabled": true
+    }
+  ],
+  "total": 3
+}

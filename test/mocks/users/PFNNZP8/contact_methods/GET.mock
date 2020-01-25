@@ -1,0 +1,43 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Cache-Control: max-age=0, private, must-revalidate
+
+{
+  "contact_methods": [
+    {
+      "id": "PIY7G1O",
+      "type": "email_contact_method",
+      "summary": "Default",
+      "self": "https://api.pagerduty.com/users/PFNNZP8/contact_methods/PIY7G1O",
+      "html_url": null,
+      "label": "Default",
+      "address": "rosanna.runolfsdottir@example.com",
+      "send_short_email": false,
+      "send_html_email": true
+    },
+    {
+      "id": "PJ70HXY",
+      "type": "phone_contact_method",
+      "summary": "work",
+      "self": "https://api.pagerduty.com/users/PFNNZP8/contact_methods/PJ70HXY",
+      "html_url": null,
+      "label": "work",
+      "address": "4154153260",
+      "blacklisted": false,
+      "country_code": 1
+    },
+    {
+      "id": "PYP3FTV",
+      "type": "sms_contact_method",
+      "summary": "cell",
+      "self": "https://api.pagerduty.com/users/PFNNZP8/contact_methods/PYP3FTV",
+      "html_url": null,
+      "label": "cell",
+      "address": "4154157322",
+      "blacklisted": false,
+      "country_code": 1,
+      "enabled": true
+    }
+  ],
+  "total": 3
+}

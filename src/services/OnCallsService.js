@@ -5,6 +5,7 @@ import logger from 'winston';
 // ------- Internal imports ----------------------------------------------------
 
 import { OnCall } from '../models/OnCall';
+import { ContactMethod } from '../models/ContactMethod';
 import { INCLUDE_USERS } from './PagerDutyClient';
 
 // ------- OnCallsService ------------------------------------------------------
@@ -44,12 +45,15 @@ export class OnCallsService {
           includeFlags,
         );
 
-        let contactMethods = [];
+        const contactMethods = [];
         if (this.userContactsFetchEnabled) {
           const { user } = record;
           try {
             // eslint-disable-next-line no-await-in-loop
-            contactMethods = await this.client.getUserContactMethods(user.id);
+            const contactMethodsResponse = await this.client.getUserContactMethods(user.id);
+            for (const contactMetodRecord of contactMethodsResponse) {
+              contactMethods.push(ContactMethod.fromApiRecord(contactMetodRecord));
+            }
             logger.verbose(`Contact methods for user ${user.id} is loaded`);
           } catch (e) {
             logger.warn(`Error loading user contact methods for user ${user.id}: ${e}`);
