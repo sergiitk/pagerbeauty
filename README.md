@@ -165,14 +165,21 @@ It fetches and refreshes PagerDuty schedules in the background using secret Page
 PagerDuty uses [Gravatar](https://en.gravatar.com/) to manage profile photos. 
 If you already have a Gravatar account, you can attach your PagerDuty login email to this account.
 
+### How can I set custom timezone?
+Add `?timezone=value` to schedule URL. Use any timezone value [supported by luxon](https://github.com/moment/luxon/blob/master/docs/zones.md#specifying-a-zone). Examples:
+* `Local to the client browser` http://localhost:8080/v1/schedules/PJ1P5JQ.html?timezone=local
+* `UTC` http://localhost:8080/v1/schedules/PJ1P5JQ.html?timezone=UTC
+* `UTC+5` http://localhost:8080/v1/schedules/PJ1P5JQ.html?timezone=UTC+5
+* `Europe/Kiev` http://localhost:8080/v1/schedules/PJ1P5JQ.html?timezone=Europe/Kiev
+
 ## Contributing
 [Contribution guide](https://github.com/sergiitk/pagerbeauty/tree/master/CONTRIBUTING.md) and step-by-step local development instructions.  
 The source code of [Pager Beauty](https://github.com/sergiitk/pagerbeauty) is maintained by [@sergiitk](https://github.com/sergiitk).
 It's an Open Source project under MIT License. Contributions are welcomed. Follow the usual GitHub Pull Request process. [Be nice.](https://github.com/sergiitk/pagerbeauty/tree/master/CODE_OF_CONDUCT.md)
 
 ## Roadmap
-- `2019-04-01 – 2019-10-01`: Maintentnce mode: security and depdendency updates. Minor features, see Version 1.1.
-- `2019-10-01 — 2020-03-01`: Major features, see Version 2.0.
+- `2019-04-01 – 2019-10-01`: Maintentnce mode: security and depdendency updates.
+- `2020-10-01 — 2021-03-01`: Major features, see Version 2.0.
 
 #### Version 1.0
 
@@ -193,9 +200,6 @@ It's an Open Source project under MIT License. Contributions are welcomed. Follo
 - [x] No limit on the total number of schedules supported
 - [x] Make on-call view red during an active incident
 - [x] HTTP authentication bypass support for embeds
-
-#### Version 1.1
-- [ ] [#102](https://github.com/sergiitk/pagerbeauty/issues/102) Ability to use browser local time
 
 #### Version 2.0
 - [ ] Built-in SSL Support

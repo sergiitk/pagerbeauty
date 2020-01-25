@@ -434,7 +434,7 @@ export class OnCallDateTimeView extends React.Component {
     const tzOverride = urlParams.get('timezone');
 
     if (tzOverride) {
-      dateInTz = date.setZone(tzOverride);
+      dateInTz = date.setZone(tzOverride.replace(' ', '+'));
     } else if (timezone) {
       dateInTz = date.setZone(timezone);
     }
