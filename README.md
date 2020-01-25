@@ -165,7 +165,7 @@ It fetches and refreshes PagerDuty schedules in the background using secret Page
 PagerDuty uses [Gravatar](https://en.gravatar.com/) to manage profile photos. 
 If you already have a Gravatar account, you can attach your PagerDuty login email to this account.
 
-### How can I set custom timezone?
+### How can I set a custom timezone?
 Add `?timezone=value` to schedule URL. Use any timezone value [supported by luxon](https://github.com/moment/luxon/blob/master/docs/zones.md#specifying-a-zone). Examples:
 * `Local to the client browser` http://localhost:8080/v1/schedules/PJ1P5JQ.html?timezone=local
 * `UTC` http://localhost:8080/v1/schedules/PJ1P5JQ.html?timezone=UTC
