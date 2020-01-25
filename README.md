@@ -166,11 +166,12 @@ PagerDuty uses [Gravatar](https://en.gravatar.com/) to manage profile photos.
 If you already have a Gravatar account, you can attach your PagerDuty login email to this account.
 
 ### How can I set a custom timezone?
-Add `?timezone=value` to schedule URL. Use any timezone value [supported by luxon](https://github.com/moment/luxon/blob/master/docs/zones.md#specifying-a-zone). Examples:
-* `Local to the client browser` http://localhost:8080/v1/schedules/PJ1P5JQ.html?timezone=local
-* `UTC` http://localhost:8080/v1/schedules/PJ1P5JQ.html?timezone=UTC
-* `UTC+5` http://localhost:8080/v1/schedules/PJ1P5JQ.html?timezone=UTC+5
-* `Europe/Kiev` http://localhost:8080/v1/schedules/PJ1P5JQ.html?timezone=Europe/Kiev
+By default From and To fields are displayed in the timezone of the schedule.  
+You can override this by adding `?timezone=value` to schedule URL. Use any timezone value [supported by luxon](https://github.com/moment/luxon/blob/master/docs/zones.md#specifying-a-zone). Examples:
+* Local to the client browser: /v1/schedules/PJ1P5JQ.html**?timezone=local**
+* UTC: /v1/schedules/PJ1P5JQ.html**?timezone=UTC**
+* Any UTC offset: /v1/schedules/PJ1P5JQ.html**?timezone=UTC+5**
+* Any [IANA Timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones): /v1/schedules/PJ1P5JQ.html**?timezone=Europe/Kiev**
 
 ## Contributing
 [Contribution guide](https://github.com/sergiitk/pagerbeauty/tree/master/CONTRIBUTING.md) and step-by-step local development instructions.  
