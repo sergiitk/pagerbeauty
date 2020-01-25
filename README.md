@@ -90,6 +90,10 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 # Default: 1
 # PAGERBEAUTY_INCIDENTS_REFRESH_RATE_MINUTES=5
 
+# (Optional) Enable user phone fetching on schedule loading
+# Default: false
+# PAGERBEAUTY_LOAD_USER_CONTACT_METHODS=true
+
 # (Optional) Highest logging level to include into application logs.
 # One of: error, warn, info, verbose, debug, silly
 # Default: info
@@ -109,10 +113,6 @@ PAGERBEAUTY_PD_SCHEDULES=SCHEDL1,SCHEDL2
 # Default: disabled
 # PAGERBEAUTY_HTTP_USER=basic_username
 # PAGERBEAUTY_HTTP_PASSWORD=basic_password
-
-# (Optional) Enable user phone fetching on schedule loading
-# Default: false
-# PAGERBEAUTY_LOAD_USER_CONTACT_METHODS=true
 
 # (Optional) Enable authentication access token (RFC6750)
 # Note: embedding iframes that link to a page with basic HTTP name/password
