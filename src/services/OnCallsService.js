@@ -52,7 +52,7 @@ export class OnCallsService {
             // eslint-disable-next-line no-await-in-loop
             const contactMethodsResponse = await this.client.getUserContactMethods(user.id);
             for (const contactMetodRecord of contactMethodsResponse) {
-              contactMethods.push(ContactMethod.fromApiRecord(contactMetodRecord, user.id))
+              contactMethods.push(ContactMethod.fromApiRecord(contactMetodRecord));
             }
             logger.verbose(`Contact methods for user ${user.id} is loaded`);
           } catch (e) {

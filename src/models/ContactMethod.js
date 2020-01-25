@@ -9,12 +9,10 @@ export class ContactMethod {
     type,
     summary,
     address,
-    userId,
   }) {
     this.type = type;
     this.summary = summary;
     this.address = address;
-    this.userId = userId;
   }
 
   serialize() {
@@ -22,7 +20,6 @@ export class ContactMethod {
       type: this.type,
       summary: this.summary,
       address: this.address,
-      userId: this.userId,
     };
   }
 
@@ -30,7 +27,7 @@ export class ContactMethod {
     return JSON.stringify(this.serialize());
   }
 
-  static fromApiRecord(record, userId) {
+  static fromApiRecord(record) {
     const attributes = {
       type: record.type,
       summary: record.summary,
