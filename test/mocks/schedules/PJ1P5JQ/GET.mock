@@ -10,7 +10,7 @@ Cache-Control: max-age=0, private, must-revalidate
     "self": "https://api.pagerduty.com/schedules/PJ1P5JQ",
     "html_url": "https://apidocs.pagerduty.com/schedules/PJ1P5JQ",
     "name": "Schedule aliquid eum qui",
-    "time_zone": "America/New_York",
+    "time_zone": "America/Los_Angeles",
     "description": null,
     "users": [
       {

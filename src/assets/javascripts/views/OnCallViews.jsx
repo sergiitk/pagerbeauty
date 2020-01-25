@@ -429,9 +429,24 @@ export class OnCallDateTimeView extends React.Component {
   render() {
     const { date, timezone } = this.props;
     let dateInTz = date;
-    if (timezone) {
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const tzOverride = urlParams.get('timezone');
+
+    if (tzOverride) {
+      dateInTz = date.setZone(tzOverride.replace(' ', '+'));
+    } else if (timezone) {
       dateInTz = date.setZone(timezone);
     }
+
+    if (!dateInTz.isValid) {
+      return (
+        <>
+          <span className="date_weekday">Incorrect Timezone</span>
+        </>
+      );
+    }
+
     return (
       <>
         <span className="date_weekday">{`${dateInTz.toFormat('EEEE')}, `}</span>
