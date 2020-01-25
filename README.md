@@ -168,10 +168,10 @@ If you already have a Gravatar account, you can attach your PagerDuty login emai
 ### How can I set a custom timezone?
 By default From and To fields are displayed in the timezone of the schedule.  
 You can override this by adding `?timezone=value` to schedule URL. Use any timezone value [supported by luxon](https://github.com/moment/luxon/blob/master/docs/zones.md#specifying-a-zone). Examples:
-* Local to the client browser: /v1/schedules/PJ1P5JQ.html?timezone=local
-* UTC: /v1/schedules/PJ1P5JQ.html?timezone=UTC
-* Any UTC offset: /v1/schedules/PJ1P5JQ.html?timezone=UTC+5
-* Any [IANA Timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones): /v1/schedules/PJ1P5JQ.html?timezone=Europe/Kiev
+* Local to the client browser: [`?timezone=local`](https://demo.pagerbeauty.sergii.org/v1/schedules/P538IZH.html?timezone=local)
+* UTC: [`?timezone=UTC`](https://demo.pagerbeauty.sergii.org/v1/schedules/P538IZH.html?timezone=UTC)
+* Any UTC offset: [`?timezone=UTC+5`](https://demo.pagerbeauty.sergii.org/v1/schedules/P538IZH.html?timezone=UTC+5)
+* Any [IANA Timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones): [`?timezone=Europe/Kiev`](https://demo.pagerbeauty.sergii.org/v1/schedules/P538IZH.html?timezone=Europe/Kiev)
 
 ## Contributing
 [Contribution guide](https://github.com/sergiitk/pagerbeauty/tree/master/CONTRIBUTING.md) and step-by-step local development instructions.  
