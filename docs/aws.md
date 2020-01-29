@@ -9,6 +9,7 @@
 5. On Parameters Page:
    - Fill in Stack Name, f.e. "PagerBeauty"
    - Select your Key Name for SSH access
+   - Enter IP adderess range to allow SSH connections from. To allow connections from all IPs, enter `0.0.0.0/0`
    - Fill in "Pager Beauty: Settings" as guided
    - Fill in "Pager Beauty: Enable HTTP Authentication (Optional)" if necessary
    - Click Next
