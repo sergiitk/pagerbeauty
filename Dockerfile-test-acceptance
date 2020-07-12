@@ -32,9 +32,7 @@ RUN  npm config set scripts-prepend-node-path true \
 RUN yarn install --frozen-lockfile
 
 # ---------- Acceptance test image from here
-# https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md
-
-# Installs latest Chromium 79.0.3945.88-r0 available in Apline 3.11:
+# Installs latest Chromium 81.0.4044.113-r0 available in Apline 3.11:
 # Alpine: https://github.com/nodejs/docker-node/blob/8b8ee/12/alpine3.11/Dockerfile
 # Chromium: https://pkgs.alpinelinux.org/package/v3.11/community/x86_64/chromium
 RUN apk update && apk upgrade && \
