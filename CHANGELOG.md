@@ -1,5 +1,20 @@
 # PagerBeauty Changelog
 
+## [1.1.1](https://github.com/sergiitk/pagerbeauty/compare/v1.1.0...v1.1.1) (2020-07-12)
+
+
+### Cleanup
+
+- [143](https://github.com/sergiitk/pagerbeauty/pull/143) **chore-dependencies** Docker: Upgrade node to 12.18.2
+- [145](https://github.com/sergiitk/pagerbeauty/pull/145) **chore-dependencies** Major npm dependency upgrades
+- [144](https://github.com/sergiitk/pagerbeauty/pull/144) **chore-dependencies** Non-major dependencies upgrade
+
+### Security
+
+- [139](https://github.com/sergiitk/pagerbeauty/pull/139) **CVE-2020-7597** Bump codecov from 3.6.1 to 3.6.5
+- [140](https://github.com/sergiitk/pagerbeauty/pull/140) **CVE-2020-7598** Bump acorn from 6.4.0 to 6.4.1
+- [141](https://github.com/sergiitk/pagerbeauty/pull/141) **GHSA-jmqm-f2gx-4fjv** Bump npm-registry-fetch from 4.0.2 to 4.0.5
+
 # [1.1.0](https://github.com/sergiitk/pagerbeauty/compare/v1.0.3...v1.1.0) (2020-01-25)
 
 
