@@ -324,7 +324,6 @@ OnCallUserInfoView.defaultProps = {
   userInfo: null,
 };
 
-
 // ------- OnCallDatesRowView -----------------------------------------------
 
 export class OnCallDatesRowView extends React.Component {
@@ -364,7 +363,6 @@ export class OnCallDatesRowView extends React.Component {
 OnCallDatesRowView.propTypes = {
   onCall: PropTypes.instanceOf(OnCall).isRequired,
 };
-
 
 // ------- OnCallDateTimeView --------------------------------------------------
 

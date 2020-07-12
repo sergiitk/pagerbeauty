@@ -10,7 +10,6 @@ export class PagerBeautyUiError extends Error {
   }
 }
 
-
 // ------- Application Errors --------------------------------------------------
 
 /**
