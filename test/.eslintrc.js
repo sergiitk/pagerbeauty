@@ -9,4 +9,4 @@ module.exports = {
     // We use chai: expect(this).to.be.ok
     'no-unused-expressions': 'off',
   },
-}
+};
