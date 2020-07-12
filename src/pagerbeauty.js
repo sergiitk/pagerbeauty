@@ -65,7 +65,6 @@ const config = {
   },
 };
 
-
 const pagerBeautyApp = new PagerBeautyApp(config);
 pagerBeautyApp.start();
 

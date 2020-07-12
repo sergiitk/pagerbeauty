@@ -42,5 +42,4 @@ test('HTTP Auth: Can see Schedule P538IZH with credentials', withNewPageBasicAut
   await pageTest.expectText('.user_name', 'Rosanna Runolfsdottir');
 });
 
-
 // ------- End -----------------------------------------------------------------

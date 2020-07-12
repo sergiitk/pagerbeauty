@@ -2,7 +2,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 /* eslint-enable */
 
-
 module.exports = {
   plugins: [
     new MiniCssExtractPlugin({

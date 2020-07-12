@@ -199,7 +199,6 @@ export class PagerDutyClient {
       throw new PagerDutyClientRequestError(e.message || e);
     }
 
-
     let json;
     try {
       json = await response.json();
