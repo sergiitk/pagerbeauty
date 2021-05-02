@@ -8,9 +8,9 @@
   "main": "./src/pagerbeauty",
   "module": "./src/pagerbeauty",
   "engines": {
-    "node": "^12.14.0",
-    "npm": "^6.13.1",
-    "yarn": "^1.21.1"
+    "node": "^14.16.1",
+    "npm": "^6.14.12",
+    "yarn": "^1.22.5"
   },
   "scripts": {
     "test": "npm run test:unit",
