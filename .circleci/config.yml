@@ -201,6 +201,7 @@ jobs:
   # Run unit tests
   test-unit:
     <<: *docker_node
+    resource_class: small
     working_directory: ~/repo
     steps:
       - checkout
@@ -238,6 +239,7 @@ jobs:
   # Run integration tests
   test-integration:
     <<: *docker_node
+    resource_class: small
     working_directory: ~/repo
     steps:
       - checkout
@@ -267,6 +269,7 @@ jobs:
   # Lint
   lint:
     <<: *docker_node
+    resource_class: small
     working_directory: ~/repo
     steps:
       - checkout
@@ -292,6 +295,7 @@ jobs:
   # Release
   semantic-release:
     <<: *docker_node
+    resource_class: small
     working_directory: ~/repo
     steps:
       - checkout
