@@ -63,6 +63,7 @@
     "chai-as-promised": "^7.1.1",
     "codecov": "^3.8.1",
     "conventional-changelog-ember": "^2.0.9",
+    "core-js": "3",
     "css-loader": "^5.2.4",
     "eslint": "^7.25.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -104,7 +105,8 @@
       [
         "@babel/preset-env",
         {
-          "useBuiltIns": "usage"
+          "useBuiltIns": "usage",
+          "corejs": "3.11"
         }
       ],
       "@babel/preset-react"
