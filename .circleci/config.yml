@@ -32,10 +32,16 @@ jobs:
 
   # Build Docker image in production mode
   docker-image:
-    machine: true
+    <<: *docker_node
     working_directory: ~/repo
     steps:
       - checkout
+      #  Install docker.
+      - setup_remote_docker:
+          # https://circleci.com/docs/2.0/building-docker-images/#docker-version
+          version: 20.10.2
+          # Not available on the free plan
+          docker_layer_caching: false
       # Restore assets.
       - attach_workspace:
           at: /tmp/workspace
@@ -120,10 +126,16 @@ jobs:
 
   # Run acceptance tests (Puppeteer) against the app running in Docker
   test-acceptance:
-    machine: true
+    <<: *docker_node
     working_directory: ~/repo
     steps:
       - checkout
+      #  Install docker.
+      - setup_remote_docker:
+          # https://circleci.com/docs/2.0/building-docker-images/#docker-version
+          version: 20.10.2
+          # Not available on the free plan
+          docker_layer_caching: false
       # List Docker images to verify the app image isn't loaded.
       - run:
           name: List Docker images on the clean system
