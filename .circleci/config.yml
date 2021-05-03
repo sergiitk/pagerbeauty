@@ -32,10 +32,16 @@ jobs:
 
   # Build Docker image in production mode
   docker-image:
-    machine: true
+    <<: *docker_node
     working_directory: ~/repo
     steps:
       - checkout
+      #  Install docker.
+      - setup_remote_docker: &docker_remote_settings
+            # https://circleci.com/docs/2.0/building-docker-images/#docker-version
+            version: 20.10.2
+            # Not available on the free plan
+            docker_layer_caching: false
       # Restore assets.
       - attach_workspace:
           at: /tmp/workspace
@@ -120,10 +126,11 @@ jobs:
 
   # Run acceptance tests (Puppeteer) against the app running in Docker
   test-acceptance:
-    machine: true
+    <<: *docker_node
     working_directory: ~/repo
     steps:
       - checkout
+      - setup_remote_docker: *docker_remote_settings
       # List Docker images to verify the app image isn't loaded.
       - run:
           name: List Docker images on the clean system
@@ -168,9 +175,11 @@ jobs:
       # Store AVA report in xUnit format
       - run:
           name: Save test results
-          command: |
-            mkdir -p /tmp/pb/test-results/acceptance
-            cp ./tmp/xunit-acceptance.xml /tmp/pb/test-results/acceptance/results.xml
+          command: >
+            mkdir -p /tmp/pb/test-results/acceptance &&
+            docker cp
+            $(docker-compose -f docker-compose.circleci.yaml ps -q test-out):/usr/src/app/tmp/xunit-acceptance.xml
+            /tmp/pb/test-results/acceptance/results.xml
           when: always
       - store_test_results:
           path: /tmp/pb/test-results
@@ -187,6 +196,7 @@ jobs:
   # Run unit tests
   test-unit:
     <<: *docker_node
+    resource_class: small
     working_directory: ~/repo
     steps:
       - checkout
@@ -224,6 +234,7 @@ jobs:
   # Run integration tests
   test-integration:
     <<: *docker_node
+    resource_class: small
     working_directory: ~/repo
     steps:
       - checkout
@@ -253,6 +264,7 @@ jobs:
   # Lint
   lint:
     <<: *docker_node
+    resource_class: small
     working_directory: ~/repo
     steps:
       - checkout
@@ -278,6 +290,7 @@ jobs:
   # Release
   semantic-release:
     <<: *docker_node
+    resource_class: small
     working_directory: ~/repo
     steps:
       - checkout

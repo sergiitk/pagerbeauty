@@ -58,6 +58,15 @@ services:
     ports:
       - "8090:8090"
 
+  test-out:
+    image: sergiitk/pagerbeauty:ci-${CIRCLE_SHA1}
+    entrypoint: ''
+    command: ['sleep', 'infinity']
+    init: true
+    volumes:
+      # Test reports
+      - out:/usr/src/app/tmp:ro
+
   test-acceptance:
     build:
       context: .
@@ -73,7 +82,12 @@ services:
       PAGERBEAUTY_HTTP_ACCESS_TOKEN: 9A37F64B-931B-4767-94D3-E41B92991F7C
     volumes:
       # Test reports
-      - ./tmp:/usr/src/app/tmp
+      - out:/usr/src/app/tmp:rw
     depends_on:
+      - test-out
       - pagerbeauty-ci
       - pagerbeauty-ci-with-auth
+
+# Use shared output volume
+volumes:
+  out:
