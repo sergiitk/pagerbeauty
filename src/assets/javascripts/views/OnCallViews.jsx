@@ -82,7 +82,7 @@ export class OnCallView extends React.Component {
         { /* Schedule name */ }
         {state !== 'not_found' && (
           <OnCallScheduleRowView>
-            <a href={onCall.schedule.url} className="schedule_name">{onCall.schedule.name}</a>
+            <a href={onCall.schedule.url} className="schedule_name" target="_blank" rel="noreferrer">{onCall.schedule.name}</a>
           </OnCallScheduleRowView>
         )}
 
@@ -295,14 +295,14 @@ export class OnCallUserInfoView extends React.Component {
       <>
         <div className="user_avatar">
           {userInfo ? (
-            <a href={userInfo.url}><img src={userInfo.avatar} alt={userInfo.name} /></a>
+            <a href={userInfo.url} target="_blank" rel="noreferrer"><img src={userInfo.avatar} alt={userInfo.name} /></a>
           ) : (
             <img src="https://www.gravatar.com/avatar/0?s=2048&amp;d=mp" alt="Generic avatar" />
           )}
         </div>
         <div className={`user_name ${!userInfo ? 'error' : ''}`}>
           {userInfo ? (
-            <a href={userInfo.url}>{userInfo.name}</a>
+            <a href={userInfo.url} target="_blank" rel="noreferrer">{userInfo.name}</a>
           ) : (
             'No one is on call'
           )}
@@ -401,11 +401,11 @@ export class OnCallIncidentRowView extends React.Component {
       <div className={`incident ${className}`}>
         <div className="incident_summary">
           <span>{`Incident ${incident.status}: `}</span>
-          <a href={incident.url}>{incident.title}</a>
+          <a href={incident.url} target="_blank" rel="noreferrer">{incident.title}</a>
         </div>
         <div className="incident_service">
           <span>Service: </span>
-          <a href={incident.serviceUrl}>{incident.serviceName}</a>
+          <a href={incident.serviceUrl} target="_blank" rel="noreferrer">{incident.serviceName}</a>
         </div>
       </div>
     );
