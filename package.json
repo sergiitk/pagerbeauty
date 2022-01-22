@@ -45,7 +45,7 @@
     "koa-static": "^5.0.0",
     "koa-views": "^6.2.0",
     "luxon": "^1.26.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.1.1",
     "nunjucks": "^3.2.3",
     "tsscmp": "^1.0.6",
     "winston": "^3.2.1"
