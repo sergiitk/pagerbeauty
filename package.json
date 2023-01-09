@@ -44,7 +44,7 @@
     "koa-route": "^3.2.0",
     "koa-static": "^5.0.0",
     "koa-views": "^6.2.0",
-    "luxon": "^1.26.0",
+    "luxon": "^2.5.2",
     "node-fetch": "^2.6.0",
     "nunjucks": "^3.2.3",
     "tsscmp": "^1.0.6",
